@@ -72,17 +72,18 @@ Plug 'kien/ctrlp.vim'
 " brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 Plug 'ludovicchabant/vim-gutentags'
 
-
-Plug 'vim-scripts/Python-3.x-Standard-Library-Reference'
+" look and feel 
 Plug 'tomasr/molokai'
+
+" language support
+Plug 'vim-scripts/Python-3.x-Standard-Library-Reference'
 Plug 'keith/swift.vim'
 Plug 'fatih/vim-go'
+
+" search and move
 Plug 'junegunn/fzf.vim'
-
-
-
-"
 Plug 'pboettch/vim-highlight-cursor-words'
+
 " preview code/func
 Plug 'skywind3000/vim-preview'
 
@@ -98,7 +99,7 @@ endif
 Plug 'SirVer/ultisnips'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'neovim/python-client'
-Plug 'honza/vin-snippets'
+" ALE - Asynchronous Lint Engine 
 Plug 'w0rp/ale'
 
 Plug 'zchee/deoplete-jedi'                                    " Python
@@ -112,7 +113,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 "Snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-" Plug 'honza/vim-snippets'
+
 
 " Motion
 Plug 'easymotion/vim-easymotion'
