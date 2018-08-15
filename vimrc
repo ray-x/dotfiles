@@ -43,7 +43,7 @@ Plug 'git://git.wincent.com/command-t.git'
 
 " function! BuildYCM(info)
 "   if a:info.status == 'installed' || a:info.force
-"    !./install.py --clang-completer --go-completer --python-completer
+"    !./install.py --clang-completer --go-completer --clang-tidy
 "  endif
 "endfunction
 "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
@@ -421,3 +421,9 @@ let g:tagbar_type_go = {
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
+let g:UltiSnipsExpandTrigger="<c-\>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
