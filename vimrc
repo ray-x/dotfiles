@@ -10,7 +10,7 @@ Plug 'junegunn/vim-easy-align'
 
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
+Plug 'ervandew/supertab'
 " Nerdtree is not needed for vimr
 " Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 augroup nerd_loader
@@ -170,7 +170,6 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_confirm_extra_conf = 0
 "补全之后自动关闭preview
 let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_key_list_select_completion = ['<Down>']
 "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>" 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
@@ -185,7 +184,15 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " set UTF-8 encoding
 set enc=utf-8
@@ -270,14 +277,14 @@ let Tlist_Auto_Open=0
 let Tlist_Exit_OnlyWindow=1
 
 
-nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+" nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+" nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+" nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " Using 'CTRL-spacebar' then a search type makes the vim window
 " split horizontally, with search result displayed in
