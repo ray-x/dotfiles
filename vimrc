@@ -428,3 +428,39 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 set mouse=a
+
+" https://zhuanlan.zhihu.com/p/36279445
+" brew install gloabl; pip install pygments
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_modules = []
+" enable both universal ctags and gtags
+if executable('ctags')
+	let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
+" put tags in cache
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" uctags
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" uctags reference
+let g:gutentags_ctags_extra_args += ['--extra=+r']
+let g:gutentags_ctags_extra_args += ['--fields=+r']
+
+" disable gtags load
+let g:gutentags_auto_add_gtags_cscope = 0
+
+" default key map:
+"<leader>cg - 查看光标下符号的定义
+"<leader>cs - 查看光标下符号的引用
+"<leader>cc - 查看有哪些函数调用了该函数
+"<leader>cf - 查找光标下的文件
+"<leader>ci - 查找哪些文件 include 了本文件
