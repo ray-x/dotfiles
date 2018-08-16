@@ -56,6 +56,7 @@ Plug 'cesardeazevedo/Fx-ColorScheme'
 Plug 'https://github.com/vim-scripts/YankRing.vim.git'
 Plug 'mileszs/ack.vim'
 Plug 'rking/ag.vim'
+Plug 'mhinz/vim-grepper'
 Plug 'dyng/ctrlsf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -464,3 +465,42 @@ let g:gutentags_auto_add_gtags_cscope = 0
 "<leader>cc - 查看有哪些函数调用了该函数
 "<leader>cf - 查找光标下的文件
 "<leader>ci - 查找哪些文件 include 了本文件
+" Search in project
+"
+function! FindProjectRoot(lookFor)
+    let s:root=expand('%:p:h')
+    let pathMaker='%:p'
+    while(len(expand(pathMaker))>len(expand(pathMaker.':h')))
+        let pathMaker=pathMaker.':h'
+        let fileToCheck=expand(pathMaker).'/'.a:lookFor
+        if filereadable(fileToCheck)||isdirectory(fileToCheck)
+            let s:root=expand(pathMaker)
+        endif
+    endwhile
+    return s:root
+endfunction
+let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
+autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
+nmap gs <plug>(GrepperOperator)	" 选择字符后按 g + s 开始搜索（异步的）
+xmap gs <plug>(GrepperOperator)
+let g:grepper = {}
+let g:grepper.ag = {}
+let g:grepper.ag.grepprg = 'ag --vimgrep $* '.g:root_dir " 设置 ag 参数
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.vopen = ['<C-v>']  " Ctrl + v 纵向分屏打开
+let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>'] " Enter 横向分屏打开
+let g:qfenter_keymap.topen = ['t'] " 按 t 在新的标签页打开
+
+" vim-preview
+noremap <m-u> :PreviewScroll -1<cr> " Alt + u 往上滚动预览窗口
+noremap <m-d> :PreviewScroll +1<cr> " Alt + d 往下滚动预览窗口
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+
+" 在quickfix窗口按 p 打开预览窗口（配合 grepper 插件很实用）
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+noremap <m-n> :PreviewSignature!<cr> " Alt + n 提示函数声明
+inoremap <m-n> <c-\><c-o>:PreviewSignature!<cr>
+noremap <leader>g :PreviewTag<cr> " leader + g " 打开单词tag的预览窗口
+inoremap <leader>g <c-\><c-o>:PreviewTag<cr>
