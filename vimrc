@@ -24,7 +24,7 @@ Plug 'honza/vim-snippets'
 " Plug 'w0rp/ale' 
 
 " Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+Plug 'mdempsky/gocode', {'rtp': 'nvim/', , 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-grepper'
