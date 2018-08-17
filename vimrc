@@ -1,94 +1,41 @@
-set nocompatible
-
 call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
 " Any valid git URL is allowed
-" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+Plug 'Chiel92/vim-autoformat'
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" superTab: Perform all your vim insert mode completions with Tab
 Plug 'ervandew/supertab'
-" Nerdtree is not needed for vimr
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-augroup nerd_loader
-  autocmd!
-  autocmd VimEnter * silent! autocmd! FileExplorer
-  autocmd BufEnter,BufNew *
-  \  if isdirectory(expand('<amatch>'))
-  \|   call plug#load('nerdtree')
-  \|   execute 'autocmd! nerd_loader'
-  \| endif
-augroup END
 
 " On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
+Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'honza/vim-snippets'
+" Plug 'w0rp/ale' 
 
 " Plugin options
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
+Plug 'rking/ag.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'mhinz/vim-grepper'
+" Plug 'nvie/vim-flake8'
+Plug 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Unmanaged plugin (manually installed and updated)
-" Plug '~/.vim/plugin'
+Plug '~/my-prototype-plugin'
 
-Plug 'tpope/vim-fugitive'
-Plug 'git://git.wincent.com/command-t.git'
-
-" function! BuildYCM(info)
-"   if a:info.status == 'installed' || a:info.force
-"    !./install.py --clang-completer --go-completer --clang-tidy
-"  endif
-"endfunction
-"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
-
-
-Plug 'cesardeazevedo/Fx-ColorScheme'
-
-" Not used in vimr
-" Plug 'fholgado/minibufexpl.vim
-Plug 'https://github.com/vim-scripts/YankRing.vim.git'
-Plug 'mileszs/ack.vim'
-Plug 'rking/ag.vim'
-Plug 'mhinz/vim-grepper'
-Plug 'dyng/ctrlsf.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'kien/ctrlp.vim'
-
-" Plug 'https://github.com/vim-scripts/taglist.vim.git'
-" Plug 'brookhong/cscope.vim'
-" Plug 'simplyzhao/cscope_maps.vim'
-" Plug 'vim-scripts/cscope_macros.vim'
-" Plug 'vim-scripts/cscope-menu'
-
-" Plug 'vim-scripts/ctags.vim'
-" Plug 'szw/vim-tags'
-" brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-Plug 'ludovicchabant/vim-gutentags'
-
-" look and feel 
-Plug 'tomasr/molokai'
-
-" language support
-Plug 'vim-scripts/Python-3.x-Standard-Library-Reference'
-Plug 'keith/swift.vim'
-Plug 'fatih/vim-go'
-
-" search and move
-Plug 'junegunn/fzf.vim'
-Plug 'pboettch/vim-highlight-cursor-words'
-
-" preview code/func
-Plug 'skywind3000/vim-preview'
-
-"
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -97,24 +44,32 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug 'SirVer/ultisnips'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'neovim/python-client'
-" ALE - Asynchronous Lint Engine 
-Plug 'w0rp/ale'
+Plug 'zchee/deoplete-jedi' 
 
-Plug 'zchee/deoplete-jedi'                                    " Python
-" Add plugins to &runtimepath
-"
-"
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+Plug 'tomasr/molokai'
+Plug 'Lokaltog/vim-powerline'
+Plug 'fatih/vim-go'
+Plug 'dyng/ctrlsf.vim'
+
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'skywind3000/gutentags_plus'
 
+
+Plug 'pboettch/vim-highlight-cursor-words'
+Plug 'skywind3000/vim-preview'
 
 
 "Snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-
+" Plug 'honza/vim-snippets'
 
 " Motion
 Plug 'easymotion/vim-easymotion'
@@ -122,83 +77,73 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
+
+" Add plugins to &runtimepath
 call plug#end()
 
-
-
-syntax enable
-syntax on
-
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
-let g:ycm_key_invoke_completion = '<C-.>'
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+" ycm
+let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-let g:ycm_collect_identifiers_from_tags_files=1                 " 开启 YCM 基于标签引擎
-let g:ycm_collect_identifiers_from_comments_and_strings = 1 
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
 
-
-"mapping
-nmap <leader>gd :YcmDiags<CR>
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>           " 跳转到申明处
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>            " 跳转到定义处
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" 黑名单,不启用
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'gitcommit' : 1,
-      \}
-
-let g:python2_host_prog = '/usr/local/Cellar/python@2/2.7.14_3/bin/python'
-" let g:python3_host_prog = '/usr/local/Cellar/python3/3.5.1/bin/python'
-
-let g:ycm_collect_identifiers_from_tags_files=1 
-"禁止缓存匹配项,每次都重新生成匹配项
-let g:ycm_cache_omnifunc=1
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_confirm_extra_conf = 0
-"补全之后自动关闭preview
-let g:ycm_autoclose_preview_window_after_completion = 1
-"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>" 
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \             're!\[.*\]\s'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
+nmap <F4> :YcmDiags<CR>
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+
+
+
+""""""""""""""""""""""
+"      Settings      "
+""""""""""""""""""""""
+set nocompatible                " Enables us Vim specific features
+filetype off                    " Reset filetype detection first ...
+filetype plugin indent on       " ... and enable filetype detection
+" set ttyfast                     " Indicate fast terminal conn for faster redraw
+" set ttymouse=xterm2             " Indicate terminal type for mouse codes
+" set ttyscroll=3                 " Speedup scrolling
+set laststatus=2                " Show status line always
+set encoding=utf-8              " Set default encoding to UTF-8
+set autoread                    " Automatically read changed files
+set autoindent                  " Enabile Autoindent
+set backspace=indent,eol,start  " Makes backspace key more powerful.
+set incsearch                   " Shows the match while typing
+set hlsearch                    " Highlight found searches
+set noerrorbells                " No beeps
+set number                      " Show line numbers
+set showcmd                     " Show me what I'm typing
+set noswapfile                  " Don't use swapfile
+set nobackup                    " Don't create annoying backup files
+set splitright                  " Vertical windows should be split to right
+set splitbelow                  " Horizontal windows should split to bottom
+set autowrite                   " Automatically save before :next, :make etc.
+set hidden                      " Buffer should still exist if window is closed
+set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
+set noshowmatch                 " Do not show matching brackets by flickering
+set noshowmode                  " We show the mode with airline or lightline
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not it begins with upper case
+set completeopt=menu,menuone    " Show popup menu, even if there is one entry
+set pumheight=10                " Completion window max size
+set nocursorcolumn              " Do not highlight column (speeds up highlighting)
+set nocursorline                " Do not highlight cursor (speeds up highlighting)
+set lazyredraw                  " Wait to redraw
 
 " set UTF-8 encoding
 set enc=utf-8
 set fenc=utf-8
 set termencoding=utf-8
 " disable vi compatibility (emulation of old bugs)
+set nocompatible
 " use indentation of previous line
 set autoindent
 " use intelligent indentation for C
@@ -208,10 +153,10 @@ set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-set textwidth=200
+set textwidth=120
 " turn syntax highlighting on
-"set t_Co=256
-"syntax on
+set t_Co=256
+syntax on
 " colorscheme wombat256
 " turn line numbers on
 set number
@@ -226,181 +171,152 @@ set comments=sl:/*,mb:\ *,elx:\ */
 set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/gl
 set tags+=~/.vim/tags/sdl
-set tags+=~/.vim/tags/qt4
+set tags+=~/.vim/tags/qt5
 
-set background=dark
-"colorscheme fx
-"set guifont=Monaco:h14
-
-set nocompatible " 使用vim设置，不使用vi设置模式，推荐设置
-set cindent " C编程情况下的自动缩进,当输入一个大括号然后回车时,会自动缩进一个tab
-"set nu " 显示行号
-set ruler  " 设置状态栏标尺
-set cursorline " 高亮当前行
-"hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white " 高亮颜色设置, 个人不太喜欢, 默认最好
-"set cursorcolumn " 高亮列, 不太习惯, 我没使用
-set hlsearch " 高亮搜索结果, 输入 :set nohl 取消高亮的搜索结果
-"set cc=80 " 设置标尺,高亮显示第80行
-set autochdir " 自动设置当前编辑的文件所在路径为工作路径, 用 gvim直接打开文件时有用
-set so=3 " 光标在上下边界还有3行时就开始自动滚屏
-set ignorecase smartcase " 搜索时默认不区分大小写，只有搜索关键字中出现一个大字母时才区分大小写
-set incsearch  " 即时搜索, 边输入边搜索
-set showcmd " 命令模式时显示输入的命令
-filetype plugin on " 文件类型检查
-set backspace=indent,eol,start  " 设置backspeac键可以删除字符
-set whichwrap=<,>,[,],h,l  " 具体查看 :help, 设置左右方向键在行头行尾是否转至上/下一行
-"let g:molokai_original = 1
-
-"color setup
-"let g:alduin_Shout_Become_Ethereal = 1
-"colorscheme alduin
-highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#000000
+syntax on
 "set background = dark
 "colorscheme fx
+" set guifont=Monaco:h14
+
+
+
+
+set background=dark
 colorscheme molokai
-
-""
-set completeopt=longest,menu 
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-nnoremap <C-H> :Hexmode<CR>
-inoremap <C-H> <Esc>:Hexmode<CR>
-vnoremap <C-H> :<C-U>Hexmode<CR>
-
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-
-"启动对鼠标的支持
-set mouse=a
-"设置taglist在vim启动的时候自动打开
-let Tlist_Auto_Open=0
-"当只有taglist的窗口是自动退出vim
-let Tlist_Exit_OnlyWindow=1
+set nofoldenable
 
 
-" nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-" nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-" nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-" nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
-" Using 'CTRL-spacebar' then a search type makes the vim window
-" split horizontally, with search result displayed in
-" the new window.
 
-nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-
-" Hitting CTRL-space *twice* before the search type does a vertical
-" split instead of a horizontal one
-
-nmap <C-Space><C-Space>s
-        \:vert scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>g
-        \:vert scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>c
-        \:vert scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>t
-        \:vert scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>e
-        \:vert scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>i
-        \:vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-Space><C-Space>d
-        \:vert scs find d <C-R>=expand("<cword>")<CR><CR>
-
-set cscopetag
-" add any cscope database in current directory
-if filereadable("cscope.out")
-    cs add cscope.out  
-" else add the database pointed to by environment variable 
-elseif $CSCOPE_DB != ""
-    cs add $CSCOPE_DB
+" Enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
 endif
 
-" show msg when any other cscope db added
-set cscopeverbose 
-"let g:ycm_python_binary_path="/usr/local/bin/python3"
+" This enables us to undo files even if you exit Vim.
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/vim/tmp/undo//
+endif
 
-" 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
-nmap <Leader>fl :NERDTreeToggle<CR>
-" 设置NERDTree子窗口宽度
-let NERDTreeWinSize=32
-" 设置NERDTree子窗口位置
-let NERDTreeWinPos="right"
-" 显示隐藏文件
-let NERDTreeShowHidden=1
-" NERDTree 子窗口中不显示冗余帮助信息
-let NERDTreeMinimalUI=1
-" 删除文件时自动删除文件对应 buffer
-let NERDTreeAutoDeleteBuffer=1
-autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"map <C-n> :NERDTreeToggle<CR>
-"
-"" 显示/隐藏 MiniBufExplorer 窗口
-map <Leader>bl :MBEToggle<cr>
-" buffer 切换快捷键
-map <C-Tab> :MBEbn<cr>
-map <C-S-Tab> :MBEbp<cr>
+" Colorscheme
+syntax enable
+set t_Co=256
+let g:rehash256 = 1
+let g:molokai_original = 1
+colorscheme molokai
 
 
-let g:ctrlsf_auto_close = 0
-let g:ctrlsf_case_sensitive = 'no'
-let g:ctrlsf_context = '-B 5 -A 3'
-"let g:ctrlsf_default_root = 'project'
-let g:ctrlsf_mapping = {
-    \ "next": "n",
-    \ "prev": "N",
-    \ }
-let g:ctrlsf_populate_qflist = 1
-let g:ctrlsf_regex_pattern = 1
-let g:ctrlsf_position = 'bottom'
-let g:ctrlsf_winsize = '30%'
-let g:ctrlsf_winsize = '100'
-nnoremap <Leader>sf :CtrlSF<CR>
 
+""""""""""""""""""""""
+"      Mappings      "
+""""""""""""""""""""""
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+" Jump to next error with Ctrl-n and previous error with Ctrl-m. Close the
+" quickfix window with <leader>a
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
 
+" Visual linewise up and down by default (and use gj gk to go quicker)
+noremap <Up> gk
+noremap <Down> gj
+noremap j gj
+noremap k gk
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Act like D and C
+nnoremap Y y$
+
+" Enter automatically into the files directory
+autocmd BufEnter * silent! lcd %:p:h
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['pom.xml', '.p4ignore']
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_user_command = 'find %s -type f'
 
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
 
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-"let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+"""""""""""""""""""""
+"      Plugins      "
+"""""""""""""""""""""
+
+" brew install gotags
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
+
+" let g:flake8_cmd="/usr/local/bin/flake8"
+" let g:flake8_quickfix_location="topleft"
+" let g:flake8_quickfix_height=7
+" 
+" let g:flake8_error_marker='EE'     " set error marker to 'EE'
+" let g:flake8_warning_marker='WW'   " set warning marker to 'WW'
+" let g:flake8_pyflake_marker=''     " disable PyFlakes warnings
+" let g:flake8_complexity_marker=''  " disable McCabe complexity warnings
+" let g:flake8_naming_marker=''      " disable naming warnings
+" 
+" highlight link Flake8_Error      Error
+" highlight link Flake8_Warning    WarningMsg
+" highlight link Flake8_Complexity WarningMsg
+" highlight link Flake8_Naming     WarningMsg
+" highlight link Flake8_PyFlake    WarningMsg
+
+" autocmd BufWritePost *.py call Flake8()
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_enable_highlighting=1
+let g:syntastic_enable_signs=1
+highlight SyntasticErrorLine guibg=#550000
+highlight SyntasticWarningLine guibg=#331d1e
+
+function! BuildYCM(info)
+   if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer --go-completer --python-completer
   endif
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/\.git/*
-
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
+endfunction
+" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
@@ -429,15 +345,25 @@ let g:tagbar_type_go = {
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
-let g:UltiSnipsExpandTrigger="<c-\>"
+
+let g:deoplete#enable_at_startup = 1
+
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+let g:go_list_type = "quickfix"
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
+let g:go_addtags_transform = "camelcase"
+let g:go_highlight_types = 1
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger="<c-=>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+set mouse=a
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-set mouse=a
-
-" https://zhuanlan.zhihu.com/p/36279445
 " brew install gloabl; pip install pygments
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
@@ -467,11 +393,18 @@ let g:gutentags_ctags_extra_args += ['--fields=+r']
 let g:gutentags_auto_add_gtags_cscope = 0
 
 " default key map:
+
 "<leader>cg - 查看光标下符号的定义
 "<leader>cs - 查看光标下符号的引用
 "<leader>cc - 查看有哪些函数调用了该函数
 "<leader>cf - 查找光标下的文件
 "<leader>ci - 查找哪些文件 include 了本文件
+"
+"
+"
+" source /Users/rayx/.vim/vim/asc.vim
+" source /Users/rayx/.vim/vim/skywind.vim
+"
 " Search in project
 "
 function! FindProjectRoot(lookFor)
@@ -513,6 +446,73 @@ noremap <leader>g :PreviewTag<cr> " leader + g " 打开单词tag的预览窗口
 inoremap <leader>g <c-\><c-o>:PreviewTag<cr>
 
 
+" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+
+
+augroup go
+  autocmd!
+
+  " Show by default 4 spaces for a tab
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+  " :GoBuild and :GoTestCompile
+  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+  " :GoTest
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+  " :GoRun
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+  " :GoDoc
+  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+  " :GoCoverageToggle
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+  " :GoInfo
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+  " :GoMetaLinter
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+
+  " :GoDef but opens in a vertical split
+  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+  " :GoDef but opens in a horizontal split
+  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+
+  " :GoAlternate  commands :A, :AV, :AS and :AT
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+" build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
 autocmd FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
@@ -522,9 +522,12 @@ au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>gr <Plug>(go-referrers)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_auto_sameids = 1
+
