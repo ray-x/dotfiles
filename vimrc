@@ -11,11 +11,11 @@ Plug 'Chiel92/vim-autoformat'
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " superTab: Perform all your vim insert mode completions with Tab
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
@@ -32,6 +32,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'Yggdroot/LeaderF'
 
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
@@ -52,8 +53,14 @@ Plug 'zchee/deoplete-jedi'
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+Plug 'Shougo/echodoc.vim'
+Plug 'tenfyzhong/CompleteParameter.vim'
+
+
 Plug 'tomasr/molokai'
 Plug 'Lokaltog/vim-powerline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go'
 Plug 'dyng/ctrlsf.vim'
 
