@@ -25,7 +25,9 @@ Plug 'honza/vim-snippets'
 " Plug 'w0rp/ale' 
 
 " Plugin options
-Plug 'mdempsky/gocode', {'rtp': 'nvim/', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'keith/swift.vim'
+
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-grepper'
@@ -64,6 +66,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go'
 Plug 'dyng/ctrlsf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
+Plug 'wincent/command-t'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
