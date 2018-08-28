@@ -1,3 +1,4 @@
+
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
@@ -11,11 +12,11 @@ Plug 'Chiel92/vim-autoformat'
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " superTab: Perform all your vim insert mode completions with Tab
-" Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
@@ -324,7 +325,8 @@ function! BuildYCM(info)
     !./install.py --clang-completer --go-completer --python-completer
   endif
 endfunction
-" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
+Plug 'tenfyzhong/CompleteParameter.vim'
 
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
@@ -481,7 +483,7 @@ augroup go
   autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
   " :GoTest
-  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+  autocmd FileType go nmap <leader>gt  <Plug>(go-test)
 
   " :GoRun
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -502,6 +504,10 @@ augroup go
   autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
   " :GoDef but opens in a horizontal split
   autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+  au FileType go nmap <Leader>gr <Plug>(go-referrers)
+  au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+  au FileType go nmap <Leader>ge <Plug>(go-rename)
+  au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
   " :GoAlternate  commands :A, :AV, :AS and :AT
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -521,21 +527,20 @@ function! s:build_go_files()
   endif
 endfunction
 
-autocmd FileType go nmap <Leader>s <Plug>(go-implements)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>gr <Plug>(go-referrers)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>e <Plug>(go-rename)
+" autocmd FileType go nmap <Leader>s <Plug>(go-implements)
+" au FileType go nmap <Leader>i <Plug>(go-info)
+" au FileType go nmap <Leader>gd <Plug>(go-doc)
+" au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+" au FileType go nmap <leader>r <Plug>(go-run)
+" au FileType go nmap <leader>b <Plug>(go-build)
+" au FileType go nmap <leader>t <Plug>(go-test)
+" au FileType go nmap <leader>c <Plug>(go-coverage)
+" au FileType go nmap <Leader>ds <Plug>(go-def-split)
+" au FileType go nmap <Leader>gr <Plug>(go-referrers)
+" au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+" au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+" au FileType go nmap <Leader>e <Plug>(go-rename)
 
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_auto_sameids = 1
-
