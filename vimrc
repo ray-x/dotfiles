@@ -22,7 +22,6 @@ Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'honza/vim-snippets'
-" Plug 'w0rp/ale' 
 
 " Plugin options
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
@@ -70,11 +69,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'wincent/command-t'
 
+
+" Plug 'w0rp/ale' 
+
+
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'skywind3000/gutentags_plus'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' },
+Plug 'skywind3000/gutentags_plus',
 
-
+Plug 'zefei/vim-wintabs',
+Plug 'zefei/vim-wintabs-powerline',
+"Plug 'ap/vim-buftabline'
 Plug 'pboettch/vim-highlight-cursor-words'
 Plug 'skywind3000/vim-preview'
 
@@ -100,10 +105,11 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
 
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>ga :vsplit \| YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <F4> :YcmDiags<CR>
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -188,7 +194,7 @@ set tags+=~/.vim/tags/qt5
 syntax on
 "set background = dark
 "colorscheme fx
-" set guifont=Monaco:h14
+set guifont=Monaco:h14
 
 
 
