@@ -16,7 +16,7 @@ Plug 'ervandew/supertab'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
@@ -67,7 +67,7 @@ Plug 'fatih/vim-go'
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
-Plug 'wincent/command-t'
+" Plug 'wincent/command-t'
 
 
 " Plug 'w0rp/ale' 
@@ -194,7 +194,7 @@ set tags+=~/.vim/tags/qt5
 syntax on
 "set background = dark
 "colorscheme fx
-set guifont=Monaco:h14
+" set guifont=Monaco:h14
 
 
 
@@ -387,7 +387,7 @@ let g:UltiSnipsEditSplit="vertical"
 " brew install gloabl; pip install pygments
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gutctags']
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_modules = []
 " enable both universal ctags and gtags
@@ -400,17 +400,16 @@ endif
 " put tags in cache
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS']
+autocmd FileType cpp let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+autocmd FileType c let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " uctags
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 " uctags reference
-let g:gutentags_ctags_extra_args += ['--extra=+r']
 let g:gutentags_ctags_extra_args += ['--fields=+r']
 
 " disable gtags load
-let g:gutentags_auto_add_gtags_cscope = 0
+" let g:gutentags_auto_add_gtags_cscope = 0
 
 " default key map:
 
@@ -441,7 +440,7 @@ function! FindProjectRoot(lookFor)
 endfunction
 let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
 autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
-nmap gs <plug>(GrepperOperator)	" 选择字符后按 g + s 开始搜索（异步的）
+nmap gs <plug>(GrepperOperator)	" " 选择字符后按 g + s 开始搜索（异步的）
 xmap gs <plug>(GrepperOperator)
 let g:grepper = {}
 let g:grepper.ag = {}
@@ -499,7 +498,7 @@ augroup go
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
   " :GoDoc
-  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+  autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
 
   " :GoCoverageToggle
   autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
@@ -554,3 +553,15 @@ endfunction
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_auto_sameids = 1
+
+" paste and copy
+"
+" " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+
+" " Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
+
