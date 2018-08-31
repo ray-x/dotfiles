@@ -390,6 +390,7 @@ let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gutctags']
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_modules = []
+let g:gutentags_enabled = 0
 " enable both universal ctags and gtags
 if executable('ctags')
 	let g:gutentags_modules += ['ctags']
@@ -409,7 +410,7 @@ autocmd FileType c let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--fields=+r']
 
 " disable gtags load
-" let g:gutentags_auto_add_gtags_cscope = 0
+let g:gutentags_auto_add_gtags_cscope = 0
 
 " default key map:
 
