@@ -1,3 +1,4 @@
+set encoding=UTF-8
 
 call plug#begin('~/.vim/plugged')
 
@@ -16,7 +17,8 @@ Plug 'ervandew/supertab'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
@@ -27,7 +29,8 @@ Plug 'honza/vim-snippets'
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'keith/swift.vim'
 
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-grepper'
 " Plug 'nvie/vim-flake8'
@@ -35,7 +38,7 @@ Plug 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Yggdroot/LeaderF'
-
+" Plug 'ryanoasis/vim-devicons'
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
@@ -54,8 +57,9 @@ Plug 'zchee/deoplete-jedi'
 
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
 Plug 'Shougo/echodoc.vim'
+" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 Plug 'tenfyzhong/CompleteParameter.vim'
 
 
@@ -67,7 +71,7 @@ Plug 'fatih/vim-go'
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
-Plug 'wincent/command-t'
+" Plug 'wincent/command-t'
 
 
 " Plug 'w0rp/ale' 
@@ -85,8 +89,8 @@ Plug 'skywind3000/vim-preview'
 
 
 "Snippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet'
+" Plug 'Shougo/neosnippet-snippets'
 " Plug 'honza/vim-snippets'
 
 " Motion
@@ -114,10 +118,19 @@ nmap <F4> :YcmDiags<CR>
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabDefaultCompletionType = 'context'
 
 
-
+" NERDTree
+autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if !argc() | NERDTree | endif
+autocmd VimEnter * NERDTree
+" autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | NERDTree | endif
+nnoremap <Leader>Nf :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>Nv :NERDTreeFind<CR>
+" autocmd bufenter * if (winnr(“$”) == 1 && exists(“b:NERDTreeType”) && b:NERDTreeType == “primary”) | q | endif
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 
 """"""""""""""""""""""
@@ -194,7 +207,7 @@ set tags+=~/.vim/tags/qt5
 syntax on
 "set background = dark
 "colorscheme fx
-set guifont=Monaco:h14
+" set guifont=Monaco:h14
 
 
 
@@ -335,8 +348,6 @@ function! BuildYCM(info)
     !./install.py --clang-completer --go-completer --python-completer
   endif
 endfunction
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
-Plug 'tenfyzhong/CompleteParameter.vim'
 
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
@@ -377,19 +388,26 @@ let g:go_addtags_transform = "camelcase"
 let g:go_highlight_types = 1
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger="<c-=>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
+
+" works on mac but not on konsole
+" let g:UltiSnipsExpandTrigger="<c-=>"
+" let g:UltiSnipsJumpForwardTrigger="<c-.>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:SuperTabCrMapping=1
+
 set mouse=a
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 " brew install gloabl; pip install pygments
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gutctags']
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_modules = []
+let g:gutentags_enabled = 0
 " enable both universal ctags and gtags
 if executable('ctags')
 	let g:gutentags_modules += ['ctags']
@@ -400,13 +418,12 @@ endif
 " put tags in cache
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS']
+autocmd FileType cpp let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+autocmd FileType c let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " uctags
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 " uctags reference
-let g:gutentags_ctags_extra_args += ['--extra=+r']
 let g:gutentags_ctags_extra_args += ['--fields=+r']
 
 " disable gtags load
@@ -441,7 +458,7 @@ function! FindProjectRoot(lookFor)
 endfunction
 let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
 autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
-nmap gs <plug>(GrepperOperator)	" 选择字符后按 g + s 开始搜索（异步的）
+nmap gs <plug>(GrepperOperator)	" " 选择字符后按 g + s 开始搜索（异步的）
 xmap gs <plug>(GrepperOperator)
 let g:grepper = {}
 let g:grepper.ag = {}
@@ -499,7 +516,7 @@ augroup go
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
   " :GoDoc
-  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+  autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
 
   " :GoCoverageToggle
   autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
@@ -554,3 +571,31 @@ endfunction
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_auto_sameids = 1
+
+" paste and copy
+"
+" " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+
+" " Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
+" Tab
+map <C-H> <Plug>(wintabs_previous)
+map <C-L> <Plug>(wintabs_next)
+map <C-T>c <Plug>(wintabs_close)
+map <C-T>u <Plug>(wintabs_undo)
+map <C-T>o <Plug>(wintabs_only)
+map <C-W>c <Plug>(wintabs_close_window)
+map <C-W>o <Plug>(wintabs_only_window)
+command! Tabc WintabsCloseVimtab
+command! Tabo WintabsOnlyVimtab
+
+nnoremap <S-f> :CtrlSF<Space>
+nmap <Leader><Leader>a :Ack<space>-i<space>
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
