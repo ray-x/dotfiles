@@ -56,7 +56,7 @@ Plug 'zchee/deoplete-jedi'
 
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
@@ -607,3 +607,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+  
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
