@@ -1,5 +1,4 @@
-set encoding=UTF-8
-
+set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
@@ -59,7 +58,6 @@ Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
 Plug 'Shougo/echodoc.vim'
-" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 Plug 'tenfyzhong/CompleteParameter.vim'
 
 
@@ -99,7 +97,9 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
-
+" vim suppor for neovim
+"
+Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -207,6 +207,7 @@ set tags+=~/.vim/tags/qt5
 syntax on
 "set background = dark
 "colorscheme fx
+" set gui not working in neovim
 " set guifont=Monaco:h14
 
 
@@ -378,7 +379,7 @@ let g:tagbar_type_go = {
 \ }
 
 let g:deoplete#enable_at_startup = 1
-
+nnoremap <S-f> :CtrlSF<Space>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:go_list_type = "quickfix"
@@ -390,9 +391,6 @@ let g:go_highlight_types = 1
 " better key bindings for UltiSnipsExpandTrigger
 
 " works on mac but not on konsole
-" let g:UltiSnipsExpandTrigger="<c-=>"
-" let g:UltiSnipsJumpForwardTrigger="<c-.>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -600,3 +598,12 @@ nmap <Leader><Leader>a :Ack<space>-i<space>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+noremap <s-F> :CtrlSF
+let g:ctrlsf_default_view_mode = 'compact'
+"let g:ctrlsf_default_root = 'project'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
