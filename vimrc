@@ -28,7 +28,6 @@ Plug 'honza/vim-snippets'
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'keith/swift.vim'
 
-" Plug 'rking/ag.vim'
 Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-grepper'
@@ -42,21 +41,20 @@ Plug 'Yggdroot/LeaderF'
 Plug '~/my-prototype-plugin'
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'for': ['py'] }
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+" Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'neovim/python-client'
 Plug 'zchee/deoplete-jedi' 
 
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
@@ -65,7 +63,7 @@ Plug 'tomasr/molokai'
 Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
@@ -108,7 +106,7 @@ let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
-
+let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
@@ -208,7 +206,7 @@ syntax on
 "set background = dark
 "colorscheme fx
 " set gui not working in neovim
-" set guifont=Monaco:h14
+set guifont=Inconsolata-g\ for\ Powerline:h14
 
 
 
