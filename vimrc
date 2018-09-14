@@ -24,8 +24,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'honza/vim-snippets'
 
-" Plugin options
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+
 Plug 'keith/swift.vim'
 
 Plug 'mileszs/ack.vim'
@@ -41,20 +40,24 @@ Plug 'Yggdroot/LeaderF'
 Plug '~/my-prototype-plugin'
 
 if has('nvim')
+  "Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
   Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
+  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --clang-tidy' }
 else
-  Plug 'Shougo/deoplete.nvim', { 'for': ['py'] }
+  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+  "Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+  Plug 'Shougo/deoplete.nvim', { 'for': ['py', 'go'] , 'do': ':UpdateRemotePlugins' }
+  Plug 'zchee/deoplete-go', { 'do': 'make'}
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" Plug 'zchee/deoplete-go', { 'do': 'make'}
+let g:deoplete#enable_at_startup = 1
 Plug 'neovim/python-client'
 Plug 'zchee/deoplete-jedi' 
 
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
