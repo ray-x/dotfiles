@@ -24,13 +24,28 @@ Plug 'rhysd/vim-clang-format'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'honza/vim-snippets'
 
+Plug 'vim-scripts/indentpython.vim'
 
-Plug 'keith/swift.vim'
+if executable('swift')
+    Plug 'keith/swift.vim'
+endif
 
 Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-grepper'
-" Plug 'nvie/vim-flake8'
+
+if executable('py')
+    Plug 'nvie/vim-flake8'
+    Plug 'zchee/deoplete-jedi'
+endif
+
+if executable('go')
+    Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': 'go'}
+    "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'zchee/deoplete-go', { 'do': 'make'}
+endif
+
+
 Plug 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -38,24 +53,23 @@ Plug 'Yggdroot/LeaderF'
 " Plug 'ryanoasis/vim-devicons'
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
+Plug 'Yggdroot/indentLine'
 
 if has('nvim')
   "Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-  Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --clang-tidy' }
+  "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --clang-tidy' }
 else
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+  "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
   "Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-  Plug 'Shougo/deoplete.nvim', { 'for': ['py', 'go'] , 'do': ':UpdateRemotePlugins' }
-  Plug 'zchee/deoplete-go', { 'do': 'make'}
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'Shougo/deoplete.nvim', { 'for': ['py', 'go'] , 'do': ':UpdateRemotePlugins' }
 
 let g:deoplete#enable_at_startup = 1
 Plug 'neovim/python-client'
-Plug 'zchee/deoplete-jedi' 
 
+Plug 'Valloric/YouCompleteMe'
 
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
@@ -66,7 +80,7 @@ Plug 'tomasr/molokai'
 Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
@@ -124,15 +138,19 @@ let g:SuperTabDefaultCompletionType = 'context'
 
 " NERDTree
 autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if !argc() | NERDTree | endif
 autocmd VimEnter * NERDTree
-" autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | NERDTree | endif
 nnoremap <Leader>Nf :NERDTreeToggle<Enter>
 nnoremap <silent> <Leader>Nv :NERDTreeFind<CR>
-" autocmd bufenter * if (winnr(“$”) == 1 && exists(“b:NERDTreeType”) && b:NERDTreeType == “primary”) | q | endif
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+map <F2> :NERDTreeToggle<CR>
+let NERDTreeChDirMode=1
+let NERDTreeIgnore=['\~$', '\.git', '\.pyc$', '\.swp$']
+let NERDTreeWinSize=25  
 
+" autocmd VimEnter * if !argc() | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | NERDTree | endif
+" autocmd bufenter * if (winnr(“$”) == 1 && exists(“b:NERDTreeType”) && b:NERDTreeType == “primary”) | q | endif
 
 """"""""""""""""""""""
 "      Settings      "
@@ -614,3 +632,13 @@ smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+"" Python
+au BufNewFile,BufRead *.py set colorcolumn=79
+au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py setlocal foldmethod=indent
+au BufNewFile,BufRead *.py vmap <CR> :s/\(^\s*\)/\1# /<CR>:let @/ = ""<CR>
+au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
