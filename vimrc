@@ -25,6 +25,8 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'honza/vim-snippets'
 
 Plug 'vim-scripts/indentpython.vim'
+Plug 'rakr/vim-one'
+Plug 'jacoborus/tender.vim'
 
 if executable('swift')
     Plug 'keith/swift.vim'
@@ -40,9 +42,9 @@ if executable('py')
 endif
 
 if executable('go')
-    Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': 'go'}
-    "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-    Plug 'zchee/deoplete-go', { 'do': 'make'}
+    " Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': 'go'}
+    Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+    " Plug 'zchee/deoplete-go', { 'do': 'make'}
 endif
 
 
@@ -57,20 +59,22 @@ Plug 'Yggdroot/indentLine'
 
 if has('nvim')
   "Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-  "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --clang-tidy' }
+  " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py','go'],  'do': './install.py  --clang-completer -go-completer --clang-tidy' }
 else
-  "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
+  " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
   "Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'Shougo/deoplete.nvim', { 'for': ['py', 'go'] , 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'for': ['py', 'go'] , 'do': ':UpdateRemotePlugins' }
 
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 Plug 'neovim/python-client'
 
 Plug 'Valloric/YouCompleteMe'
 
+" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
@@ -224,16 +228,24 @@ set tags+=~/.vim/tags/sdl
 set tags+=~/.vim/tags/qt5
 
 syntax on
-"set background = dark
-"colorscheme fx
+" colorscheme fx
 " set gui not working in neovim
-set guifont=Inconsolata-g\ for\ Powerline:h14
+" set guifont=Inconsolata-g\ for\ Powerline:h12
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 
 
 
 
 set background=dark
-colorscheme molokai
+" colorscheme molokai
+" colorscheme tender
+
+" colorscheme tender
+" let g:lightline = { 'colorscheme': 'tender' }
+
+let g:one_allow_italics = 1
+colorscheme one
+
 set nofoldenable
 
 
@@ -254,10 +266,11 @@ endif
 
 " Colorscheme
 syntax enable
-set t_Co=256
-let g:rehash256 = 1
-let g:molokai_original = 1
-colorscheme molokai
+" set t_Co=256
+" let g:rehash256 = 1
+" let g:molokai_original = 1
+" colorscheme molokai
+set termguicolors
 
 
 
@@ -397,7 +410,7 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 nnoremap <S-f> :CtrlSF<Space>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -479,7 +492,7 @@ nmap gs <plug>(GrepperOperator)	" " 选择字符后按 g + s 开始搜索（异�
 xmap gs <plug>(GrepperOperator)
 let g:grepper = {}
 let g:grepper.ag = {}
-let g:grepper.ag.grepprg = 'ag --vimgrep $* '.g:root_dir " 设置 ag 参数
+let g:grepper.ag.grepprg = 'ag --vimgrep  --smart-case $* '.g:root_dir " 设置 ag 参数
 let g:qfenter_keymap = {}
 let g:qfenter_keymap.vopen = ['<C-v>']  " Ctrl + v 纵向分屏打开
 let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>'] " Enter 横向分屏打开
@@ -613,6 +626,9 @@ command! Tabo WintabsOnlyVimtab
 
 nnoremap <S-f> :CtrlSF<Space>
 nmap <Leader><Leader>a :Ack<space>-i<space>
+let g:ctrlsf_default_root = 'project'
+let g:ctrlsf_search_mode = 'async'
+let g:ctrlsf_winsize = '30%'
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
