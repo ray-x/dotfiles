@@ -15,10 +15,12 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " Plug 'ervandew/supertab'
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'jistr/vim-nerdtree-tabs'
+" clap replace nerd tree
+Plug 'liuchengxu/vim-clap'
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
 
 " Javascript
