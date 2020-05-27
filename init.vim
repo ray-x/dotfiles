@@ -77,9 +77,7 @@ if executable('swift')
     Plug 'keith/swift.vim'
 endif
 
-Plug 'mileszs/ack.vim'
-Plug 'kien/ctrlp.vim'
-Plug 'mhinz/vim-grepper'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -110,14 +108,14 @@ Plug 'Yggdroot/LeaderF'
 Plug '~/my-prototype-plugin'
 Plug 'Yggdroot/indentLine'
 
-Plug 'neoclide/coc.nvim', {'for': ['js', 'html', 'css', 'py','tsx','jsx'], 'do': 'yarn install --frozen-lockfile'}
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py', 'go'],  'do': './install.py  --clang-completer -go-completer --clang-tidy' }
-if has('nvim')
-  " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer -go-completer --clang-tidy' }
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
+if has('nvim')
+  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py']}
 else
-  " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clang-completer --go-completer --clang-tidy' }
-  "Plug 'neoclide/coc.nvim', {'for': ['go', 'js', 'ts', 'tsx'], 'do': 'yarn install --frozen-lockfile'}
+  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer --clang-tidy' }
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -139,15 +137,13 @@ Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'dyng/ctrlsf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 
 " Plug 'wincent/command-t'
 
 Plug 'morhetz/gruvbox'
-Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
-" Plug 'w0rp/ale' 
+Plug 'HerringtonDarkholme/yats.vim' " TS Syntax 
 
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -164,7 +160,7 @@ Plug 'zefei/vim-wintabs-powerline',
 "Plug 'ap/vim-buftabline'
 Plug 'pboettch/vim-highlight-cursor-words'
 Plug 'skywind3000/vim-preview'
-Plug 'rking/ag.vim'
+
 
 "Snippets
 " Plug 'Shougo/neosnippet'
@@ -302,7 +298,7 @@ syntax on
 " set guifont=Inconsolata-g\ for\ Powerline:h12
 " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 " set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-
+" set guifont=Cascadia\ Code\ PL:h14
 " vim-prettier
 "let g:prettier#quickfix_enabled = 0
 "let g:prettier#quickfix_auto_focus = 0
@@ -375,13 +371,13 @@ nnoremap Y y$
 " Enter automatically into the files directory
 autocmd BufEnter * silent! lcd %:p:h
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " let g:ctrlp_user_command = 'find %s -type f'
 " ctrlp
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+"  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
 " coc config
@@ -660,7 +656,6 @@ let g:tagbar_type_go = {
 \ }
 
 let g:deoplete#enable_at_startup = 0
-nnoremap <S-f> :CtrlSF<Space>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:go_list_type = "quickfix"
@@ -766,7 +761,6 @@ let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 0
-let g:go_fmt_options = "-tabs=false -tabwidth=4"
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -778,6 +772,8 @@ let g:go_highlight_generate_tags = 1
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+nnoremap <leader>gi :GoImport <C-R><C-W><cr>
+inoremap <leader>gi <Esc>:GoImport <C-R><C-W><cr>A.
 
 
 augroup go
@@ -874,24 +870,6 @@ map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 
-nnoremap <S-f> :CtrlSF<Space>
-nmap <Leader><Leader>a :Ack<space>-i<space>
-let g:ctrlsf_default_root = 'project'
-let g:ctrlsf_search_mode = 'async'
-let g:ctrlsf_winsize = '30%'
-
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-noremap <s-F> :CtrlSF
-let g:ctrlsf_default_view_mode = 'compact'
-"let g:ctrlsf_default_root = 'project'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
   
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
 smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
@@ -945,3 +923,7 @@ let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
 
 nmap <Leader><Leader>C :Clap<CR>
+" nmap <Leader>CP :Clap filer<CR>
+" nnoremap <S-f> :CtrlSF<Space>
+noremap <s-P> :Clap filer<CR>
+noremap <s-F> :Clap grep<CR>
