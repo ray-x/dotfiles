@@ -17,10 +17,10 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
 " clap replace nerd tree
 Plug 'liuchengxu/vim-clap'
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
 
 " Javascript
@@ -215,7 +215,8 @@ let NERDTreeDirArrows = 1
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeChDirMode=1
 let NERDTreeIgnore=['\~$', '\.git', '\.pyc$', '\.swp$']
-let NERDTreeWinSize=25  
+let NERDTreeWinSize=25
+" let NERDTreeMapOpenInTab='<ENTER>' 
 
 " autocmd VimEnter * if !argc() | NERDTree | endif
 " autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | NERDTree | endif
@@ -298,7 +299,8 @@ syntax on
 " set guifont=Inconsolata-g\ for\ Powerline:h12
 " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 " set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-" set guifont=Cascadia\ Code\ PL:h14
+" 
+" Guifont SourceCodePro\ Nerd\ Font:h14
 " vim-prettier
 "let g:prettier#quickfix_enabled = 0
 "let g:prettier#quickfix_auto_focus = 0
@@ -558,36 +560,6 @@ let g:coc_snippet_next = '<tab>'
 "      Plugins      "
 """""""""""""""""""""
 
-" brew install gotags
-let g:tagbar_type_go = {
-	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [
-		\ 'p:package',
-		\ 'i:imports:1',
-		\ 'c:constants',
-		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
-		\ 'f:functions'
-	\ ],
-	\ 'sro' : '.',
-	\ 'kind2scope' : {
-		\ 't' : 'ctype',
-		\ 'n' : 'ntype'
-	\ },
-	\ 'scope2kind' : {
-		\ 'ctype' : 't',
-		\ 'ntype' : 'n'
-	\ },
-	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
-\ }
-
-
 " let g:flake8_cmd="/usr/local/bin/flake8"
 " let g:flake8_quickfix_location="topleft"
 " let g:flake8_quickfix_height=7
@@ -627,6 +599,8 @@ function! BuildYCM(info)
   endif
 endfunction
 
+map <F3> :TagbarToggle<CR>
+let g:tagbar_width = 25
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
 	\ 'kinds'     : [
@@ -923,7 +897,5 @@ let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
 
 nmap <Leader><Leader>C :Clap<CR>
-" nmap <Leader>CP :Clap filer<CR>
-" nnoremap <S-f> :CtrlSF<Space>
-noremap <s-P> :Clap filer<CR>
+noremap <s-P> :Clap files<CR>
 noremap <s-F> :Clap grep<CR>
