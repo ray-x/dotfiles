@@ -132,8 +132,8 @@ endif
 Plug 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'Yggdroot/LeaderF'
-" Plug 'ryanoasis/vim-devicons'
+" Plug 'Yggdroot/LeaderF'  "Clap relpace leaderF
+
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 Plug 'Yggdroot/indentLine'
@@ -312,8 +312,6 @@ colorscheme one
 set nofoldenable
 
 
-
-
 " Enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
 if has('unnamedplus')
@@ -427,12 +425,17 @@ function! FindProjectRoot(lookFor)
     return s:root
 endfunction
 let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
+
 autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
-nmap gs <plug>(GrepperOperator)	" " 选择字符后按 g + s 开始搜索（异步的）
-xmap gs <plug>(GrepperOperator)
-let g:grepper = {}
-let g:grepper.ag = {}
-let g:grepper.ag.grepprg = 'ag --vimgrep  --smart-case $* '.g:root_dir " 设置 ag 参数
+
+"grepper
+" nmap gs <plug>(GrepperOperator)	" " 选择字符后按 g + s 开始搜索（异步的）
+" xmap gs <plug>(GrepperOperator)
+" let g:grepper = {}
+" let g:grepper.ag = {}
+" let g:grepper.ag.grepprg = 'ag --vimgrep  --smart-case $* '.g:root_dir " 设置 ag 参数
+
+
 let g:qfenter_keymap = {}
 let g:qfenter_keymap.vopen = ['<C-v>']  " Ctrl + v 纵向分屏打开
 let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>'] " Enter 横向分屏打开
