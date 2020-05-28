@@ -1,4 +1,18 @@
 set encoding=utf-8
+if has('nvim')
+  let s:config_home = stdpath('config')
+else
+  let s:config_home = '~/.config/nvim'
+endif
+
+" Set python/ruby interpreter path
+
+if has('mac')
+  let s:brew_prefix = '/usr/local'
+elseif executable('brew')
+  let s:brew_prefix = systemlist('brew --prefix')[0]
+endif
+
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
@@ -17,11 +31,23 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
 " clap replace nerd tree
 Plug 'liuchengxu/vim-clap'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'jistr/vim-nerdtree-tabs'
+
 Plug 'ryanoasis/vim-devicons'
+
+
+" defx file explorer
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'  " change back to Plug 'ryanoasis/vim-devicons' when devicecons 0.14
+
+
 
 " Javascript
 Plug 'pangloss/vim-javascript'
@@ -77,16 +103,21 @@ if executable('swift')
     Plug 'keith/swift.vim'
 endif
 
+Plug 'mhinz/vim-signify'  " replace 'airblade/vim-gitgutter'
 
-Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
 
 
 " markdown 插件
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
-
+" spell check
+Plug 'kamykn/spelunker.vim'
+" spell popup
+Plug 'kamykn/popup-menu.nvim'
 
 if executable('py')
     Plug 'nvie/vim-flake8'
@@ -95,7 +126,6 @@ endif
 
 if executable('go')
     Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-    " Plug 'zchee/deoplete-go', { 'do': 'make'}
 endif
 
 
@@ -111,17 +141,7 @@ Plug 'Yggdroot/indentLine'
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
-if has('nvim')
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py']}
-else
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer --clang-tidy' }
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
 Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
-
 
 " let g:deoplete#enable_at_startup = 1
 Plug 'neovim/python-client'
@@ -183,44 +203,9 @@ Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
 call plug#end()
 
-" ycm
-let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
-let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
-let g:ycm_python_binary_path = 'python3'
-let g:ycm_server_python_interpreter = '/usr/local/bin/python3'
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nmap <F4> :YcmDiags<CR>
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = 'context'
 
-
-" NERDTree
 autocmd StdinReadPre * let s:std_in=1
-let g:NERDTreeGitStatusWithFlags = 1
-let g:NERDTreeIgnore = ['^node_modules$']
-" autocmd VimEnter * NERDTree
-nnoremap <Leader>Nf :NERDTreeToggle<Enter>
-nnoremap <silent> <Leader>Nv :NERDTreeFind<CR>
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-map <F2> :NERDTreeToggle<CR>
-let NERDTreeChDirMode=1
-let NERDTreeIgnore=['\~$', '\.git', '\.pyc$', '\.swp$']
-let NERDTreeWinSize=25
-" let NERDTreeMapOpenInTab='<ENTER>' 
 
-" autocmd VimEnter * if !argc() | NERDTree | endif
-" autocmd VimEnter * if argc() == 0 && !exists(“s:std_in”) | NERDTree | endif
-" autocmd bufenter * if (winnr(“$”) == 1 && exists(“b:NERDTreeType”) && b:NERDTreeType == “primary”) | q | endif
 
 """"""""""""""""""""""
 "      Settings      "
@@ -308,6 +293,12 @@ syntax on
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
+ " yank
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+augroup END
+
 set background=dark
 " colorscheme molokai
 " colorscheme tender
@@ -382,252 +373,12 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 "  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 
-" coc config
-let g:coc_node_path = '/usr/local/bin/node'
-let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ 'coc-go',
-  \ ]
-" from readme
-" if hidden is not set, TextEdit might fail.
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-   call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
 
 
 """""""""""""""""""""
 "      Plugins      "
 """""""""""""""""""""
 
-" let g:flake8_cmd="/usr/local/bin/flake8"
-" let g:flake8_quickfix_location="topleft"
-" let g:flake8_quickfix_height=7
-" 
-" let g:flake8_error_marker='EE'     " set error marker to 'EE'
-" let g:flake8_warning_marker='WW'   " set warning marker to 'WW'
-" let g:flake8_pyflake_marker=''     " disable PyFlakes warnings
-" let g:flake8_complexity_marker=''  " disable McCabe complexity warnings
-" let g:flake8_naming_marker=''      " disable naming warnings
-" 
-" highlight link Flake8_Error      Error
-" highlight link Flake8_Warning    WarningMsg
-" highlight link Flake8_Complexity WarningMsg
-" highlight link Flake8_Naming     WarningMsg
-" highlight link Flake8_PyFlake    WarningMsg
-
-" autocmd BufWritePost *.py call Flake8()
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_flake8_post_args='--ignore=E501,E128,E225'
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_enable_highlighting=1
-let g:syntastic_enable_signs=1
-highlight SyntasticErrorLine guibg=#550000
-highlight SyntasticWarningLine guibg=#331d1e
-
-function! BuildYCM(info)
-   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --go-completer --python-completer
-  endif
-endfunction
-
-map <F3> :TagbarToggle<CR>
-let g:tagbar_width = 25
-let g:tagbar_type_go = {
-	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [
-		\ 'p:package',
-		\ 'i:imports:1',
-		\ 'c:constants',
-		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
-		\ 'f:functions'
-	\ ],
-	\ 'sro' : '.',
-	\ 'kind2scope' : {
-		\ 't' : 'ctype',
-		\ 'n' : 'ntype'
-	\ },
-	\ 'scope2kind' : {
-		\ 'ctype' : 't',
-		\ 'ntype' : 'n'
-	\ },
-	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
-\ }
 
 let g:deoplete#enable_at_startup = 0
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
@@ -647,33 +398,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 set mouse=a
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-" brew install gloabl; pip install pygments
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gutctags']
-let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_modules = []
-let g:gutentags_enabled = 0
-" enable both universal ctags and gtags
-if executable('ctags')
-	let g:gutentags_modules += ['ctags']
-endif
-if executable('gtags-cscope') && executable('gtags')
-	let g:gutentags_modules += ['gtags_cscope']
-endif
-" put tags in cache
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-let g:gutentags_ctags_extra_args = ['--fields=+niazS']
-autocmd FileType cpp let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-autocmd FileType c let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-" uctags
-" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-" uctags reference
-let g:gutentags_ctags_extra_args += ['--fields=+r']
-
-" disable gtags load
-let g:gutentags_auto_add_gtags_cscope = 0
 
 " default key map:
 
@@ -728,99 +452,6 @@ inoremap <m-n> <c-\><c-o>:PreviewSignature!<cr>
 noremap <leader>g :PreviewTag<cr> " leader + g " 打开单词tag的预览窗口
 inoremap <leader>g <c-\><c-o>:PreviewTag<cr>
 
-
-" vim-go
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-let g:go_fmt_autosave = 1
-let g:go_fmt_fail_silently = 0
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-nnoremap <leader>gi :GoImport <C-R><C-W><cr>
-inoremap <leader>gi <Esc>:GoImport <C-R><C-W><cr>A.
-
-
-augroup go
-  autocmd!
-
-  " Show by default 4 spaces for a tab
-  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-
-  " :GoBuild and :GoTestCompile
-  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-
-  " :GoTest
-  autocmd FileType go nmap <leader>gt  <Plug>(go-test)
-
-  " :GoRun
-  autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-  " :GoDoc
-  autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
-
-  " :GoCoverageToggle
-  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-
-  " :GoInfo
-  autocmd FileType go nmap <Leader>i <Plug>(go-info)
-
-  " :GoMetaLinter
-  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
-
-  " :GoDef but opens in a vertical split
-  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-  " :GoDef but opens in a horizontal split
-  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-  au FileType go nmap <Leader>gr <Plug>(go-referrers)
-  au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-  au FileType go nmap <Leader>ge <Plug>(go-rename)
-  au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-
-  " :GoAlternate  commands :A, :AV, :AS and :AT
-  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
-
-" build_go_files is a custom function that builds or compiles the test file.
-" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
-
-" autocmd FileType go nmap <Leader>s <Plug>(go-implements)
-" au FileType go nmap <Leader>i <Plug>(go-info)
-" au FileType go nmap <Leader>gd <Plug>(go-doc)
-" au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-" au FileType go nmap <leader>r <Plug>(go-run)
-" au FileType go nmap <leader>b <Plug>(go-build)
-" au FileType go nmap <leader>t <Plug>(go-test)
-" au FileType go nmap <leader>c <Plug>(go-coverage)
-" au FileType go nmap <Leader>ds <Plug>(go-def-split)
-" au FileType go nmap <Leader>gr <Plug>(go-referrers)
-" au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-" au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-" au FileType go nmap <Leader>e <Plug>(go-rename)
-
-let g:go_auto_type_info = 1
-set updatetime=100
-let g:go_auto_sameids = 1
 
 " paste and copy
 "
@@ -880,15 +511,6 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 
 
-"" Clap
-let g:clap_layout={'width': '47%', 'height': '33%', 'row': '33%', 'col': '17%' }
-
-set laststatus=2
-" export TERM=xterm-256color
-" if !has('gui_running')
-"   set t_Co=256
-" endif
-
 "" Rooter
 let g:rooter_change_directory_for_non_project_files = 'home'
 let g:rooter_targets = '/,*.yml,*.yaml'
@@ -896,6 +518,10 @@ let g:rooter_patterns = ['Rakefile', '.git/','go.sum']
 let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
 
-nmap <Leader><Leader>C :Clap<CR>
-noremap <s-P> :Clap files<CR>
-noremap <s-F> :Clap grep<CR>
+
+" Load other vim
+" execute 'source' fnameescape(s:config_home . '/keymap.vim')
+
+for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
+  execute 'source' fnameescape(s:f)
+endfor

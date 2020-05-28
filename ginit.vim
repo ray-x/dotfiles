@@ -18,3 +18,9 @@ endif
 if has('gui_macvim')
 	set guifont=FiraCode\ Nerd\ Font:h12
 endif
+
+
+" mouse copy paste
+nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
+inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
+vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
