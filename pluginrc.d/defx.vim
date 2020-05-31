@@ -1,6 +1,7 @@
 " Ref: https://github.com/taigacute/ThinkVim/blob/master/rc/plugins/defx.vim
 
 map <F2> :Defx -toggle<CR>
+" map <F2> :ToggleDefxVista<CR>
 call defx#custom#option('_', {
       \ 'columns': 'mark:indent:icons:filename:type',
       \ 'winwidth': 30,
@@ -9,7 +10,12 @@ call defx#custom#option('_', {
       \ 'show_ignored_files': 0,
       \ 'ignored_files': '*.pyc,*.pyd,*~,*.swo,*.swp,.git,.hg,.svn,.bzr,.DS_Store',
       \ })
-
+call defx#custom#column('icon', {
+  \ 'directory_icon': '',
+  \ 'opened_icon':  '',
+  \ 'root_icon': '',
+  \ 'root_marker_highlight': 'Ignore',
+  \ })
 call defx#custom#column('mark', {
       \ 'readonly_icon': '',
       \ 'selected_icon': '✓',
@@ -17,12 +23,23 @@ call defx#custom#column('mark', {
 
 call defx#custom#column('filename', {
       \ 'min_width': 5,
-      \ 'max_width': 25,
+      \ 'max_width': 50,
       \ })
 
 call defx#custom#column('time', {
       \ 'format': '%Y %b %e %H:%M:%S',
       \ })
+
+call defx#custom#column('git', 'indicators', {
+  \ 'Modified'  : '',
+  \ 'Staged'    : '+',
+  \ 'Untracked' : '?',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : '≠',
+  \ 'Ignored'   : 'ⁱ',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ })
 
 " let g:vimfiler_as_default_explorer = 1
 
@@ -70,6 +87,14 @@ function! s:defx_keymaps() abort
   nnoremap <silent><buffer><expr><nowait> c  defx#do_action('copy')
   nnoremap <silent><buffer><expr><nowait> m  defx#do_action('move')
   nnoremap <silent><buffer><expr><nowait> p  defx#do_action('paste')
+  
+  " Change directory
+  
+  nnoremap <silent><buffer><expr> ~     defx#async_action('cd')
+  nnoremap <silent><buffer><expr> 2u  defx#do_action('cd', ['../..'])
+  nnoremap <silent><buffer><expr> 3u  defx#do_action('cd', ['../../..'])
+  nnoremap <silent><buffer><expr> 4u  defx#do_action('cd', ['../../../..'])
+
 
   nnoremap <silent><buffer><expr> S  defx#do_action('toggle_sort', 'time')
 endfunction

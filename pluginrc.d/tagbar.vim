@@ -1,4 +1,4 @@
-map <F3> :TagbarToggle<CR>
+" map <F3> :TagbarToggle<CR>
 let g:tagbar_width = 25
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',

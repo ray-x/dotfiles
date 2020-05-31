@@ -11,6 +11,7 @@ autocmd VimEnter * highlight Comment cterm=italic gui=italic
 " vimr doesn't support :Guifont
 if !has("gui_vimr") && has('nvim')
 	:Guifont FiraCode Nerd Font:h12
+	:GuiTabline 0
 endif
 
 " macvim
@@ -24,3 +25,11 @@ endif
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
+" Paste with middle mouse click
+vmap <LeftRelease> "*ygv
+
+
+" Paste with <Shift> + <Insert>
+cmap <S-Insert> <C-R>*
+cmap <C-V> <C-R>*
+imap <C-V> <C-R>*
