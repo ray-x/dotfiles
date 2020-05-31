@@ -1,6 +1,6 @@
 " Ref: https://github.com/taigacute/ThinkVim/blob/master/rc/plugins/defx.vim
 
-map <F2> :Defx -toggle<CR>
+map <F2> :Defx -auto_recursive_level=1 -toggle <CR>
 " map <F2> :ToggleDefxVista<CR>
 call defx#custom#option('_', {
       \ 'columns': 'mark:indent:icons:filename:type',
