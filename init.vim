@@ -35,19 +35,9 @@ Plug 'liuchengxu/vim-clap'
 Plug 'ryanoasis/vim-devicons'
 
 
-" defx file explorer
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" defx file explorer , defx-git, defx-icons, replaced by coc-explorer
 
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'  " change back to Plug 'ryanoasis/vim-devicons' when devicecons 0.14
 Plug 'liuchengxu/vista.vim'
-
 
 " Javascript
 Plug 'pangloss/vim-javascript'
