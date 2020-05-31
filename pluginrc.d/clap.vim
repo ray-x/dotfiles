@@ -11,5 +11,7 @@ nmap <F4> :Clap<CR>
 nmap <Leader><Leader>C :Clap<CR>
 noremap <s-P> :Clap files<CR>
 noremap <s-F> :Clap grep ++query=<cword><CR>
+
 " noremap <c-F>:Clap grep ++query=@visual<CR>
 noremap <s-T> :Clap tags<CR>
+nmap <F5> :Clap filer<CR>

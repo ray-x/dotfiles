@@ -92,5 +92,5 @@ set updatetime=100
 
 " note: auto_sameid will highlight identifiers under cursor. but the color is hard to read...
 let g:go_auto_sameids = 1
-hi Search guibg=#8CCBEA guifg=#44453e
+hi Search guibg=#3E3F4E guifg=#E4E5EE gui=bold
 

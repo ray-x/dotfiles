@@ -126,7 +126,9 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>x  :<C-u>CocList extensions<cr>
+" Manage explorer
+nnoremap <silent> <space>e  :CocCommand explorer<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
@@ -169,4 +171,60 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+"explorer
+let g:coc_config_home = expand('<sfile>:h')
+let g:coc_data_home = expand('<sfile>:h') . '/data_home'
+let &runtimepath .= ',' . expand('<sfile>:h:h')
+
+hi CocExplorerNormalFloatBorder guifg=#414347 guibg=#272B34
+hi CocExplorerNormalFloat guibg=#272B34
+
+let mapleader = "\<Space>"
+nmap <Leader>ee :CocCommand explorer<CR>
+nmap <Leader>eE :CocCommand explorer --position=right<CR>
+nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+
+execute "nmap <Leader>r :CocCommand explorer --reveal=".expand('<sfile>:h')."/package.json<CR>"
+nmap <Leader>ff :CocCommand explorer --position=floating<CR>
+nmap <Leader>fl :CocCommand explorer --position=floating --floating-position=left-center --floating-width=50 --floating-height=-10<CR>
+nmap <Leader>fr :CocCommand explorer --position=floating --floating-position=right-center --floating-width=50 --floating-height=-10<CR>
+nmap <Leader>t :CocCommand explorer --position=tab<CR>
+
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\      'root-uri': '~/.vim',
+\   },
+\   'floating': {
+\      'position': 'floating',
+\   },
+\   'floatingLeftside': {
+\      'position': 'floating',
+\      'floating-position': 'left-center',
+\      'floating-width': 50,
+\   },
+\   'floatingRightside': {
+\      'position': 'floating',
+\      'floating-position': 'left-center',
+\      'floating-width': 50,
+\   },
+\   'simplify': {
+\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+
+" Use preset argument to open it
+nmap <space>ed :CocCommand explorer --preset .vim<CR>
+nmap <space>ef :CocCommand explorer --preset floating<CR>
+
+" List all presets
+nmap <space>el :CocList explPresets
+
+nmap <Leader>v  :CocCommand explorer --preset .vim<CR>
+nmap <Leader>ff :CocCommand explorer --preset floating<CR>
+nmap <Leader>fl :CocCommand explorer --preset floatingLeftside<CR>
+nmap <Leader>fr :CocCommand explorer --preset floatingRightside<CR>
+nmap <Leader>s  :CocCommand explorer --preset simplify<CR>
+
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 

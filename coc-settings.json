@@ -69,7 +69,9 @@
   "cSpell.ignoreWords": ["behaviour"],
 
   // User words to add to dictionary.  Should only be in the user settings.
-  "cSpell.userWords": [],
+  "cSpell.userWords": [
+    "ozzo"
+  ],
 
   // Specify paths/files to ignore.
   "cSpell.ignorePaths": [
@@ -89,5 +91,23 @@
   "cSpell.flagWords": ["hte"],
 
   // Set the delay before spell checking the document. Default is 50.
-  "cSpell.spellCheckDelayMs": 50
+  "cSpell.spellCheckDelayMs": 50,
+  "explorer.sources": [
+    {
+      "name": "buffer",
+      "expand": false
+    },
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
+  "explorer.keyMappings": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit",
+    "<space>": "toggleSelection"
+  },
+  "explorer.icon.enableNerdfont": true,
+  "explorer.buffer.tabOnly": true,
+  "explorer.file.autoReveal": true
 }
