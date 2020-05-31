@@ -21,13 +21,3 @@
 
 " let g:syntastic_aggregate_errors = 1
 " let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_flake8_post_args='--ignore=E501,E128,E225'
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_enable_highlighting=1
-let g:syntastic_enable_signs=1
-highlight SyntasticErrorLine guibg=#550000
-highlight SyntasticWarningLine guibg=#331d1e
-

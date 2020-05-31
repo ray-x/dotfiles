@@ -46,7 +46,7 @@ endif
 
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'  " change back to Plug 'ryanoasis/vim-devicons' when devicecons 0.14
-
+Plug 'liuchengxu/vista.vim'
 
 
 " Javascript
@@ -76,6 +76,12 @@ Plug 'mlaursen/vim-react-snippets'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 
+
+Plug 'voldikss/vim-floaterm'
+
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
+
 " HTML 
 Plug 'mattn/emmet-vim'
 Plug 'hail2u/vim-css3-syntax'
@@ -89,11 +95,19 @@ Plug 'othree/html5.vim'
 Plug 'rhysd/vim-clang-format'
 " Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-Plug 'honza/vim-snippets'
 
 Plug 'vim-scripts/indentpython.vim'
+
+
+" theme
+Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
+Plug 'joshdick/onedark.vim'
+Plug 'hardcoreplayers/oceanic-material'
+Plug 'mhartington/oceanic-next'
 Plug 'jacoborus/tender.vim'
+Plug 'haishanh/night-owl.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 
 
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
@@ -115,9 +129,9 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " spell check
-Plug 'kamykn/spelunker.vim'
+" use coc-spell-check
 " spell popup
-Plug 'kamykn/popup-menu.nvim'
+" Plug 'kamykn/popup-menu.nvim'
 
 if executable('py')
     Plug 'nvie/vim-flake8'
@@ -128,15 +142,13 @@ if executable('go')
     Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 endif
 
-
-Plug 'vim-syntastic/syntastic'
+" ale replace Plug  'neomake/neomake' " replace 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'Yggdroot/LeaderF'  "Clap relpace leaderF
 
 " Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
-Plug 'Yggdroot/indentLine'
+" Plug '~/my-prototype-plugin'
 
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -154,15 +166,14 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 
 Plug 'tomasr/molokai'
 Plug 'Lokaltog/vim-powerline'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'hardcoreplayers/spaceline.vim'
+Plug 'liuchengxu/eleline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 
-" Plug 'wincent/command-t'
 
-Plug 'morhetz/gruvbox'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax 
 
 
@@ -173,14 +184,12 @@ Plug 'jstemmer/gotags'
 Plug 'skywind3000/gutentags_plus',
 
 "" View and search LSP symbols, tags in Vim/NeoVim.
-Plug 'liuchengxu/vista.vim'
 
 Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
-"Plug 'ap/vim-buftabline'
-Plug 'pboettch/vim-highlight-cursor-words'
+" Plug 'bagrat/vim-buffet'
+" Plug 'ap/vim-buftabline'
 Plug 'skywind3000/vim-preview'
-
 
 "Snippets
 " Plug 'Shougo/neosnippet'
@@ -193,12 +202,26 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'simnalamburt/vim-mundo'
+"Rainbow Parentheses Improved"
+Plug 'luochen1990/rainbow'
+" Show color
+Plug 'norcalli/nvim-colorizer.lua'
 
-" vim suppor for neovim
-"
+" display the indention levels with thin vertical lines
+Plug 'Yggdroot/indentLine'
+Plug 'mtdl9/vim-log-highlighting'
+
+Plug 'psliwka/vim-smoothie'
+
+" highlight current session
+Plug 'junegunn/Limelight.vim'
+" highlight current word
+Plug 'lfv89/vim-interestingwords'
+
 Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
 call plug#end()
@@ -233,14 +256,14 @@ set splitbelow                  " Horizontal windows should split to bottom
 set autowrite                   " Automatically save before :next, :make etc.
 set hidden                      " Buffer should still exist if window is closed
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
-set noshowmatch                 " Do not show matching brackets by flickering
-set noshowmode                  " We show the mode with airline or lightline
+" set noshowmatch                 " Do not show matching brackets by flickering
+" set noshowmode                  " We show the mode with airline or lightline
 set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not it begins with upper case
 set completeopt=menu,menuone    " Show popup menu, even if there is one entry
 set pumheight=10                " Completion window max size
-set nocursorcolumn              " Do not highlight column (speeds up highlighting)
-set nocursorline                " Do not highlight cursor (speeds up highlighting)
+set nocursorcolumn              " (turn off to speeds up highlighting)
+set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
 
 " set UTF-8 encoding
@@ -260,9 +283,7 @@ set expandtab        " expand tabs to spaces
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
 " turn syntax highlighting on
-set t_Co=256
 syntax on
-" colorscheme wombat256
 " turn line numbers on
 set number
 " highlight matching braces
@@ -299,17 +320,9 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
 augroup END
 
-set background=dark
-" colorscheme molokai
-" colorscheme tender
 
-" colorscheme tender
-" let g:lightline = { 'colorscheme': 'tender' }
-
-let g:one_allow_italics = 1
-colorscheme one
-
-set nofoldenable
+"
+" set nofoldenable
 
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
@@ -327,12 +340,60 @@ endif
 
 " Colorscheme
 syntax enable
-" set t_Co=256
-" let g:rehash256 = 1
+set termguicolors
+set background=dark
+
+:set cursorline cursorcolumn
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+" colorscheme molokai
+" colorscheme tender
+
+" colorscheme tender
+" let g:lightline = { 'colorscheme': 'tender' }
+
+" let g:one_allow_italics = 1
+" colorscheme one
+
+" let g:oceanic_material_enable_italic = 1
+" let g:oceanic_material_transparent_background = 0
+" colorscheme oceanic_material
+
+" let g:oceanic_next_terminal_bold = 1
+" let g:oceanic_next_terminal_italic = 1
+" colorscheme  OceanicNext
+" hi CursorLine   guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237      ctermbg=NONE        cterm=BOLD
+" hi CursorColumn guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237       ctermbg=NONE        cterm=BOLD
+
+
+" colorscheme night-owl
+" let g:airline_theme='nightowl'  "eleline
+" hi CursorLine   guifg=NONE        guibg=#222D20
+" hi CursorColumn guifg=NONE        guibg=#222D2D
+
+" colorscheme palenight
+" let g:airline_theme='palenight'  "eleline
+
+
 " let g:molokai_original = 1
 " colorscheme molokai
-set termguicolors
 
+colorscheme onedark
+let g:onedark_terminal_italics = 1
+let g:airline_theme='onedark'
+
+" airline
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#formatter = 'default'
+" spaceline
+" let g:spaceline_colorscheme = 'space'
+
+" eleline
+set laststatus=2
+let g:eleline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1 "backword compatbility
 
 
 """"""""""""""""""""""
@@ -388,7 +449,7 @@ let g:go_highlight_types = 1
 " better key bindings for UltiSnipsExpandTrigger
 
 " works on mac but not on konsole
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-]>"        "default <tab> need to map to coc"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " let g:SuperTabCrMapping=1
@@ -499,27 +560,13 @@ au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 "" Javascript
 let javascript_enable_domhtmlcss = 1
 
-"" vista tag
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
-
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc 
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-
 
 "" Rooter
-let g:rooter_change_directory_for_non_project_files = 'home'
-let g:rooter_targets = '/,*.yml,*.yaml'
-let g:rooter_patterns = ['Rakefile', '.git/','go.sum']
-let g:rooter_use_lcd = 1
-let g:rooter_resolve_links = 1
+" let g:rooter_change_directory_for_non_project_files = 'home'
+" let g:rooter_targets = '/,*.yml,*.yaml'
+" let g:rooter_patterns = ['Rakefile', '.git/','go.sum']
+" let g:rooter_use_lcd = 1
+" let g:rooter_resolve_links = 1
 
 
 " Load other vim
@@ -528,3 +575,39 @@ let g:rooter_resolve_links = 1
 for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
+
+" indentLine
+set foldmethod=syntax
+set foldlevel=10
+
+set list lcs=tab:\|\ 
+let g:indentLine_color_gui = '#A4E57E'
+let g:indentLine_color_dark = 1 " (default: 2)
+let g:indentLine_bgcolor_gui = '#2B2B2B'
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_enabled = 1
+
+" colorizer
+if has('nvim')
+lua require 'colorizer'.setup()
+endif
+
+" gutentags
+let $DATA_PATH =
+  \ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
+
+let g:gutentags_cache_dir = $DATA_PATH.'/tags'
+let g:gutentags_project_root = ['.root', '.git', '.svn', '.hg', '.project','go.mod','/usr/local']
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_new = 0
+let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista', 'magit' ]
+let g:gutentags_ctags_extra_args = ['--output-format=e-ctags']
+let g:gutentags_ctags_exclude = ['*.json', '*.js', '*.ts', '*.jsx', '*.css', '*.less', '*.sass', '*.go', '*.dart', 'node_modules', 'dist', 'vendor']
+
+
+
+let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
+
+
+map <F3> :Vista!!<CR>
