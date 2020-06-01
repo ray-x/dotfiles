@@ -1,4 +1,6 @@
 "" Clap
+
+
 let g:clap_layout = {'width': '47%', 'height': '33%', 'row': '33%', 'col': '17%' }
 " let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 set laststatus=2
@@ -14,4 +16,12 @@ noremap <s-F> :Clap grep ++query=<cword><CR>
 
 " noremap <c-F>:Clap grep ++query=@visual<CR>
 noremap <s-T> :Clap tags<CR>
-nmap <F5> :Clap filer<CR>
+nmap <S-F2> :Clap filer<CR>
+
+command! -nargs=0 His :Clap history
+command! -nargs=0 Ch :Clap command_history
+command! -nargs=0 Sh :Clap search_history
+
+" let g:clap_theme = 'material_design_dark'
+
+hi default link ClapProjTagPattern String

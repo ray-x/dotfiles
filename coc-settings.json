@@ -70,7 +70,8 @@
 
   // User words to add to dictionary.  Should only be in the user settings.
   "cSpell.userWords": [
-    "ozzo"
+    "ozzo",
+    "postgres"
   ],
 
   // Specify paths/files to ignore.
@@ -109,5 +110,6 @@
   },
   "explorer.icon.enableNerdfont": true,
   "explorer.buffer.tabOnly": true,
-  "explorer.file.autoReveal": true
+  "explorer.file.autoReveal": true,
+  "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"]
 }

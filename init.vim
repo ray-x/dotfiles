@@ -98,7 +98,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'jacoborus/tender.vim'
 Plug 'haishanh/night-owl.vim'
 Plug 'drewtempelmeyer/palenight.vim'
-
+Plug 'liuchengxu/space-vim-theme'
 
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plug 'jiangmiao/auto-pairs'
@@ -134,7 +134,9 @@ endif
 
 " ale replace Plug  'neomake/neomake' " replace 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" use clap replace FZF
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 " Plug 'Yggdroot/LeaderF'  "Clap relpace leaderF
 
 " Unmanaged plugin (manually installed and updated)
@@ -179,7 +181,7 @@ Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
 " Plug 'bagrat/vim-buffet'
 " Plug 'ap/vim-buftabline'
-Plug 'skywind3000/vim-preview'
+Plug 'skywind3000/vim-quickui' " replace vim-preview 
 
 "Snippets
 " Plug 'Shougo/neosnippet'
@@ -270,6 +272,10 @@ set smartindent
 set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
+
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType typescript setlocal ts=2 sts=2 sw=2
+
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
 " turn syntax highlighting on
@@ -300,8 +306,6 @@ syntax on
 " vim-prettier
 "let g:prettier#quickfix_enabled = 0
 "let g:prettier#quickfix_auto_focus = 0
-" prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
  " yank
@@ -331,6 +335,8 @@ endif
 " Colorscheme
 syntax enable
 set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set background=dark
 
 :set cursorline cursorcolumn
@@ -368,6 +374,7 @@ nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 " let g:molokai_original = 1
 " colorscheme molokai
 
+" colorscheme space_vim_theme
 colorscheme onedark
 let g:onedark_terminal_italics = 1
 let g:airline_theme='onedark'
@@ -448,63 +455,6 @@ set mouse=a
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" default key map:
-
-"<leader>cg - 查看光标下符号的定义
-"<leader>cs - 查看光标下符号的引用
-"<leader>cc - 查看有哪些函数调用了该函数
-"<leader>cf - 查找光标下的文件
-"<leader>ci - 查找哪些文件 include 了本文件
-"
-"
-"
-" source /Users/rayx/.vim/vim/asc.vim
-" source /Users/rayx/.vim/vim/skywind.vim
-"
-" Search in project
-"
-function! FindProjectRoot(lookFor)
-    let s:root=expand('%:p:h')
-    let pathMaker='%:p'
-    while(len(expand(pathMaker))>len(expand(pathMaker.':h')))
-        let pathMaker=pathMaker.':h'
-        let fileToCheck=expand(pathMaker).'/'.a:lookFor
-        if filereadable(fileToCheck)||isdirectory(fileToCheck)
-            let s:root=expand(pathMaker)
-        endif
-    endwhile
-    return s:root
-endfunction
-let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
-
-autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
-
-"grepper
-" nmap gs <plug>(GrepperOperator)	" " 选择字符后按 g + s 开始搜索（异步的）
-" xmap gs <plug>(GrepperOperator)
-" let g:grepper = {}
-" let g:grepper.ag = {}
-" let g:grepper.ag.grepprg = 'ag --vimgrep  --smart-case $* '.g:root_dir " 设置 ag 参数
-
-
-let g:qfenter_keymap = {}
-let g:qfenter_keymap.vopen = ['<C-v>']  " Ctrl + v 纵向分屏打开
-let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>'] " Enter 横向分屏打开
-let g:qfenter_keymap.topen = ['t'] " 按 t 在新的标签页打开
-
-" vim-preview
-noremap <m-u> :PreviewScroll -1<cr> " Alt + u 往上滚动预览窗口
-noremap <m-d> :PreviewScroll +1<cr> " Alt + d 往下滚动预览窗口
-inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
-inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
-
-" 在quickfix窗口按 p 打开预览窗口（配合 grepper 插件很实用）
-autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-noremap <m-n> :PreviewSignature!<cr> " Alt + n 提示函数声明
-inoremap <m-n> <c-\><c-o>:PreviewSignature!<cr>
-noremap <leader>g :PreviewTag<cr> " leader + g " 打开单词tag的预览窗口
-inoremap <leader>g <c-\><c-o>:PreviewTag<cr>
 
 
 " paste and copy
@@ -529,7 +479,7 @@ map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 
-  
+" CompleteParameter.vim
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
 smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
@@ -571,7 +521,7 @@ set foldmethod=syntax
 set foldlevel=10
 
 set list lcs=tab:\|\ 
-let g:indentLine_color_gui = '#A4E57E'
+let g:indentLine_color_gui = '#54553E'
 let g:indentLine_color_dark = 1 " (default: 2)
 let g:indentLine_bgcolor_gui = '#2B2B2B'
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -600,4 +550,4 @@ let g:gutentags_ctags_exclude = ['*.json', '*.js', '*.ts', '*.jsx', '*.css', '*.
 let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
 
 
-map <F3> :Vista!!<CR>
+map <S-F3> :Vista!!<CR>
