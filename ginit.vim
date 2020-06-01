@@ -12,6 +12,9 @@ autocmd VimEnter * highlight Comment cterm=italic gui=italic
 if !has("gui_vimr") && has('nvim')
 	:Guifont FiraCode Nerd Font:h12
 	:GuiTabline 0
+    " vimspector support, it does work with neovim
+    let g:vimspector_enable_mappings = 'HUMAN'
+    packadd! vimspector
 endif
 
 " macvim
