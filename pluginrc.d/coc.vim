@@ -197,8 +197,14 @@ let g:coc_explorer_global_presets = {
 
 nmap <S-F1> :CocCommand explorer<CR>
 nmap <space>ef :CocCommand explorer --preset floating<CR>
+
 nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+nmap <Leader>gs :sp<CR><Plug>(coc-definition)
+
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" coc action open
+nnoremap <silent> <Leader>ao :CocCommand actions.open<CR>

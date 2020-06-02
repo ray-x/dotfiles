@@ -44,6 +44,7 @@ call quickui#menu#install('&Move', [
 			\ ["Quickfix L&ast\t:clast", 'clast', 'quickfix cursor to the end'],
 			\ ["Quickfix &Next\t:cnext", 'cnext', 'cursor next'],
 			\ ["Quickfix &Previous\t:cprev", 'cprev', 'quickfix cursor previous'],
+			\ [ "Cl&Jumps", 'Clap jumps', 'Clap'],
 			\ ])
 
 call quickui#menu#install("&Build", [
@@ -103,6 +104,14 @@ call quickui#menu#install('&Plugin', [
 			\ ["&Edit Note", "Note", "edit note with vim-notes"],
 			\ ["&Display Calendar", "Calendar", "display a calender"],
 			\ ['Toggle &Vista', 'Vista!!', ''],
+			\ ['Markdown Conceal &Toggle', 'if &conceallevel==0 | set conceallevel=2 | else | set conceallevel=0 | endif', '%{&conceallevel==0? "off" : "on"}'],
+			\ ['Markdown &Preview', 'MarkdownPreview', ''],
+			\ ["-"],
+			\ [ "Coc &Ext", 'CocList extensions', 'Coc lists'],
+			\ [ "Coc &Yank", 'CocList yank', 'recent yanks'],
+			\ [ "Cl P&roviders", 'Clap providers', 'Clap'],
+			\ [ "Cl&Map", 'Clap maps', 'Clap'],
+			\ [ "FloatTerm\t Alt+F", 'FloatermNew', 'Term'],
 			\ ["-"],
 			\ ["Plugin &Install", "PlugInstall", "install plugin"],
 			\ ["Plugin &Update", "PlugUpdate", "Update plugin"],
@@ -165,3 +174,4 @@ let g:quickui_color_scheme = 'solarized'
 
 let g:quickui_preview_w = 100
 let g:quickui_preview_h = 15
+

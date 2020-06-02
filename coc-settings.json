@@ -19,9 +19,10 @@
   // "suggest.triggerAfterInsertEnter": true
   "suggest.minTriggerInputLength": 2,
   // Target to show hover information, default is floating window when possible.
-  "coc.preferences.hoverTarget": "preview",
+  "coc.preferences.hoverTarget": "float",
   // Auto close preview window on cursor move.,  default: `true`
   "coc.preferences.previewAutoClose": false,
+  "coc.preferences.jumpCommand": "split",
 
   //-------- Code Spell Checker Configuration --------
   // The Language local to use when spell checking. "en" and "en-GB" are currently supported.
@@ -70,6 +71,9 @@
 
   // User words to add to dictionary.  Should only be in the user settings.
   "cSpell.userWords": [
+    "AKHQ",
+    "JAAS",
+    "SASL",
     "ozzo",
     "postgres"
   ],
@@ -111,5 +115,15 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.buffer.tabOnly": true,
   "explorer.file.autoReveal": true,
-  "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"]
+  "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
+
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "",
+  "diagnostic.hintSign": "λ",
+  "git.changedSign.text": "",
+  "git.addedSign.text": "ﰂ",
+  "git.addedSign.hlGroup": "DiffChange",
+  "git.removedSign.text":"﫝"
 }

@@ -34,7 +34,6 @@ Plug 'liuchengxu/vim-clap'
 
 Plug 'ryanoasis/vim-devicons'
 
-
 " defx file explorer , defx-git, defx-icons, replaced by coc-explorer
 
 Plug 'liuchengxu/vista.vim'
@@ -107,20 +106,21 @@ if executable('swift')
     Plug 'keith/swift.vim'
 endif
 
-Plug 'mhinz/vim-signify'  " replace 'airblade/vim-gitgutter'
 
 Plug 'christoomey/vim-tmux-navigator'
 
 
 " markdown 插件
-Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/mathjax-support-for-mkdp'  "math support
 Plug 'iamcco/markdown-preview.vim'
-Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+
+"  Aligning Text with Tabular.vim  :Tabularize
+Plug 'godlygeek/tabular'
 
 " spell check
 " use coc-spell-check
-" spell popup
+" spell popup a good example of add popup in coc
 " Plug 'kamykn/popup-menu.nvim'
 
 if executable('py')
@@ -162,7 +162,9 @@ Plug 'Lokaltog/vim-powerline'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'hardcoreplayers/spaceline.vim'
 Plug 'liuchengxu/eleline.vim'
+
 Plug 'tpope/vim-fugitive'
+" use coc-git to replace  'mhinz/vim-signify'  and 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 
 
@@ -181,8 +183,8 @@ Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
 " Plug 'bagrat/vim-buffet'
 " Plug 'ap/vim-buftabline'
-Plug 'skywind3000/vim-quickui' " replace vim-preview 
-
+Plug 'skywind3000/vim-quickui' " replace vim-preview
+Plug 'kizza/actionmenu.nvim' " coc popup
 "Snippets
 " Plug 'Shougo/neosnippet'
 " Plug 'Shougo/neosnippet-snippets'
@@ -280,6 +282,7 @@ autocmd FileType typescript setlocal ts=2 sts=2 sw=2
 set textwidth=120
 " turn syntax highlighting on
 syntax on
+set fdm=syntax
 " turn line numbers on
 set number
 " highlight matching braces
@@ -296,6 +299,7 @@ set tags+=~/.vim/tags/sdl
 set tags+=~/.vim/tags/qt5
 
 syntax on
+set updatetime=1500
 " colorscheme fx
 " set gui not working in neovim
 " set guifont=Inconsolata-g\ for\ Powerline:h12
@@ -551,3 +555,42 @@ let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '
 
 
 map <S-F3> :Vista!!<CR>
+
+if !has('nvim')
+  " vimspector support, it does work with neovim
+  let g:vimspector_enable_mappings = 'HUMAN'
+  packadd! vimspector
+endif
+
+" markdown
+set concealcursor="i"
+
+" ale
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = ''
+let g:ale_go_gopls_executable = 'gopls'
+let g:ale_go_revive_executable = 'revive'
+let g:ale_go_golangci_lint_options = '--enable-all --disable dogsled --disable gochecknoglobals --disable gochecknoinits --disable gocognit --disable godot --disable godox --disable goprintffuncname --disable lll --disable nestif'
+let g:ale_go_golangci_lint_package=1
+" golangci-lint will run on vim-go
+let g:ale_lint_delay = 500
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 1
+
+let g:ale_linters = {
+\   'javascript': ['eslint', 'flow-language-server'],
+\   'javascript.jsx': ['eslint', 'flow-language-server'],
+\   'go': ['revive', 'staticcheck', 'golangci-lint', 'go vet', 'gofmt'],
+\}
+
+let g:ale_fixers = {
+\   'go': ['goimports', 'gofmt'],
+\   'javascript': ['prettier', 'eslint'],
+\   'javascript.jsx': ['prettier', 'eslint'],
+\   'typescript': ['eslint', 'tslint'],
+\   'json': ['prettier'],
+\   'css': ['prettier'],
+\   'php': ['php-cs-fixer'],
+\}
+
+:hi Folded guifg=#7CA790 gui=BOLD
