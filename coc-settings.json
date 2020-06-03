@@ -32,10 +32,10 @@
   "cSpell.maxNumberOfProblems": 100,
 
   // Controls the number of suggestions shown.
-  "cSpell.numSuggestions": 8,
+  "cSpell.numSuggestions": 6,
 
   // The minimum length of a word before checking it against a dictionary.
-  "cSpell.minWordLength": 4,
+  "cSpell.minWordLength": 5,
 
   // Specify file types to spell check.
   "cSpell.enabledLanguageIds": [
@@ -107,6 +107,7 @@
       "expand": true
     }
   ],
+  
   "explorer.keyMappings": {
     "<cr>": ["expandable?", "expand", "open"],
     "v": "open:vsplit",
@@ -122,6 +123,7 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": "λ",
+
   "git.changedSign.text": "",
   "git.addedSign.text": "ﰂ",
   "git.addedSign.hlGroup": "DiffChange",

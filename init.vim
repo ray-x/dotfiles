@@ -99,6 +99,8 @@ Plug 'haishanh/night-owl.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'liuchengxu/space-vim-theme'
 
+Plug 'mhinz/vim-startify'
+
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plug 'jiangmiao/auto-pairs'
 
@@ -299,7 +301,7 @@ set tags+=~/.vim/tags/sdl
 set tags+=~/.vim/tags/qt5
 
 syntax on
-set updatetime=1500
+set updatetime=1000 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
 " colorscheme fx
 " set gui not working in neovim
 " set guifont=Inconsolata-g\ for\ Powerline:h12
@@ -566,21 +568,21 @@ endif
 set concealcursor="i"
 
 " ale
-let g:ale_sign_error = '✘'
+let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_go_gopls_executable = 'gopls'
 let g:ale_go_revive_executable = 'revive'
-let g:ale_go_golangci_lint_options = '--enable-all --disable dogsled --disable gochecknoglobals --disable gochecknoinits --disable gocognit --disable godot --disable godox --disable goprintffuncname --disable lll --disable nestif'
+let g:ale_go_golangci_lint_options = '--enable-all --disable dogsled --disable gochecknoglobals --disable gochecknoinits --disable gocognit --disable godot --disable godox --disable goprintffuncname --disable lll --disable nestif --disable wsl --disable golint --disable gocyclo --disable asciicheck'
 let g:ale_go_golangci_lint_package=1
 " golangci-lint will run on vim-go
-let g:ale_lint_delay = 500
+let g:ale_lint_delay = 1000
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow-language-server'],
 \   'javascript.jsx': ['eslint', 'flow-language-server'],
-\   'go': ['revive', 'staticcheck', 'golangci-lint', 'go vet', 'gofmt'],
+\   'go': ['revive', 'staticcheck', 'golangci-lint', 'go vet', 'goimports', 'gotype'],
 \}
 
 let g:ale_fixers = {
@@ -593,4 +595,5 @@ let g:ale_fixers = {
 \   'php': ['php-cs-fixer'],
 \}
 
-:hi Folded guifg=#7CA790 gui=BOLD
+:hi Folded guifg=#7CA790 gui=BOLD ctermfg=234
+:hi ALEErrorSign guifg=#ECC730 ctermfg=178
