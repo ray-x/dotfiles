@@ -96,6 +96,7 @@ Plug 'hardcoreplayers/oceanic-material'
 Plug 'mhartington/oceanic-next'
 Plug 'jacoborus/tender.vim'
 Plug 'haishanh/night-owl.vim'
+Plug 'crusoexia/vim-monokai'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'liuchengxu/space-vim-theme'
 
@@ -144,8 +145,8 @@ endif
 " Unmanaged plugin (manually installed and updated)
 " Plug '~/my-prototype-plugin'
 
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
 
@@ -157,8 +158,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
-
-Plug 'tomasr/molokai'
 Plug 'Lokaltog/vim-powerline'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
@@ -167,6 +166,8 @@ Plug 'liuchengxu/eleline.vim'
 
 Plug 'tpope/vim-fugitive'
 " use coc-git to replace  'mhinz/vim-signify'  and 'airblade/vim-gitgutter'
+
+" async linter
 Plug 'w0rp/ale'
 
 
@@ -186,11 +187,10 @@ Plug 'zefei/vim-wintabs-powerline',
 " Plug 'bagrat/vim-buffet'
 " Plug 'ap/vim-buftabline'
 Plug 'skywind3000/vim-quickui' " replace vim-preview
-Plug 'kizza/actionmenu.nvim' " coc popup
+Plug 'kizza/actionmenu.nvim' " coc spelling popup
+
 "Snippets
-" Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
-" Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets' " replaced by coc-snippets
 
 " Motion
 Plug 'easymotion/vim-easymotion'
@@ -211,7 +211,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'Yggdroot/indentLine'
 Plug 'mtdl9/vim-log-highlighting'
 
-Plug 'psliwka/vim-smoothie'
 
 " highlight current session
 Plug 'junegunn/Limelight.vim'
@@ -301,28 +300,17 @@ set tags+=~/.vim/tags/sdl
 set tags+=~/.vim/tags/qt5
 
 syntax on
-set updatetime=1000 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
-" colorscheme fx
-" set gui not working in neovim
-" set guifont=Inconsolata-g\ for\ Powerline:h12
-" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-" set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-" 
-" Guifont SourceCodePro\ Nerd\ Font:h14
+set updatetime=300 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
+
 " vim-prettier
 "let g:prettier#quickfix_enabled = 0
 "let g:prettier#quickfix_auto_focus = 0
-
 
  " yank
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
 augroup END
-
-
-"
-" set nofoldenable
 
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
@@ -337,66 +325,6 @@ if has('persistent_undo')
   set undofile
   set undodir=~/.config/vim/tmp/undo//
 endif
-
-" Colorscheme
-syntax enable
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set background=dark
-
-:set cursorline cursorcolumn
-nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
-
-" colorscheme molokai
-" colorscheme tender
-
-" colorscheme tender
-" let g:lightline = { 'colorscheme': 'tender' }
-
-" let g:one_allow_italics = 1
-" colorscheme one
-
-" let g:oceanic_material_enable_italic = 1
-" let g:oceanic_material_transparent_background = 0
-" colorscheme oceanic_material
-
-" let g:oceanic_next_terminal_bold = 1
-" let g:oceanic_next_terminal_italic = 1
-" colorscheme  OceanicNext
-" hi CursorLine   guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237      ctermbg=NONE        cterm=BOLD
-" hi CursorColumn guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237       ctermbg=NONE        cterm=BOLD
-
-
-" colorscheme night-owl
-" let g:airline_theme='nightowl'  "eleline
-" hi CursorLine   guifg=NONE        guibg=#222D20
-" hi CursorColumn guifg=NONE        guibg=#222D2D
-
-" colorscheme palenight
-" let g:airline_theme='palenight'  "eleline
-
-
-" let g:molokai_original = 1
-" colorscheme molokai
-
-" colorscheme space_vim_theme
-colorscheme onedark
-let g:onedark_terminal_italics = 1
-let g:airline_theme='onedark'
-
-" airline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#formatter = 'default'
-" spaceline
-" let g:spaceline_colorscheme = 'space'
-
-" eleline
-set laststatus=2
-let g:eleline_powerline_fonts = 1
-let g:airline_powerline_fonts = 1 "backword compatbility
 
 
 """"""""""""""""""""""
@@ -461,13 +389,19 @@ set mouse=a
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-
-
 " paste and copy
 "
 " " Copy to clipboard
 vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg_
+
+" Paste with middle mouse click
+vmap <LeftRelease> "*ygv
+
+" Paste with <Shift> + <Insert>
+cmap <S-Insert> <C-R>*
+cmap <C-V> <C-R>*
+imap <C-V> <C-R>*
 
 " " Paste from clipboard
 nnoremap <leader>p "+p
@@ -526,12 +460,6 @@ endfor
 set foldmethod=syntax
 set foldlevel=10
 
-set list lcs=tab:\|\ 
-let g:indentLine_color_gui = '#54553E'
-let g:indentLine_color_dark = 1 " (default: 2)
-let g:indentLine_bgcolor_gui = '#2B2B2B'
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_enabled = 1
 
 " colorizer
 if has('nvim')
@@ -552,10 +480,6 @@ let g:gutentags_ctags_extra_args = ['--output-format=e-ctags']
 let g:gutentags_ctags_exclude = ['*.json', '*.js', '*.ts', '*.jsx', '*.css', '*.less', '*.sass', '*.go', '*.dart', 'node_modules', 'dist', 'vendor']
 
 
-
-let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
-
-
 map <S-F3> :Vista!!<CR>
 
 if !has('nvim')
@@ -564,7 +488,7 @@ if !has('nvim')
   packadd! vimspector
 endif
 
-" markdown
+" markdown disable conceal when edit current line
 set concealcursor="i"
 
 " ale
@@ -594,6 +518,3 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'php': ['php-cs-fixer'],
 \}
-
-:hi Folded guifg=#7CA790 gui=BOLD ctermfg=234
-:hi ALEErrorSign guifg=#ECC730 ctermfg=178

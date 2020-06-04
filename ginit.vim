@@ -9,7 +9,7 @@
 autocmd VimEnter * highlight Comment cterm=italic gui=italic
 " Guifont SourceCodePro\ Nerd\ Font:h14
 " vimr doesn't support :Guifont
-if !has("gui_vimr") && has('nvim')
+if !has("gui_vimr") && has('nvim') && !exists('g:fvim_loaded')
 	:Guifont FiraCode Nerd Font:h12
 	:GuiTabline 0
 endif
@@ -22,17 +22,19 @@ if has('gui_macvim')
 
 endif
 
+if exists('g:fvim_loaded')
+    " good old 'set guifont' compatibility
+    set guifont=FiraCode\ Nerd\ Font:h12
+    " Ctrl-ScrollWheel for zooming in/out
+    nnoremap <silent> <C-ScrollWheelUp> :set guifont=+<CR>
+    nnoremap <silent> <C-ScrollWheelDown> :set guifont=-<CR>
+    nnoremap <A-CR> :FVimToggleFullScreen<CR>
+    FVimCursorSmoothMove v:true
+    FVimCursorSmoothBlink v:true
+endif
 
 
 " mouse copy paste
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
-" Paste with middle mouse click
-vmap <LeftRelease> "*ygv
-
-
-" Paste with <Shift> + <Insert>
-cmap <S-Insert> <C-R>*
-cmap <C-V> <C-R>*
-imap <C-V> <C-R>*

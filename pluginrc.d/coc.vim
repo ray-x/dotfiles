@@ -1,4 +1,6 @@
 " coc config
+let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to open
+
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -6,13 +8,18 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-eslint', 
   \ 'coc-prettier', 
+  \ 'coc-explorer',
   \ 'coc-json', 
   \ 'coc-go',
+  \ 'coc-python',
+  \ 'coc-flutter',
+  \ 'coc-emmet',
+  \ 'coc-xml',
+  \ 'coc-yaml',
+  \ 'coc-markdownlint',
+  \ 'coc-highlight'
   \ ]
 " from readme
-" if hidden is not set, TextEdit might fail.
-" if hidden is not set, TextEdit might fail.
-set hidden
 
 " Some servers have issues with backup files, see #649
 set nobackup
@@ -57,10 +64,13 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
+
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -128,7 +138,7 @@ nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>x  :<C-u>CocList extensions<cr>
 " Manage explorer
-nnoremap <silent> <space>e  :CocCommand explorer<cr>
+nnoremap <silent> <space>e  :CocCommand  <cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
@@ -208,3 +218,4 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " coc action open
 nnoremap <silent> <Leader>ao :CocCommand actions.open<CR>
+
