@@ -15,14 +15,33 @@
   "suggest.enablePreview": true,
   // completion automatically select the first completed
   "suggest.detailField": "preview",
+  "suggest.floatEnable": true,
+  "suggest.timeout": 3000,   //default 5000
+  "suggest.echodocSupport": true,  //echodoc.vim installed
+
+  "codeLens.enable": true,
+
+
+  "list.indicator": "‣",
+  "list.maxHeight": "12", //def: 10
+  "list.selectedSignText": "﯂",
+  "list.maxPreviewHeight": 20, // def:12
   "list.previewSplitRight": true,
   // "suggest.triggerAfterInsertEnter": true
   "suggest.minTriggerInputLength": 2,
   // Target to show hover information, default is floating window when possible.
   "coc.preferences.hoverTarget": "float",
   // Auto close preview window on cursor move.,  default: `true`
-  "coc.preferences.previewAutoClose": false,
-  "coc.preferences.jumpCommand": "split",
+  // "coc.preferences.previewAutoClose": false,
+  // "coc.preferences.jumpCommand": "split",
+
+  //-------- Code color highlight Configuration --------
+  "coc.preferences.colorSupport": false,  //use colorizer.lua
+  "coc.preferences.maxFileSize": "32MB",  //def 10MB
+  "coc.preferences.extensionUpdateCheck": "weekly",  //def: never
+  "coc.preferences.snippetStatusText": "",  //dfe SNIP
+  "highlight.colors.enable": false,  //colorizer.lua
+  "highlight.document.enable": true,
 
   //-------- Code Spell Checker Configuration --------
   // The Language local to use when spell checking. "en" and "en-GB" are currently supported.
@@ -74,6 +93,7 @@
     "AKHQ",
     "JAAS",
     "SASL",
+    "gopls",
     "ozzo",
     "postgres"
   ],
@@ -113,12 +133,32 @@
     "v": "open:vsplit",
     "<space>": "toggleSelection"
   },
+  "explorer.icon.enableVimDevicons":false, //NerdFont is better
   "explorer.icon.enableNerdfont": true,
   "explorer.buffer.tabOnly": true,
   "explorer.file.autoReveal": true,
+  "explorer.file.column.git.icon.mixed": "",
+  "explorer.file.column.git.icon.modified": "",
+  "explorer.file.column.git.icon.added": "",
+  "explorer.file.column.git.icon.deleted":"﫧",
+
+  "explorer.file.column.git.icon.renamed":"",
+  "explorer.file.column.git.icon.copid":"",
+  "explorer.file.column.git.icon.unmerged":"שּׁ",
+  "explorer.file.column.git.icon.untracked":"",
+  "explorer.file.column.git.icon.ignored":"",
+  "explorer.file.column.clip.copy":"",
+  "explorer.file.column.clip.cut":"",
+
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
 
+
   "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.checkCurrentLine": true,  // some time it is  annoying?...
+  "diagnostic.refreshOnInsertMode": true, // annoying?
+  "diagnostic.virtualText": true,   // Note: nvim only!!
+  "diagnostic.maxWindowHeight": 10,  //default:8
+  "diagnostic.virtualTextPrefix": "",
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "",
@@ -127,5 +167,8 @@
   "git.changedSign.text": "",
   "git.addedSign.text": "ﰂ",
   "git.addedSign.hlGroup": "DiffChange",
-  "git.removedSign.text":"﫝"
+  "git.removedSign.text":"﫝",
+
+  "signature.floatMaxWidth": 100, //def:80
+
 }

@@ -162,7 +162,7 @@ let g:context_menu_k = [
 "----------------------------------------------------------------------
 nnoremap <silent><space><space> :call quickui#menu#open()<cr>
 
-nnoremap <silent>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
+" nnoremap <silent>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
 
 if has('gui_running') || has('nvim')
 	noremap <c-f10> :call MenuHelp_TaskList()<cr>
