@@ -4,18 +4,14 @@ let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to o
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
   \ 'coc-snippets',
-  \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-eslint', 
   \ 'coc-prettier', 
-  \ 'coc-explorer',
   \ 'coc-json', 
   \ 'coc-go',
   \ 'coc-python',
   \ 'coc-flutter',
   \ 'coc-emmet',
-  \ 'coc-xml',
-  \ 'coc-yaml',
   \ 'coc-markdownlint',
   \ 'coc-highlight'
   \ ]
@@ -182,7 +178,7 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-"explorer"
+"explorer: use clap/defx, coc-explorer will spawn a new node server
 let g:coc_explorer_global_presets = {
 \   '.vim': {
 \      'root-uri': '~/.vim',
@@ -205,13 +201,13 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 
-nmap <S-F1> :CocCommand explorer<CR>
-nmap <space>ef :CocCommand explorer --preset floating<CR>
+" nmap <S-F1> :CocCommand explorer<CR>
+" nmap <space>ef :CocCommand explorer --preset floating<CR>
 
-nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
-nmap <Leader>gs :sp<CR><Plug>(coc-definition)
+" nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+" nmap <Leader>gs :sp<CR><Plug>(coc-definition)
 
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+" autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile

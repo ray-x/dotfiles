@@ -90,7 +90,8 @@ let g:onedark_color_overrides = {
 
 colorscheme onedark
 let g:onedark_terminal_italics = 1
-let g:airline_theme='onedark'
+" let g:airline_theme='onedark'
+let g:lightline = { 'colorscheme': 'tender' }
 hi CursorLine   guifg=NONE        guibg=#38343F
 hi CursorColumn guifg=NONE        guibg=#38343F
 
@@ -122,5 +123,9 @@ hi Search guibg=#3E3F1E guifg=#C4C5AE gui=bold
 hi ALEErrorSign guifg=#ECC730 ctermfg=178
 " Coc specific 
 " highlight for search text
-:hi CocCodeLens guifg=White gui=bold
+:hi CocCodeLens guifg=#726238
 :hi def link CocHighlightText Search
+
+" spell 
+highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e
+highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE

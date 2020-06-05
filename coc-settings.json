@@ -157,6 +157,7 @@
   "diagnostic.checkCurrentLine": true,  // some time it is  annoying?...
   "diagnostic.refreshOnInsertMode": true, // annoying?
   "diagnostic.virtualText": true,   // Note: nvim only!!
+  "diagnostic.virtualTextLineSeparator":"",
   "diagnostic.maxWindowHeight": 10,  //default:8
   "diagnostic.virtualTextPrefix": "",
   "diagnostic.errorSign": "",
@@ -168,6 +169,11 @@
   "git.addedSign.text": "ﰂ",
   "git.addedSign.hlGroup": "DiffChange",
   "git.removedSign.text":"﫝",
+  "git.removedSign.hlGroup": "DiffChange",
+  "git.showCommitInFloating": true,
+  "git.virtualTextPrefix": "  ",
+  "git.addGBlameToVirtualText": true, //nvim only
+  "git.addGBlameToBufferVar": true,
 
   "signature.floatMaxWidth": 100, //def:80
 

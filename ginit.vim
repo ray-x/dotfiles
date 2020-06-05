@@ -17,9 +17,8 @@ endif
 " macvim
 "if !has('nvim')
 if has('gui_macvim')
-	set guifont=FiraCode\ Nerd\ Font:h12
+	set guifont=FiraCode\ Nerd\ Font:h18
 	set macligatures
-
 endif
 
 if exists('g:fvim_loaded')
