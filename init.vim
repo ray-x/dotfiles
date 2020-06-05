@@ -37,9 +37,9 @@ Plug 'liuchengxu/vim-clap'
 Plug 'ryanoasis/vim-devicons'
 
 "can use  coc-explorer + coc-git " coc 
-Plug 'Shougo/defx.nvim' "file explorer , 
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'
+" Plug 'Shougo/defx.nvim' "file explorer , 
+" Plug 'kristijanhusak/defx-git'
+" Plug 'kristijanhusak/defx-icons'
 
 Plug 'liuchengxu/vista.vim'
 
@@ -202,6 +202,7 @@ Plug 'skywind3000/gutentags_plus',
 
 Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
+
 Plug 'liuchengxu/eleline.vim'
 
 
@@ -541,9 +542,13 @@ let g:ale_fixers = {
 
 
 " spell
-
+"  Zg/Zug add word; Zw/Zuw  -> to spell file
+" ZG/ZUG ZW ZUW" ->to internal word list
+" Zl check spell suggestion
+" ZN/ZP jump between
 let g:enable_spelunker_vim = 1
 let g:spelunker_target_min_char_len = 5
+let g:spelunker_check_type=2
 let g:spelunker_highlight_type = 2  "ighlight only SpellBad.
 let g:spelunker_disable_uri_checking = 1 "def 0
 let g:vim_you_autocorrect_disable_highlighting = 1

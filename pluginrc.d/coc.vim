@@ -7,6 +7,7 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-eslint', 
   \ 'coc-prettier', 
+  \ 'coc-explorer',
   \ 'coc-json', 
   \ 'coc-go',
   \ 'coc-python',
@@ -178,7 +179,7 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-"explorer: use clap/defx, coc-explorer will spawn a new node server
+"explorer
 let g:coc_explorer_global_presets = {
 \   '.vim': {
 \      'root-uri': '~/.vim',
@@ -201,13 +202,13 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 
-" nmap <S-F1> :CocCommand explorer<CR>
-" nmap <space>ef :CocCommand explorer --preset floating<CR>
+nmap <S-F1> :CocCommand explorer<CR>
+nmap <space>ef :CocCommand explorer --preset floating<CR>
 
-" nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
-" nmap <Leader>gs :sp<CR><Plug>(coc-definition)
+nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+nmap <Leader>gs :sp<CR><Plug>(coc-definition)
 
-" autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
