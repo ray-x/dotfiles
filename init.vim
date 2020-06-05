@@ -22,7 +22,9 @@ Plug 'junegunn/vim-easy-align'
 
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
 Plug 'Chiel92/vim-autoformat'
+
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " superTab: Perform all your vim insert mode completions with Tab
@@ -34,7 +36,10 @@ Plug 'liuchengxu/vim-clap'
 
 Plug 'ryanoasis/vim-devicons'
 
-" defx file explorer , defx-git, defx-icons, replaced by coc-explorer
+"can use  coc-explorer + coc-git " coc 
+Plug 'Shougo/defx.nvim' "file explorer , 
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
 
 Plug 'liuchengxu/vista.vim'
 
@@ -61,9 +66,10 @@ Plug 'prettier/vim-prettier', {
     \ 'ruby',
     \ 'html',
     \ 'swift' ] }
+
 Plug 'mlaursen/vim-react-snippets'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 
 Plug 'voldikss/vim-floaterm'
@@ -81,12 +87,22 @@ Plug 'othree/html5.vim'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-Plug 'rhysd/vim-clang-format'
+" Plug 'rhysd/vim-clang-format'  "use vim-auto-format
 " Using a non-master branch
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 Plug 'vim-scripts/indentpython.vim'
 
+
+" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
+if has('nvim')
+  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py']}
+else
+  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer --clang-tidy' }
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 
 " theme
 Plug 'morhetz/gruvbox'
@@ -124,7 +140,9 @@ Plug 'godlygeek/tabular'
 " spell check
 " use coc-spell-check
 " spell popup a good example of add popup in coc
-" Plug 'kamykn/popup-menu.nvim'
+Plug 'kamykn/spelunker.vim'
+Plug 'kamykn/popup-menu.nvim'
+Plug 'sedm0784/vim-you-autocorrect'
 
 if executable('py')
     Plug 'nvie/vim-flake8'
@@ -159,13 +177,13 @@ Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
 Plug 'Lokaltog/vim-powerline'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'hardcoreplayers/spaceline.vim'
-Plug 'liuchengxu/eleline.vim'
 
 Plug 'tpope/vim-fugitive'
-" use coc-git to replace  'mhinz/vim-signify'  and 'airblade/vim-gitgutter'
+
+" use coc-git to replace, coc-git does not spawn new proccess
+" Plug 'mhinz/vim-signify'
+" Plug 'airblade/vim-gitgutter'
+" Plug 'APZelos/blamer.nvim'
 
 " async linter
 Plug 'w0rp/ale'
@@ -174,7 +192,7 @@ Plug 'w0rp/ale'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax 
 
 
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'  "also used in eleline
 "need gotags
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' },
 Plug 'jstemmer/gotags'
@@ -184,6 +202,9 @@ Plug 'skywind3000/gutentags_plus',
 
 Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
+Plug 'liuchengxu/eleline.vim'
+
+
 " Plug 'bagrat/vim-buffet'
 " Plug 'ap/vim-buftabline'
 Plug 'skywind3000/vim-quickui' " replace vim-preview
@@ -277,7 +298,6 @@ set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
 
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
-autocmd FileType typescript setlocal ts=2 sts=2 sw=2
 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
@@ -518,3 +538,12 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'php': ['php-cs-fixer'],
 \}
+
+
+" spell
+
+let g:enable_spelunker_vim = 1
+let g:spelunker_target_min_char_len = 5
+let g:spelunker_highlight_type = 2  "ighlight only SpellBad.
+let g:spelunker_disable_uri_checking = 1 "def 0
+let g:vim_you_autocorrect_disable_highlighting = 1

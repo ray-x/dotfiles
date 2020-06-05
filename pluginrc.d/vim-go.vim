@@ -9,7 +9,7 @@
 
 
 " Not been used:
-" debug: use viminspector
+" debug: use vimspector
 " autocomplete: use coc (can use vim-go at same time, but will spawn two gopls server...)
 " struct tag GoAddTags/GoRemoveTags use go.tags.add in coc-go
 

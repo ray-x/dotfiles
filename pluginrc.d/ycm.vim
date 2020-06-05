@@ -24,12 +24,3 @@ function! BuildYCM(info)
   endif
 endfunction
 
-" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
-if has('nvim')
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py']}
-else
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer --clang-tidy' }
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
