@@ -22,6 +22,7 @@ Plug 'liuchengxu/vim-clap'
 filetype plugin indent on
 " Plug you need to verify
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'flrnd/plastic.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -104,3 +105,5 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+
+colorscheme plastic

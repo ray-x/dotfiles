@@ -77,6 +77,9 @@ Plug 'voldikss/vim-floaterm'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 
+" language support
+Plug 'sheerun/vim-polyglot'
+
 " HTML 
 Plug 'mattn/emmet-vim'
 Plug 'hail2u/vim-css3-syntax'
@@ -84,11 +87,6 @@ Plug 'groenewege/vim-less'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'othree/html5.vim'
-
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Plug 'rhysd/vim-clang-format'  "use vim-auto-format
-" Using a non-master branch
 
 Plug 'vim-scripts/indentpython.vim', { 'for': ['py'] }
 
@@ -108,20 +106,28 @@ Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
-Plug 'hardcoreplayers/oceanic-material'
-Plug 'mhartington/oceanic-next'
-Plug 'jacoborus/tender.vim'
-Plug 'haishanh/night-owl.vim'
+Plug 'hardcoreplayers/oceanic-material'  "good language support
+
 Plug 'crusoexia/vim-monokai'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'liuchengxu/space-vim-theme'
-Plug 'ayu-theme/ayu-vim'
-Plug 'ajmwagar/vim-deus'
+Plug 'liuchengxu/space-vim-theme'    " blue style
+
 Plug 'flrnd/plastic.vim'
 Plug 'kaicataldo/material.vim'
-Plug 'bluz71/vim-moonfly-colors'
+" Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
+
+
+" theme not so googd
+
+" Plug 'ayu-theme/ayu-vim'   "lack language support
+" Plug 'haishanh/night-owl.vim'  " language support is bad good for java...
+" Plug 'drewtempelmeyer/palenight.vim'  " similar to material-pale
+" Plug 'jacoborus/tender.vim'   " not much support for go
+" Plug 'bluz71/vim-moonfly-colors'  " good golang support, color is plain...
+" Plug 'mhartington/oceanic-next'  "no go support
 
 Plug 'mhinz/vim-startify'
+
+
 
 " 自动补全括号的插件，包括小括号，中括号，以及花括号
 Plug 'jiangmiao/auto-pairs'
@@ -214,7 +220,7 @@ Plug 'zefei/vim-wintabs-powerline',
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 Plug 'kizza/actionmenu.nvim' " coc spelling popup
 
-Plug 'liuchengxu/eleline.vim'
+Plug 'hardcoreplayers/spaceline.vim'
 
 "Snippets
 " Plug 'honza/vim-snippets' " replaced by coc-snippets

@@ -14,29 +14,46 @@ nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 " set list lcs=tab:\\
 " set list listchars=tab:\|\-
-let g:indentLine_color_gui = '#54757E'
+let g:indentLine_color_gui = '#34453E'
 let g:indentLine_color_dark = 1 " (default: 2)
-let g:indentLine_bgcolor_gui = '#1B2B34'  " use hi Normal to check the bg
+"let g:indentLine_bgcolor_gui = '#1B2B34'  " use hi Normal to check the bg
 let g:indentLine_char_list = ['|', '¦', '┆', '┊', '']
 let g:indentLine_enabled = 1
 
+
+
+
+" let g:indentLine_showFirstIndentLevel = 0
+" let g:indentLine_setColors = 0
+
+
+"" one dark setup
+let g:onedark_terminal_italics = 1
+
+
 if (has("autocmd"))
-   augroup colorextend
-     autocmd!
-     " Make `Function`s bold in GUI mode
-     autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold"  })
-     " Override the `Statement` foreground color in 256-color mode
-     autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { " cterm": 128 } })
-     " Override the `Identifier` background color in GUI mode
-     " autocmd ColorScheme * call onedark#extend_highlight("Identifier", { "bg": { " gui": "#333333" } })
-   augroup END
- endif
+  augroup colorextend
+    autocmd!
+    " Make `Function`s bold in GUI mode
+    autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold"  })
+    " Override the `Statement` foreground color in 256-color mode
+    autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { " cterm": 128 } })
+    " Override the `Identifier` background color in GUI mode
+    " autocmd ColorScheme * call onedark#extend_highlight("Identifier", { "bg": { " gui": "#333333" } })
+  augroup END
+endif
 
 
 let g:onedark_color_overrides = {
-\ "black": {"gui": "#272020", "cterm": "235", "cterm16": "0" }
+\ "black": {"gui": "#151525", "cterm": "235", "cterm16": "0" }
 \}
 
+colorscheme onedark
+" one dark cursor setup
+hi CursorLine   guifg=NONE        guibg=#151023
+hi CursorColumn guifg=NONE        guibg=#141023
+hi DiffChange gui=NONE guifg=yellow3
+hi DiffAdd guibg=NONE guifg=green4
 
 " colorscheme monokai
 " let g:monokai_term_italic = 1
@@ -50,21 +67,28 @@ let g:onedark_color_overrides = {
 
 " let g:oceanic_material_enable_italic = 1
 " let g:oceanic_material_transparent_background = 0
+" let g:oceanic_material_enable_undercurl = 1
 " colorscheme oceanic_material
 
 " let g:oceanic_next_terminal_bold = 1
 " let g:oceanic_next_terminal_italic = 1
-" colorscheme  OceanicNext
+" colorscheme  OceanicNext   "disabled
 " hi CursorLine   guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237      ctermbg=NONE        cterm=BOLD
 " hi CursorColumn guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237       ctermbg=NONE        cterm=BOLD
 
 
-"colorscheme night-owl
-"let g:airline_theme='nightowl'  "eleline
+" colorscheme night-owl "disabled
+" let g:airline_theme='nightowl'  "eleline
 " hi CursorLine   guifg=NONE        guibg=#222D20
 " hi CursorColumn guifg=NONE        guibg=#222D2D
+" " hi Normal guibg= #1B1C24
+" hi DiffChange guibg=NONE guifg=yellow4
 
 " colorscheme plastic
+" hi CursorLine   guifg=NONE        guibg=#272f37
+" hi CursorColumn guifg=NONE        guibg=#272f37
+" hi DiffChange guibg=NONE guifg=yellow4
+
 
 " let g:material_terminal_italics = 1
 " let g:material_theme_style = 'palenight'
@@ -72,17 +96,13 @@ let g:onedark_color_overrides = {
 
 " colorscheme palenight
 " let g:airline_theme='palenight'  "eleline
+" hi DiffChange guibg=NONE guifg=yellow4
 
 
 " let g:molokai_original = 1
 " colorscheme molokai
 
 " colorscheme space_vim_theme
-
-let g:onedark_terminal_italics = 1
-colorscheme onedark
-hi CursorLine   guifg=NONE        guibg=#2F2727
-hi CursorColumn guifg=NONE        guibg=#2F2727
 
 
 " colorscheme deus
@@ -95,12 +115,11 @@ hi CursorColumn guifg=NONE        guibg=#2F2727
 
 
 
-" let ayucolor="mirage" 
-" colorscheme ayu
+" let ayucolor="mirage"
+" colorscheme ayu   "lack language support
 " let g:indentLine_char = '⎸'
 " let g:indentLine_first_char = '│'
-" let g:indentLine_showFirstIndentLevel = 0
-" let g:indentLine_setColors = 0
+
 
 
 " colorscheme moonfly
@@ -132,12 +151,16 @@ hi Search guibg=#3E3F1E guifg=#C4C5AE gui=bold
 """"""""""""""""""""""""""""""""
 
 hi ALEErrorSign guifg=#ECC730 ctermfg=178
-" Coc specific 
+" Coc specific
 " highlight for search text
 :hi CocCodeLens guifg=#726238
 :hi def link CocHighlightText Search
+:hi CocInfoSign guifg=#227f28 guibg=#262324
+:hi CocHintSign guifg=#226e23 guibg=#262324
+:hi def link CocHighlightText Search
 
-" spell 
+
+" spell
 "highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e
 "highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 
