@@ -78,7 +78,7 @@
   "cSpell.enabled": true,
 
   // Display the spell checker status on the status bar.
-  "cSpell.showStatus": false,
+  "cSpell.showStatus": true,
 
   // Words to add to dictionary for a workspace.
   "cSpell.words": [],
@@ -118,7 +118,7 @@
   "cSpell.flagWords": ["hte"],
 
   // Set the delay before spell checking the document. Default is 50.
-  "cSpell.spellCheckDelayMs": 200,
+  "cSpell.spellCheckDelayMs": 50,
   "explorer.sources": [
     {
       "name": "buffer",
