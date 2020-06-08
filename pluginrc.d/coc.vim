@@ -1,4 +1,5 @@
 " coc config
+" note refer to menu-action.vim for some of the key mapping"
 let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to open
 
 let g:coc_node_path = '/usr/local/bin/node'
@@ -110,6 +111,9 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+" overwrite coc action in menu-action
+" nnoremap <silent> <Leader>af :call ActionMenuCodeActions()<CR>"
 
 " Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
