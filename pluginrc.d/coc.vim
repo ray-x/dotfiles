@@ -4,6 +4,7 @@ let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to o
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
   \ 'coc-snippets',
+  \ 'coc-pairs',
   \ 'coc-marketplace',
   \ 'coc-tsserver',
   \ 'coc-eslint', 
@@ -14,6 +15,8 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-flutter',
   \ 'coc-emmet',
+  \ 'coc-xml',
+  \ 'coc-yaml',
   \ 'coc-markdownlint',
   \ 'coc-highlight'
   \ ]
