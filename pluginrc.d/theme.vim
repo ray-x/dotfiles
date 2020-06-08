@@ -45,7 +45,7 @@ endif
 
 
 let g:onedark_color_overrides = {
-\ "black": {"gui": "#151525", "cterm": "235", "cterm16": "0" }
+\ "black": {"gui": "#171525", "cterm": "235", "cterm16": "0" }
 \}
 
 colorscheme onedark
