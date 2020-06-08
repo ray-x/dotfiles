@@ -4,6 +4,7 @@ let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to o
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
   \ 'coc-snippets',
+  \ 'coc-marketplace',
   \ 'coc-tsserver',
   \ 'coc-eslint', 
   \ 'coc-prettier', 
@@ -61,7 +62,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-
+map <C-]> <Plug>(coc-definition)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -98,7 +99,7 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph. aw for current
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
@@ -114,8 +115,9 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+" <c-i> <-> tab and it was used for jumplist
+nmap <silent> <leader>i <Plug>(coc-range-select)
+xmap <silent> <leader>i <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
