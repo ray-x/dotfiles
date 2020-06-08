@@ -15,8 +15,13 @@ let g:clap_popup_border = "rounded"
 nmap <F4> :Clap<CR>
 noremap <s-c>p :Clap proj_tag <CR>
 noremap <s-P> :Clap files<CR>
+
 noremap <s-F> :Clap grep2 ++query=<cword><CR>
-noremap <s-F> :Clap grep2 ++query=<cword><CR>
+cmap <S-F> :Clap command_history<CR>
+noremap <leader>ch :Clap command_history<CR>
+noremap <leader>cf :Clap history<CR>
+
+
 " noremap <s-F> :Clap grep2 ++query=<cword><CR>
 " noremap <c-F>:Clap grep2 ++query=@visual<CR>
 noremap <s-T> :Clap tags<CR>

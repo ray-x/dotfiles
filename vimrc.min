@@ -1,5 +1,9 @@
 syntax on
 
+" debug mode
+set verbose=1
+set verbosefile=/tmp/vimoutput.txt
+
 " Make backspace behave in a sane manner.	
 set backspace=indent,eol,start
 

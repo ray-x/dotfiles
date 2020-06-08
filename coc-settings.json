@@ -44,6 +44,7 @@
   "highlight.document.enable": true,
 
   //-------- Code Spell Checker Configuration --------
+  "cSpell.enabled": true,
   // The Language local to use when spell checking. "en" and "en-GB" are currently supported.
   "cSpell.language": "en",
 
@@ -77,7 +78,7 @@
   "cSpell.enabled": true,
 
   // Display the spell checker status on the status bar.
-  "cSpell.showStatus": true,
+  "cSpell.showStatus": false,
 
   // Words to add to dictionary for a workspace.
   "cSpell.words": [],
@@ -93,6 +94,7 @@
     "AKHQ",
     "JAAS",
     "SASL",
+    "dynamodbiface",
     "gopls",
     "ozzo",
     "postgres"
@@ -116,7 +118,7 @@
   "cSpell.flagWords": ["hte"],
 
   // Set the delay before spell checking the document. Default is 50.
-  "cSpell.spellCheckDelayMs": 50,
+  "cSpell.spellCheckDelayMs": 200,
   "explorer.sources": [
     {
       "name": "buffer",
@@ -176,5 +178,10 @@
   "git.addGBlameToBufferVar": true,
 
   "signature.floatMaxWidth": 100, //def:80
+
+  "go.goplsOptions": {
+    "completeUnimported": true,
+
+  }
 
 }

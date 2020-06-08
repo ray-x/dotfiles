@@ -19,6 +19,7 @@ endif
 if has('gui_macvim')
 	set guifont=FiraCode\ Nerd\ Font:h18
 	set macligatures
+    let g:macvim_skip_colorscheme=1
 endif
 
 if exists('g:fvim_loaded')

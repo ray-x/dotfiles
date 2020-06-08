@@ -36,7 +36,7 @@ Plug 'liuchengxu/vim-clap'
 
 Plug 'ryanoasis/vim-devicons'
 
-"can use  coc-explorer + coc-git " coc 
+"if can use  coc-explorer + coc-git " coc 
 " Plug 'Shougo/defx.nvim' "file explorer , 
 " Plug 'kristijanhusak/defx-git'
 " Plug 'kristijanhusak/defx-icons'
@@ -68,7 +68,7 @@ Plug 'prettier/vim-prettier', {
     \ 'swift' ] }
 
 Plug 'mlaursen/vim-react-snippets'
-Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'itchyny/lightline.vim'
 
 
@@ -90,7 +90,7 @@ Plug 'othree/html5.vim'
 " Plug 'rhysd/vim-clang-format'  "use vim-auto-format
 " Using a non-master branch
 
-Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/indentpython.vim', { 'for': ['py'] }
 
 
 " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
@@ -115,6 +115,11 @@ Plug 'haishanh/night-owl.vim'
 Plug 'crusoexia/vim-monokai'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'liuchengxu/space-vim-theme'
+Plug 'ayu-theme/ayu-vim'
+Plug 'ajmwagar/vim-deus'
+Plug 'flrnd/plastic.vim'
+Plug 'kaicataldo/material.vim'
+Plug 'bluz71/vim-moonfly-colors'
 
 Plug 'mhinz/vim-startify'
 
@@ -134,14 +139,14 @@ Plug 'iamcco/mathjax-support-for-mkdp'  "math support
 Plug 'iamcco/markdown-preview.vim'
 Plug 'plasticboy/vim-markdown'
 
-"  Aligning Text with Tabular.vim  :Tabularize
+"  Aligning Text with Tabular.vim  :Tabularize  or \=
 Plug 'godlygeek/tabular'
 
 " spell check
 " use coc-spell-check
 " spell popup a good example of add popup in coc
-Plug 'kamykn/spelunker.vim'
-Plug 'kamykn/popup-menu.nvim'
+" Plug 'kamykn/spelunker.vim'
+" Plug 'kamykn/popup-menu.nvim'
 Plug 'sedm0784/vim-you-autocorrect'
 
 if executable('py')
@@ -202,14 +207,14 @@ Plug 'skywind3000/gutentags_plus',
 
 Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
-
-Plug 'liuchengxu/eleline.vim'
-
-
+" also can use following plugin for tab
 " Plug 'bagrat/vim-buffet'
 " Plug 'ap/vim-buftabline'
+
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 Plug 'kizza/actionmenu.nvim' " coc spelling popup
+
+Plug 'liuchengxu/eleline.vim'
 
 "Snippets
 " Plug 'honza/vim-snippets' " replaced by coc-snippets
@@ -220,7 +225,9 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 
-" Plug 'airblade/vim-rooter'
+
+Plug 'pseewald/vim-anyfold'   " function folding
+
 
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'simnalamburt/vim-mundo'
@@ -298,7 +305,8 @@ set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
 
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+" list of files use two space as tab
+autocmd FileType javascript,vim setlocal ts=2 sts=2 sw=2
 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
@@ -420,9 +428,8 @@ nnoremap  <leader>Y  "+yg_
 vmap <LeftRelease> "*ygv
 
 " Paste with <Shift> + <Insert>
-cmap <S-Insert> <C-R>*
-cmap <C-V> <C-R>*
 imap <C-V> <C-R>*
+imap <M-V> <C-R>+   " for mac
 
 " " Paste from clipboard
 nnoremap <leader>p "+p
@@ -477,7 +484,7 @@ for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
 
-" indentLine
+"  fold
 set foldmethod=syntax
 set foldlevel=10
 
@@ -546,9 +553,33 @@ let g:ale_fixers = {
 " ZG/ZUG ZW ZUW" ->to internal word list
 " Zl check spell suggestion
 " ZN/ZP jump between
-let g:enable_spelunker_vim = 1
-let g:spelunker_target_min_char_len = 5
-let g:spelunker_check_type=2
-let g:spelunker_highlight_type = 2  "ighlight only SpellBad.
-let g:spelunker_disable_uri_checking = 1 "def 0
-let g:vim_you_autocorrect_disable_highlighting = 1
+" let g:enable_spelunker_vim = 1
+" let g:spelunker_target_min_char_len = 5
+" let g:spelunker_check_type=2
+" let g:spelunker_highlight_type = 2  "ighlight only SpellBad.
+" let g:spelunker_disable_uri_checking = 1 "def 0
+" let g:vim_you_autocorrect_disable_highlighting = 1
+
+
+
+nmap <leader>ft :FloatermNew <CR>
+
+""""""""Folding
+" " zo, zO, zc, za, ... to fold / unfold folds
+" [[ and ]] to navigate ]k and [j
+autocmd Filetype * AnyFoldActivate               " activate for all filetypes
+autocmd Filetype cpp set foldignore=#/
+
+let g:anyfold_identify_comments=2
+let g:anyfold_fold_comments=1
+
+" disable anyfold for large files
+let g:LargeFile = 1000000 " file is large if size greater than 1MB
+autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+function LargeFile()
+    augroup anyfold
+        autocmd! " remove AnyFoldActivate
+        autocmd Filetype <filetype> setlocal foldmethod=indent " fall back to indent folding
+    augroup END
+endfunction
+
