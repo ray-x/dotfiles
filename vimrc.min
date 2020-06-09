@@ -17,93 +17,23 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'liuchengxu/vim-clap'
+" Plug 'liuchengxu/vim-clap'
 " Enable file type detection and do language-dependent indenting.
 filetype plugin indent on
 " Plug you need to verify
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'flrnd/plastic.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
+
 call plug#end()
 
 filetype plugin indent on
 syntax on
 set hidden
 
-" Plugin Setup
-" let g:clap_layout = {'width': '62%', 'height': '62%', 'row': '13%', 'col': '13%' }
-let g:clap_layout = {'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }
-" let g:clap_preview_size =  20  "" def: 10
-let g:airline_powerline_fonts = 1
-
-" let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
-set laststatus=2
-let g:clap_popup_border = "rounded"
-
-nmap <F4> :Clap<CR>
-
-noremap <s-P> :Clap files<CR>
-noremap <s-F> :Clap grep ++query=<cword><CR>
-
-" noremap <c-F>:Clap grep ++query=@visual<CR>
-noremap <s-T> :Clap tags<CR>
-nmap <S-F2> :Clap filer<CR>
-
-command! -nargs=0 His :Clap history
-command! -nargs=0 Ch :Clap command_history
-command! -nargs=0 Sh :Clap search_history
-
-let g:clap_theme = 'material_design_dark'
 
 
 
-
-" Plugin Setup
-""""""""""""""""""
-"""""  coc   """""
-"""""""""""""""""" 
-let g:node_client_debug = 1
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-
-
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-
-colorscheme plastic
+""""""""" Load other vim plugin config """""""""
+execute 'source' fnameescape(s:config_home . '/pluginrc.d/vim-go.vim')
+execute 'source' fnameescape(s:config_home . '/pluginrc.d/theme.vim')

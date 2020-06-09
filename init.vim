@@ -36,8 +36,8 @@ Plug 'liuchengxu/vim-clap'
 
 Plug 'ryanoasis/vim-devicons'
 
-"if can use  coc-explorer + coc-git " coc 
-" Plug 'Shougo/defx.nvim' "file explorer , 
+"if can use  coc-explorer + coc-git " coc
+" Plug 'Shougo/defx.nvim' "file explorer ,
 " Plug 'kristijanhusak/defx-git'
 " Plug 'kristijanhusak/defx-icons'
 
@@ -78,9 +78,9 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 
 " language support
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
 
-" HTML 
+" HTML
 Plug 'mattn/emmet-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
@@ -103,27 +103,23 @@ endif
 Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 
 " theme
-Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
-Plug 'hardcoreplayers/oceanic-material'  "good language support
-
-Plug 'crusoexia/vim-monokai'
-Plug 'liuchengxu/space-vim-theme'    " blue style
-
+Plug 'liuchengxu/space-vim-dark'    " blue style
 Plug 'flrnd/plastic.vim'
 Plug 'kaicataldo/material.vim'
+
+" theme not so good
+" Plug 'morhetz/gruvbox'.  "warm color, not my cup, but it is very popular"
 " Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
-
-
-" theme not so googd
-
 " Plug 'ayu-theme/ayu-vim'   "lack language support
-" Plug 'haishanh/night-owl.vim'  " language support is bad good for java...
+" Plug 'rakr/vim-one' Similar to one, also slow....
+" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
 " Plug 'drewtempelmeyer/palenight.vim'  " similar to material-pale
 " Plug 'jacoborus/tender.vim'   " not much support for go
 " Plug 'bluz71/vim-moonfly-colors'  " good golang support, color is plain...
-" Plug 'mhartington/oceanic-next'  "no go support
+" Plug 'mhartington/oceanic-next'  "no go support, need relay on polygot, not configurable
+" Plug 'hardcoreplayers/oceanic-material'  "good language support, similar to material-oceanic, not much star/updates
+" Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
 
 Plug 'mhinz/vim-startify'
 
@@ -160,9 +156,8 @@ if executable('py')
     Plug 'zchee/deoplete-jedi'
 endif
 
-if executable('go')
-    Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-endif
+
+Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
 
 " ale replace Plug  'neomake/neomake' " replace 'vim-syntastic/syntastic'
 " Plugin outside ~/.vim/plugged with post-update hook
@@ -200,7 +195,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 
 
-Plug 'HerringtonDarkholme/yats.vim' " TS Syntax 
+Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 
 
 Plug 'ludovicchabant/vim-gutentags'  "also used in eleline
@@ -219,8 +214,8 @@ Plug 'zefei/vim-wintabs-powerline',
 
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 Plug 'kizza/actionmenu.nvim' " coc spelling popup
-
-Plug 'hardcoreplayers/spaceline.vim'
+Plug 'liuchengxu/eleline.vim'
+" Plug 'hardcoreplayers/spaceline.vim'  ""Good looking, missing funxtion name
 
 "Snippets
 " Plug 'honza/vim-snippets' " replaced by coc-snippets
@@ -295,6 +290,10 @@ set pumheight=10                " Completion window max size
 set nocursorcolumn              " (turn off to speeds up highlighting)
 set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
+" file hidden
+set wildmenu
+set wildignore+=**/node_modules/**
+
 
 " set UTF-8 encoding
 set enc=utf-8
@@ -483,22 +482,11 @@ let javascript_enable_domhtmlcss = 1
 " let g:rooter_resolve_links = 1
 
 
-" Load other vim
-" execute 'source' fnameescape(s:config_home . '/keymap.vim')
-
-for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
-  execute 'source' fnameescape(s:f)
-endfor
 
 "  fold
 set foldmethod=syntax
 set foldlevel=10
 
-
-" colorizer
-if has('nvim')
-lua require 'colorizer'.setup()
-endif
 
 " gutentags
 let $DATA_PATH =
@@ -588,4 +576,20 @@ function LargeFile()
         autocmd Filetype <filetype> setlocal foldmethod=indent " fall back to indent folding
     augroup END
 endfunction
+
+
+
+
+
+
+
+
+
+
+""""""""" Load other vim plugin config """""""""
+" execute 'source' fnameescape(s:config_home . '/keymap.vim')
+
+for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
+  execute 'source' fnameescape(s:f)
+endfor
 
