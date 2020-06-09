@@ -17,7 +17,7 @@ noremap <s-c>p :Clap proj_tag <CR>
 noremap <s-P> :Clap files<CR>
 
 noremap <s-F> :Clap grep2 ++query=<cword><CR>
-cmap <S-F> :Clap command_history<CR>
+cmap <S-F>h :Clap command_history<CR>
 noremap <leader>ch :Clap command_history<CR>
 noremap <leader>cf :Clap history<CR>
 

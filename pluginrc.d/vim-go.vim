@@ -1,5 +1,5 @@
 " vim-go
-" I only use vim-go for 
+" I only use vim-go for
 " 1) lint on save  :GoMetaLinter :GoLint :GoVet :GoErrCheck (some was done with ALE)
 " 2) Test, build, run (may use coc-action to replace), coverage
 " 3) auto import
@@ -24,11 +24,21 @@ let g:go_metalinter_deadline = "5s"
 " let g:go_metalinter_autosave_enabled = ["govet", "errcheck", "bodyclose", "goerr113", "stylecheck", "unconvert", "prealloc", "gosec", "prealloc", "nolintlint", "goimports", "dupl"]
 " let g:go_metalinter_enabled = ["govet", "errcheck", "bodyclose", "goerr113", "stylecheck", "unconvert", "prealloc", "gosec", "prealloc", "nolintlint", "goimports", "dupl"]
 
+let g:go_highlight_structs = 1 
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters  = 1
 let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 0
 let g:go_highlight_generate_tags = 1
 let g:go_code_completion_enabled = 0 "use coc-go
 let g:go_gopls_enabled = 0 "use coc-go
@@ -40,6 +50,8 @@ let g:go_echo_go_info = 0 "guru is too slow, pls too much memory if multiple pro
 let g:go_def_mapping_enabled = 0 "disable default key mapping because we disabled gopls gd/gr/gf wont work
 
 
+" let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
+let g:go_fold_enable = []
 " Open :GoDeclsDir with ctrl-g
 " nmap <C-g> :GoDeclsDir<cr>   "need ctrlp/fzf  but none installed
 " imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
@@ -83,7 +95,7 @@ augroup go
 
   " au FileType go nmap <Leader>gv <Plug>(go-doc-vertical) " not work if gopls disable
 
-  au FileType go nmap <Leader>ge <Plug>(go-rename)  
+  au FileType go nmap <Leader>ge <Plug>(go-rename)
 
   " :GoAlternate  commands :A, :AV, :AS and :AT
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -120,4 +132,3 @@ endfunction
 
 " note: auto_sameid will highlight identifiers under cursor. no longer work, use coc
 " let g:go_auto_sameids = 0
-
