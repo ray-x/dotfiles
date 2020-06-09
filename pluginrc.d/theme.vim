@@ -78,7 +78,7 @@ let g:indentLine_enabled = 1
 " let g:indentLine_setColors = 0
 
 
-one dark setup
+""" one dark setup """ 
 let g:onedark_terminal_italics = 1
 
 
