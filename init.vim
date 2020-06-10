@@ -21,7 +21,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-easy-align'
 
 " Any valid git URL is allowed
-Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 Plug 'Chiel92/vim-autoformat'
 
@@ -68,9 +68,6 @@ Plug 'prettier/vim-prettier', {
     \ 'swift' ] }
 
 Plug 'mlaursen/vim-react-snippets'
-" Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'itchyny/lightline.vim'
-
 
 Plug 'voldikss/vim-floaterm'
 
@@ -88,7 +85,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'othree/html5.vim'
 
-Plug 'vim-scripts/indentpython.vim', { 'for': ['py'] }
+Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
 
 
 " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
@@ -159,25 +156,15 @@ endif
 
 Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
 
-" ale replace Plug  'neomake/neomake' " replace 'vim-syntastic/syntastic'
-" Plugin outside ~/.vim/plugged with post-update hook
-" use clap replace FZF
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-" Plug 'Yggdroot/LeaderF'  "Clap relpace leaderF
-
-" Unmanaged plugin (manually installed and updated)
-" Plug '~/my-prototype-plugin'
-
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
 
 " let g:deoplete#enable_at_startup = 1
-Plug 'neovim/python-client'
+" Plug 'neovim/python-client'
 
-
+" asynchronous supprot or vim"
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
@@ -185,11 +172,7 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Lokaltog/vim-powerline'
 
 Plug 'tpope/vim-fugitive'
-
-" use coc-git to replace, coc-git does not spawn new proccess
-" Plug 'mhinz/vim-signify'
-" Plug 'airblade/vim-gitgutter'
-" Plug 'APZelos/blamer.nvim'
+Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
 Plug 'w0rp/ale'
@@ -215,13 +198,14 @@ Plug 'zefei/vim-wintabs-powerline',
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 Plug 'kizza/actionmenu.nvim' " coc spelling popup
 Plug 'liuchengxu/eleline.vim'
-" Plug 'hardcoreplayers/spaceline.vim'  ""Good looking, missing funxtion name
+" Plug 'hardcoreplayers/spaceline.vim'  ""Good looking, missing function name
 
 "Snippets
 " Plug 'honza/vim-snippets' " replaced by coc-snippets
 
 " Motion
-Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion' 
+Plug 'tpope/vim-repeat' " repead motion"
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
@@ -232,15 +216,16 @@ Plug 'pseewald/vim-anyfold'   " function folding
 
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'simnalamburt/vim-mundo'
+
 "Rainbow Parentheses Improved"
 Plug 'luochen1990/rainbow'
+
 " Show color
 Plug 'norcalli/nvim-colorizer.lua'
 
 " display the indention levels with thin vertical lines
 Plug 'Yggdroot/indentLine'
 Plug 'mtdl9/vim-log-highlighting'
-
 
 " highlight current session
 Plug 'junegunn/Limelight.vim'
@@ -403,14 +388,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 "      Plugins      "
 """""""""""""""""""""
 
-
-let g:deoplete#enable_at_startup = 0
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-let g:go_list_type = "quickfix"
-let g:go_addtags_transform = "camelcase"
-let g:go_highlight_types = 1
-
 " better key bindings for UltiSnipsExpandTrigger
 
 " works on mac but not on konsole
@@ -524,6 +501,7 @@ let g:ale_go_golangci_lint_package=1
 let g:ale_lint_delay = 1000
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
+" let g:ale_sign_column_always = 1
 
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow-language-server'],
@@ -578,14 +556,6 @@ function LargeFile()
 endfunction
 
 
-
-
-
-
-
-
-
-
 """"""""" Load other vim plugin config """""""""
 " execute 'source' fnameescape(s:config_home . '/keymap.vim')
 
@@ -593,3 +563,11 @@ for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
 
+
+"easy motion " <leader><leader>  w(forward) b(ack) j(up) k(down)  s(search)
+nmap s         <Plug>(easymotion-s2)
+xmap s         <Plug>(easymotion-s2)
+omap z         <Plug>(easymotion-s2)
+nmap <Leader>s <Plug>(easymotion-sn)
+xmap <Leader>s <Plug>(easymotion-sn)
+omap <Leader>z <Plug>(easymotion-sn)
