@@ -73,11 +73,6 @@ let g:indentLine_enabled = 1
 
 
 
-
-" let g:indentLine_showFirstIndentLevel = 0
-" let g:indentLine_setColors = 0
-
-
 """ one dark setup """ 
 let g:onedark_terminal_italics = 1
 
@@ -218,6 +213,7 @@ hi Folded guifg=#7CA790 gui=BOLD ctermfg=234
 hi Search guibg=#3E3F1E guifg=#C4C5AE gui=bold
 
 
+
 """"""""""""""""""""""""""""""""
 """""  Plugin Specific color """
 """"""""""""""""""""""""""""""""
@@ -232,7 +228,12 @@ hi ALEErrorSign guifg=#ECC730 ctermfg=178
 :hi def link CocHighlightText Search
 
 
-
+" augroup indentguide
+"     au!
+"     au BufNewFile,BufRead *.go IndentGuidesEnable
+"     au BufNewFile,BufRead *.go hi IndentGuidesOdd  guibg=red   ctermbg=3
+"     au BufNewFile,BufRead *.go hi IndentGuidesEven  guibg=green   ctermbg=3
+" augroup end
 
 " spell
 "highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e

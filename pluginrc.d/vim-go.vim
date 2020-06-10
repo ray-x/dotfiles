@@ -18,6 +18,15 @@ let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 0
+
+let g:deoplete#enable_at_startup = 0
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+let g:go_list_type = "quickfix"
+let g:go_addtags_transform = "camelcase"
+let g:go_highlight_types = 1
+
+
 " let g:go_metalinter_command = "golangci-lint"  " use ALE golangci-lint
 " let g:go_metalinter_autosave = 1
 let g:go_metalinter_deadline = "5s"

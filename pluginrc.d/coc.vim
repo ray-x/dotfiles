@@ -225,3 +225,4 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " coc action open
 nnoremap <silent> <Leader>ao :CocCommand actions.open<CR>
 
+autocmd VimLeavePre * :call coc#rpc#kill()
