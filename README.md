@@ -13,6 +13,10 @@
 
 
 ## Vim Plugins
+I used to use slickedit, qt-creator, idea (webstorm, goland), vscode, but I am back to vi now. Thanks for `Plug` I do
+not need to configure my setup everytime....... I am still using sublime edit(as a notepad)
+
+vimr is one of the best nvim-gui. But it does not in active development in last 3 months(It is hard for a one developer project), some of the crash durning coding is annoying. I only use nvim/vim + kitty now.
 
 I used following plugin a lots
 
@@ -29,10 +33,11 @@ I used following plugin a lots
    I disabled vim-go and turn to coc-go. Replace defx with coc-explorer, use coc-spell for spell check
    coc-snippet replaced my ultisnips. Also, there are coc for yml, json, prettier, python, rust, PHP (any language vs code
    supported)......
+   With Clap+coc and colorscheme(onedark/spacevim) setup. It is a full featured IDE. 
 
 * ALE
 
-  well, I am still using ALE and configure lots of lint tool with it.
+  well, I am still using ALE and configure lots of lint tool with it. It is good to find something compiler missing.
 
 * Programming support:
 
