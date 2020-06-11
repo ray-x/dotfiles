@@ -15,31 +15,15 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Make sure you use single quotes
-
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-
-" Any valid git URL is allowed
-" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 Plug 'Chiel92/vim-autoformat'
 
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-" superTab: Perform all your vim insert mode completions with Tab
-" Plug 'ervandew/supertab'
-
-" On-demand loading
-" clap replace nerd tree
-Plug 'liuchengxu/vim-clap'
 
 Plug 'ryanoasis/vim-devicons'
-
-"if can use  coc-explorer + coc-git " coc
-" Plug 'Shougo/defx.nvim' "file explorer ,
-" Plug 'kristijanhusak/defx-git'
-" Plug 'kristijanhusak/defx-icons'
 
 Plug 'liuchengxu/vista.vim'
 
@@ -101,29 +85,14 @@ Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 
 " theme
 Plug 'joshdick/onedark.vim'
+Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
 Plug 'liuchengxu/space-vim-dark'    " blue style
 Plug 'flrnd/plastic.vim'
 Plug 'kaicataldo/material.vim'
 
-" theme not so good
-" Plug 'morhetz/gruvbox'.  "warm color, not my cup, but it is very popular"
-" Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
-" Plug 'ayu-theme/ayu-vim'   "lack language support
-" Plug 'rakr/vim-one' Similar to one, also slow....
-" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
-" Plug 'drewtempelmeyer/palenight.vim'  " similar to material-pale
-" Plug 'jacoborus/tender.vim'   " not much support for go
-" Plug 'bluz71/vim-moonfly-colors'  " good golang support, color is plain...
-" Plug 'mhartington/oceanic-next'  "no go support, need relay on polygot, not configurable
-" Plug 'hardcoreplayers/oceanic-material'  "good language support, similar to material-oceanic, not much star/updates
-" Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
-
 Plug 'mhinz/vim-startify'
 
 
-
-" 自动补全括号的插件，包括小括号，中括号，以及花括号
-Plug 'jiangmiao/auto-pairs'
 
 if executable('swift')
     Plug 'keith/swift.vim'
@@ -141,16 +110,14 @@ Plug 'plasticboy/vim-markdown'
 "  Aligning Text with Tabular.vim  :Tabularize  or \=
 Plug 'godlygeek/tabular'
 
-" spell check
-" use coc-spell-check
-" spell popup a good example of add popup in coc
-" Plug 'kamykn/spelunker.vim'
-" Plug 'kamykn/popup-menu.nvim'
 Plug 'sedm0784/vim-you-autocorrect'
 
 if executable('py')
     Plug 'nvie/vim-flake8'
     Plug 'zchee/deoplete-jedi'
+endif
+if !has('nvim')
+    Plug 'govim/govim'
 endif
 
 
@@ -160,9 +127,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
-
-" let g:deoplete#enable_at_startup = 1
-" Plug 'neovim/python-client'
 
 " asynchronous supprot or vim"
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
@@ -200,9 +164,6 @@ Plug 'kizza/actionmenu.nvim' " coc spelling popup
 Plug 'liuchengxu/eleline.vim'
 " Plug 'hardcoreplayers/spaceline.vim'  ""Good looking, missing function name
 
-"Snippets
-" Plug 'honza/vim-snippets' " replaced by coc-snippets
-
 " Motion
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat' " repead motion"
@@ -213,8 +174,9 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 
 Plug 'pseewald/vim-anyfold'   " function folding
 
+Plug 'liuchengxu/vim-clap'   " keep the binary for a while. download and rebuild took time
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'simnalamburt/vim-mundo'
 
 "Rainbow Parentheses Improved"
@@ -234,7 +196,46 @@ Plug 'lfv89/vim-interestingwords'
 
 Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
+
 call plug#end()
+
+
+""""""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
+" superTab: Perform all your vim insert mode completions with Tab
+" Plug 'ervandew/supertab'
+" if can use  coc-explorer + coc-git " coc
+" Plug 'Shougo/defx.nvim' "file explorer ,
+" Plug 'kristijanhusak/defx-git'
+" Plug 'kristijanhusak/defx-icons'
+" let g:deoplete#enable_at_startup = 1
+" Plug 'neovim/python-client'
+" spell check
+" use coc-spell-check
+" spell popup a good example of add popup in coc
+" Plug 'kamykn/spelunker.vim'
+" Plug 'kamykn/popup-menu.nvim'
+" Snippets
+" Plug 'honza/vim-snippets' " replaced by coc-snippets
+" 自动补全括号的插件，包括小括号，中括号，以及花括号 coc-pair
+" Plug 'jiangmiao/auto-pairs'
+
+
+
+""""""""""" theme not so good """""""""""
+" Plug 'morhetz/gruvbox'.  "warm color, not my cup, but it is very popular"
+" Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
+" Plug 'ayu-theme/ayu-vim'   "lack language support
+" Plug 'rakr/vim-one' Similar to one, also slow....
+" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
+" Plug 'drewtempelmeyer/palenight.vim'  " similar to material-pale
+" Plug 'jacoborus/tender.vim'   " not much support for go
+" Plug 'bluz71/vim-moonfly-colors'  " good golang support, color is plain...
+" Plug 'mhartington/oceanic-next'  "no go support, need relay on polygot, not configurable
+" Plug 'hardcoreplayers/oceanic-material'  "good language support, similar to material-oceanic, not much star/updates
+" Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
+
+""""""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
+
 
 
 autocmd StdinReadPre * let s:std_in=1
