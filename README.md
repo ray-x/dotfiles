@@ -1,10 +1,10 @@
 # vim_ide
-nvim+kitty configured with pop menu:
-![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/img/blob/master/menu.jpg)
-nvim clap preview:
-![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/img/blob/master/clap.jpg)
-nvim+kitty coc+ale:
-![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/img/blob/master/coc_float_errorcheck.jpg)
+* nvim+kitty configured with pop menu:
+![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/menu.jpg)
+* nvim clap preview:
+![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/clap.jpg)
+* nvim+kitty coc+ale:
+![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/coc_float_errorcheck.jpg)
 
 
 ## Vim Plugins
