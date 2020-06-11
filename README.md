@@ -18,7 +18,7 @@ I used following plugin a lots
 
 * ``Plug``
 
-   My Plugin management tool
+   Plugin management tool
 
 * vim-clap
 
@@ -59,7 +59,8 @@ I used following plugin a lots
   tabular, coc-prettier(or, sometimes prettier), auto-pair
 
 * Menu and tab:
-  quickui(created a menu for the function/keybind I used less often), wintab
+  quickui(created a menu for the function/keybind I used less often. I can not rememeber all the commands and keybinds....)
+  wintab: one of the best buffer management tool
 
 * Tools: floatterm, coc-todolist
 
