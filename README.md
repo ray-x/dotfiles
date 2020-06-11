@@ -41,4 +41,4 @@ I used following plugin a lots
 
 ## Shell
 
-### OMZshell is good, iterm2 is popular, but I turned to zprezto(with powerlevel10) + kitty. It is much cooler and faster.
+* OMZshell is good, iterm2 is popular, but I turned to zprezto(with powerlevel10) + kitty. It is cooool and faster.
