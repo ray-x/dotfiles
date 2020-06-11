@@ -65,7 +65,8 @@ I used following plugin a lots
 
 * Move and Edit:
 
-  easymotion, multi-cursor, vim-anyfold (better folding), check this: [You don’t need more than one cursor in vim](https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db)
+  easymotion, multi-cursor (has ome bugs with auto-complete. check this: [You don’t need more than one cursor in vim](https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db)
+), vim-anyfold (better folding)
 
 ## Shell
 
