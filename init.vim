@@ -204,7 +204,7 @@ Plug 'liuchengxu/eleline.vim'
 " Plug 'honza/vim-snippets' " replaced by coc-snippets
 
 " Motion
-Plug 'easymotion/vim-easymotion' 
+Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat' " repead motion"
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -275,6 +275,7 @@ set pumheight=10                " Completion window max size
 set nocursorcolumn              " (turn off to speeds up highlighting)
 set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
+
 " file hidden
 set wildmenu
 set wildignore+=**/node_modules/**
@@ -295,8 +296,11 @@ set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
 
+set numberwidth=3
+set cpoptions+=n                " use the number column for the text of wrapped lines
+
 " list of files use two space as tab
-autocmd FileType javascript,vim setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript,vim,yml setlocal ts=2 sts=2 sw=2
 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
