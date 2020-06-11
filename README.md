@@ -80,3 +80,7 @@ I used following plugin a lots
 ## Shell
 
 * OMZshell is good, iterm2 is popular, but I turned to zprezto(with powerlevel10) + kitty. It is cooool and faster.
+nvim+kitty split view:
+
+    ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/kitty.jpg)
+
