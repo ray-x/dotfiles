@@ -4,6 +4,7 @@ let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to o
 
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
+  \ 'coc-actions',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-marketplace',
@@ -112,9 +113,6 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" overwrite coc action in menu-action
-" nnoremap <silent> <Leader>af :call ActionMenuCodeActions()<CR>"
-
 " Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -222,7 +220,18 @@ autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | end
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-" coc action open
+" coc action open  , coc-spell-check etc
 nnoremap <silent> <Leader>ao :CocCommand actions.open<CR>
+
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+
+
+
 
 autocmd VimLeavePre * :call coc#rpc#kill()

@@ -51,6 +51,10 @@ Plug 'prettier/vim-prettier', {
     \ 'html',
     \ 'swift' ] }
 
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'HerringtonDarkholme/yats.vim'
+
 Plug 'mlaursen/vim-react-snippets'
 
 Plug 'voldikss/vim-floaterm'
@@ -59,7 +63,8 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 
 " language support
-" Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
+Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}  "C++ 11/14
 
 " HTML
 Plug 'mattn/emmet-vim'
@@ -84,13 +89,16 @@ endif
 Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 
 " theme
+Plug 'ray-x/paleaurora'
 Plug 'joshdick/onedark.vim'
 Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
 Plug 'liuchengxu/space-vim-dark'    " blue style
 Plug 'flrnd/plastic.vim'
 Plug 'kaicataldo/material.vim'
-
 Plug 'mhinz/vim-startify'
+Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
+Plug 'sickill/vim-monokai'
+Plug 'fatih/molokai'
 
 
 
@@ -160,7 +168,7 @@ Plug 'zefei/vim-wintabs-powerline',
 " Plug 'ap/vim-buftabline'
 
 Plug 'skywind3000/vim-quickui' " replace vim-preview
-Plug 'kizza/actionmenu.nvim' " coc spelling popup
+
 Plug 'liuchengxu/eleline.vim'
 " Plug 'hardcoreplayers/spaceline.vim'  ""Good looking, missing function name
 
@@ -209,6 +217,7 @@ call plug#end()
 " Plug 'kristijanhusak/defx-icons'
 " let g:deoplete#enable_at_startup = 1
 " Plug 'neovim/python-client'
+" Plug 'sickill/vim-monokai'
 " spell check
 " use coc-spell-check
 " spell popup a good example of add popup in coc
@@ -247,9 +256,7 @@ autocmd StdinReadPre * let s:std_in=1
 set nocompatible                " Enables us Vim specific features
 filetype off                    " Reset filetype detection first ...
 filetype plugin indent on       " ... and enable filetype detection
-" set ttyfast                     " Indicate fast terminal conn for faster redraw
-" set ttymouse=xterm2             " Indicate terminal type for mouse codes
-" set ttyscroll=3                 " Speedup scrolling
+set ttyfast                     " Indicate fast terminal conn for faster redraw
 set laststatus=2                " Show status line always
 set encoding=utf-8              " Set default encoding to UTF-8
 set autoread                    " Automatically read changed files
@@ -277,10 +284,21 @@ set nocursorcolumn              " (turn off to speeds up highlighting)
 set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
 
+if !has('nvim')
+  set ttyscroll=3                 " Speedup scrolling
+  set ttymouse=xterm2
+endif
+if exists(':tnoremap')
+  tnoremap <Esc> <C-\><C-n>
+endif
+
 " file hidden
 set wildmenu
-set wildignore+=**/node_modules/**
-
+set wildmode=longest:full,full
+set wildignore+=**/node_modules/**,/node_modules/*,*/tmp/*,*.so,*.swp,*.zip
+if has('nvim')
+  set wildoptions=pum
+endif
 
 " set UTF-8 encoding
 set enc=utf-8
@@ -549,6 +567,14 @@ autocmd Filetype cpp set foldignore=#/
 
 let g:anyfold_identify_comments=2
 let g:anyfold_fold_comments=1
+
+autocmd Filetype cpp let g:cpp_class_scope_highlight = 1
+autocmd Filetype cpp let g:cpp_member_variable_highlight = 1
+autocmd Filetype cpp let g:cpp_class_decl_highlight = 1
+autocmd Filetype cpp let g:cpp_posix_standard = 1
+autocmd Filetype cpp let g:cpp_experimental_simple_template_highlight = 1
+autocmd Filetype cpp let g:cpp_experimental_template_highlight = 1
+autocmd Filetype cpp let g:cpp_concepts_highlight = 1
 
 " disable anyfold for large files
 let g:LargeFile = 1000000 " file is large if size greater than 1MB
