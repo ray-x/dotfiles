@@ -136,15 +136,16 @@ call quickui#menu#install('Help (&?)', [
 "----------------------------------------------------------------------
 " context menu
 "----------------------------------------------------------------------
+
 let g:context_menu_k = [
-			\ ["&Peek Definition\tAlt+;", 'call quickui#tools#preview_tag("")'],
-			\ ["S&earch in Project\t\\cx", 'exec "silent! GrepCode! " . expand("<cword>")'],
+			\ ["&Search in tag \tAlt+;", 'exec ":Clap proj_tags  ++query=<cword>"'],
+			\ ["S&earch in Project\t\\cx", 'exec ":Clap grep  ++query=<cword>"'],
 			\ [ "--", ],
-			\ [ "Find &Definition\t\\cg", 'call MenuHelp_Fscope("g")', 'GNU Global search g'],
-			\ [ "Find &Symbol\t\\cs", 'call MenuHelp_Fscope("s")', 'GNU Gloal search s'],
-			\ [ "Find &Called by\t\\cd", 'call MenuHelp_Fscope("d")', 'GNU Global search d'],
-			\ [ "Find C&alling\t\\cc", 'call MenuHelp_Fscope("c")', 'GNU Global search c'],
-			\ [ "Find &From Ctags\t\\cz", 'call MenuHelp_Fscope("z")', 'GNU Global search c'],
+			\ [ "Go &Definition\t\\cg", 'call CocActionAsync("jumpDefinition")'],
+			\ [ "Go &TypeDefinition\t\\ct", 'call CocActionAsync("jumpTypeDefinition")'],
+			\ [ "Go &Declaration\t\\cd", 'call CocActionAsync("jumpDeclaration")'],
+			\ [ "Go &Implementation\t\\ci", 'call CocActionAsync("jumpImplementation")'],
+			\ [ "Go &references\t\\cr", 'call CocActionAsync("jumpDefinition")'],
 			\ [ "--", ],
 			\ [ "Goto D&efinition\t(YCM)", 'YcmCompleter GoToDefinitionElseDeclaration'],
 			\ [ "Goto &References\t(YCM)", 'YcmCompleter GoToReferences'],
@@ -156,13 +157,52 @@ let g:context_menu_k = [
 			\ ['P&ython Doc', 'call quickui#tools#python_help("")', 'python'],
 			\ ]
 
+"----------------------------------------------------------------------
+" coc spell quickfix menu
+"----------------------------------------------------------------------
+
+let s:code_actions = []
+
+func! SpellActions() abort
+  if coc#util#has_float()
+    call coc#util#float_hide()
+  endif
+
+  let s:code_actions = CocAction('codeActions')
+  let l:menu_items = map(copy(s:code_actions), { index, item -> item['title'] })
+
+  " call actionmenu#open(l:menu_items, 'ActionMenuCodeActionsCallback')
+  for l:menu_text in l:menu_items
+    let l:act = printf('call CocAction(\"doCodeAction\", %s)',s:code_actions[l:menu_text])
+  	let s:it = [l:menu_text, l:act]
+  	echo s:it
+  	echo "---\n------\n---"
+  	call add(s:code_actions, s:it)
+  endfor
+  
+  :call quickui#tools#clever_context('k', s:code_actions, {})
+endfunc
+
+func! ActionMenuCodeActionsCallback(index, item) abort
+  if a:index >= 0
+    let l:selected_code_action = s:code_actions[a:index]
+    let l:response = CocAction('doCodeAction', l:selected_code_action)
+  endif
+endfunc
+
+" overwrite coc action
+" nnoremap <silent> <Leader>af :call SpellActions()<CR>
+
+
+
+
 
 "----------------------------------------------------------------------
 " hotkey
 "----------------------------------------------------------------------
 nnoremap <silent><space><space> :call quickui#menu#open()<cr>
 
-" nnoremap <silent>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
+nnoremap <leader><leader>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
 
 if has('gui_running') || has('nvim')
 	noremap <c-f10> :call MenuHelp_TaskList()<cr>
@@ -170,7 +210,7 @@ endif
 
 
 let g:quickui_border_style = 2
-let g:quickui_color_scheme = 'solarized'
+let g:quickui_color_scheme = 'papercol dark'
 
 let g:quickui_preview_w = 100
 let g:quickui_preview_h = 15

@@ -74,44 +74,44 @@ let g:indentLine_enabled = 1
 
 
 """ one dark setup """ 
-let g:onedark_terminal_italics = 1
+"let g:onedark_terminal_italics = 1
+"
+"
+"if (has("autocmd"))
+"  augroup colorextend
+"    autocmd!
+"    " Make `Function`s bold in GUI mode
+"    autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold"  })
+"    " Override the `Statement` foreground color in 256-color mode
+"    autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { " cterm": 128 } })
+"    " Override the `Identifier` background color in GUI mode
+"   " autocmd ColorScheme * call onedark#set_highlight("Identifier", { "bg": { " guifg": "#333333" } })
+"   
+"   " autocmd ColorScheme * call onedark#set_highlight("Normal", { "bg": s:cyan }) 
+"   autocmd ColorScheme * call onedark#set_highlight("goParen", { "fg": s:darkred })
+"   autocmd ColorScheme * call onedark#set_highlight("goBlock", { "fg": s:warmgrey})
+"   autocmd ColorScheme * call onedark#set_highlight("goParamName", { "fg":s:br_cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goParamType", { "fg":s:addfg  })
+"   autocmd ColorScheme * call onedark#set_highlight("goReceiverVar", { "fg":s:br_cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goVarArgs", { "fg":s:addfg  })
+"   autocmd ColorScheme * call onedark#set_highlight("goPointerOperator", { "fg":s:br_cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goReceiver", { "fg":s:addfg  })
+"  augroup END
+"endif
+"
+"
+"let g:onedark_color_overrides = {
+"\ "black": {"gui": "#171525", "cterm": "235", "cterm16": "0" }
+"\}
+"
+"colorscheme onedark
+"" one dark cursor setup
+" hi CursorLine   guifg=NONE        guibg=#151023
+" hi CursorColumn guifg=NONE        guibg=#141023
+" hi DiffChange gui=NONE guifg=yellow3
+" hi DiffAdd guibg=NONE guifg=green4
 
-
-if (has("autocmd"))
-  augroup colorextend
-    autocmd!
-    " Make `Function`s bold in GUI mode
-    autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold"  })
-    " Override the `Statement` foreground color in 256-color mode
-    autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { " cterm": 128 } })
-    " Override the `Identifier` background color in GUI mode
-   " autocmd ColorScheme * call onedark#set_highlight("Identifier", { "bg": { " guifg": "#333333" } })
-   
-   " autocmd ColorScheme * call onedark#set_highlight("Normal", { "bg": s:cyan }) 
-   autocmd ColorScheme * call onedark#set_highlight("goParen", { "fg": s:darkred })
-   autocmd ColorScheme * call onedark#set_highlight("goBlock", { "fg": s:warmgrey})
-   autocmd ColorScheme * call onedark#set_highlight("goParamName", { "fg":s:br_cyan })
-   autocmd ColorScheme * call onedark#set_highlight("goParamType", { "fg":s:addfg  })
-   autocmd ColorScheme * call onedark#set_highlight("goReceiverVar", { "fg":s:br_cyan })
-   autocmd ColorScheme * call onedark#set_highlight("goVarArgs", { "fg":s:addfg  })
-   autocmd ColorScheme * call onedark#set_highlight("goPointerOperator", { "fg":s:br_cyan })
-   autocmd ColorScheme * call onedark#set_highlight("goReceiver", { "fg":s:addfg  })
-  augroup END
-endif
-
-
-let g:onedark_color_overrides = {
-\ "black": {"gui": "#171525", "cterm": "235", "cterm16": "0" }
-\}
-
-colorscheme onedark
-" one dark cursor setup
-hi CursorLine   guifg=NONE        guibg=#151023
-hi CursorColumn guifg=NONE        guibg=#141023
-hi DiffChange gui=NONE guifg=yellow3
-hi DiffAdd guibg=NONE guifg=green4
-
-
+colorscheme paleaurora
 
 " colorscheme monokai
 " let g:monokai_term_italic = 1
@@ -164,7 +164,7 @@ hi DiffAdd guibg=NONE guifg=green4
 
 
 " let g:molokai_original = 1
-" colorscheme molokai
+" colorscheme monokai
 
 
 " let g:space_vim_dark_background = 230
@@ -200,6 +200,13 @@ hi DiffAdd guibg=NONE guifg=green4
 " spaceline
 " let g:spaceline_colorscheme = 'space'
 
+
+" light color"
+" set background=light
+
+" colorscheme PaperColor
+
+
 " eleline
 set laststatus=2
 let g:eleline_powerline_fonts = 1
@@ -209,8 +216,8 @@ let g:airline_powerline_fonts = 1 "backword compatbility
 let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
 
 
-hi Folded guifg=#7CA790 gui=BOLD ctermfg=234
-hi Search guibg=#3E3F1E guifg=#C4C5AE gui=bold
+" hi Folded guifg=#7CA790 gui=BOLD ctermfg=234
+" hi Search guibg=#3E3F1E guifg=#C4C5AE gui=bold
 
 
 
@@ -253,3 +260,44 @@ endif
 "
 "" Programming setup
 "" Some of the theme do not have following highlight setup
+
+
+"""""" Conceal setup
+let fts = ['c', 'cpp']
+if index(fts, &filetype) != -1
+  setlocal conceallevel=1
+  syntax clear cppOperator
+
+  syntax match cppOperator "++" conceal cchar=⧺
+  syntax match cppOperator "<<" conceal cchar=«
+  syntax match cppOperator ">>" conceal cchar=»
+  syntax match cppOperator "::" conceal cchar=∷
+
+  syntax match cppOperator "||" conceal cchar=∥
+
+  hi! link cppOperator Operator
+  hi! link Conceal Operator
+endif
+
+
+let fts = ['go']
+if index(fts, &filetype) != -1
+  setlocal conceallevel=1
+  syntax clear goOperator
+  syntax clear goDeclaration
+
+  syntax match goOperator "++" conceal cchar=⧺
+  syntax match goOperator "<<" conceal cchar=«
+  syntax match goOperator ">>" conceal cchar=»
+  syntax match goDeclaration "func" conceal cchar=
+  hi! link goOperator Operator
+  hi! link goDeclaration Declaration
+  hi! link Conceal Operator
+
+
+endif
+
+
+
+
+

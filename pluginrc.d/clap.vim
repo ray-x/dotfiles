@@ -7,7 +7,6 @@ let g:airline_powerline_fonts = 1
 let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', ''] }
 
 
-" let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 set laststatus=2
 let g:clap_popup_border = "rounded"
 
