@@ -65,6 +65,7 @@ Plug 'skywind3000/asyncrun.vim'
 " language support
 Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}  "C++ 11/14
+Plug 'lifepillar/pgsql.vim'
 
 " HTML
 Plug 'mattn/emmet-vim'
@@ -88,18 +89,16 @@ endif
 
 Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 
+Plug 'mhinz/vim-startify'
+
 " theme
 Plug 'ray-x/paleaurora'
 Plug 'joshdick/onedark.vim'
 Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
 Plug 'liuchengxu/space-vim-dark'    " blue style
-Plug 'flrnd/plastic.vim'
 Plug 'kaicataldo/material.vim'
-Plug 'mhinz/vim-startify'
 Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
-Plug 'sickill/vim-monokai'
-Plug 'fatih/molokai'
-
+Plug 'morhetz/gruvbox'
 
 
 if executable('swift')
@@ -124,10 +123,6 @@ if executable('py')
     Plug 'nvie/vim-flake8'
     Plug 'zchee/deoplete-jedi'
 endif
-if !has('nvim')
-    Plug 'govim/govim'
-endif
-
 
 Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
 
@@ -148,7 +143,7 @@ Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
 Plug 'w0rp/ale'
-
+" Plug 'vim-syntastic/syntastic'
 
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 
@@ -222,7 +217,7 @@ call plug#end()
 " use coc-spell-check
 " spell popup a good example of add popup in coc
 " Plug 'kamykn/spelunker.vim'
-" Plug 'kamykn/popup-menu.nvim'
+" Plug 'kamykn/popup-menu.nvim'  "spell popup
 " Snippets
 " Plug 'honza/vim-snippets' " replaced by coc-snippets
 " 自动补全括号的插件，包括小括号，中括号，以及花括号 coc-pair
@@ -231,7 +226,7 @@ call plug#end()
 
 
 """"""""""" theme not so good """""""""""
-" Plug 'morhetz/gruvbox'.  "warm color, not my cup, but it is very popular"
+" Plug 'morhetz/gruvbox'.  "warm color, not my cup of tea, but it is very popular"
 " Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
 " Plug 'ayu-theme/ayu-vim'   "lack language support
 " Plug 'rakr/vim-one' Similar to one, also slow....
@@ -242,7 +237,8 @@ call plug#end()
 " Plug 'mhartington/oceanic-next'  "no go support, need relay on polygot, not configurable
 " Plug 'hardcoreplayers/oceanic-material'  "good language support, similar to material-oceanic, not much star/updates
 " Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
-
+" Plug 'flrnd/plastic.vim'
+" Plug 'dracula/vim'
 """"""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
 
 
@@ -259,7 +255,6 @@ filetype plugin indent on       " ... and enable filetype detection
 set ttyfast                     " Indicate fast terminal conn for faster redraw
 set laststatus=2                " Show status line always
 set encoding=utf-8              " Set default encoding to UTF-8
-set autoread                    " Automatically read changed files
 set autoindent                  " Enabile Autoindent
 set backspace=indent,eol,start  " Makes backspace key more powerful.
 set incsearch                   " Shows the match while typing
@@ -274,15 +269,19 @@ set splitbelow                  " Horizontal windows should split to bottom
 set autowrite                   " Automatically save before :next, :make etc.
 set hidden                      " Buffer should still exist if window is closed
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
-" set noshowmatch                 " Do not show matching brackets by flickering
-" set noshowmode                  " We show the mode with airline or lightline
+set noshowmatch                 " Do not show matching brackets by flickering
+set noshowmode                  " We show the mode with airline or lightline
 set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not it begins with upper case
 set completeopt=menu,menuone    " Show popup menu, even if there is one entry
-set pumheight=10                " Completion window max size
-set nocursorcolumn              " (turn off to speeds up highlighting)
+set pumheight=12                " Completion window max size
+" set nocursorcolumn              " (turn off to speeds up highlighting)
 set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
+set autoread                    " Automatically read changed files
+au FocusGained,BufEnter * :checktime  " autoload
+
+
 
 if !has('nvim')
   set ttyscroll=3                 " Speedup scrolling
@@ -372,6 +371,25 @@ endif
 """"""""""""""""""""""
 "      Mappings      "
 """"""""""""""""""""""
+" if setup up <S-fn> for terminal, please refer to kitty.conf
+" use terminfo-x / cat to show the special key combinations
+" Extensions to the xterm protocol: https://sw.kovidgoyal.net/kitty/protocol-extensions.html 
+" vim or nvim
+if !has("gui_running")
+  if !has('nvim')
+    set <S-F1>=^[[1;2P
+    map <Esc>[1;2P <S-F1>
+    set <S-F2>=^[[1;2Q
+    map <Esc>[1;2Q <S-F2>
+    set <S-F3>=^[[1;2R
+    map <Esc>[1;2R <S-F3>
+  else
+    map <F13> <S-F1>
+    map <F14> <S-F4>
+    map <F15> <S-F5>
+    map <F16> <S-F6>
+  endif
+endif
 
 " Jump to next error with Ctrl-n and previous error with Ctrl-m. Close the
 " quickfix window with <leader>a
@@ -502,46 +520,16 @@ let g:gutentags_ctags_extra_args = ['--output-format=e-ctags']
 let g:gutentags_ctags_exclude = ['*.json', '*.js', '*.ts', '*.jsx', '*.css', '*.less', '*.sass', '*.go', '*.dart', 'node_modules', 'dist', 'vendor']
 
 
-map <S-F3> :Vista!!<CR>
+map <F3> :Vista!!<CR>
 
 if !has('nvim')
   " vimspector support, it does work with neovim
-  let g:vimspector_enable_mappings = 'HUMAN'
-  packadd! vimspector
+  " let g:vimspector_enable_mappings = 'HUMAN'
+  " packadd! vimspector
 endif
 
 " markdown disable conceal when edit current line
 set concealcursor="i"
-
-" ale
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_go_gopls_executable = 'gopls'
-let g:ale_go_revive_executable = 'revive'
-let g:ale_go_golangci_lint_options = '--enable-all --disable dogsled --disable gochecknoglobals --disable gochecknoinits --disable gocognit --disable godot --disable godox --disable goprintffuncname --disable lll --disable nestif --disable wsl --disable golint --disable gocyclo --disable asciicheck'
-let g:ale_go_golangci_lint_package=1
-" golangci-lint will run on vim-go
-let g:ale_lint_delay = 1000
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 1
-" let g:ale_sign_column_always = 1
-
-let g:ale_linters = {
-\   'javascript': ['eslint', 'flow-language-server'],
-\   'javascript.jsx': ['eslint', 'flow-language-server'],
-\   'go': ['revive', 'staticcheck', 'golangci-lint', 'go vet', 'goimports', 'gotype'],
-\}
-
-let g:ale_fixers = {
-\   'go': ['goimports', 'gofmt'],
-\   'javascript': ['prettier', 'eslint'],
-\   'javascript.jsx': ['prettier', 'eslint'],
-\   'typescript': ['eslint', 'tslint'],
-\   'json': ['prettier'],
-\   'css': ['prettier'],
-\   'php': ['php-cs-fixer'],
-\}
-
 
 " spell
 "  Zg/Zug add word; Zw/Zuw  -> to spell file
@@ -602,3 +590,15 @@ omap z         <Plug>(easymotion-s2)
 nmap <Leader>s <Plug>(easymotion-sn)
 xmap <Leader>s <Plug>(easymotion-sn)
 omap <Leader>z <Plug>(easymotion-sn)
+
+
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']

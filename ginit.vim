@@ -17,7 +17,7 @@ endif
 " macvim
 "if !has('nvim')
 if has('gui_macvim')
-	set guifont=SauceCodePro\ Nerd\ Font:h18
+	set guifont=JetBrainsMono\ Nerd\ Font:h18
 	set macligatures
     let g:macvim_skip_colorscheme=1
 endif

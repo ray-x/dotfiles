@@ -411,7 +411,6 @@ let g:tagbar_type_go = {
 \ }
 
 let g:deoplete#enable_at_startup = 0
-nnoremap <S-f> :CtrlSF<Space>
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:go_list_type = "quickfix"
@@ -624,24 +623,6 @@ map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 
-nnoremap <S-f> :CtrlSF<Space>
-nmap <Leader><Leader>a :Ack<space>-i<space>
-let g:ctrlsf_default_root = 'project'
-let g:ctrlsf_search_mode = 'async'
-let g:ctrlsf_winsize = '30%'
-
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-noremap <s-F> :CtrlSF
-let g:ctrlsf_default_view_mode = 'compact'
-"let g:ctrlsf_default_root = 'project'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
   
 inoremap <silent><expr> ( complete_parameter#pre_complete("()")
 smap <c-j> <Plug>(complete_parameter#goto_next_parameter)

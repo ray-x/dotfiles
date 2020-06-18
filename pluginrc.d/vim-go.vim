@@ -17,7 +17,7 @@ let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 1
-let g:go_fmt_fail_silently = 0
+let g:go_fmt_fail_silently = 1
 
 let g:deoplete#enable_at_startup = 0
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
@@ -49,9 +49,10 @@ let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_generate_tags = 1
+
 let g:go_code_completion_enabled = 0 "use coc-go
 let g:go_gopls_enabled = 0 "use coc-go
-let g:go_info_mode = ""
+let g:go_info_mode = ""   " use "" to disalbe coc or use gopls/guru
 let g:go_auto_type_info = 0
 let g:go_doc_keywordprg_enabled = 0  "godoc use <slient> K conflict with coc, also it is slow....
 let g:go_textobj_enable = 0  "use coc for textobj

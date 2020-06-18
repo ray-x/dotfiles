@@ -90,10 +90,12 @@
     "AKHQ",
     "JAAS",
     "SASL",
+    "Shopify",
     "dynamodbiface",
     "gopls",
     "ozzo",
-    "postgres"
+    "postgres",
+    "sarama"
   ],
 
   // Specify paths/files to ignore.
@@ -150,7 +152,7 @@
 
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
 
-  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.displayByAle": false,
   "diagnostic.checkCurrentLine": true, // some time it is  annoying?...
   "diagnostic.refreshOnInsertMode": true, // annoying?
   "diagnostic.virtualText": true, // Note: nvim only!!
@@ -173,7 +175,7 @@
   "git.addGBlameToBufferVar": true,
 
   "signature.floatMaxWidth": 100, //def:80
-
+  "go.enable": true,
   "go.goplsOptions": {
     "completeUnimported": true
   }

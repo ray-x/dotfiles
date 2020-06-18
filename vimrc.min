@@ -17,14 +17,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'liuchengxu/vim-clap'
-" Enable file type detection and do language-dependent indenting.
-filetype plugin indent on
-" Plug you need to verify
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'joshdick/onedark.vim'
-Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'w0rp/ale'
+" Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
 call plug#end()
 
 filetype plugin indent on
@@ -32,8 +27,28 @@ syntax on
 set hidden
 
 
+let g:ale_linters = {
+\   'javascript': ['eslint', 'flow-language-server'],
+\   'javascript.jsx': ['eslint', 'flow-language-server'],
+\   'go': ['go vet', 'staticcheck', 'gobuild', 'golangci_lint', 'revive'],
+\}
+
 
 
 """"""""" Load other vim plugin config """""""""
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/vim-go.vim')
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/theme.vim')
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/vim-go.vim')
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/theme.vim')
+" map <Esc>[1;2R <S-F3>
+" map <S-F3> :echo "hello" <CR>
+map <F15> :echo "hello" <CR>
+
+
+
+"""""""""""other plugs"""""""""""
+" Plug 'liuchengxu/vim-clap'
+" Enable file type detection and do language-dependent indenting.
+filetype plugin indent on
+" Plug you need to verify
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'joshdick/onedark.vim'
+" Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
