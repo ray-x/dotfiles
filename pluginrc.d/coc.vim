@@ -209,7 +209,8 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 
-nmap <S-F1> :CocCommand explorer<CR>
+nmap <S-F1> :CocCommand explorer --width 30<CR>
+
 nmap <space>ef :CocCommand explorer --preset floating<CR>
 
 nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
@@ -234,4 +235,5 @@ nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<C
 
 
 
-autocmd VimLeavePre * :call coc#rpc#kill()
+" autocmd VimLeavePre * :call coc#rpc#kill()
+autocmd VimLeave * if get(g:, 'coc_process_pid', 0) | call system('kill -9 -'.g:coc_process_pid) | endif

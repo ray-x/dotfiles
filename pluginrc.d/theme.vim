@@ -58,8 +58,11 @@ let s:background  = { "gui": "#282C34", "cterm": "235"}
 
 
 
-:set cursorline cursorcolumn
-nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+" :set cursorline cursorcolumn
+
+set cursorcolumn  " for code alignment and indentation
+
+" nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 " indent indicator
 
