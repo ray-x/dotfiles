@@ -16,7 +16,7 @@
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
-let g:go_fmt_autosave = 1
+let g:go_fmt_autosave = 0
 let g:go_fmt_fail_silently = 1
 
 let g:deoplete#enable_at_startup = 0
@@ -52,11 +52,11 @@ let g:go_highlight_generate_tags = 1
 
 let g:go_code_completion_enabled = 0 "use coc-go
 let g:go_gopls_enabled = 0 "use coc-go
-let g:go_info_mode = ""   " use "" to disalbe coc or use gopls/guru
-let g:go_auto_type_info = 0
+let g:go_info_mode = "guru"   " use "" to disalbe coc or use gopls/guru
+let g:go_auto_type_info = 0  "causing delay because it is sync
 let g:go_doc_keywordprg_enabled = 0  "godoc use <slient> K conflict with coc, also it is slow....
-let g:go_textobj_enable = 0  "use coc for textobj
-let g:go_echo_go_info = 0 "guru is too slow, pls too much memory if multiple proj opens
+let g:go_textobj_enable = 0  "use coc for textobj  if, af, ic, ac
+let g:go_echo_go_info = 1 "guru is too slow, pls too much memory if multiple proj opens
 let g:go_def_mapping_enabled = 0 "disable default key mapping because we disabled gopls gd/gr/gf wont work
 
 
@@ -142,3 +142,5 @@ endfunction
 
 " note: auto_sameid will highlight identifiers under cursor. no longer work, use coc
 " let g:go_auto_sameids = 0
+
+autocmd BufWritePre *.go :GoImports

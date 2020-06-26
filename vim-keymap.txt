@@ -1,0 +1,157 @@
+" " zo, zO, zc, za, ... to fold / unfold folds
+" [[ and ]] to navigate ]k and [j
+{
+  "explorer.keyMappings": {
+    "i": false, // cancel default mapkey
+
+    "gk": "expandablePrev",
+    "gj": "expandableNext",
+
+    "*": "toggleSelection",
+    "<tab>": "actionMenu",
+
+    "h": "collapse",
+    "l": ["expandable?", "expand", "open"],
+    "J": ["toggleSelection", "nodeNext"],
+    "K": ["toggleSelection", "nodePrev"],
+    "gl": "expandRecursive",
+    "gh": "collapseRecursive",
+    "<2-LeftMouse>": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "o": ["expanded?", "collapse", "expand"],
+    "<cr>": ["expandable?", "cd", "open"],
+    "e": "open",
+    "s": "open:split",
+    "S": "open:split:plain",
+    "E": "open:vsplit",
+    "t": "open:tab",
+    "<bs>": "gotoParent",
+    "gp": "preview:labeling",
+
+    "y": "copyFilepath",
+    "Y": "copyFilename",
+    "c": "copyFile",
+    "x": "cutFile",
+    "p": "pasteFile",
+    "d": "delete",
+    "D": "deleteForever",
+
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
+
+    ".": "toggleHidden",
+    "R": "refresh",
+
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
+
+    "f": "search",
+    "F": "searchRecursive",
+
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+
+    "[[": "sourcePrev",
+    "]]": "sourceNext",
+
+    "[d": "diagnosticPrev",
+    "]d": "diagnosticNext",
+
+    "[c": "gitPrev",
+    "]c": "gitNext",
+    "<<": "gitStage",
+    ">>": "gitUnstage"
+  }
+}
+
+
+
+copy the cmd output
+redir @* | echo &guifont | redir END
+
+comments:
+[count]<leader>cc |NERDCommenterComment|
+
+Comment out the current line or text selected in visual mode.
+
+[count]<leader>cn |NERDCommenterNested|
+
+Same as cc but forces nesting.
+
+[count]<leader>c<space> |NERDCommenterToggle|
+
+Toggles the comment state of the selected line(s). If the topmost selected line is commented, all selected lines are uncommented and vice versa.
+
+[count]<leader>cm |NERDCommenterMinimal|
+
+Comments the given lines using only one set of multipart delimiters.
+
+[count]<leader>ci |NERDCommenterInvert|
+
+Toggles the comment state of the selected line(s) individually.
+
+[count]<leader>cs |NERDCommenterSexy|
+
+Comments out the selected lines with a pretty block formatted layout.
+
+[count]<leader>cy |NERDCommenterYank|
+
+Same as cc except that the commented line(s) are yanked first.
+
+<leader>c$ |NERDCommenterToEOL|
+
+Comments the current line from the cursor to the end of line.
+
+<leader>cA |NERDCommenterAppend|
+
+Adds comment delimiters to the end of line and goes into insert mode between them.
+
+|NERDCommenterInsert|
+
+Adds comment delimiters at the current cursor position and inserts between. Disabled by default.
+
+<leader>ca |NERDCommenterAltDelims|
+
+Switches to the alternative set of delimiters.
+
+[count]<leader>cl |NERDCommenterAlignLeft [count]<leader>cb |NERDCommenterAlignBoth
+
+Same as |NERDCommenterComment| except that the delimiters are aligned down the left side (<leader>cl) or both sides (<leader>cb).
+
+[count]<leader>cu |NERDCommenterUncomment|
+
+Uncomments the selected line(s).
+
+
+:execute "normal \<Plug>NiceCenterCursor"
+
+
+execute "normal \<Plug>CamelCaseMotion_iw"
+
+echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+
+
+replace with clipboard
+
+ciw^r0 (yiw if not in first char)  and then repeat with .
+
+search and replace 
+args `grep Neovim -l -r .` or args `rg Neovim -l`
+
+argdo %s/Neovim/Nvim/ge | update
+
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+set grepformat=%f:%l:%c:%m
+grep whatever
+cfdo %s/Neovim/Nvim/ge | update
+
+
+:grep 'foo'
+:cfdo %s/foo/bar/g|w

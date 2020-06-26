@@ -70,7 +70,8 @@
     "plaintext",
     "typescript",
     "typescriptreact",
-    "yml"
+    "yml",
+    "text"
   ],
 
   // Display the spell checker status on the status bar.
@@ -133,7 +134,7 @@
     "v": "open:vsplit",
     "<space>": "toggleSelection"
   },
-  "explorer.icon.enableVimDevicons": false, //NerdFont is better
+  "explorer.icon.enableVimDevicons": true, //NerdFont is better
   "explorer.icon.enableNerdfont": true,
   "explorer.buffer.tabOnly": true,
   "explorer.file.autoReveal": true,
@@ -151,26 +152,29 @@
   "explorer.file.column.clip.cut": "",
 
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
-
+  "diagnostic.messageDelay": 800,  //def: 200
+  "diagnostic.maxWindowWidth": 300,  // def: 80
   "diagnostic.displayByAle": false,
-  "diagnostic.checkCurrentLine": true, // some time it is  annoying?...
+  "diagnostic.checkCurrentLine": false, // some time it is  annoying?...
   "diagnostic.refreshOnInsertMode": true, // annoying?
   "diagnostic.virtualText": true, // Note: nvim only!!
+  "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualTextLineSeparator": "",
   "diagnostic.maxWindowHeight": 10, //default:8
-  "diagnostic.virtualTextPrefix": "",
+  "diagnostic.virtualTextPrefix": "  ",
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "כֿ",
   "diagnostic.hintSign": "λ",
 
-  "git.changedSign.text": "",
+  "coc-actions.hideCursor":true,
+  "git.changedSign.text": "פֿ",
   "git.addedSign.text": "ﰂ",
   "git.addedSign.hlGroup": "DiffAdd",
   "git.removedSign.text": "﫝",
   "git.removedSign.hlGroup": "DiffAdd",
   "git.showCommitInFloating": true,
-  "git.virtualTextPrefix": "  ",
+  "git.virtualTextPrefix": "  ",
   "git.addGBlameToVirtualText": true, //nvim only
   "git.addGBlameToBufferVar": true,
 
