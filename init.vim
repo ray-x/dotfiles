@@ -29,6 +29,7 @@ Plug 'liuchengxu/vista.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'prettier/vim-prettier', {
@@ -77,6 +78,8 @@ Plug 'othree/html5.vim'
 
 Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
 
+Plug 'preservim/nerdcommenter'  " add comments to code, 
+" tomtom/tcomment_vim is another alternative
 
 " Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
 if has('nvim')
@@ -99,6 +102,7 @@ Plug 'liuchengxu/space-vim-dark'    " blue style
 Plug 'kaicataldo/material.vim'
 Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
 Plug 'morhetz/gruvbox'
+Plug 'fenetikm/falcon'
 
 
 if executable('swift')
@@ -128,6 +132,7 @@ Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vn-ki/coc-clap'
 
 Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
 
@@ -152,28 +157,22 @@ Plug 'ludovicchabant/vim-gutentags'  "also used in eleline
 "need gotags
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' },
 Plug 'jstemmer/gotags'
-Plug 'skywind3000/gutentags_plus',
+Plug 'skywind3000/gutentags_plus', { 'for': ['c', 'cpp']}
 
-"" View and search LSP symbols, tags in Vim/NeoVim.
+Plug 'vim-test/vim-test'
+Plug 'neomake/neomake'
 
 Plug 'zefei/vim-wintabs',
 Plug 'zefei/vim-wintabs-powerline',
-" also can use following plugin for tab
-" Plug 'bagrat/vim-buffet'
-" Plug 'ap/vim-buftabline'
+" also can use vim-buffet/buftabline plugin for tab
 
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 
 Plug 'liuchengxu/eleline.vim'
-" Plug 'hardcoreplayers/spaceline.vim'  ""Good looking, missing function name
-
 " Motion
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat' " repead motion"
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
-
+Plug 'bkad/CamelCaseMotion'
 
 Plug 'pseewald/vim-anyfold'   " function folding
 
@@ -188,14 +187,19 @@ Plug 'luochen1990/rainbow'
 " Show color
 Plug 'norcalli/nvim-colorizer.lua'
 
+" for pager
+Plug 'norcalli/nvim-terminal.lua'
+
 " display the indention levels with thin vertical lines
 Plug 'Yggdroot/indentLine'
 Plug 'mtdl9/vim-log-highlighting'
-
+if has('nvim')
+    Plug 'sslivkoff/vim-scroll-barnacle', { 'on': 'ScrollbarOff' },
+endif
 " highlight current session
 Plug 'junegunn/Limelight.vim'
 " highlight current word
-Plug 'lfv89/vim-interestingwords'
+Plug 'ray-x/vim-interestingwords'
 
 Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
@@ -318,7 +322,7 @@ set numberwidth=3
 set cpoptions+=n                " use the number column for the text of wrapped lines
 
 " list of files use two space as tab
-autocmd FileType javascript,vim,yml setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
@@ -413,16 +417,12 @@ nnoremap Y y$
 
 " Enter automatically into the files directory
 autocmd BufEnter * silent! lcd %:p:h
+set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.ist,*/.fdb_latexmk,**/tmp/**,*/.so,*/.swp,*/.zip,*/.o
 
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-" let g:ctrlp_user_command = 'find %s -type f'
-" ctrlp
-"  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
-
+" set grepprg=rg\ --vimgrep    " set grepprg=ag\ --vimgrep\ $*
+" Ggrep only search files under git control
+set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
+set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
 
 
 """""""""""""""""""""
@@ -531,25 +531,9 @@ endif
 " markdown disable conceal when edit current line
 set concealcursor="i"
 
-" spell
-"  Zg/Zug add word; Zw/Zuw  -> to spell file
-" ZG/ZUG ZW ZUW" ->to internal word list
-" Zl check spell suggestion
-" ZN/ZP jump between
-" let g:enable_spelunker_vim = 1
-" let g:spelunker_target_min_char_len = 5
-" let g:spelunker_check_type=2
-" let g:spelunker_highlight_type = 2  "ighlight only SpellBad.
-" let g:spelunker_disable_uri_checking = 1 "def 0
-" let g:vim_you_autocorrect_disable_highlighting = 1
-
-
-
 nmap <leader>ft :FloatermNew <CR>
 
 """"""""Folding
-" " zo, zO, zc, za, ... to fold / unfold folds
-" [[ and ]] to navigate ]k and [j
 autocmd Filetype * AnyFoldActivate               " activate for all filetypes
 autocmd Filetype cpp set foldignore=#/
 
@@ -583,16 +567,6 @@ for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
 endfor
 
 
-"easy motion " <leader><leader>  w(forward) b(ack) j(up) k(down)  s(search)
-nmap s         <Plug>(easymotion-s2)
-xmap s         <Plug>(easymotion-s2)
-omap z         <Plug>(easymotion-s2)
-nmap <Leader>s <Plug>(easymotion-sn)
-xmap <Leader>s <Plug>(easymotion-sn)
-omap <Leader>z <Plug>(easymotion-sn)
-
-
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -602,3 +576,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
+
+
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'kitty',
+  \ 'suite':   'kitty',
+\}
+
+let g:interestingWordsCycleColors = 1
+let s:interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000']

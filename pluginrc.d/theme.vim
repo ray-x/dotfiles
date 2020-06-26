@@ -116,33 +116,12 @@ let g:indentLine_enabled = 1
 
 colorscheme paleaurora
 
-" colorscheme monokai
-" let g:monokai_term_italic = 1
-" let g:monokai_gui_italic = 1
-
-" colorscheme tender
-" let g:lightline = { 'colorscheme': 'tender' }
-
 " let g:one_allow_italics = 1
 " colorscheme one
 " set background=dark
 "" one#highlight(group, fg, bg, attribute)
 " call one#highlight('goParen', 'cccccc', '', 'none')
 " call one#highlight('Normal', '171525', '', 'none')
-
-
-
-" let g:oceanic_material_enable_italic = 1
-" let g:oceanic_material_transparent_background = 0
-" let g:oceanic_material_enable_undercurl = 1
-" colorscheme oceanic_material
-
-" let g:oceanic_next_terminal_bold = 1
-" let g:oceanic_next_terminal_italic = 1
-" colorscheme  OceanicNext   "disabled
-" hi CursorLine   guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237      ctermbg=NONE        cterm=BOLD
-" hi CursorColumn guifg=NONE        guibg=#20343D     gui=NONE      ctermfg=237       ctermbg=NONE        cterm=BOLD
-
 
 " colorscheme night-owl "disabled
 " let g:airline_theme='nightowl'  "eleline
@@ -156,26 +135,12 @@ colorscheme paleaurora
 " hi CursorColumn guifg=NONE        guibg=#272f37
 " hi DiffChange guibg=NONE guifg=yellow4
 
-
 " let g:material_terminal_italics = 1
 " let g:material_theme_style = 'palenight'
 " colorscheme material
 
-" colorscheme palenight
-" let g:airline_theme='palenight'  "eleline
-" hi DiffChange guibg=NONE guifg=yellow4
-
-
-" let g:molokai_original = 1
-" colorscheme monokai
-
-
 " let g:space_vim_dark_background = 230
 " colorscheme space-vim-dark
-" hi LineNr ctermbg=NONE guibg=NONE
-
-
-" colorscheme deus
 
 " let g:gruvbox_italic=1
 " colorscheme gruvbox
@@ -188,21 +153,6 @@ colorscheme paleaurora
 " colorscheme ayu   "lack language support, not configurable...
 " let g:indentLine_char = '⎸'
 " let g:indentLine_first_char = '│'
-" hi CursorLine   guifg=NONE        guibg=#0f1f2f
-" hi CursorColumn guifg=NONE        guibg=#0f1f2f
-
-
-" colorscheme moonfly
-" highlight Normal ctermbg=232 ctermfg=251 guibg=#1b1c11  guifg=#c6c6c6
-
-" airline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#formatter = 'default'
-" spaceline
-" let g:spaceline_colorscheme = 'space'
-
 
 " light color"
 " set background=light
@@ -213,11 +163,9 @@ colorscheme paleaurora
 " eleline
 set laststatus=2
 let g:eleline_powerline_fonts = 1
-let g:airline_powerline_fonts = 1 "backword compatbility
+let g:airline_powerline_fonts = 1 "backword compatbilitylet 
 
-
-let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
-
+" g:interestingWordsGUIColors please refer to interestingword.vim"
 
 " hi Folded guifg=#7CA790 gui=BOLD ctermfg=234
 " hi Search guibg=#3E3F1E guifg=#C4C5AE gui=bold
@@ -255,8 +203,8 @@ hi ALEErrorSign guifg=#ECC730 ctermfg=178
 
 " colorizer
 if has('nvim')
-
-lua require 'colorizer'.setup()
+  lua require 'colorizer'.setup()
+  lua require'terminal'.setup()
 endif
 
 
@@ -296,11 +244,12 @@ if index(fts, &filetype) != -1
   hi! link goOperator Operator
   hi! link goDeclaration Declaration
   hi! link Conceal Operator
-
-
 endif
 
-
+" Scrollbar "
+highlight link Scrollbar Comment
+let g:sb_default_behavior="never" 
+let g:sb_bar_style = "solid"
 
 
 

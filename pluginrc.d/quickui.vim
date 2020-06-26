@@ -202,7 +202,7 @@ endfunc
 "----------------------------------------------------------------------
 nnoremap <silent><space><space> :call quickui#menu#open()<cr>
 
-nnoremap <leader><leader>K :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
+nnoremap <leader><leader>C :call quickui#tools#clever_context('k', g:context_menu_k, {})<cr>
 
 if has('gui_running') || has('nvim')
 	noremap <c-f10> :call MenuHelp_TaskList()<cr>
