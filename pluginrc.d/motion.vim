@@ -1,4 +1,4 @@
-"easy motion default:" <leader><leader>  \w(forward) \b(ack) \j(up) \k(down)  \s(search)
+"easy motion default:" <leader><leader>  \w(forward) \b(ack) \j(down) \k(up)  \s(search)
 
 
 map <Leader> <Plug>(easymotion-prefix)
@@ -10,9 +10,9 @@ xmap <Leader>s <Plug>(easymotion-sn)
 omap <Leader>z <Plug>(easymotion-sn)
 vmap <Leader>j <Plug>(easymotion-j)
 
-
-map  <Leader><Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+map  <Leader><Leader>j <Plug>(easymotion-jumptoanywhere)
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
 
 " map  / <Plug>(easymotion-sn)
 " omap / <Plug>(easymotion-tn)
@@ -75,3 +75,4 @@ omap <silent> ib <Plug>CamelCaseMotion_ib
 xmap <silent> ib <Plug>CamelCaseMotion_ib
 omap <silent> ie <Plug>CamelCaseMotion_ie
 xmap <silent> ie <Plug>CamelCaseMotion_ie
+

@@ -1,3 +1,4 @@
+coc explorer
 " " zo, zO, zc, za, ... to fold / unfold folds
 " [[ and ]] to navigate ]k and [j
 {
@@ -153,5 +154,33 @@ grep whatever
 cfdo %s/Neovim/Nvim/ge | update
 
 
-:grep 'foo'
+:grep -r -l 'foo'
 :cfdo %s/foo/bar/g|w
+
+cfdo %s/float_win/floating_win/gc|w
+
+cfdo %s/floating_win/float_win/gc|w
+
+
+How to see which plugins are making Vim slow?
+You can use built-in profiling support: after launching vim do
+
+:profile start profile.log
+:profile func *
+:profile file *
+" At this point do slow actions
+:profile pause
+:noautocmd qall!
+"startup time"
+vim --startuptime timeCost.txt timeCost.txt
+
+
+"log all event"
+
+Building on the answers that suggest using Vp or VP to paste over a line -- to avoid changing the contents of the yank register I find the most ergonomic command is simply:
+
+VPY
+
+
+debug vim profile
+https://codeinthehole.com/tips/debugging-vim-by-example/#why-is-action-slow
