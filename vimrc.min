@@ -5,7 +5,7 @@ set verbose=1
 set verbosefile=/tmp/vimoutput.txt
 
 " Make backspace behave in a sane manner.	
-set backspace=indent,eol,start
+" set backspace=indent,eol,start
 
 set encoding=utf-8
 if has('nvim')
@@ -16,16 +16,21 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ray-x/paleaurora'
+" Plug 'w0rp/ale'
+" Plug 'neomake/neomake'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'liuchengxu/vim-clap'
+" Plug 'vn-ki/coc-clap'
 call plug#end()
+
 filetype plugin indent on
 syntax on
 set hidden
 
 syntax enable
-" set termguicolors
-set cursorcolumn cursorline
-vmap <leader>a <Plug>(coc-codeaction-selected)
-nmap <leader>a <Plug>(coc-codeaction-selected)
-nnoremap <silent> <Leader>ao :CocCommand actions.open<CR>
+set termguicolors
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/coc.vim')

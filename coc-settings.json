@@ -40,7 +40,7 @@
   "coc.preferences.extensionUpdateCheck": "weekly", //def: never
   "coc.preferences.snippetStatusText": "", //dfe SNIP
   "highlight.colors.enable": false, //colorizer.lua
-  "highlight.document.enable": true,
+  "highlight.document.enable": false,
 
   //-------- Code Spell Checker Configuration --------
   "cSpell.enabled": true,
@@ -152,26 +152,26 @@
   "explorer.file.column.clip.cut": "",
 
   "snippets.ultisnips.directories": ["UltiSnips", "gosnippets/UltiSnips"],
-  "diagnostic.messageDelay": 800,  //def: 200
+  "diagnostic.messageDelay": 200,  //def: 200
   "diagnostic.maxWindowWidth": 300,  // def: 80
   "diagnostic.displayByAle": false,
-  "diagnostic.checkCurrentLine": false, // some time it is  annoying?...
+  "diagnostic.checkCurrentLine": true, // some time it is  annoying?...
   "diagnostic.refreshOnInsertMode": true, // annoying?
   "diagnostic.virtualText": true, // Note: nvim only!!
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.virtualTextLineSeparator": "",
   "diagnostic.maxWindowHeight": 10, //default:8
   "diagnostic.virtualTextPrefix": "  ",
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "⚠",
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
   "diagnostic.infoSign": "כֿ",
   "diagnostic.hintSign": "λ",
 
   "coc-actions.hideCursor":true,
-  "git.changedSign.text": "פֿ",
-  "git.addedSign.text": "ﰂ",
+  "git.changedSign.text": "",
+  "git.addedSign.text": "",
   "git.addedSign.hlGroup": "DiffAdd",
-  "git.removedSign.text": "﫝",
+  "git.removedSign.text": "﫧",
   "git.removedSign.hlGroup": "DiffAdd",
   "git.showCommitInFloating": true,
   "git.virtualTextPrefix": "  ",
@@ -182,5 +182,7 @@
   "go.enable": true,
   "go.goplsOptions": {
     "completeUnimported": true
-  }
+  },
+ 
+  "prettier.eslintIntegration": false
 }

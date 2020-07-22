@@ -56,7 +56,7 @@ command! Buffers :Clap buffers
 command! Tags :Clap proj_tags
 command! Buffers :Clap buffers
 command! Commits :Clap commits
-command! Gdiff :Clap git_diff_files
+command! Cdiff :Clap git_diff_files
 command! Jumps :Clap jumps
 command! Yanks :Clap yanks
 command! Windows :Clap windows
@@ -68,6 +68,6 @@ command! -nargs=0 His :Clap history
 command! -nargs=0 Ch :Clap command_history
 command! -nargs=0 Sh :Clap search_history
 
-let g:clap_theme = 'atom_dark'
+" let g:clap_theme = 'atom_dark'
 let g:clap_selected_sign = { 'text': '', 'texthl': "ClapSelectedSign", "linehl": "ClapSelected" }
 let g:clap_current_selection_sign = { 'text': '', 'texthl': "ClapCurrentSelectionSign", "linehl": "ClapCurrentSelection" }

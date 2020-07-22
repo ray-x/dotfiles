@@ -92,6 +92,7 @@ endif
 
 Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
 
+
 Plug 'mhinz/vim-startify'
 
 " theme
@@ -128,14 +129,14 @@ if executable('py')
     Plug 'zchee/deoplete-jedi'
 endif
 
-Plug 'fatih/vim-go', { 'for': ['go'] , 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'for': ['go','gomod'] , 'do': ':GoInstallBinaries' }
 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vn-ki/coc-clap'
 
-Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
-
+"Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " asynchronous supprot or vim"
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
@@ -148,7 +149,6 @@ Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
 Plug 'w0rp/ale'
-" Plug 'vim-syntastic/syntastic'
 
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 
@@ -178,6 +178,7 @@ Plug 'pseewald/vim-anyfold'   " function folding
 
 Plug 'liuchengxu/vim-clap'   " keep the binary for a while. download and rebuild took time
 " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'simnalamburt/vim-mundo'
 
@@ -205,46 +206,6 @@ Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
 
 call plug#end()
-
-
-""""""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
-" superTab: Perform all your vim insert mode completions with Tab
-" Plug 'ervandew/supertab'
-" if can use  coc-explorer + coc-git " coc
-" Plug 'Shougo/defx.nvim' "file explorer ,
-" Plug 'kristijanhusak/defx-git'
-" Plug 'kristijanhusak/defx-icons'
-" let g:deoplete#enable_at_startup = 1
-" Plug 'neovim/python-client'
-" Plug 'sickill/vim-monokai'
-" spell check
-" use coc-spell-check
-" spell popup a good example of add popup in coc
-" Plug 'kamykn/spelunker.vim'
-" Plug 'kamykn/popup-menu.nvim'  "spell popup
-" Snippets
-" Plug 'honza/vim-snippets' " replaced by coc-snippets
-" 自动补全括号的插件，包括小括号，中括号，以及花括号 coc-pair
-" Plug 'jiangmiao/auto-pairs'
-
-
-
-""""""""""" theme not so good """""""""""
-" Plug 'morhetz/gruvbox'.  "warm color, not my cup of tea, but it is very popular"
-" Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
-" Plug 'ayu-theme/ayu-vim'   "lack language support
-" Plug 'rakr/vim-one' Similar to one, also slow....
-" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
-" Plug 'drewtempelmeyer/palenight.vim'  " similar to material-pale
-" Plug 'jacoborus/tender.vim'   " not much support for go
-" Plug 'bluz71/vim-moonfly-colors'  " good golang support, color is plain...
-" Plug 'mhartington/oceanic-next'  "no go support, need relay on polygot, not configurable
-" Plug 'hardcoreplayers/oceanic-material'  "good language support, similar to material-oceanic, not much star/updates
-" Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
-" Plug 'flrnd/plastic.vim'
-" Plug 'dracula/vim'
-""""""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
-
 
 
 autocmd StdinReadPre * let s:std_in=1
@@ -336,22 +297,12 @@ set showmatch
 " intelligent comments
 set comments=sl:/*,mb:\ *,elx:\ */
 
-" Install OmniCppComplete like described on http://vim.wikia.com/wiki/C++_code_completion
-" This offers intelligent C++ completion when typing ‘.’ ‘->’ or <C-o>
-" Load standard tag files
-set tags+=~/.vim/tags/cpp
-set tags+=~/.vim/tags/gl
-set tags+=~/.vim/tags/sdl
-set tags+=~/.vim/tags/qt5
 
 syntax on
 set updatetime=300 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
 
-" vim-prettier
-"let g:prettier#quickfix_enabled = 0
-"let g:prettier#quickfix_auto_focus = 0
 
- " yank
+" yank
 augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
@@ -415,8 +366,6 @@ nnoremap N Nzzzv
 " Act like D and C
 nnoremap Y y$
 
-" Enter automatically into the files directory
-autocmd BufEnter * silent! lcd %:p:h
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.ist,*/.fdb_latexmk,**/tmp/**,*/.so,*/.swp,*/.zip,*/.o
 
 " set grepprg=rg\ --vimgrep    " set grepprg=ag\ --vimgrep\ $*
@@ -490,16 +439,6 @@ au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 
 "" Javascript
 let javascript_enable_domhtmlcss = 1
-
-
-"" Rooter
-" let g:rooter_change_directory_for_non_project_files = 'home'
-" let g:rooter_targets = '/,*.yml,*.yaml'
-" let g:rooter_patterns = ['Rakefile', '.git/','go.sum']
-" let g:rooter_use_lcd = 1
-" let g:rooter_resolve_links = 1
-
-
 
 "  fold
 set foldmethod=syntax
@@ -584,5 +523,15 @@ let test#strategy = {
   \ 'suite':   'kitty',
 \}
 
-let g:interestingWordsCycleColors = 1
-let s:interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000']
+"vim test
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+let g:floaterm_keymap_toggle = '<F12>'
+
+" open quickfix window automatically at x lines height 
+let g:asyncrun_open = 8

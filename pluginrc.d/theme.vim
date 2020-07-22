@@ -252,4 +252,5 @@ let g:sb_default_behavior="never"
 let g:sb_bar_style = "solid"
 
 
-
+let g:interestingWordsCycleColors = 1
+let s:interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000']

@@ -20,7 +20,7 @@ let g:go_fmt_autosave = 0
 let g:go_fmt_fail_silently = 1
 
 let g:deoplete#enable_at_startup = 0
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>gb  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:go_list_type = "quickfix"
 let g:go_addtags_transform = "camelcase"
@@ -76,7 +76,7 @@ augroup go
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
   " :GoBuild and :GoTestCompile
-  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <leader><leader>gb :<C-u>call <SID>build_go_files()<CR>
 
   " :GoTest
   autocmd FileType go nmap <leader>gt  <Plug>(go-test)
@@ -94,7 +94,7 @@ augroup go
   " autocmd FileType go nmap <Leader>i <Plug>(go-info)  " not work if pls and info disabled
 
   " :GoMetaLinter
-  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+  autocmd FileType go nmap <Leader><Leader>l <Plug>(go-metalinter)
 
   " :GoDef but opens in a vertical split not work if pls and info disabled
   " autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
@@ -143,4 +143,9 @@ endfunction
 " note: auto_sameid will highlight identifiers under cursor. no longer work, use coc
 " let g:go_auto_sameids = 0
 
-autocmd BufWritePre *.go :GoImports
+" autocmd BufWritePre *.go :GoImports
+
+" command! -nargs=0 Gi :GoImports
+
+command! -nargs=0 Gt :AsyncRun -rows=12 -cwd=%:p:h go test   -tags=integration
+

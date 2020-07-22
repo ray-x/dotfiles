@@ -19,8 +19,7 @@ let g:coc_global_extensions = [
   \ 'coc-emmet',
   \ 'coc-xml',
   \ 'coc-yaml',
-  \ 'coc-markdownlint',
-  \ 'coc-highlight'
+  \ 'coc-markdownlint'
   \ ]
 " from readme
 
@@ -92,9 +91,11 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" Remap for format selected region: Use lint/prettier tool
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader><leader>f  <Plug>(coc-format)
+nmap <leader><leader>f  <Plug>(coc-format)
 
 augroup mygroup
   autocmd!
@@ -231,10 +232,8 @@ endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
-
+nnoremap <leader>csr :CocSearch <C-R>=expand("<cword>")<CR><CR>
 " golang setup"
-
-" autocmd BufWritePre *.go :Format
 
 " autocmd VimLeavePre * :call coc#rpc#kill()
 autocmd VimLeave * if get(g:, 'coc_process_pid', 0) | call system('kill -9 -'.g:coc_process_pid) | endif
