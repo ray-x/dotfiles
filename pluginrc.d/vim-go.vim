@@ -24,7 +24,6 @@ autocmd FileType go nmap <leader>gb  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:go_list_type = "quickfix"
 let g:go_addtags_transform = "camelcase"
-let g:go_highlight_types = 1
 
 
 " let g:go_metalinter_command = "golangci-lint"  " use ALE golangci-lint
@@ -33,7 +32,23 @@ let g:go_metalinter_deadline = "5s"
 " let g:go_metalinter_autosave_enabled = ["govet", "errcheck", "bodyclose", "goerr113", "stylecheck", "unconvert", "prealloc", "gosec", "prealloc", "nolintlint", "goimports", "dupl"]
 " let g:go_metalinter_enabled = ["govet", "errcheck", "bodyclose", "goerr113", "stylecheck", "unconvert", "prealloc", "gosec", "prealloc", "nolintlint", "goimports", "dupl"]
 
-let g:go_highlight_structs = 1 
+let g:go_highlight_structs = 0
+let g:go_highlight_methods = 0
+let g:go_highlight_operators = 0
+let g:go_highlight_build_constraints = 0
+
+" let g:go_highlight_types = 0
+" let g:go_highlight_fields = 0
+" let g:go_highlight_functions = 0
+" let g:go_highlight_function_calls = 0
+" let g:go_highlight_function_parameters  = 0
+" let g:go_highlight_extra_types = 0
+" let g:go_highlight_format_strings = 0
+" let g:go_highlight_variable_declarations = 0
+" let g:go_highlight_variable_assignments = 0
+" let g:go_highlight_generate_tags = 0
+
+let g:go_highlight_structs = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
@@ -44,11 +59,12 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_function_parameters  = 1
 let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
 let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 0
+let g:go_highlight_variable_assignments = 1
 let g:go_highlight_generate_tags = 1
+
+
 
 let g:go_code_completion_enabled = 0 "use coc-go
 let g:go_gopls_enabled = 0 "use coc-go
