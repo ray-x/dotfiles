@@ -56,6 +56,13 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'HerringtonDarkholme/yats.vim'
 
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }  "file explorer ,
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
+
+Plug 'kamykn/spelunker.vim'
+" Plug 'kamykn/popup-menu.nvim'  "spell popup
+
 Plug 'mlaursen/vim-react-snippets'
 
 Plug 'voldikss/vim-floaterm'
@@ -64,8 +71,11 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 
 " language support
-Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
+" Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}  "C++ 11/14
+
+
+
 Plug 'lifepillar/pgsql.vim'
 
 " HTML
@@ -77,21 +87,21 @@ Plug 'tpope/vim-surround'
 Plug 'othree/html5.vim'
 
 Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
+" python highlight
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'py' }
+
 
 Plug 'preservim/nerdcommenter'  " add comments to code, 
 " tomtom/tcomment_vim is another alternative
 
-" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer  --clang-tidy' }
 if has('nvim')
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py']}
+  " highlight with treesitter
+  " Plug 'nvim-treesitter/nvim-treesitter'
 else
-  Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer --clang-tidy' }
+  Plug 'govim/govim']
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
-Plug 'rdnetto/YCM-Generator', { 'for': ['c', 'cpp', 'py'] , 'branch': 'stable' }
-
 
 Plug 'mhinz/vim-startify'
 
@@ -130,15 +140,23 @@ if executable('py')
 endif
 
 Plug 'fatih/vim-go', { 'for': ['go','gomod'] , 'do': ':GoInstallBinaries' }
-
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'buoto/gotests-vim', { 'for': ['go'] }
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vn-ki/coc-clap'
+" Plug 'vn-ki/coc-clap'
 
-"Plug 'Shougo/deoplete.nvim', { 'for': ['py'] , 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+
+" Coc lsp based highlight for cpp
+" Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for': ['c', 'cpp'] }
+
 " asynchronous supprot or vim"
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-lsp'
+" Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
@@ -151,13 +169,6 @@ Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 Plug 'w0rp/ale'
 
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
-
-
-Plug 'ludovicchabant/vim-gutentags'  "also used in eleline
-"need gotags
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' },
-Plug 'jstemmer/gotags'
-Plug 'skywind3000/gutentags_plus', { 'for': ['c', 'cpp']}
 
 Plug 'vim-test/vim-test'
 Plug 'neomake/neomake'
@@ -241,12 +252,20 @@ set smartcase                   " ... but not it begins with upper case
 set completeopt=menu,menuone    " Show popup menu, even if there is one entry
 set pumheight=12                " Completion window max size
 " set nocursorcolumn              " (turn off to speeds up highlighting)
-set nocursorline                " (turn off speeds up highlighting)
+" set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
 set autoread                    " Automatically read changed files
 au FocusGained,BufEnter * :checktime  " autoload
 
+" augroup vimrc
+"   autocmd!
+"    autocmd BufWinEnter,Syntax * syn sync minlines=200 maxlines=200
+" augroup END
 
+" syntax sync minlines=256
+
+" set synmaxcol=128
+" set re=1
 
 if !has('nvim')
   set ttyscroll=3                 " Speedup scrolling
@@ -368,11 +387,11 @@ nnoremap Y y$
 
 set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.ist,*/.fdb_latexmk,**/tmp/**,*/.so,*/.swp,*/.zip,*/.o
 
-" set grepprg=rg\ --vimgrep    " set grepprg=ag\ --vimgrep\ $*
+set grepprg=rg\ --vimgrep    " set grepprg=ag\ --vimgrep\ $*
 " Ggrep only search files under git control
-set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
+" set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
 set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
-
+" :grep 'pattern' after setup and :cfdo %s/Neovim/Nvim/g | update
 
 """""""""""""""""""""
 "      Plugins      "
@@ -505,6 +524,11 @@ for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
 
+if has('nvim')
+  for s:f in split(glob(s:config_home . '/pluginrc.d/*.nvim'), '\n')
+    execute 'source' fnameescape(s:f)
+  endfor
+endif
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -519,8 +543,8 @@ let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 let test#strategy = {
   \ 'nearest': 'neovim',
-  \ 'file':    'kitty',
-  \ 'suite':   'kitty',
+  \ 'file':    'neoterm',
+  \ 'suite':   'neoterm',
 \}
 
 "vim test
@@ -535,3 +559,6 @@ let g:floaterm_keymap_toggle = '<F12>'
 
 " open quickfix window automatically at x lines height 
 let g:asyncrun_open = 8
+
+
+let g:deoplete#enable_at_startup = 1

@@ -1,6 +1,6 @@
-" coc config
-" note refer to menu-action.vim for some of the key mapping"
-let g:node_client_debug = 1  "1: turn debug and :call coc#client#open_log() to open
+coc config
+note refer to menu-action.vim for some of the key mapping"
+let g:node_client_debug = 1  "1: turn debug and :call " c#client#open_log() to open
 
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
@@ -30,7 +30,7 @@ set nowritebackup
 " Better display for messages
 set cmdheight=2
 
-" You will have bad experience for diagnostic messages when it's default 4000.
+" You will have bad experience for diagnostic messages when it's " fault 4000.
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
@@ -55,11 +55,15 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at " rrent
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" " "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -71,8 +75,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -100,12 +102,12 @@ nmap <leader><leader>f  <Plug>(coc-format)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json setl " rmatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  autocmd User CocJumpPlaceholder call " cActionAsync('showSignatureHelp')
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph. aw for current
+" Remap for do codeAction of selected region, ex: `<leader>aap` for " rrent paragraph. aw for current
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
@@ -132,7 +134,7 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call     CocAction('runCommand', " ditor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -174,11 +176,11 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? " <C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -206,7 +208,7 @@ let g:coc_explorer_global_presets = {
 \      'floating-width': 50,
 \   },
 \   'simplify': {
-\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\     'file.child.template': '[selection | clip | 1] [indent][icon |  " [filename omitCenter 1]'
 \   }
 \ }
 
@@ -214,7 +216,7 @@ nmap <S-F1> :CocCommand explorer --width 30<CR>
 
 nmap <space>ef :CocCommand explorer --preset floating<CR>
 
-nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+nmap <Leader>er :call CocAction('runCommand', 'explorer.doAction', " losest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 nmap <Leader>gs :sp<CR><Plug>(coc-definition)
 
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
@@ -229,11 +231,11 @@ nnoremap <silent> <Leader>ao :CocCommand actions.open<CR>
 function! s:cocActionsOpenFromSelected(type) abort
   execute 'CocCommand actions.open ' . a:type
 endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . " sualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>" cActionsOpenFromSelected<CR>g@
 
 nnoremap <leader>csr :CocSearch <C-R>=expand("<cword>")<CR><CR>
 " golang setup"
 
 " autocmd VimLeavePre * :call coc#rpc#kill()
-autocmd VimLeave * if get(g:, 'coc_process_pid', 0) | call system('kill -9 -'.g:coc_process_pid) | endif
+autocmd VimLeave * if get(g:, 'coc_process_pid', 0) | call system('kill " -9 -'.g:coc_process_pid) | endif" 
