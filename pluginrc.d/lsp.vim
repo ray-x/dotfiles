@@ -5,7 +5,9 @@ local completion = require('completion')
 local lsp_status = require('lsp-status')
 local util = require('nvim_lsp/util')
 local configs = require('nvim_lsp/configs')
-
+require'nvim_lsp'.bashls.setup{}
+require'nvim_lsp'.sumneko_lua.setup{}
+require'nvim_lsp'.vimls.setup{}
 
 -- Taken from https://www.reddit.com/r/neovim/comments/gyb077/nvimlsp_peek_defination_javascript_ttserver/
 function preview_location(location, context, before_context)
@@ -75,7 +77,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':NextDiagnosticCycle<CR>', opts)
 end
 
-local servers = { 'gopls', 'tsserver' }
+local servers = { 'gopls', 'tsserver', 'bashls' }
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
@@ -164,7 +166,7 @@ nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR> ++query=<cword>
 nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
 
