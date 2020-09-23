@@ -3,8 +3,8 @@ local nvim_lsp = require('nvim_lsp')
 local diagnostic = require('diagnostic')
 local completion = require('completion')
 local lsp_status = require('lsp-status')
-local configs = require('nvim_lsp/configs')
 local util = require('nvim_lsp/util')
+local configs = require('nvim_lsp/configs')
 
 
 -- Taken from https://www.reddit.com/r/neovim/comments/gyb077/nvimlsp_peek_defination_javascript_ttserver/
@@ -92,20 +92,22 @@ for _, lsp in ipairs(servers) do
     capabilities = lsp_status.capabilities
   }
 end
-nvim_lsp.gopls.setup{
-  root_dir = nvim_lsp.util.root_pattern('.git', '.mod', '.sum');
-}
+
 local on_attach_vim = function(client)
   require'completion'.on_attach(client)
   require'diagnostic'.on_attach(client)
 end
-local nvim_lsp = require'nvim_lsp'
+
 local on_attach_vim = function(client, bufnr)
     require'completion'.on_attach(client, bufnr)
     require'diagnostic'.on_attach(client, bufnr)
 end
-nvim_lsp.gopls.setup{
-    on_attach=on_attach_vim
+
+nvim_lsp.gopls.setup {
+    on_attach=on_attach_vim,
+    root_dir = function(fname)
+      return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
+    end;
 }
 
 require'nvim_lsp'.tsserver.setup{}
@@ -132,6 +134,20 @@ nvim_lsp.html.setup{
   capabilities = lsp_status.capabilities
 }
 
+vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
+vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
+vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+
+
+vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 EOF
 
 
@@ -149,13 +165,18 @@ nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
 
 set completeopt=menuone,noinsert,noselect
 
 autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 let g:completion_chain_complete_list = [
-            \{'complete_items': ['lsp', 'snippet']},
+            \{'ins_complete': v:false, 'complete_items': ['lsp', 'snippet', 'buffers', 'tabnine']},
+            \{'mode': '<c-p>'},
+            \{'mode': '<c-n>'}
             \]
+
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -170,7 +191,7 @@ inoremap <silent><expr> <TAB>
   \ completion#trigger_completion()
 let g:completion_enable_snippet = 'UltiSnips'
 
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+let g:completion_matching_strategy_list = ['exact', 'substring', 'all']   "'fuzzy'"
 augroup CompletionTriggerCharacter
     autocmd!
     autocmd BufEnter * let g:completion_trigger_character = ['.']
@@ -181,3 +202,56 @@ sign define LspDiagnosticsErrorSign text=  linehl= texthl=LspDiagnosticsError
 sign define LspDiagnosticsWarningSign text=  linehl= texthl=LspDiagnosticsWarningSign numhl=                    
 sign define LspDiagnosticsInformationSign text=כֿ  linehl= texthl=LspDiagnosticsInformationSign numhl=            
 sign define LspDiagnosticsHintSign text=λ  linehl= texthl=LspDiagnosticsHintSign numhl= 
+
+
+
+function! LspStatus() abort
+    let sl = ''
+    if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+        let sl.='%#MyStatuslineLSP#E:'
+        let sl.='%#MyStatuslineLSPErrors#%{luaeval("vim.lsp.util.buf_diagnostics_count([[Error]])")}'
+        let sl.='%#MyStatuslineLSP# W:'
+        let sl.='%#MyStatuslineLSPWarnings#%{luaeval("vim.lsp.util.buf_diagnostics_count([[Warning]])")}'
+    else
+        let sl.='%#MyStatuslineLSPErrors#off'
+    endif
+    return sl
+endfunction
+let &l:statusline = '%#MyStatuslineLSP#LSP '.LspStatus()
+
+
+let g:completion_word_min_length = 2
+let g:completion_trigger_keyword_length = 1
+
+" max tabnine completion options(default 7)
+let g:completion_tabnine_max_num_results=7
+
+" sort by tabnine score (default 0)
+let g:completion_tabnine_sort_by_details=1
+
+" max line for tabnine input(default 1000)
+" from current line -1000 ~ +1000 lines is passed as input
+let g:completion_tabnine_max_lines=1000
+
+let g:completion_auto_change_source = 1
+" imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+" imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+"  sorting via length descending
+" possible value: "length", "alphabet", "none"
+let g:completion_sorting = "length"
+let g:completion_matching_ignore_case = 1
+let g:completion_items_priority = {
+        \ 'Field': 5,
+        \ 'Function': 7,
+        \ 'Variables': 7,
+        \ 'Method': 10,
+        \ 'Interfaces': 5,
+        \ 'Constant': 5,
+        \ 'Class': 5,
+        \ 'Keyword': 4,
+        \ 'UltiSnips' : 2,
+        \ 'vim-vsnip' : 0,
+        \ 'Buffers' : 1,
+        \ 'TabNine' : 2,
+        \ 'File' : 1,
+        \}

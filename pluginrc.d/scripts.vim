@@ -33,29 +33,6 @@ let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
 autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
 
 
-function! StatuslineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
-endfunction
-
-
-function! s:get_gutentags_status(mods) abort
-    let l:msg = ''
-    if index(a:mods, 'ctags') >= 0
-       let l:msg .= '♨'
-     endif
-     if index(a:mods, 'cscope') >= 0
-       let l:msg .= '♺'
-     endif
-     return l:msg
-endfunction
-
-set statusline+=%{gutentags#statusline_cb(
-                    \function('<SID>get_gutentags_status'))}
-
-
-
 " Protect large files from sourcing and other overhead.
 " Files become read only
 let g:LargeFile=1
@@ -74,3 +51,5 @@ if !exists("my_auto_commands_loaded")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
     augroup END
   endif
+
+command! Scratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
