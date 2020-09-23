@@ -121,8 +121,6 @@ if executable('swift')
 endif
 
 
-Plug 'christoomey/vim-tmux-navigator'
-
 
 " markdown 插件
 Plug 'iamcco/mathjax-support-for-mkdp'  "math support
@@ -149,6 +147,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 Plug 'nvim-lua/lsp-status.nvim'
+Plug 'RishabhRD/popfix'
+Plug 'RishabhRD/nvim-lsputils'
+Plug 'steelsojka/completion-buffers'
 
 " Coc lsp based highlight for cpp
 " Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for': ['c', 'cpp'] }
@@ -156,9 +157,8 @@ Plug 'nvim-lua/lsp-status.nvim'
 " asynchronous supprot or vim"
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-lsp'
-" Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Shougo/echodoc.vim'
-Plug 'tenfyzhong/CompleteParameter.vim'
+
+Plug 'aca/completion-tabnine', { 'do': './install.sh' }
 
 Plug 'Lokaltog/vim-powerline'
 
@@ -438,13 +438,6 @@ map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 
-" CompleteParameter.vim
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-
 "" Python
 au BufNewFile,BufRead *.py set colorcolumn=79
 au BufNewFile,BufRead *.py set expandtab
@@ -463,22 +456,7 @@ let javascript_enable_domhtmlcss = 1
 set foldmethod=syntax
 set foldlevel=10
 
-
-" gutentags
-let $DATA_PATH =
-  \ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim')
-
-let g:gutentags_cache_dir = $DATA_PATH.'/tags'
-let g:gutentags_project_root = ['.root', '.git', '.svn', '.hg', '.project','go.mod','/usr/local']
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_new = 0
-let g:gutentags_exclude_filetypes = [ 'defx', 'denite', 'vista', 'magit' ]
-let g:gutentags_ctags_extra_args = ['--output-format=e-ctags']
-let g:gutentags_ctags_exclude = ['*.json', '*.js', '*.ts', '*.jsx', '*.css', '*.less', '*.sass', '*.go', '*.dart', 'node_modules', 'dist', 'vendor']
-
-
-map <F3> :Vista!!<CR>
+map <F3> :Vista nvim_lsp<CR>
 
 if !has('nvim')
   " vimspector support, it does work with neovim
@@ -561,4 +539,9 @@ let g:floaterm_keymap_toggle = '<F12>'
 let g:asyncrun_open = 8
 
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
+
+
+
+autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
+autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>

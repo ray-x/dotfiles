@@ -11,14 +11,14 @@ let s:default_columns = 'indent:git:icons:filename'
 function! s:setup_defx() abort
   silent! call defx#custom#option('_', {
         \ 'columns': s:default_columns,
-        \ 'winwidth': 40,
+        \ 'winwidth': 27,
         \ 'direction': 'topleft',
         \ 'split': 'vertical',
         \ })
 
   silent! call defx#custom#column('filename', {
-        \ 'min_width': 80,
-        \ 'max_width': 80,
+        \ 'min_width': 70,
+        \ 'max_width': 70,
         \ })
 
   call s:defx_open({ 'dir': expand('<afile>') })
@@ -96,6 +96,8 @@ function! s:defx_mappings() abort
   nnoremap <silent><buffer><expr> q defx#do_action('quit')
   nnoremap <silent><buffer><expr> <Leader>n defx#do_action('quit')
   silent exe 'nnoremap <silent><buffer><expr> tt defx#do_action("toggle_columns", "'.s:default_columns.':size:time")'
+  nnoremap <silent> - :<C-U>:Defx `expand('%:p:h')` -search=`expand('%:p')` -buffer-name=defx -resume<CR>
 endfunction
 
-nmap <S-F1> :Defx<CR>
+nmap <S-F1> :Defx -toggle<CR>
+" nmap <S-F2> :Clap filer<CR>

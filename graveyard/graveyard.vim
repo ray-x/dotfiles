@@ -24,6 +24,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py']}
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'py'],  'do': './install.py  --clangd-completer --clang-tidy' }
 " autocomplete path, yank etc
 let g:deoplete#enable_at_startup = 1
+" Plug 'tenfyzhong/CompleteParameter.vim'  " do not work with nvim-lsp"
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'EchoDoc'
 
 """"""""""" theme not so good """""""""""
 " Plug 'morhetz/gruvbox'.  "warm color, not my cup of tea, but it is very popular"
@@ -39,6 +42,7 @@ let g:deoplete#enable_at_startup = 1
 " Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
 " Plug 'flrnd/plastic.vim'
 " Plug 'dracula/vim'
+
 """"""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
 
 
@@ -86,3 +90,11 @@ augroup auto_go
   autocmd BufWritePost *.mod :AsyncRun -cwd=<root> go mod tidy
   " autocmd BufWritePost *_test.go :AsyncRun -raw -cwd=%:p:h go test ./... -tags=integration | lopen 3
 augroup end
+
+
+" CompleteParameter.vim
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
