@@ -173,9 +173,10 @@ Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 Plug 'vim-test/vim-test'
 Plug 'neomake/neomake'
 
-Plug 'zefei/vim-wintabs',
-Plug 'zefei/vim-wintabs-powerline',
+" Plug 'zefei/vim-wintabs',
+" Plug 'zefei/vim-wintabs-powerline',
 " also can use vim-buffet/buftabline plugin for tab
+Plug 'bagrat/vim-buffet'
 
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 
@@ -206,7 +207,7 @@ Plug 'norcalli/nvim-terminal.lua'
 Plug 'Yggdroot/indentLine'
 Plug 'mtdl9/vim-log-highlighting'
 if has('nvim')
-    Plug 'sslivkoff/vim-scroll-barnacle', { 'on': 'ScrollbarOff' },
+    Plug 'Xuyuanp/scrollbar.nvim'
 endif
 " highlight current session
 Plug 'junegunn/Limelight.vim'
@@ -456,8 +457,6 @@ let javascript_enable_domhtmlcss = 1
 set foldmethod=syntax
 set foldlevel=10
 
-map <F3> :Vista nvim_lsp<CR>
-
 if !has('nvim')
   " vimspector support, it does work with neovim
   " let g:vimspector_enable_mappings = 'HUMAN'
@@ -545,3 +544,21 @@ let g:deoplete#enable_at_startup = 0
 
 autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
 autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>
+
+augroup ScrollbarInit
+  autocmd!
+  autocmd WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
+  autocmd WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
+augroup end
+
+augroup config_scrollbar_nvim
+    autocmd!
+    autocmd BufEnter    * silent! lua require('scrollbar').show()
+    autocmd BufLeave    * silent! lua require('scrollbar').clear()
+    autocmd FocusGained * silent! lua require('scrollbar').show()
+    autocmd FocusLost   * silent! lua require('scrollbar').clear()
+    autocmd CursorMoved * silent! lua require('scrollbar').show()
+    autocmd VimResized  * silent! lua require('scrollbar').show()
+augroup end
+
+
