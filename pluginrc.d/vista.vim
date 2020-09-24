@@ -26,8 +26,10 @@ let g:vista_executive_for = {
   \ 'vimwiki': 'markdown',
   \ 'pandoc': 'markdown',
   \ 'markdown': 'toc',
-  \ 'yaml': 'nvim-lsp',
-  \ 'typescript': 'nvim-lsp',
-  \ 'go': 'nvim-lsp',
+  \ 'yaml': 'nvim_lsp',
+  \ 'typescript': 'nvim_lsp',
+  \ 'go': 'nvim_lsp',
   \ }
 
+
+map <F3> :Vista!!<CR>

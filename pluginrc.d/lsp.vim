@@ -68,6 +68,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>de', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'pd', '<cmd>lua peek_definition()<CR>', opts)
@@ -75,9 +76,23 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':NextDiagnostic<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':PrevDiagnosticCycle<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':NextDiagnosticCycle<CR>', opts)
+
+  vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+  vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
+  vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
+  vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+  vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+  vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+  vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+  vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+
+  vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+  vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+  vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+  vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 end
 
-local servers = { 'gopls', 'tsserver', 'bashls' }
+local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html' }
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
@@ -95,18 +110,8 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-local on_attach_vim = function(client)
-  require'completion'.on_attach(client)
-  require'diagnostic'.on_attach(client)
-end
-
-local on_attach_vim = function(client, bufnr)
-    require'completion'.on_attach(client, bufnr)
-    require'diagnostic'.on_attach(client, bufnr)
-end
-
 nvim_lsp.gopls.setup {
-    on_attach=on_attach_vim,
+    on_attach=on_attach,
     root_dir = function(fname)
       return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
     end;
@@ -116,40 +121,27 @@ require'nvim_lsp'.tsserver.setup{}
 cmd = { "typescript-language-server", "--stdio" }
 filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
 
-nvim_lsp.pyls.setup{
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities
-}
-nvim_lsp.sumneko_lua.setup{
-  on_attach = on_attach,
-}
-nvim_lsp.vimls.setup{
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities
-}
-nvim_lsp.tsserver.setup{
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities
-}
-nvim_lsp.html.setup{
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities
-}
-
-vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
-vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
-vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
-vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
-
-
-vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
-vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+-- nvim_lsp.pyls.setup{
+--   on_attach = on_attach,
+--   capabilities = lsp_status.capabilities
+-- }
+-- nvim_lsp.sumneko_lua.setup{
+--   on_attach = on_attach,
+-- }
+-- nvim_lsp.vimls.setup{
+--   on_attach = on_attach,
+--   capabilities = lsp_status.capabilities
+-- }
+-- nvim_lsp.tsserver.setup{
+--   on_attach = on_attach,
+--   capabilities = lsp_status.capabilities
+-- }
+-- nvim_lsp.html.setup{
+--   on_attach = on_attach,
+--   capabilities = lsp_status.capabilities
+-- }
+-- 
+-- 
 EOF
 
 
@@ -257,3 +249,7 @@ let g:completion_items_priority = {
         \ 'TabNine' : 2,
         \ 'File' : 1,
         \}
+
+let g:LanguageClient_serverCommands = { 
+  \ 'typescript': ['typescript-language-server', '--stdio', '--tsserver-path', 'node_modules/.bin/tsserver'], 
+\ }

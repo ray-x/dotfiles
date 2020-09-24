@@ -76,7 +76,7 @@ let g:indentLine_enabled = 1
 
 
 
-""" one dark setup """ 
+""" one dark setup """
 "let g:onedark_terminal_italics = 1
 "
 "
@@ -89,8 +89,8 @@ let g:indentLine_enabled = 1
 "    autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { " cterm": 128 } })
 "    " Override the `Identifier` background color in GUI mode
 "   " autocmd ColorScheme * call onedark#set_highlight("Identifier", { "bg": { " guifg": "#333333" } })
-"   
-"   " autocmd ColorScheme * call onedark#set_highlight("Normal", { "bg": s:cyan }) 
+"
+"   " autocmd ColorScheme * call onedark#set_highlight("Normal", { "bg": s:cyan })
 "   autocmd ColorScheme * call onedark#set_highlight("goParen", { "fg": s:darkred })
 "   autocmd ColorScheme * call onedark#set_highlight("goBlock", { "fg": s:warmgrey})
 "   autocmd ColorScheme * call onedark#set_highlight("goParamName", { "fg":s:br_cyan })
@@ -163,7 +163,7 @@ colorscheme paleaurora
 " eleline
 set laststatus=2
 let g:eleline_powerline_fonts = 1
-let g:airline_powerline_fonts = 1 "backword compatbilitylet 
+let g:airline_powerline_fonts = 1 "backword compatbilitylet
 
 " g:interestingWordsGUIColors please refer to interestingword.vim"
 
@@ -194,8 +194,8 @@ hi ALEErrorSign guifg=#ECC730 ctermfg=178
 " augroup end
 
 " spell
-"highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e
-"highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
+highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e
+highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 
 "rainbow prentheses"
 "let g:rainbow_active = 1
@@ -248,7 +248,7 @@ endif
 
 " Scrollbar "
 highlight link Scrollbar Comment
-let g:sb_default_behavior="never" 
+let g:sb_default_behavior="never"
 let g:sb_bar_style = "solid"
 
 
@@ -265,3 +265,23 @@ augroup LuaHighlight
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 2000)
 augroup END
+
+let g:scrollbar_max_size = 5
+let g:scrollbar_min_size = 1
+let g:scrollbar_right_offset = 0
+let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vim-startify']
+
+
+
+let g:buffet_powerline_separators = 1
+let g:buffet_tab_icon = ''
+function! g:BuffetSetCustomColors()
+  hi! BuffetCurrentBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#16a9dc guifg=#202030
+  hi! BuffetActiveBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#4f4a54 guifg=#ddd0f4
+  hi! BuffetBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#2f233e guifg=#8d8094
+  hi! BuffetModCurrentBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#67d5b5 guifg=#202030
+  hi! BuffetModActiveBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#76715E guifg=#8d809f
+  hi! BuffetModBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#76715E guifg=#8d809f
+  hi! BuffetTab cterm=NONE ctermbg=5 ctermfg=8 guibg=#6690c4 guifg=#ddd0f4
+
+endfunction"
