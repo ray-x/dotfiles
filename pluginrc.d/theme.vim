@@ -273,8 +273,12 @@ let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vim-startify']
 
 
 
+let g:buffet_always_show_tabline = 0
 let g:buffet_powerline_separators = 1
-let g:buffet_tab_icon = ''
+let g:buffet_tab_icon = "\uf00a"
+let g:buffet_left_trunc_icon = "\uf0a8"
+let g:buffet_right_trunc_icon = "\uf0a9"
+
 function! g:BuffetSetCustomColors()
   hi! BuffetCurrentBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#16a9dc guifg=#202030
   hi! BuffetActiveBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#4f4a54 guifg=#ddd0f4
@@ -283,5 +287,4 @@ function! g:BuffetSetCustomColors()
   hi! BuffetModActiveBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#76715E guifg=#8d809f
   hi! BuffetModBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#76715E guifg=#8d809f
   hi! BuffetTab cterm=NONE ctermbg=5 ctermfg=8 guibg=#6690c4 guifg=#ddd0f4
-
 endfunction"

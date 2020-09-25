@@ -1,23 +1,10 @@
-" set encoding=utf-8
-" if has('nvim')
-"   let s:config_home = stdpath('config')
-" else
-"   let s:config_home = '~/.config/nvim'
-" endif
-" 
-" " Set python/ruby interpreter path
-" 
-" if has('mac')
-"   let s:brew_prefix = '/usr/local'
-" elseif executable('brew')
-"   let s:brew_prefix = systemlist('brew --prefix')[0]
-" endif
 
 call plug#begin('~/.vim/plugged')
 
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
+
 
 call plug#end()
 
@@ -40,9 +27,6 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
   }
 end
--- nvim_lsp.gopls.setup{
---   root_dir = nvim_lsp.util.root_pattern('.git', '.mod', '.sum');
--- }
 
 EOF
 
@@ -58,3 +42,4 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
+
