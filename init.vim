@@ -562,3 +562,5 @@ augroup config_scrollbar_nvim
 augroup end
 
 
+lua require('lsp_init')
+lua require('lsp_location')
