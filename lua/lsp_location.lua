@@ -3,6 +3,61 @@ local M = {}
 local lsp = vim.lsp
 local lsp_util = require('vim.lsp.util')
 
+local vfn = vim.fn
+local validate = vim.validate
+
+--@private
+--- Returns nil if {status} is false or nil, otherwise returns the rest of the
+--- arguments.
+local function ok_or_nil(status, ...)
+  if not status then return end
+  return ...
+end
+
+--@private
+--- Swallows errors.
+---
+--@param fn Function to run
+--@param ... Function arguments
+--@returns Result of `fn(...)` if there are no errors, otherwise nil.
+--- Returns nil if errors occur during {fn}, otherwise returns
+-- https://github.com/neg-serg/dotfiles/blob/master/nvim/.config/nvim/lua/vim/lsp/buf.lua
+local function npcall(fn, ...)
+  return ok_or_nil(pcall(fn, ...))
+end
+
+--@private
+--- Sends an async request to all active clients attached to the current
+--- buffer.
+---
+--@param method (string) LSP method name
+--@param params (optional, table) Parameters to send to the server
+--@param callback (optional, functionnil) Handler
+--  `function(err, method, params, client_id)` for this request. Defaults
+--  to the client callback in `client.callbacks`. See |lsp-callbacks|.
+--
+--@returns 2-tuple:
+---  - Map of client-id:request-id pairs for all successful requests.
+---  - Function which can be used to cancel all the requests. You could instead
+---    iterate all clients and call their `cancel_request()` methods.
+---
+--@see |vim.lsp.buf_request()|
+local function request(method, params, callback)
+  validate {
+    method = {method, 's'};
+    callback = {callback, 'f', true};
+  }
+  return vim.lsp.buf_request(0, method, params, callback)
+end
+
+--- Checks whether the language servers attached to the current buffer are
+--- ready.
+---
+--@returns `true` if server responds.
+function M.server_ready()
+  return not not vim.lsp.buf_notify(0, "window/progress", {})
+end
+
 local peek_location_callback = function(_, _, result)
   if not result or vim.tbl_isempty(result) then
     return
@@ -22,6 +77,30 @@ local function preview_location_callback(_, method, result)
   else
     vim.lsp.util.preview_location(result)
   end
+end
+
+--- Lists all the items that are called by the symbol under the
+--- cursor in the |quickfix| window. If the symbol can resolve to
+--- multiple items, the user can pick one in the |inputlist|.
+function M.outgoing_calls()
+  local params = util.make_position_params()
+  request('textDocument/prepareCallHierarchy', params, function(_, _, result)
+    local call_hierarchy_item = pick_call_hierarchy_item(result)
+    vim.lsp.buf_request(0, 'callHierarchy/outgoingCalls', { item = call_hierarchy_item })
+  end)
+end
+
+--- Lists all symbols in the current workspace in the quickfix window.
+---
+--- The list is filtered against {query}; if the argument is omitted from the
+--- call, the user is prompted to enter a string on the command line. An empty
+--- string means no filtering is done.
+---
+--@param query (string, optional)
+function M.work_space_symbol(query)
+  query = query or npcall(vfn.input, "Query: ", vfn.expand('<cword>'))
+  local params = {query = query}
+  request('workspace/symbol', params)
 end
 
 function M.preview_definition()
@@ -99,5 +178,8 @@ vim.api.nvim_set_keymap('n', '<leader>di',
                         '<cmd>lua require("lsp_location").preview_implementation()<CR>',
                         { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<leader>ww',
+                        '<cmd>lua require("lsp_location").work_space_symbol()<CR>',
+                        { noremap = true, silent = true })
 
 return M
