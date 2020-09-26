@@ -109,3 +109,7 @@ let g:completion_items_priority = {
 let g:LanguageClient_serverCommands = { 
   \ 'typescript': ['typescript-language-server', '--stdio', '--tsserver-path', 'node_modules/.bin/tsserver'], 
 \ }
+
+" nnoremap <silent> <Leader>gr <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
+" nnoremap <silent> <Leader>ws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
+" nnoremap <silent> <Leader>ds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>

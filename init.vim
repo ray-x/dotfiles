@@ -21,8 +21,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'Chiel92/vim-autoformat'
 
 " Group dependencies, vim-snippets depends on ultisnips
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'liuchengxu/vista.vim'
@@ -107,6 +108,8 @@ Plug 'mhinz/vim-startify'
 
 " theme
 Plug 'ray-x/paleaurora'
+" Plug 'drewtempelmeyer/palenight.vim'
+Plug 'kyazdani42/nvim-palenight.lua'
 Plug 'joshdick/onedark.vim'
 Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
 Plug 'liuchengxu/space-vim-dark'    " blue style
@@ -150,6 +153,10 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'RishabhRD/popfix'
 Plug 'RishabhRD/nvim-lsputils'
 Plug 'steelsojka/completion-buffers'
+
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-lua/telescope.nvim'
 
 " Coc lsp based highlight for cpp
 " Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for': ['c', 'cpp'] }
@@ -538,9 +545,8 @@ let g:floaterm_keymap_toggle = '<F12>'
 let g:asyncrun_open = 8
 
 
-let g:deoplete#enable_at_startup = 0
-
-
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('/tmp/lsp.log')
 
 autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
 autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>
@@ -561,6 +567,10 @@ augroup config_scrollbar_nvim
     autocmd VimResized  * silent! lua require('scrollbar').show()
 augroup end
 
+" nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
+" nnoremap <Leader>P <cmd>lua require'telescope.builtin'.find_files{}<CR>
+" nnoremap <silent> <Leader>Ff <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }<CR>
 
+" lua require('init')
 lua require('lsp_init')
 lua require('lsp_location')

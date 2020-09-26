@@ -115,6 +115,7 @@ let g:indentLine_enabled = 1
 " hi DiffAdd guibg=NONE guifg=green4
 
 colorscheme paleaurora
+"colorscheme palenight
 
 " let g:one_allow_italics = 1
 " colorscheme one
