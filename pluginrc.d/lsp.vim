@@ -39,7 +39,8 @@ inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
-let g:completion_enable_snippet = 'UltiSnips'
+
+let g:completion_enable_snippet = 'vim-vsnip'  " 'UltiSnips'
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'all']   "'fuzzy'"
 augroup CompletionTriggerCharacter
@@ -101,6 +102,7 @@ let g:completion_items_priority = {
         \ 'Keyword': 4,
         \ 'UltiSnips' : 2,
         \ 'vim-vsnip' : 0,
+        \ 'Neosnippet' : 2,
         \ 'Buffers' : 1,
         \ 'TabNine' : 2,
         \ 'File' : 1,

@@ -37,32 +37,32 @@ let g:go_highlight_methods = 0
 let g:go_highlight_operators = 0
 let g:go_highlight_build_constraints = 0
 
-" let g:go_highlight_types = 0
-" let g:go_highlight_fields = 0
-" let g:go_highlight_functions = 0
-" let g:go_highlight_function_calls = 0
-" let g:go_highlight_function_parameters  = 0
-" let g:go_highlight_extra_types = 0
-" let g:go_highlight_format_strings = 0
-" let g:go_highlight_variable_declarations = 0
-" let g:go_highlight_variable_assignments = 0
-" let g:go_highlight_generate_tags = 0
+let g:go_highlight_types = 0
+let g:go_highlight_fields = 0
+let g:go_highlight_functions = 0
+let g:go_highlight_function_calls = 0
+let g:go_highlight_function_parameters  = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_format_strings = 0
+let g:go_highlight_variable_declarations = 0
+let g:go_highlight_variable_assignments = 0
+let g:go_highlight_generate_tags = 0
 
-let g:go_highlight_structs = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
 
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_function_parameters  = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_generate_tags = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_highlight_function_parameters  = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_format_strings = 1
+" let g:go_highlight_variable_declarations = 1
+" let g:go_highlight_variable_assignments = 1
+" let g:go_highlight_generate_tags = 1
 
 
 
@@ -112,15 +112,6 @@ augroup go
   " :GoMetaLinter
   autocmd FileType go nmap <Leader><Leader>l <Plug>(go-metalinter)
 
-  " :GoDef but opens in a vertical split not work if pls and info disabled
-  " autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-  " :GoDef but opens in a horizontal split not work if pls and info disabled
-  " autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-  " au FileType go nmap <Leader>gr <Plug>(go-referrers)   " not work if pls and info disabled
-  " au FileType go nmap <Leader>dt <Plug>(go-def-tab)  "" not work if pls and info disabled
-
-  " au FileType go nmap <Leader>gv <Plug>(go-doc-vertical) " not work if gopls disable
-
   au FileType go nmap <Leader>ge <Plug>(go-rename)
 
   " :GoAlternate  commands :A, :AV, :AS and :AT
@@ -164,4 +155,24 @@ endfunction
 " command! -nargs=0 Gi :GoImports
 
 command! -nargs=0 Gt :AsyncRun -rows=12 -cwd=%:p:h go test   -tags=integration
+
+" autocmd FileType go nmap <F9>  :GoDebugBreakpoint <CR>
+" autocmd FileType go nmap <F5>  :GoDebugContinue <CR> 
+" autocmd FileType go nmap <F10>  :GoDebugNext <CR> 
+" autocmd FileType go nmap <F11>  :GoDebugStep <CR>
+" autocmd FileType go nmap <F6>  :GoDebugHalt <CR>
+
+autocmd FileType go nmap <leader><F7>  :GoDebugTestFunc <CR>
+autocmd FileType go nmap <F7>  :GoDebugRestart <CR>
+autocmd FileType go nmap <F8>  :GoDebugStepOut <CR>
+
+""""Default settings"""""
+" autocmd FileType go nmap <buffer> <F5>   <Plug>(go-debug-continue)
+" autocmd FileType go nmap <buffer> <F6>   <Plug>(go-debug-print)
+" autocmd FileType go nmap <buffer> <F9>   <Plug>(go-debug-breakpoint)
+" autocmd FileType go nmap <buffer> <F10>  <Plug>(go-debug-next)
+" autocmd FileType go nmap <buffer> <F11>  <Plug>(go-debug-step)
+" autocmd FileType go nmap <buffer> <F6>  <Plug>(go-debug-halt)
+" autocmd FileType go nmap <buffer> <F5>   <Plug>(go-debug-continue)
+" autocmd FileType go nmap <buffer> <F9>   <Plug>(go-debug-breakpoint)
 
