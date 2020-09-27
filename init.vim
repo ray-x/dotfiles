@@ -22,8 +22,11 @@ Plug 'Chiel92/vim-autoformat'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+
+
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'liuchengxu/vista.vim'
@@ -97,7 +100,7 @@ Plug 'preservim/nerdcommenter'  " add comments to code,
 
 if has('nvim')
   " highlight with treesitter
-  " Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter'
 else
   Plug 'govim/govim']
   Plug 'roxma/nvim-yarp'
@@ -137,7 +140,7 @@ Plug 'sedm0784/vim-you-autocorrect'
 
 if executable('py')
     Plug 'nvie/vim-flake8'
-    Plug 'zchee/deoplete-jedi'
+    " Plug 'zchee/deoplete-jedi'
 endif
 
 Plug 'fatih/vim-go', { 'for': ['go','gomod'] , 'do': ':GoInstallBinaries' }
@@ -162,8 +165,8 @@ Plug 'steelsojka/completion-buffers'
 " Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for': ['c', 'cpp'] }
 
 " asynchronous supprot or vim"
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+" Plug 'Shougo/deoplete.nvim', { 'for': ['json', 'txt', 'yml'], 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete-lsp'
 
 Plug 'aca/completion-tabnine', { 'do': './install.sh' }
 
@@ -174,8 +177,6 @@ Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
 Plug 'w0rp/ale'
-
-Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 
 Plug 'vim-test/vim-test'
 Plug 'neomake/neomake'
@@ -263,7 +264,7 @@ set pumheight=12                " Completion window max size
 " set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
 set autoread                    " Automatically read changed files
-au FocusGained,BufEnter * :checktime  " autoload
+" au FocusGained,BufEnter * :checktime  " autoload
 
 " augroup vimrc
 "   autocmd!
@@ -482,14 +483,6 @@ autocmd Filetype cpp set foldignore=#/
 let g:anyfold_identify_comments=2
 let g:anyfold_fold_comments=1
 
-autocmd Filetype cpp let g:cpp_class_scope_highlight = 1
-autocmd Filetype cpp let g:cpp_member_variable_highlight = 1
-autocmd Filetype cpp let g:cpp_class_decl_highlight = 1
-autocmd Filetype cpp let g:cpp_posix_standard = 1
-autocmd Filetype cpp let g:cpp_experimental_simple_template_highlight = 1
-autocmd Filetype cpp let g:cpp_experimental_template_highlight = 1
-autocmd Filetype cpp let g:cpp_concepts_highlight = 1
-
 " disable anyfold for large files
 let g:LargeFile = 1000000 " file is large if size greater than 1MB
 autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
@@ -501,18 +494,7 @@ function LargeFile()
 endfunction
 
 
-""""""""" Load other vim plugin config """""""""
-" execute 'source' fnameescape(s:config_home . '/keymap.vim')
 
-for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
-  execute 'source' fnameescape(s:f)
-endfor
-
-if has('nvim')
-  for s:f in split(glob(s:config_home . '/pluginrc.d/*.nvim'), '\n')
-    execute 'source' fnameescape(s:f)
-  endfor
-endif
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -574,3 +556,25 @@ augroup end
 " lua require('init')
 lua require('lsp_init')
 lua require('lsp_location')
+
+" "treesitter breaks from time to time :(
+lua require('treesitter')
+
+
+" let g:vimspector_enable_mappings = 'HUMAN'
+" autocmd FileType txt let g:deoplete#enable_at_startup = 1
+
+
+
+""""""""" Load other vim plugin config """""""""
+" execute 'source' fnameescape(s:config_home . '/keymap.vim')
+
+for s:f in split(glob(s:config_home . '/pluginrc.d/*.vim'), '\n')
+  execute 'source' fnameescape(s:f)
+endfor
+
+if has('nvim')
+  for s:f in split(glob(s:config_home . '/pluginrc.d/*.nvim'), '\n')
+    execute 'source' fnameescape(s:f)
+  endfor
+endif

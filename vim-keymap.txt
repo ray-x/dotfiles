@@ -136,6 +136,7 @@ Uncomments the selected line(s).
 
 execute "normal \<Plug>CamelCaseMotion_iw"
 
+" highlight"
 echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 
 
@@ -184,3 +185,18 @@ VPY
 
 debug vim profile
 https://codeinthehole.com/tips/debugging-vim-by-example/#why-is-action-slow
+
+change file type hl `set ft=json`
+wc in visual   g<C>g
+python prettier    :%!jq    (%! means use file as stdin)
+
+repeat 
+@@
+.
+
+command history:    q:
+If you always want to use the command editing window, try these mappings:
+
+nnoremap : q:i
+nnoremap / q/i
+nnoremap ? q?i
