@@ -9,6 +9,41 @@
 " Plug 'neovim/python-client'
 " Plug 'sickill/vim-monokai'
 " Plug 'buoto/gotests-vim', { 'for': ['go'] }
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+if executable('swift')
+  Plug 'keith/swift.vim', { 'for': ['swift'] }
+endif
+Plug 'neomake/neomake'
+
+Plug 'pangloss/vim-javascript'
+
+Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+
+
+Plug 'mlaursen/vim-react-snippets'
+Plug 'UltiSnips'
+Plug 'groenewege/vim-less', { 'for': ['html','css'] }
+Plug 'maxmellon/vim-jsx-pretty', { 'for': ['html','css', 'js', 'ts', 'tsx'] }
+" FIXME
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'branch': 'release/1.x',
+"   \ 'for': [
+"     \ 'css',
+"     \ 'less',
+"     \ 'scss',
+"     \ 'json',
+"     \ 'graphql',
+"     \ 'markdown',
+"     \ 'html',
+"     \ 'swift' ],
+"   \ 'on': ['PrettierAsync', 'Prettier'] }
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'tpope/vim-surround'
+" Plug 'othree/html5.vim'
+
 " spell check
 " use coc-spell-check
 " spell popup a good example of add popup in coc
@@ -27,6 +62,14 @@ let g:deoplete#enable_at_startup = 1
 " Plug 'tenfyzhong/CompleteParameter.vim'  " do not work with nvim-lsp"
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'EchoDoc'
+" Plug 'peitalin/vim-jsx-typescript'
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'sedm0784/vim-you-autocorrect'   "autocmd BufEnter * EnableAutocorrect
+
+Plug 'skywind3000/vim-quickui' " replace vim-preview
+
+" highlight current session
+Plug 'junegunn/Limelight.vim' " never used sofar
 
 """"""""""" theme not so good """""""""""
 " Plug 'morhetz/gruvbox'.  "warm color, not my cup of tea, but it is very popular"
@@ -98,3 +141,11 @@ smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+
+" ale is good enough
+let g:neomake_go_enabled_makers = [ 'golangci_lint', 'go' ]
+let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
+let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
+let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}

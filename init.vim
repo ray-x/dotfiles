@@ -22,87 +22,57 @@ Plug 'Chiel92/vim-autoformat'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
+" Plug 'prabirshrestha/asyncomplete.vim' , {'for': ['md', 'text']}
 
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
-Plug 'ryanoasis/vim-devicons'
 
-Plug 'liuchengxu/vista.vim'
+" Plug 'prabirshrestha/vsnip-snippets' , {'for': ['md', 'text']}
+
+
+" Plug 'ryanoasis/vim-devicons' "replaced with nvim-web-devicons(lua)"
+
+Plug 'liuchengxu/vista.vim', { 'on': ['Vista!!','Vista'] }
 
 " Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'branch': 'release/1.x',
-  \ 'for': [
-    \ 'javascript',
-    \ 'typescript',
-    \ 'css',
-    \ 'less',
-    \ 'scss',
-    \ 'json',
-    \ 'graphql',
-    \ 'markdown',
-    \ 'vue',
-    \ 'lua',
-    \ 'php',
-    \ 'python',
-    \ 'ruby',
-    \ 'html',
-    \ 'swift' ] }
-
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'HerringtonDarkholme/yats.vim'
+" FIXME
+Plug 'prettier/vim-prettier', {'do': 'yarn install','on': ['PrettierAsync', 'Prettier'] }
 
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }  "file explorer ,
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 
-Plug 'kamykn/spelunker.vim'
+" Plug 'kamykn/spelunker.vim'
 " Plug 'kamykn/popup-menu.nvim'  "spell popup
 
-Plug 'mlaursen/vim-react-snippets'
 
-Plug 'voldikss/vim-floaterm'
-
-Plug 'skywind3000/asynctasks.vim'
-Plug 'skywind3000/asyncrun.vim'
+Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew'] }
+Plug 'skywind3000/asynctasks.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
+Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
 
 " language support
 " Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}  "C++ 11/14
 
-
-
-Plug 'lifepillar/pgsql.vim'
+Plug 'lifepillar/pgsql.vim' , { 'for': ['sql','plsql', 'pgsql'] }
 
 " HTML
-Plug 'mattn/emmet-vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'groenewege/vim-less'
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-surround'
-Plug 'othree/html5.vim'
+Plug 'mattn/emmet-vim' , { 'for': ['html','css', 'js', 'ts', 'tsx'] }
+Plug 'Raimondi/delimitMate', { 'for': ['html','css'] }
+
 
 Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
 " python highlight
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'py' }
 
-
-Plug 'preservim/nerdcommenter'  " add comments to code, 
-" tomtom/tcomment_vim is another alternative
+Plug 'preservim/nerdcommenter' " add comments to code, tomtom/tcomment_vim is another alternative
 
 if has('nvim')
   " highlight with treesitter
   Plug 'nvim-treesitter/nvim-treesitter'
 else
-  Plug 'govim/govim']
+  Plug 'govim/govim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -113,37 +83,28 @@ Plug 'mhinz/vim-startify'
 Plug 'ray-x/paleaurora'
 " Plug 'drewtempelmeyer/palenight.vim'
 Plug 'kyazdani42/nvim-palenight.lua'
-Plug 'joshdick/onedark.vim'
-Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
-Plug 'liuchengxu/space-vim-dark'    " blue style
-Plug 'kaicataldo/material.vim'
-Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
-Plug 'morhetz/gruvbox'
-Plug 'fenetikm/falcon'
-
-
-if executable('swift')
-    Plug 'keith/swift.vim'
-endif
-
+" Plug 'joshdick/onedark.vim'
+" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
+" Plug 'liuchengxu/space-vim-dark'    " blue style
+" Plug 'kaicataldo/material.vim'
+" Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
+" Plug 'morhetz/gruvbox'
+" Plug 'fenetikm/falcon'
 
 
 " markdown 插件
-Plug 'iamcco/mathjax-support-for-mkdp'  "math support
-Plug 'iamcco/markdown-preview.vim'
-Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['md'] } "math support
+Plug 'iamcco/markdown-preview.vim', { 'for': ['md'] }
+Plug 'plasticboy/vim-markdown', { 'for': ['md'] }
 
 "  Aligning Text with Tabular.vim  :Tabularize  or \=
 Plug 'godlygeek/tabular'
 
-Plug 'sedm0784/vim-you-autocorrect'
-
 if executable('py')
-    Plug 'nvie/vim-flake8'
-    " Plug 'zchee/deoplete-jedi'
+    Plug 'nvie/vim-flake8', { 'for': 'py' }
 endif
 
-Plug 'fatih/vim-go', { 'for': ['go','gomod'] , 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'for': ['go', 'gomod', 'mod', 'tmpl'] , 'do': ':GoInstallBinaries' }
 Plug 'buoto/gotests-vim', { 'for': ['go'] }
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -165,7 +126,9 @@ Plug 'steelsojka/completion-buffers'
 " Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for': ['c', 'cpp'] }
 
 " asynchronous supprot or vim"
-" Plug 'Shougo/deoplete.nvim', { 'for': ['json', 'txt', 'yml'], 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'for': ['json', 'txt', 'yml', 'md'], 'do': ':UpdateRemotePlugins' }
+" Plug 'lifepillar/vim-mucomplete' ", { 'for': ['json', 'txt', 'yml', 'md'] }
+
 " Plug 'Shougo/deoplete-lsp'
 
 Plug 'aca/completion-tabnine', { 'do': './install.sh' }
@@ -176,31 +139,32 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
-Plug 'w0rp/ale'
+Plug 'w0rp/ale' , { 'on': 'ALEEnable' }
 
-Plug 'vim-test/vim-test'
-Plug 'neomake/neomake'
+Plug 'vim-test/vim-test' ", { 'on': ['TestNearest', 'TestFile', 'TestSuite'] }
+Plug 'kyazdani42/nvim-web-devicons'
 
 " Plug 'zefei/vim-wintabs',
 " Plug 'zefei/vim-wintabs-powerline',
 " also can use vim-buffet/buftabline plugin for tab
 Plug 'bagrat/vim-buffet'
 
-Plug 'skywind3000/vim-quickui' " replace vim-preview
-
 Plug 'liuchengxu/eleline.vim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'tjdevries/express_line.nvim'
+
 " Motion
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat' " repead motion"
 Plug 'bkad/CamelCaseMotion'
 
-Plug 'pseewald/vim-anyfold'   " function folding
+Plug 'pseewald/vim-anyfold', { 'on': ['AnyFoldActivate']}
 
 Plug 'liuchengxu/vim-clap'   " keep the binary for a while. download and rebuild took time
 " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'simnalamburt/vim-mundo'
+Plug 'simnalamburt/vim-mundo'  " visualizes the Vim undo tree
 
 "Rainbow Parentheses Improved"
 Plug 'luochen1990/rainbow'
@@ -213,16 +177,14 @@ Plug 'norcalli/nvim-terminal.lua'
 
 " display the indention levels with thin vertical lines
 Plug 'Yggdroot/indentLine'
-Plug 'mtdl9/vim-log-highlighting'
+Plug 'mtdl9/vim-log-highlighting' , { 'for': ['json', 'txt', 'log'] }
 if has('nvim')
     Plug 'Xuyuanp/scrollbar.nvim'
 endif
-" highlight current session
-Plug 'junegunn/Limelight.vim'
+
 " highlight current word
 Plug 'ray-x/vim-interestingwords'
 
-Plug 'roxma/vim-hug-neovim-rpc'
 " Add plugins to &runtimepath
 
 call plug#end()
@@ -235,8 +197,8 @@ autocmd StdinReadPre * let s:std_in=1
 "      Settings      "
 """"""""""""""""""""""
 set nocompatible                " Enables us Vim specific features
-filetype off                    " Reset filetype detection first ...
-filetype plugin indent on       " ... and enable filetype detection
+" filetype off                    " Reset filetype detection first ...
+" filetype plugin indent on       " ... and enable filetype detection
 set ttyfast                     " Indicate fast terminal conn for faster redraw
 set laststatus=2                " Show status line always
 set encoding=utf-8              " Set default encoding to UTF-8
@@ -316,8 +278,8 @@ autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
 " turn syntax highlighting on
-syntax on
-set fdm=syntax
+syntax off
+" set fdm=syntax
 " turn line numbers on
 set number
 " highlight matching braces
@@ -326,7 +288,6 @@ set showmatch
 set comments=sl:/*,mb:\ *,elx:\ */
 
 
-syntax on
 set updatetime=300 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
 
 
@@ -477,27 +438,27 @@ set concealcursor="i"
 nmap <leader>ft :FloatermNew <CR>
 
 """"""""Folding
-autocmd Filetype * AnyFoldActivate               " activate for all filetypes
-autocmd Filetype cpp set foldignore=#/
+" autocmd Filetype * AnyFoldActivate               " activate for all filetypes
+" autocmd Filetype cpp set foldignore=#/
 
-let g:anyfold_identify_comments=2
-let g:anyfold_fold_comments=1
+" let g:anyfold_identify_comments=2
+" let g:anyfold_fold_comments=1
 
 " disable anyfold for large files
-let g:LargeFile = 1000000 " file is large if size greater than 1MB
-autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
-function LargeFile()
-    augroup anyfold
-        autocmd! " remove AnyFoldActivate
-        autocmd Filetype <filetype> setlocal foldmethod=indent " fall back to indent folding
-    augroup END
-endfunction
+" let g:LargeFile = 1000000 " file is large if size greater than 1MB
+" autocmd BufReadPre,BufRead * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+" function LargeFile()
+"     augroup anyfold
+"         autocmd! " remove AnyFoldActivate
+"         autocmd Filetype <filetype> setlocal foldmethod=indent " fall back to indent folding
+"     augroup END
+" endfunction
 
 
 
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
@@ -560,11 +521,10 @@ lua require('lsp_location')
 " "treesitter breaks from time to time :(
 lua require('treesitter')
 
+"lua require('expressline')
 
 " let g:vimspector_enable_mappings = 'HUMAN'
 " autocmd FileType txt let g:deoplete#enable_at_startup = 1
-
-
 
 """"""""" Load other vim plugin config """""""""
 " execute 'source' fnameescape(s:config_home . '/keymap.vim')
@@ -578,3 +538,14 @@ if has('nvim')
     execute 'source' fnameescape(s:f)
   endfor
 endif
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+" let g:user_emmet_leader_key='<C-Z>'  " <C-Y> leader"
+
+
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = {
+\ 'default' : ['vsnip', 'path', 'omni', 'keyn', 'dict', 'uspl'],
+\ 'vim'     : ['vsnip', 'path', 'cmd', 'keyn']
+\ }
