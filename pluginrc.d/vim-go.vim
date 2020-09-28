@@ -13,6 +13,10 @@
 " autocomplete: use coc (can use vim-go at same time, but will spawn two gopls server...)
 " struct tag GoAddTags/GoRemoveTags use go.tags.add in coc-go
 
+if !executable('go') && !executable('mod') && !executable('tmpl')
+  finish
+endif
+
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"

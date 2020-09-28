@@ -7,6 +7,7 @@ local configs = require('nvim_lsp/configs')
 require'nvim_lsp'.bashls.setup{}
 require'nvim_lsp'.sumneko_lua.setup{}
 require'nvim_lsp'.vimls.setup{}
+--require'completion'.on_attach()
 
 local function preview_location_callback(_, method, result)
   if result == nil or vim.tbl_isempty(result) then
@@ -66,7 +67,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 end
 
-local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html' }
+local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'sqlls', 'yamlls', 'ccls', 'dockerls' }
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
@@ -91,6 +92,4 @@ nvim_lsp.gopls.setup {
     end;
 }
 
-require'nvim_lsp'.tsserver.setup{}
-cmd = { "typescript-language-server", "--stdio" }
-filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
+nvim_lsp.tsserver.setup{}
