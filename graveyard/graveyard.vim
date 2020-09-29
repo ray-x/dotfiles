@@ -41,7 +41,7 @@ Plug 'maxmellon/vim-jsx-pretty', { 'for': ['html','css', 'js', 'ts', 'tsx'] }
 "     \ 'swift' ],
 "   \ 'on': ['PrettierAsync', 'Prettier'] }
 " Plug 'hail2u/vim-css3-syntax'
-" Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'  "Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML tags, and more. 
 " Plug 'othree/html5.vim'
 
 " spell check
@@ -71,6 +71,31 @@ Plug 'skywind3000/vim-quickui' " replace vim-preview
 " highlight current session
 Plug 'junegunn/Limelight.vim' " never used sofar
 
+" python highlight
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'py' }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}  "C++ 11/14
+
+if has('nvim')
+  " highlight with treesitter
+  Plug 'nvim-treesitter/nvim-treesitter'
+else
+  Plug 'govim/govim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+" COC used to be my favourite"
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'vn-ki/coc-clap'
+
+" Plug 'zefei/vim-wintabs',
+" Plug 'zefei/vim-wintabs-powerline',
+" also can use vim-buffet/buftabline plugin for tab
+
+" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+
+
 """"""""""" theme not so good """""""""""
 " Plug 'morhetz/gruvbox'.  "warm color, not my cup of tea, but it is very popular"
 " Plug 'ajmwagar/vim-deus'    "green + yellow similar to oceanic material"
@@ -85,6 +110,20 @@ Plug 'junegunn/Limelight.vim' " never used sofar
 " Plug 'crusoexia/vim-monokai'. " no go support... keep it because it is one of the classic
 " Plug 'flrnd/plastic.vim'
 " Plug 'dracula/vim'
+
+" Plug 'drewtempelmeyer/palenight.vim'
+Plug 'kyazdani42/nvim-palenight.lua'
+" Plug 'joshdick/onedark.vim'
+" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
+" Plug 'liuchengxu/space-vim-dark'    " blue style
+" Plug 'kaicataldo/material.vim'
+" Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
+" Plug 'morhetz/gruvbox'
+" Plug 'fenetikm/falcon'
+
+if executable('py')
+    Plug 'nvie/vim-flake8', { 'for': 'py' }  "ALE"
+endif
 
 """"""""""""""""""""""" Plug no longer use...""""""""""""""""""""""
 
@@ -149,3 +188,24 @@ let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+
+" nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
+" nnoremap <Leader>P <cmd>lua require'telescope.builtin'.find_files{}<CR>
+" nnoremap <silent> <Leader>Ff <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }<CR>
+
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
+
+map <C-H> <Plug>(wintabs_previous)
+map <C-L> <Plug>(wintabs_next)
+map <C-T>c <Plug>(wintabs_close)
+map <C-T>u <Plug>(wintabs_undo)
+map <C-T>o <Plug>(wintabs_only)
+map <C-W>c <Plug>(wintabs_close_window)
+map <C-W>o <Plug>(wintabs_only_window)
+command! Tabc WintabsCloseVimtab
+command! Tabo WintabsOnlyVimtab
