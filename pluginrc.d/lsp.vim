@@ -29,6 +29,8 @@ let g:completion_chain_complete_list = [
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
 
 function! s:check_back_space() abort
     let col = col('.') - 1
