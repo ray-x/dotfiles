@@ -42,7 +42,7 @@ inoremap <silent><expr> <TAB>
 
 let g:completion_enable_snippet = 'vim-vsnip'  " 'UltiSnips' 'vim-vsnip'
 
-let g:completion_matching_strategy_list = ['exact', 'substring', 'all']   "'fuzzy'"
+let g:completion_matching_strategy_list = ['exact', 'substring']   "'fuzzy','all'"
 augroup CompletionTriggerCharacter
     autocmd!
     autocmd BufEnter * let g:completion_trigger_character = ['.']
@@ -110,6 +110,14 @@ let g:completion_items_priority = {
 
 " au BufEnter * if &ft == 'markdown' | lua  require'completion'.on_attach() | endif
 autocmd BufEnter * lua require'completion'.on_attach()
+
+augroup CompletionMD
+    autocmd!
+    autocmd BufEnter *.md let g:completion_matching_strategy_list = ['substring'] 
+    autocmd FileType markdown let g:completion_items_priority = { 'Buffers' : 7, 'TabNine' : 6, 'File' : 5, 'vim-vsnip' : 8 }
+augroup end
+
+
 
 let g:LanguageClient_serverCommands = { 
   \ 'typescript': ['typescript-language-server', '--stdio', '--tsserver-path', 'node_modules/.bin/tsserver'], 

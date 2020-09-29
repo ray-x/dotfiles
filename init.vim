@@ -20,18 +20,8 @@ Plug 'junegunn/vim-easy-align'
 
 Plug 'Chiel92/vim-autoformat'
 
-" Group dependencies, vim-snippets depends on ultisnips
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-" Plug 'prabirshrestha/asyncomplete.vim' , {'for': ['md', 'text']}
-
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-
-
-" Plug 'prabirshrestha/vsnip-snippets' , {'for': ['md', 'text']}
-
-
-" Plug 'ryanoasis/vim-devicons' "replaced with nvim-web-devicons(lua)"
 
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista!!','Vista'] }
 
@@ -43,7 +33,7 @@ Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }  "file explorer ,
 Plug 'kristijanhusak/defx-git'
 Plug 'kristijanhusak/defx-icons'
 
-" Plug 'kamykn/spelunker.vim'
+Plug 'kamykn/spelunker.vim'
 " Plug 'kamykn/popup-menu.nvim'  "spell popup
 
 
@@ -52,71 +42,45 @@ Plug 'skywind3000/asynctasks.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
 
 " language support
-" Plug 'sheerun/vim-polyglot'  " incase the language is not well defined in syntax use this plugin"
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}  "C++ 11/14
-
 Plug 'lifepillar/pgsql.vim' , { 'for': ['sql','plsql', 'pgsql'] }
 
 " HTML
 Plug 'mattn/emmet-vim' , { 'for': ['html','css', 'js', 'ts', 'tsx'] }
 Plug 'Raimondi/delimitMate', { 'for': ['html','css'] }
 
-
-Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
-" python highlight
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'py' }
-
 Plug 'preservim/nerdcommenter' " add comments to code, tomtom/tcomment_vim is another alternative
+Plug 'nvim-treesitter/nvim-treesitter'
 
-if has('nvim')
-  " highlight with treesitter
-  Plug 'nvim-treesitter/nvim-treesitter'
-else
-  Plug 'govim/govim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 
 Plug 'mhinz/vim-startify'
 
 " theme
 Plug 'ray-x/paleaurora'
-" Plug 'drewtempelmeyer/palenight.vim'
-Plug 'kyazdani42/nvim-palenight.lua'
-" Plug 'joshdick/onedark.vim'
-" Plug 'haishanh/night-owl.vim'  "nice, but can not configure...
-" Plug 'liuchengxu/space-vim-dark'    " blue style
-" Plug 'kaicataldo/material.vim'
+" Plug 'kyazdani42/nvim-palenight.lua'
 " Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
 " Plug 'morhetz/gruvbox'
-" Plug 'fenetikm/falcon'
 
 
 " markdown 插件
-Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['md'] } "math support
-Plug 'iamcco/markdown-preview.vim', { 'for': ['md'] }
-Plug 'plasticboy/vim-markdown', { 'for': ['md'] }
+Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['markdown'] } "math support
+" Plug 'iamcco/markdown-preview.vim', { 'for': ['markdown'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
 
 "  Aligning Text with Tabular.vim  :Tabularize  or \=
 Plug 'godlygeek/tabular'
 
-if executable('py')
-    Plug 'nvie/vim-flake8', { 'for': 'py' }
-endif
-
 Plug 'fatih/vim-go', { 'for': ['go', 'gomod', 'mod', 'tmpl'] , 'do': ':GoInstallBinaries' }
 Plug 'buoto/gotests-vim', { 'for': ['go'] }
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'vn-ki/coc-clap'
-
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'RishabhRD/popfix'
-Plug 'RishabhRD/nvim-lsputils'
-Plug 'steelsojka/completion-buffers'
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/diagnostic-nvim'
+  Plug 'nvim-lua/lsp-status.nvim'
+  Plug 'RishabhRD/popfix'
+  Plug 'RishabhRD/nvim-lsputils'
+  Plug 'steelsojka/completion-buffers'
+endif
 
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
@@ -125,29 +89,20 @@ Plug 'steelsojka/completion-buffers'
 " Coc lsp based highlight for cpp
 " Plug 'jackguo380/vim-lsp-cxx-highlight', { 'for': ['c', 'cpp'] }
 
-" asynchronous supprot or vim"
-" Plug 'Shougo/deoplete.nvim', { 'for': ['json', 'txt', 'yml', 'md'], 'do': ':UpdateRemotePlugins' }
-" Plug 'lifepillar/vim-mucomplete' ", { 'for': ['json', 'txt', 'yml', 'md'] }
-
-" Plug 'Shougo/deoplete-lsp'
-
 Plug 'aca/completion-tabnine', { 'do': './install.sh' }
 
-Plug 'Lokaltog/vim-powerline'
+" Plug 'Lokaltog/vim-powerline'
 
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
-Plug 'w0rp/ale' , { 'on': 'ALEEnable' }
+Plug 'w0rp/ale' " , { 'on': ['ALEEnable', 'ALEEnableBuffer'] }
 
 Plug 'vim-test/vim-test' ", { 'on': ['TestNearest', 'TestFile', 'TestSuite'] }
 Plug 'kyazdani42/nvim-web-devicons'
 
-" Plug 'zefei/vim-wintabs',
-" Plug 'zefei/vim-wintabs-powerline',
-" also can use vim-buffet/buftabline plugin for tab
-Plug 'bagrat/vim-buffet'
+Plug 'bagrat/vim-buffet'   " file tab support
 
 Plug 'liuchengxu/eleline.vim'
 " Plug 'nvim-lua/plenary.nvim'
@@ -160,9 +115,7 @@ Plug 'bkad/CamelCaseMotion'
 
 Plug 'pseewald/vim-anyfold', { 'on': ['AnyFoldActivate']}
 
-Plug 'liuchengxu/vim-clap'   " keep the binary for a while. download and rebuild took time
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'liuchengxu/vim-clap'  , { 'do': ':Clap install-binary!' } " keep the binary for a while. download and rebuild took time
 
 Plug 'simnalamburt/vim-mundo'  " visualizes the Vim undo tree
 
@@ -308,7 +261,7 @@ endif
 " This enables us to undo files even if you exit Vim.
 if has('persistent_undo')
   set undofile
-  set undodir=~/.config/vim/tmp/undo//
+  set undodir=~/.config/vim/tmp/undo/
 endif
 
 
@@ -398,15 +351,10 @@ nnoremap <leader>P "+P
 
 
 " Tab
-map <C-H> <Plug>(wintabs_previous)
-map <C-L> <Plug>(wintabs_next)
-map <C-T>c <Plug>(wintabs_close)
-map <C-T>u <Plug>(wintabs_undo)
-map <C-T>o <Plug>(wintabs_only)
-map <C-W>c <Plug>(wintabs_close_window)
-map <C-W>o <Plug>(wintabs_only_window)
-command! Tabc WintabsCloseVimtab
-command! Tabo WintabsOnlyVimtab
+map <C-H> :bn<CR>
+map <C-L> :bp<CR>
+map <C-T>c Bw <cr>
+map <C-T>n :tabnew split<CR>
 
 "" Python
 au BufNewFile,BufRead *.py set colorcolumn=79
@@ -461,12 +409,6 @@ set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
-
 
 let test#strategy = {
   \ 'nearest': 'neovim',
@@ -510,10 +452,8 @@ augroup config_scrollbar_nvim
     autocmd VimResized  * silent! lua require('scrollbar').show()
 augroup end
 
-" nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
-" nnoremap <Leader>P <cmd>lua require'telescope.builtin'.find_files{}<CR>
-" nnoremap <silent> <Leader>Ff <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }<CR>
 
+""""""""" Load lua plugins """""""""
 " lua require('init')
 lua require('lsp_init')
 lua require('lsp_location')
@@ -549,3 +489,30 @@ let g:mucomplete#chains = {
 \ 'default' : ['vsnip', 'path', 'omni', 'keyn', 'dict', 'uspl'],
 \ 'vim'     : ['vsnip', 'path', 'cmd', 'keyn']
 \ }
+
+command! Spell :call spelunker#check()
+
+let g:enable_spelunker_vim_on_readonly = 0
+let g:spelunker_check_type = 0
+let g:spelunker_highlight_type = 2
+let g:spelunker_disable_uri_checking = 1
+let g:spelunker_disable_account_name_checking = 1
+let g:spelunker_disable_email_checking = 1
+
+" Override highlight setting.
+" highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#9e9e9e
+" highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
+
+augroup spelunker
+  autocmd!
+  " Setting for g:spelunker_check_type = 2:
+  autocmd CursorHold *.vim,*.js,*.jsx,*.json,*.md,*.go call spelunker#check_displayed_words()
+augroup END" 
+
+autocmd FileType markdown setlocal spell
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
