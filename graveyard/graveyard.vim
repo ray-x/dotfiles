@@ -66,6 +66,13 @@ Plug 'EchoDoc'
 " Plug 'HerringtonDarkholme/yats.vim'
 " Plug 'sedm0784/vim-you-autocorrect'   "autocmd BufEnter * EnableAutocorrect
 
+" Enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
+endif
+
 Plug 'skywind3000/vim-quickui' " replace vim-preview
 
 " highlight current session
@@ -95,6 +102,9 @@ endif
 
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }  "file explorer ,
+" Plug 'kristijanhusak/defx-git'
+" Plug 'kristijanhusak/defx-icons'
 
 """"""""""" theme not so good """""""""""
 " Plug 'morhetz/gruvbox'.  "warm color, not my cup of tea, but it is very popular"
@@ -119,6 +129,9 @@ Plug 'kyazdani42/nvim-palenight.lua'
 " Plug 'kaicataldo/material.vim'
 " Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
 " Plug 'morhetz/gruvbox'
+
+" Plug 'liuchengxu/eleline.vim'
+
 " Plug 'fenetikm/falcon'
 
 if executable('py')
@@ -209,3 +222,123 @@ map <C-W>c <Plug>(wintabs_close_window)
 map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
+
+
+" let g:neomake_go_enabled_makers = [ 'golangci_lint', 'go' ]
+" let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+" let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
+" let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
+" let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+"  fold
+" set foldmethod=syntax
+" set foldlevel=10
+
+
+""" one dark setup """
+"let g:onedark_terminal_italics = 1
+"
+"
+"if (has("autocmd"))
+"  augroup colorextend
+"    autocmd!
+"    " Make `Function`s bold in GUI mode
+"    autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold"  })
+"    " Override the `Statement` foreground color in 256-color mode
+"    autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { " cterm": 128 } })
+"    " Override the `Identifier` background color in GUI mode
+"   " autocmd ColorScheme * call onedark#set_highlight("Identifier", { "bg": { " guifg": "#333333" } })
+"
+"   " autocmd ColorScheme * call onedark#set_highlight("Normal", { "bg": s:cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goParen", { "fg": s:darkred })
+"   autocmd ColorScheme * call onedark#set_highlight("goBlock", { "fg": s:warmgrey})
+"   autocmd ColorScheme * call onedark#set_highlight("goParamName", { "fg":s:br_cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goParamType", { "fg":s:addfg  })
+"   autocmd ColorScheme * call onedark#set_highlight("goReceiverVar", { "fg":s:br_cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goVarArgs", { "fg":s:addfg  })
+"   autocmd ColorScheme * call onedark#set_highlight("goPointerOperator", { "fg":s:br_cyan })
+"   autocmd ColorScheme * call onedark#set_highlight("goReceiver", { "fg":s:addfg  })
+"  augroup END
+"endif
+"
+"
+"let g:onedark_color_overrides = {
+"\ "black": {"gui": "#171525", "cterm": "235", "cterm16": "0" }
+"\}
+"
+"colorscheme onedark
+"" one dark cursor setup
+" hi CursorLine   guifg=NONE        guibg=#151023
+" hi CursorColumn guifg=NONE        guibg=#141023
+" hi DiffChange gui=NONE guifg=yellow3
+" hi DiffAdd guibg=NONE guifg=green4
+
+
+
+" let g:one_allow_italics = 1
+" colorscheme one
+" set background=dark
+"" one#highlight(group, fg, bg, attribute)
+" call one#highlight('goParen', 'cccccc', '', 'none')
+" call one#highlight('Normal', '171525', '', 'none')
+
+" colorscheme night-owl "disabled
+" let g:airline_theme='nightowl'  "eleline
+" hi CursorLine   guifg=NONE        guibg=#0f1f2f
+" hi CursorColumn guifg=NONE        guibg=#0f1f2f
+"" " hi Normal guibg= #1B1C24
+"hi DiffChange guibg=NONE guifg=yellow4
+
+" colorscheme plastic
+" hi CursorLine   guifg=NONE        guibg=#272f37
+" hi CursorColumn guifg=NONE        guibg=#272f37
+" hi DiffChange guibg=NONE guifg=yellow4
+
+" let g:material_terminal_italics = 1
+" let g:material_theme_style = 'palenight'
+" colorscheme material
+
+" let g:space_vim_dark_background = 230
+" colorscheme space-vim-dark
+
+" let g:gruvbox_italic=1
+" colorscheme gruvbox
+
+
+" let g:airline_theme='ayu'
+" let g:lightline = { 'colorscheme': 'tender' }
+
+" let ayucolor="mirage"
+" colorscheme ayu   "lack language support, not configurable...
+" let g:indentLine_char = '⎸'
+" let g:indentLine_first_char = '│'
+
+" light color"
+" set background=light
+
+" colorscheme PaperColor
+
+" Coc specific
+" highlight for search text
+:hi CocCodeLens guifg=#726238
+:hi def link CocHighlightText Search
+:hi CocInfoSign guifg=#227f28 guibg=#262324
+:hi CocHintSign guifg=#226e23 guibg=#262324
+:hi def link CocHighlightText Search
+
+
+" better key bindings for UltiSnipsExpandTrigger
+
+" works on mac but not on konsole
+let g:UltiSnipsExpandTrigger="<c-]>"        "default <tab> need to map to coc"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:SuperTabCrMapping=1
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+if !has('nvim')
+  " vimspector support, it does work with neovim
+  " let g:vimspector_enable_mappings = 'HUMAN'
+  " packadd! vimspector
+endif

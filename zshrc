@@ -38,6 +38,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias gvim='/usr/local/bin/mvim'
 alias nv='/usr/local/bin/nvim'
+alias nm='/usr/local/bin/nvim -u ~/github/dotfiles/init.min'
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 autoload -Uz compinit
 compinit
