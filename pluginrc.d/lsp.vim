@@ -22,7 +22,7 @@ set completeopt=menuone,noinsert,noselect
 
 autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 let g:completion_chain_complete_list = [
-            \{'ins_complete': v:false, 'complete_items': ['lsp', 'snippet', 'buffers', 'tabnine']},
+            \{'ins_complete': v:false, 'complete_items': ['lsp', 'snippet', 'buffers', 'tabnine', 'ts']},
             \{'mode': '<c-p>'},
             \{'mode': '<c-n>'}
             \]
@@ -102,6 +102,7 @@ let g:completion_items_priority = {
         \ 'Constant': 5,
         \ 'Class': 5,
         \ 'Keyword': 4,
+        \ 'Treesitter': 6,
         \ 'UltiSnips' : 2,
         \ 'vim-vsnip' : 3,
         \ 'Neosnippet' : 2,
@@ -117,6 +118,11 @@ augroup CompletionMD
     autocmd!
     autocmd BufEnter *.md let g:completion_matching_strategy_list = ['substring'] 
     autocmd FileType markdown let g:completion_items_priority = { 'Buffers' : 7, 'TabNine' : 6, 'File' : 5, 'vim-vsnip' : 8 }
+    autocmd BufEnter *.c,*.cpp,*.go,*.js,*.ts,*.tsx,*.vim,*.lua let g:completion_chain_complete_list = [
+            \{'ins_complete': v:false, 'complete_items': ['lsp', 'snippet', 'tabnine', 'ts']},
+            \{'mode': '<c-p>'},
+            \{'mode': '<c-n>'}
+            \]
 augroup end
 
 

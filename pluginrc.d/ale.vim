@@ -32,14 +32,6 @@ let g:ale_fixers = {
 \   'ale_fixers':['prettier', 'remark'],
 \}
 
-
-" let g:neomake_go_enabled_makers = [ 'golangci_lint', 'go' ]
-" let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
-" let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
-" let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
-" let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
-
-
 augroup auto_go
   " autocmd BufWritePre *.go lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
   autocmd BufWritePre *.go :GoFmt
