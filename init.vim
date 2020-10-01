@@ -403,16 +403,16 @@ augroup end
 
 """"""""" Load lua plugins """""""""
 " lua require('init')
+lua require('lsp_init')
+lua require('lsp_location')
+lua require('treesitter')
+lua require('expressline')
+
 augroup postUILoads
   autocmd!
-   autocmd VimEnter * lua require('lsp_init')
-   autocmd VimEnter * lua require('lsp_location')
-   autocmd VimEnter * lua require('treesitter')
    autocmd VimEnter * set clipboard^=unnamed
    autocmd VimEnter * set clipboard^=unnamedplus
-   autocmd VimEnter * silent! lua require('expressline')
 augroup END
-
 
 " "treesitter breaks from time to time :(
 " lua require('treesitter')
