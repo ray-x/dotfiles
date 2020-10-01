@@ -10,16 +10,22 @@
 " Plug 'sickill/vim-monokai'
 " Plug 'buoto/gotests-vim', { 'for': ['go'] }
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+set noshowmatch                 " Do not show matching brackets by flickering
 
 if executable('swift')
   Plug 'keith/swift.vim', { 'for': ['swift'] }
 endif
 Plug 'neomake/neomake'
-
+Plug 'airblade/vim-gitgutter' " , { 'on': ['GitGutterBufferEnable', 'GitGutterEnable']}
 Plug 'pangloss/vim-javascript'
 
 Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
+" Javascript
+" FIXME
+Plug 'prettier/vim-prettier', {'do': 'yarn install','on': ['PrettierAsync', 'Prettier'] }
+" Plug 'Chiel92/vim-autoformat'
+
 
 
 Plug 'mlaursen/vim-react-snippets'

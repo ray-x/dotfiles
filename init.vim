@@ -18,22 +18,11 @@ call plug#begin('~/.vim/plugged')
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
-Plug 'Chiel92/vim-autoformat'
-
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista!!','Vista'] }
-
-" Javascript
-" FIXME
-Plug 'prettier/vim-prettier', {'do': 'yarn install','on': ['PrettierAsync', 'Prettier'] }
-
-
-
 Plug 'kamykn/spelunker.vim'
 " Plug 'kamykn/popup-menu.nvim'  "spell popup
-
 
 Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew'] }
 Plug 'skywind3000/asynctasks.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
@@ -87,6 +76,7 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'Xuyuanp/scrollbar.nvim'
   Plug 'tjdevries/express_line.nvim'
+  Plug 'tveskag/nvim-blame-line' " , { 'on': ['EnableBlameLine', 'ToggleBlameLine', 'SingleBlameLine']}
 endif
 
 " Show color
@@ -97,7 +87,8 @@ Plug 'norcalli/nvim-terminal.lua'
 
 
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterBufferEnable', 'GitGutterEnable']}
+Plug 'mhinz/vim-signify', { 'on': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] }
+
 Plug 'junegunn/gv.vim', { 'on': 'GV' }  "git commit browser. :GV(!|?) move: ]]/ [[
 
 " async linter
@@ -112,7 +103,7 @@ Plug 'bkad/CamelCaseMotion'
 
 " Plug 'pseewald/vim-anyfold', { 'on': ['AnyFoldActivate']}
 
-Plug 'liuchengxu/vim-clap'  , { 'do': ':Clap install-binary!' } " keep the binary for a while. download and rebuild took time
+Plug 'liuchengxu/vim-clap'  , { 'do': { -> clap#installer#force_download() } } " keep the binary for a while. download and rebuild took time
 
 Plug 'simnalamburt/vim-mundo'  " visualizes the Vim undo tree
 
@@ -123,12 +114,10 @@ Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
 Plug 'mtdl9/vim-log-highlighting' , { 'for': ['json', 'txt', 'log'] }
 
-
 " highlight current word
 Plug 'ray-x/vim-interestingwords'
 
 " Add plugins to &runtimepath
-
 call plug#end()
 
 
@@ -157,13 +146,12 @@ set splitright                  " Vertical windows should be split to right
 set splitbelow                  " Horizontal windows should split to bottom
 set autowrite                   " Automatically save before :next, :make etc.
 set hidden                      " Buffer should still exist if window is closed
-set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
-set noshowmatch                 " Do not show matching brackets by flickering
+set fileformats=unix,mac,dos    " Prefer Unix over Windows over OS 9 formats
 set noshowmode                  " We show the mode with airline or lightline
 set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not it begins with upper case
 set completeopt=menu,menuone    " Show popup menu, even if there is one entry
-set pumheight=12                " Completion window max size
+set pumheight=14                " Completion window max size
 " set nocursorcolumn              " (turn off to speeds up highlighting)
 " set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
@@ -221,7 +209,7 @@ autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
 
-" set fdm=syntax
+set fdm=syntax
 " turn line numbers on
 set number
 " highlight matching braces
@@ -422,7 +410,7 @@ augroup postUILoads
    autocmd VimEnter * lua require('treesitter')
    autocmd VimEnter * set clipboard^=unnamed
    autocmd VimEnter * set clipboard^=unnamedplus
-   " autocmd VimEnter * silent! lua require('expressline')
+   autocmd VimEnter * silent! lua require('expressline')
 augroup END
 
 
@@ -470,9 +458,6 @@ let g:spelunker_disable_uri_checking = 1
 let g:spelunker_disable_account_name_checking = 1
 let g:spelunker_disable_email_checking = 1
 
-" Override highlight setting.
-" highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#9e9e9e
-" highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 
 augroup spelunker
   autocmd!
@@ -480,7 +465,7 @@ augroup spelunker
   autocmd CursorHold *.vim,*.js,*.jsx,*.json,*.md,*.go call spelunker#check_displayed_words()
 augroup END" 
 
-autocmd FileType markdown setlocal spell
+" autocmd FileType markdown setlocal spell
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -501,3 +486,5 @@ nnoremap <silent> m :call WordNavigation('forward')<cr>
 nnoremap <silent> M :call WordNavigation('backward')<cr>
 
 let g:interestingWordsRandomiseColors = 1
+
+autocmd Filetype LuaTree set cursorline
