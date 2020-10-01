@@ -65,10 +65,9 @@ let g:scrollbar_min_size = 2
 let g:scrollbar_right_offset = 0
 let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vista_kind', 'vim-startify', 'LuaTree']
 
-let g:gitgutter_sign_added = ''
-let g:gitgutter_sign_modified = ''
-let g:gitgutter_sign_removed = '﫧'
-let g:gitgutter_sign_removed_first_line = '﫧'
-let g:gitgutter_sign_removed_above_and_below = '﫧'
-let g:gitgutter_sign_modified_removed = ''
 
+let g:signify_sign_add = ''
+let g:signify_sign_delete = '﫧'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change = ''
+let g:signify_sign_show_count = 5
