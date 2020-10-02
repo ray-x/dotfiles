@@ -22,11 +22,8 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista!!','Vista'] }
 Plug 'kamykn/spelunker.vim'
-" Plug 'kamykn/popup-menu.nvim'  "spell popup
-
-Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew'] }
-Plug 'skywind3000/asynctasks.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
-Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
+" Plug 'skywind3000/asynctasks.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
+" Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun', 'AsyncRun!', 'AsyncTask'] }
 
 " language support
 Plug 'lifepillar/pgsql.vim' , { 'for': ['sql','plsql', 'pgsql'] }
@@ -39,15 +36,8 @@ Plug 'preservim/nerdcommenter' " add comments to code, tomtom/tcomment_vim is an
 
 Plug 'mhinz/vim-startify'
 
-" theme
-Plug 'ray-x/paleaurora'
-" Plug 'kyazdani42/nvim-palenight.lua'
-" Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
-" Plug 'morhetz/gruvbox'
-
-
 " markdown 插件
-Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['markdown'] } "math support
+" Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['markdown'] } "math support
 " Plug 'iamcco/markdown-preview.vim', { 'for': ['markdown'] }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
@@ -76,17 +66,13 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'Xuyuanp/scrollbar.nvim'
   Plug 'tjdevries/express_line.nvim'
-  Plug 'tveskag/nvim-blame-line' " , { 'on': ['EnableBlameLine', 'ToggleBlameLine', 'SingleBlameLine']}
+  Plug 'kdheepak/lazygit.nvim', { 'on': 'LazyGit' }
+  Plug 'norcalli/nvim-colorizer.lua' " , { 'for': ['css', 'html', 'json', 'javascript', 'typescript', 'vim']} 
 endif
 
-" Show color
-Plug 'norcalli/nvim-colorizer.lua'
+Plug 'tveskag/nvim-blame-line' " , { 'on': ['EnableBlameLine', 'ToggleBlameLine', 'SingleBlameLine']}
 
-" for pager
-Plug 'norcalli/nvim-terminal.lua'
-
-
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify', { 'on': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] }
 
 Plug 'junegunn/gv.vim', { 'on': 'GV' }  "git commit browser. :GV(!|?) move: ]]/ [[
@@ -116,6 +102,14 @@ Plug 'mtdl9/vim-log-highlighting' , { 'for': ['json', 'txt', 'log'] }
 
 " highlight current word
 Plug 'ray-x/vim-interestingwords'
+
+
+" theme
+Plug 'ray-x/paleaurora'
+" Plug 'kyazdani42/nvim-palenight.lua'
+" Plug 'NLKNguyen/papercolor-theme'     "" one will need at least a light color, ayu-vim light is another option
+" Plug 'morhetz/gruvbox'
+
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -156,7 +150,7 @@ set pumheight=14                " Completion window max size
 " set nocursorline                " (turn off speeds up highlighting)
 set lazyredraw                  " Wait to redraw
 set autoread                    " Automatically read changed files
-
+set termguicolors
 " au FocusGained,BufEnter * :checktime  " autoload
 
 " augroup vimrc
@@ -209,7 +203,6 @@ autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
 
-set fdm=syntax
 " turn line numbers on
 set number
 " highlight matching braces
@@ -218,7 +211,7 @@ set showmatch
 set comments=sl:/*,mb:\ *,elx:\ */
 
 
-set updatetime=300 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
+set updatetime=400 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
 
 
 " yank
@@ -311,9 +304,9 @@ nnoremap <leader>P "+P
 
 
 " Tab
-map <C-H> :bn<CR>
-map <C-L> :bp<CR>
-map <C-T>c Bw <cr>
+" map <C-H> :bn<CR>
+" map <C-L> :bp<CR>
+" map <C-T>c Bw <cr>
 map <C-T>n :tabnew split<CR>
 
 "" Python
@@ -322,13 +315,10 @@ au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set shiftwidth=4
 au BufNewFile,BufRead *.py set softtabstop=4
 au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py setlocal foldmethod=indent
+" au BufNewFile,BufRead *.py setlocal foldmethod=indent
 au BufNewFile,BufRead *.py vmap <CR> :s/\(^\s*\)/\1# /<CR>:let @/ = ""<CR>
 au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 
-
-"" Javascript
-let javascript_enable_domhtmlcss = 1
 
 " markdown disable conceal when edit current line
 set concealcursor="i"
@@ -372,10 +362,8 @@ nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
-let g:floaterm_keymap_toggle = '<F12>'
-
 " open quickfix window automatically at x lines height 
-let g:asyncrun_open = 8
+" let g:asyncrun_open = 8
 
 
 let g:lsp_log_verbose = 1
@@ -407,6 +395,7 @@ lua require('lsp_init')
 lua require('lsp_location')
 lua require('treesitter')
 lua require('expressline')
+lua require 'colorizer'.setup()
 
 augroup postUILoads
   autocmd!
@@ -414,8 +403,8 @@ augroup postUILoads
    autocmd VimEnter * set clipboard^=unnamedplus
 augroup END
 
-" "treesitter breaks from time to time :(
-" lua require('treesitter')
+"treesitter breaks from time to time :(
+lua require('treesitter')
 lua require'bufferline'.setup{
 \  options = {
 \    view = "multiwindow",
@@ -424,7 +413,7 @@ lua require'bufferline'.setup{
 \    max_name_length = 16,
 \    tab_size = 16,
 \    separator_style = "thin",
-\    always_show_tab = false,
+\    always_show_bufferline = false,
 \  },
 \ }
 

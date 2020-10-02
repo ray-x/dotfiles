@@ -10,6 +10,11 @@
 " Plug 'sickill/vim-monokai'
 " Plug 'buoto/gotests-vim', { 'for': ['go'] }
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" Plug 'kamykn/popup-menu.nvim'  "spell popup
+
+" Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew'] }
+
 set noshowmatch                 " Do not show matching brackets by flickering
 
 if executable('swift')

@@ -63,6 +63,30 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
   vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+
+  local method = "textDocument/publishDiagnostics"
+  local default_callback = vim.lsp.callbacks[method]
+  vim.lsp.callbacks[method] = function(err, method, result, client_id)
+    default_callback(err, method, result, client_id)
+    if result and result.diagnostics then
+        local item_list = {}
+        for _, v in ipairs(result.diagnostics) do
+            local fname = result.uri
+            table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
+            print(v.message)
+        end
+        local old_items = vim.fn.getqflist()
+        for _, old_item in ipairs(old_items) do
+            local bufnr = vim.uri_to_bufnr(result.uri)
+            if vim.uri_from_bufnr(old_item.bufnr) ~= result.uri
+                then
+                    table.insert(item_list, old_item)
+                end
+            end
+            vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
+        end
+    end
+
 end
 
 local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'sqlls', 'yamlls', 'ccls', 'dockerls' }
@@ -90,6 +114,31 @@ nvim_lsp.gopls.setup {
       return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
     end;
 }
+
+-- populate quickfix list with diagnostics
+local method = "textDocument/publishDiagnostics"
+local default_callback = vim.lsp.callbacks[method]
+vim.lsp.callbacks[method] = function(err, method, result, client_id)
+    default_callback(err, method, result, client_id)
+    if result and result.diagnostics then
+        local item_list = {}
+        for _, v in ipairs(result.diagnostics) do
+            local fname = result.uri
+            table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
+            print(v.message)
+        end
+        local old_items = vim.fn.getqflist()
+        for _, old_item in ipairs(old_items) do
+            local bufnr = vim.uri_to_bufnr(result.uri)
+            if vim.uri_from_bufnr(old_item.bufnr) ~= result.uri
+                then
+                    table.insert(item_list, old_item)
+                end
+            end
+            vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
+        end
+    end
+
 
 -- local function nmap_lsp(keys, cmd)
 --   api.nvim_buf_set_keymap(

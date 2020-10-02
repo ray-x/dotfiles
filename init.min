@@ -29,6 +29,7 @@ if has('nvim')
   Plug 'Akin909/nvim-bufferline.lua'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'tjdevries/express_line.nvim'
+  Plug 'kdheepak/lazygit.nvim', { 'on': 'LazyGit' }
 endif
 
 
@@ -111,8 +112,11 @@ autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
+setlocal foldmethod=syntax         
+setlocal foldlevelstart=99
 
-" set fdm=syntax
+set fdm=manual  "manual" "syntax"
+" setlocal foldlevelstart=99
 " turn line numbers on
 set number
 " highlight matching braces
@@ -202,9 +206,7 @@ nnoremap <leader>P "+P
 
 
 " Tab
-map <C-H> :bn<CR>
-map <C-L> :bp<CR>
-map <C-T>c Bw <cr>
+
 map <C-T>n :tabnew split<CR>
 
 "" Python
@@ -217,8 +219,6 @@ au BufNewFile,BufRead *.py setlocal foldmethod=indent
 au BufNewFile,BufRead *.py vmap <CR> :s/\(^\s*\)/\1# /<CR>:let @/ = ""<CR>
 au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 
-"" Javascript
-let javascript_enable_domhtmlcss = 1
 
 " markdown disable conceal when edit current line
 set concealcursor="i"
@@ -245,14 +245,16 @@ augroup config_scrollbar_nvim
     autocmd VimResized  * silent! lua require('scrollbar').show()
 augroup end
 
+lua require('lsp_init')
+lua require('lsp_location')
+lua require('treesitter')
+lua require('expressline')
+lua require 'colorizer'.setup()
+
 augroup postUILoads
   autocmd!
-   autocmd VimEnter * lua require('lsp_init')
-   autocmd VimEnter * lua require('lsp_location')
-   autocmd VimEnter * lua require('treesitter')
    autocmd VimEnter * set clipboard^=unnamed
    autocmd VimEnter * set clipboard^=unnamedplus
-   autocmd VimEnter * silent! lua require('expressline')
 augroup END
 
 lua require'bufferline'.setup{
@@ -263,7 +265,7 @@ lua require'bufferline'.setup{
 \    max_name_length = 16,
 \    tab_size = 16,
 \    separator_style = "thin",
-\    always_show_tab = false,
+\    always_show_bufferline = false,
 \  },
 \ }
 
@@ -287,3 +289,6 @@ let g:scrollbar_right_offset = 0
 let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vista_kind', 'vim-startify', 'LuaTree']
 
 nmap <S-F1> :LuaTreeToggle<CR>
+
+
+nnoremap <silent> <leader>lg :LazyGit<CR>
