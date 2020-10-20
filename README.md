@@ -6,7 +6,7 @@ not need to configure my setup everytime....... I am still using sublime edit(as
 vimr is one of the best nvim-gui. But it does not in active development in last 3 months(It is hard for a one developer
 project), some of the crash durning coding is annoying. I only use nvim/vim + kitty now.
 
-Note: it is a zprezto(zsh)+Plug(vim) version. I had changed to more lightweight zim+dein to reduce startup time.
+Note: it is a zprezto(zsh)+Plug(vim) version. I had changed to more lightweight zim+dein(see master branch) to reduce startup time.
 
 * nvim+kitty configured with pop menu:
 
