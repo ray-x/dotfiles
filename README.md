@@ -1,10 +1,12 @@
 # vim as a programming IDE
 
-I used to use slickedit, qt-creator, idea (webstorm, goland), vscode, but I am back to vi now. Thanks for `Plug` I do
+I used to use slickedit, qt-creator, idea (webstorm, goland), vscode, but I am back to vi now. Thanks for `Dein.vim` I do
 not need to configure my setup everytime....... I am still using sublime edit(as a notepad)
 
-vimr is one of the best nvim-gui. But it does not in active development in last 3 months(It is hard for a one developer
-project), some of the crash durning coding is annoying. I only use nvim/vim + kitty now.
+vimr is one of the best nvim-gui. But it does not in active development(It is hard for a one developer
+project), some of the crash durning coding is annoying. I only use nvim(nightly) + kitty now.
+
+The `Plug` config is located in branch ![Plug branch](https://github.com/ray-x/dotfiles/tree/zprezto-plug)
 
 * nvim+kitty configured with pop menu:
 
@@ -23,32 +25,38 @@ project), some of the crash durning coding is annoying. I only use nvim/vim + ki
 There are lots of amazing plugins,
 I used following plugin a lots
 
-* ``Plug``
-
-   Plugin management tool. The configuration was optimized and lots of plugins are loaded lazily. Normally the startup time
-   is around 200ms.
+* `Plug` -> `Dein`
+   Plugin management tool.
+   Plug is userfriendly. But the lazy is not as powerful as Dein. Also by default the cache system from Dein make it
+   faster compared to Plug
+   The configuration was optimized and lots of plugins are loaded lazily. Normally the startup time
+   is around 150ms with 80% of plugins lazily loaded.
+   Also tried packer.nvim. It is good, but is less popular and kind of buggy :(. Spended hours on it and
+   still could not beat the performance of Dein. You could refer to my lua/plugins.lua for the packer setup.
 
 * vim-clap
 
-   Best plugin for search anything. I used it to replace fzf, leaderF, leaderP, NerdTree, Ag/Ack/Rg, yank(ring), project management. undolist and many more
+   One of the best plugin for search anything. I used it to replace fzf, leaderF, leaderP, defx, Ag/Ack/Rg, yank(ring), project management. undolist and many more
 
-* nvim-lsp/coc.nvim
+* coc.nvim -> nvim-lsp
 
-   I disabled vim-go auto-complete/LSP and turn to nvim-lsp.
-   Defx: file-explorer,
-   nvim-lua/completion-nvim: auto-complete,
+   I disabled vim-go auto-complete/LSP and turn to nvim-lsp. It add around 200ms bootup time and some of the extensions
+   might crash when I using coc (but it hard to check which becuase ~4 node.js services coc forked)
+
+   nvim-tree: file-explorer (lightweight and fast)
+   nvim-lua/completion-nvim: auto-complete
    vsnip: code snipts(Load snippet from VSCode extension). It is a full featured IDE.
 
    I put coc in graveyard. It works fine, but from time to time, there will be some dead node.js need to clean up manually.
-   Also it growing bigger and slower.......
+   Also it is growing bigger and slower.......
 
-   If you enable coc, would be
+   If you would like to enable coc, would be
 
    ```vim
  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
  Plug 'vn-ki/coc-clap'
    ```
-   The coc.vim in graveyard folder is a good reference how to configure it.
+   The coc.vim and coc-settings.yml in graveyard folder is a good reference how to configure it.
    Replace defx with coc-explorer, use coc-spell(remove spelunker) for spell check
    coc-snippet replaced my ultisnips. Also, there are coc for yml, json, prettier, python, rust, PHP (any language vs code
    supported)......
@@ -65,11 +73,11 @@ I used following plugin a lots
 
 * Debug:
 
-  vimspector
+  vimspector, dlv
 
 * Theme, look&feel:
 
-  onedark, eleline, devicons, startify, indentLine(with nerdfont),
+  home cooked paleaurora, express-line (lua), devicons(lua), startify, vista(function list with lsp), indentLine(with nerdfont),
 
 * Color:
 
@@ -99,7 +107,10 @@ I used following plugin a lots
 
 ## Shell
 
-* OMZshell is good, iterm2 is popular, but I turned to zprezto(with powerlevel10) + kitty. It is cooool and faster.
+* OMZshell is good, iterm2 is popular, but I turned to zim(Zsh IMproved FrameWork
+) + powerlevel10 + kitty. It is cooool and faster.
 nvim+kitty split view:
 
     ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/kitty.jpg)
+
+zimfw is faster than oh-my-zh and zpreztor regarding the loading speed.

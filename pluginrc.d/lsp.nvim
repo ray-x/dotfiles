@@ -1,0 +1,199 @@
+finish
+" if &diff
+"   finish
+" endif
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_enable_underline = 1
+let g:diagnostic_auto_popup_while_jump = 1
+let g:diagnostic_insert_delay = 1
+let g:nvim_lsp = 1
+
+" start the lsp"
+
+
+nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
+
+imap <c-j> <cmd>lua require'completion.source'.prevCompletion()<CR>
+imap <c-k> <cmd>lua require'completion.source'.nextCompletion()<CR>
+
+autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.
+
+let g:completion_chain_complete_list = {
+    \ 'default' : {
+    \   'default': [
+    \       {'complete_items': ['lsp', 'ts', 'tablenine']},
+    \       {'complete_items': ['buffer', 'snippet','tablenine']},
+    \       {'complete_items': ['path'], 'triggered_only': ['/']},
+    \       {'mode': '<c-p>'},
+    \       {'mode': '<c-n>'}],
+    \   'func' : [{'complete_items': ['lsp', 'ts']}, {'complete_items': ['snippet']}],
+    \   'comment': [{'complete_items': ['buffer', 'tablenine']}],
+    \   'string':  [{'complete_items': ['buffer', 'tablenine']}]
+    \   }
+    \}
+
+" let g:completion_chain_complete_list = {
+"         \ 'go': [
+"         \    'string': [
+"         \        {'complete_items': ['buffer']}
+"         \        {'mode': '<c-p>'},
+"         \        {'mode': '<c-n>'}],
+"         \    'func' : [{'complete_items': ['lsp', 'ts']}],
+"         \    'comment': [{'complete_items': ['buffer']}],
+"         \    'default': [
+"         \       {'complete_items': ['lsp', 'tabnine', 'ts']},
+"         \       {'complete_items': ['snippet']},
+"         \       {'complete_items': ['path'], 'triggered_only': ['/']},
+"         \       {'mode': '<c-p>'},
+"         \       {'mode': '<c-n>'}],
+"         \],
+"         \ 'default' : {
+"         \   'default': [
+"         \       {'complete_items': ['lsp', 'snippet', 'ts']},
+"         \       {'mode': '<c-p>'},
+"         \       {'mode': '<c-n>'}],
+"         \   'comment': [{'complete_items': ['buffer']}],
+"         \   'string':  [{'complete_items': ['buffer']}]
+"         \   }
+"         \}
+
+" let g:completion_chain_complete_list = [
+"             \{'complete_items': ['lsp', 'tabnine', 'ts']},
+"             \{'complete_items': ['snippet']},
+"             \{'complete_items': ['path'], 'triggered_only': ['/']},
+"             \{'mode': '<c-p>'},
+"             \{'mode': '<c-n>'}]
+
+
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:completion_confirm_key = "\<C-y>"
+
+set shortmess+=c
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
+
+let g:completion_enable_snippet = 'vim-vsnip'  " 'UltiSnips' 'vim-vsnip'
+
+let g:completion_matching_strategy_list = ['exact', 'substring']   "'fuzzy','all'"
+augroup CompletionTriggerCharacter
+    autocmd!
+    autocmd BufEnter * let g:completion_trigger_character = ['.']
+    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
+augroup end
+
+sign define LspDiagnosticsErrorSign text=  linehl= texthl=LspDiagnosticsErrorSign numhl=                        
+sign define LspDiagnosticsWarningSign text=  linehl= texthl=LspDiagnosticsWarningSign numhl=                    
+sign define LspDiagnosticsInformationSign text=כֿ  linehl= texthl=LspDiagnosticsInformationSign numhl=            
+sign define LspDiagnosticsHintSign text=λ  linehl= texthl=LspDiagnosticsHintSign numhl= 
+
+
+
+function! LspStatus() abort
+    let sl = ''
+    if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+        let sl.='%#MyStatuslineLSP#E:'
+        let sl.='%#MyStatuslineLSPErrors#%{luaeval("vim.lsp.util.buf_diagnostics_count([[Error]])")}'
+        let sl.='%#MyStatuslineLSP# W:'
+        let sl.='%#MyStatuslineLSPWarnings#%{luaeval("vim.lsp.util.buf_diagnostics_count([[Warning]])")}'
+    else
+        let sl.='%#MyStatuslineLSPErrors#off'
+    endif
+    return sl
+endfunction
+
+
+let g:completion_word_min_length = 2
+let g:completion_trigger_keyword_length = 1
+
+" max tabnine completion options(default 7)
+let g:completion_tabnine_max_num_results=7
+
+" sort by tabnine score (default 0)
+let g:completion_tabnine_sort_by_details=0
+
+" max line for tabnine input(default 1000)
+" from current line -1000 ~ +1000 lines is passed as input
+" to check if the value override
+let g:completion_tabnine_max_lines=499
+
+let g:completion_auto_change_source = 1
+" imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+" imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+"  sorting via length descending
+" possible value: "length", "alphabet", "none"
+let g:completion_sorting = "length"
+let g:completion_matching_ignore_case = 1
+
+
+let g:completion_customize_lsp_label = {
+      \ 'Function': "\uf794",
+      \ 'Method': "\uf6a6",
+      \ 'Variable': "\uf71b",
+      \ 'Constant': "\uf8ff",
+      \ 'Struct': "\ufb44",
+      \ 'Class': "\uf0e8",
+      \ 'Interface': "\ufa52",
+      \ 'Text': "\ue612",
+      \ 'Enum': "\uf435",
+      \ 'EnumMember': "\uf02b",
+      \ 'Module': "\uf668",
+      \ 'Color': "\ue22b",
+      \ 'Property': "\ufab6",
+      \ 'Field': "\uf93d",
+      \ 'Unit': "\uf475",
+      \ 'File': "\uf471",
+      \ 'Value': "\uf8a3",
+      \ 'Event': "\ufacd",
+      \ 'Folder': "\uf115",
+      \ 'Keyword': "\uf893",
+      \ 'Snippet': "\uf64d",
+      \ 'Operator': "\uf915",
+      \ 'Reference': "\uf87a",
+      \ 'TypeParameter': "\uf278",
+      \ 'Default': "\uf29c"
+      \}
+
+let g:completion_items_priority = {
+        \ 'Field': 8,
+        \ 'Function': 8,
+        \ 'Variables': 7,
+        \ 'Method': 10,
+        \ 'Interfaces': 6,
+        \ 'Constant': 6,
+        \ 'Class': 6,
+        \ 'Struct': 6,
+        \ 'Keyword': 5,
+        \ 'Treesitter': 4,
+        \ 'UltiSnips' : 2,
+        \ 'vim-vsnip' : 0,
+        \ 'Neosnippet' : 2,
+        \ 'Buffers' : 0,
+        \ 'TabNine' : 1,
+        \ 'File' : 2,
+        \}
+
+" let g:diagnostic_insert_delay = 1
+
+
+augroup CompletionMD
+    autocmd!
+    autocmd BufEnter *.md let g:completion_matching_strategy_list = ['substring'] | let g:completion_items_priority = { 'Buffers' : 3, 'TabNine' : 6, 'File' : 5, 'vim-vsnip' : 8 } |let g:completion_chain_complete_list = [ {'ins_complete': v:false, 'complete_items': ['lsp', 'snippet', 'tabnine', 'ts']},{'mode': '<c-p>'},{'mode': '<c-n>'}]
+augroup end
+
+let g:LanguageClient_serverCommands = { 
+  \ 'typescript': ['typescript-language-server', '--stdio', '--tsserver-path', 'node_modules/.bin/tsserver'], 
+\ }
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('/tmp/lsp.log')
+let g:float_preview#docked = 1

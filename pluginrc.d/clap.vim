@@ -1,10 +1,7 @@
-"" Clap
-
-
 let g:clap_layout = {'relative': 'editor', 'width': '71%', 'height': '39%', 'row': '13%', 'col': '10%' }
 let g:clap_preview_size = 10  "" def: 5
 let g:airline_powerline_fonts = 1
-let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', ''] }
+let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', '']     }
 
 set laststatus=2
 let g:clap_popup_border = "rounded"
@@ -12,13 +9,11 @@ let g:clap_popup_border = "rounded"
 nmap <F4> :Clap<CR>
 noremap <leader><s-c>p :Clap proj_tags <CR>
 " \<s-p> not work well because some time it copy into text
-noremap <leader><c-p> :Clap files<CR>
 
 noremap <leader><s-F> :Clap grep ++query=<cword><CR>
 cmap <leader><S-F>h :Clap command_history<CR>
 noremap <leader>ch :Clap command_history<CR>
 noremap <leader>cf :Clap history<CR>
-
 
 function! s:history(arg)
   let l:query=''
@@ -43,17 +38,16 @@ function! s:history(arg)
     let l:query=' ++query=' . l:query
   endif
   exec 'Clap '. l:subcommand . l:query
-
 endfunction
 
 " noremap <c-F>:Clap grep2 ++query=@visual<CR>
 noremap <s-T> :Clap tags<CR>
-nmap <S-F2> :Clap filer<CR>
+nmap <S-F3> :Clap filer<CR>
 
 nmap <c-E> :Clap filer<CR>
 
 command! -bang -nargs=* History call s:history(<q-args>)
-command! Files :Clap files
+" command! Files :Clap files  "cmd-p"
 command! Buffers :Clap buffers
 command! Tags :Clap proj_tags
 command! Buffers :Clap buffers
@@ -72,4 +66,4 @@ command! -nargs=0 Sh :Clap search_history
 
 " let g:clap_theme = 'atom_dark'
 let g:clap_selected_sign = { 'text': '', 'texthl': "ClapSelectedSign", "linehl": "ClapSelected" }
-let g:clap_current_selection_sign = { 'text': '', 'texthl': "ClapCurrentSelectionSign", "linehl": "ClapCurrentSelection" }
+let g:clap_current_selection_sign = { 'text': '', 'texthl': "ClapCurrentSelectionSign", "linehl":     "ClapCurrentSelection" }

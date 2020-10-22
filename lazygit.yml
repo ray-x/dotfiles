@@ -1,0 +1,5 @@
+startuppopupversion: 1
+git:
+    paging: #/Users/ray.xu/Library/Application Support/jesseduffield/lazygit/config.yml
+        colorArg: always
+        pager: delta --dark --paging=never --24-bit-color=never

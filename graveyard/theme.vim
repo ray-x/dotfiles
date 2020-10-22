@@ -113,3 +113,18 @@ function! g:BuffetSetCustomColors()
   hi! BuffetModBuffer cterm=NONE ctermbg=5 ctermfg=8 guibg=#76715E guifg=#8d809f
   hi! BuffetTab cterm=NONE ctermbg=5 ctermfg=8 guibg=#6690c4 guifg=#ddd0f4
 endfunction"
+
+local M = {}
+
+local extensionTable = {
+  -- Diag Symbols
+  ['left_separator'] = 'ÓÇ∂',
+  ['right_separator'] = 'ÓÇ¥',
+  ['git_branch'] = 'ÓÇ†',
+  ['blanks'] = ' ',
+  ['warnings'] = '‚áè ',
+  ['errors'] = '‚úó ',
+  ['info'] = '·êà ',
+  ['hints'] = '·óÅ ',
+  ['func'] = '∆í',
+  ['breakpoint'] = '‚è∫',

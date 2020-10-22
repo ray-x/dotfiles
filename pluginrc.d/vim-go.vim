@@ -56,7 +56,7 @@ let g:go_highlight_generate_tags = 0
 " let g:go_highlight_methods = 1
 " let g:go_highlight_operators = 1
 " let g:go_highlight_build_constraints = 1
-
+" 
 " let g:go_highlight_types = 1
 " let g:go_highlight_fields = 1
 " let g:go_highlight_functions = 1
@@ -69,9 +69,10 @@ let g:go_highlight_generate_tags = 0
 " let g:go_highlight_generate_tags = 1
 
 
+" g:go_build_tags = "integration"
 
-let g:go_code_completion_enabled = 0 "use coc-go
-let g:go_gopls_enabled = 0 "use coc-go
+let g:go_code_completion_enabled = 0 "use neovim-lsp
+let g:go_gopls_enabled = 0 "use neovim-lsp
 let g:go_info_mode = "guru"   " use "" to disalbe coc or use gopls/guru
 let g:go_auto_type_info = 0  "causing delay because it is sync
 let g:go_doc_keywordprg_enabled = 0  "godoc use <slient> K conflict with coc, also it is slow....
@@ -180,3 +181,7 @@ autocmd FileType go nmap <F8>  :GoDebugStepOut <CR>
 " autocmd FileType go nmap <buffer> <F5>   <Plug>(go-debug-continue)
 " autocmd FileType go nmap <buffer> <F9>   <Plug>(go-debug-breakpoint)
 
+au FileType go command! GoT :GoBuildTags integration | GoTest
+au FileType go command! Gtn :TestNearest -v -tags=integration
+au FileType go command! Gts :TestSuite -v -tags=integration
+command! Gtl :lua require'selfunc'.run_command()

@@ -1,81 +1,22 @@
-coc explorer
-" " zo, zO, zc, za, ... to fold / unfold folds
-" [[ and ]] to navigate ]k and [j
-{
-  "explorer.keyMappings": {
-    "i": false, // cancel default mapkey
-
-    "gk": "expandablePrev",
-    "gj": "expandableNext",
-
-    "*": "toggleSelection",
-    "<tab>": "actionMenu",
-
-    "h": "collapse",
-    "l": ["expandable?", "expand", "open"],
-    "J": ["toggleSelection", "nodeNext"],
-    "K": ["toggleSelection", "nodePrev"],
-    "gl": "expandRecursive",
-    "gh": "collapseRecursive",
-    "<2-LeftMouse>": [
-      "expandable?",
-      ["expanded?", "collapse", "expand"],
-      "open"
-    ],
-    "o": ["expanded?", "collapse", "expand"],
-    "<cr>": ["expandable?", "cd", "open"],
-    "e": "open",
-    "s": "open:split",
-    "S": "open:split:plain",
-    "E": "open:vsplit",
-    "t": "open:tab",
-    "<bs>": "gotoParent",
-    "gp": "preview:labeling",
-
-    "y": "copyFilepath",
-    "Y": "copyFilename",
-    "c": "copyFile",
-    "x": "cutFile",
-    "p": "pasteFile",
-    "d": "delete",
-    "D": "deleteForever",
-
-    "a": "addFile",
-    "A": "addDirectory",
-    "r": "rename",
-
-    ".": "toggleHidden",
-    "R": "refresh",
-
-    "?": "help",
-    "q": "quit",
-    "<esc>": "esc",
-    "X": "systemExecute",
-    "gd": "listDrive",
-
-    "f": "search",
-    "F": "searchRecursive",
-
-    "gf": "gotoSource:file",
-    "gb": "gotoSource:buffer",
-
-    "[[": "sourcePrev",
-    "]]": "sourceNext",
-
-    "[d": "diagnosticPrev",
-    "]d": "diagnosticNext",
-
-    "[c": "gitPrev",
-    "]c": "gitNext",
-    "<<": "gitStage",
-    ">>": "gitUnstage"
-  }
-}
-
 
 
 copy the cmd output
 redir @* | echo &guifont | redir END
+
+
+copy/paste and repeat
+
+yiw  copy word, yi"  copy inner 
+
+ciw ^R0   (change word with register 0)
+
+.  (repete)
+
+Line:
+Vp select 2nd line, replace with yank
+V"0p  3rd line and replace with 1st
+
+word count g^g
 
 comments:
 [count]<leader>cc |NERDCommenterComment|
@@ -200,3 +141,12 @@ If you always want to use the command editing window, try these mappings:
 nnoremap : q:i
 nnoremap / q/i
 nnoremap ? q?i
+
+Using "finish" stops Vim from reading the rest of the file, it's much quicker
+than using if-endif around the whole file.
+
+https://google.github.io/styleguide/vimscriptfull.xml
+let [s:plugin, s:enter] = maktaba#plugin#Enter(expand('<sfile>:p'))
+if !s:enter
+  finish
+endif

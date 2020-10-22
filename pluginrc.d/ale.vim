@@ -18,6 +18,7 @@ let g:ale_linters = {
 \   'go': ['golangci-lint', 'revive'],
 \   'markdown': ['mdl', 'languagetool'],
 \   'sql': ['sqlint'],
+\   'python': ['flake8', 'pylint']
 \}
 
 let g:ale_fixers = {
@@ -29,12 +30,14 @@ let g:ale_fixers = {
 \   'sql': ['pgformatter'],
 \   'css': ['prettier'],
 \   'php': ['php-cs-fixer'],
-\   'ale_fixers':['prettier', 'remark'],
+\   'ale_fixers': ['prettier', 'remark'],
+\   'lua': ['luafmt'],
+\   'python': ['autopep8', 'yapf']
 \}
 
 augroup auto_go
   " autocmd BufWritePre *.go lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
-  autocmd BufWritePre *.go :GoFmt
+  " autocmd BufWritePre *.go :GoFmt
   autocmd BufWriteCmd *.mod :GoModFmt
   autocmd BufWritePost *.mod :AsyncRun -cwd=<root> go mod tidy
   " autocmd BufWritePost *_test.go :AsyncRun -raw -cwd=%:p:h go test ./... -tags=integration | lopen 3

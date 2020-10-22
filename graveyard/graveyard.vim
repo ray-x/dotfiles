@@ -10,6 +10,11 @@
 " Plug 'sickill/vim-monokai'
 " Plug 'buoto/gotests-vim', { 'for': ['go'] }
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" Plug 'kamykn/popup-menu.nvim'  "spell popup
+
+" Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew'] }
+
 set noshowmatch                 " Do not show matching brackets by flickering
 
 if executable('swift')
@@ -18,6 +23,7 @@ endif
 Plug 'neomake/neomake'
 Plug 'airblade/vim-gitgutter' " , { 'on': ['GitGutterBufferEnable', 'GitGutterEnable']}
 Plug 'pangloss/vim-javascript'
+Plug 'pseewald/vim-anyfold', { 'on': ['AnyFoldActivate']}
 
 Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
@@ -26,6 +32,11 @@ Plug 'leafgarland/typescript-vim'
 Plug 'prettier/vim-prettier', {'do': 'yarn install','on': ['PrettierAsync', 'Prettier'] }
 " Plug 'Chiel92/vim-autoformat'
 
+
+" call dein#add('easymotion/vim-easymotion', {'on_map': '<Plug>'})  " Great plugin, but 1) I used mouse more, 2) conflict with lsp, 3)lots of hot key was binded,  the gain can not pay the price"
+" call dein#add('tpope/vim-repeat', {'on_map': '<Plug>'}) " repead motion"
+
+" call dein#add('iamcco/mathjax-support-for-mkdp', { 'on_ft': ['markdown']}) "math support
 
 
 Plug 'mlaursen/vim-react-snippets'
@@ -348,3 +359,29 @@ if !has('nvim')
   " let g:vimspector_enable_mappings = 'HUMAN'
   " packadd! vimspector
 endif
+
+
+lua require('bufferline').setup{
+\  options = {
+\    view = "multiwindow",
+\    numbers = "ordinal",
+\    mappings = true,
+\    max_name_length = 16,
+\    tab_size = 16,
+\    separator_style = "thin",
+\    always_show_bufferline = false,
+\  },
+\ }
+
+lua <<EOF
+-- totally optional to use setup
+require('telescope').setup{
+  defaults = {
+    shorten_path = false -- currently the default value is true
+  }
+}
+EOF
+
+nnoremap <Leader>p <cmd>lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <silent> gr <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
+nnoremap <Leader>en <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }<CR>

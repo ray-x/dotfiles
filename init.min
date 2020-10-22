@@ -5,50 +5,59 @@ if has('nvim')
 else
   let s:config_home = '~/.config/nvim'
 endif
-
-call plug#begin('~/.vim/plugged')
-
-" Group dependencies, vim-snippets depends on ultisnips
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'liuchengxu/vista.vim', { 'on': ['Vista!!','Vista'] }
-Plug 'ray-x/paleaurora'
-
-if has('nvim')
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
-  Plug 'nvim-lua/diagnostic-nvim'
-  Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'RishabhRD/popfix'
-  Plug 'RishabhRD/nvim-lsputils'
-  Plug 'nvim-treesitter/nvim-treesitter'
-  Plug 'nvim-treesitter/completion-treesitter'
-  Plug 'steelsojka/completion-buffers'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kyazdani42/nvim-tree.lua' " , { 'on': 'LuaTreeToggle' }
-  Plug 'Akin909/nvim-bufferline.lua'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'tjdevries/express_line.nvim'
+if &compatible
+  set nocompatible
 endif
 
 
-Plug 'liuchengxu/vim-clap'  , { 'do': ':Clap install-binary!' } " keep the binary for a while. download and rebuild took time
-" Show color
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'Yggdroot/indentLine'
-Plug 'mtdl9/vim-log-highlighting' , { 'for': ['json', 'txt', 'log'] }
-if has('nvim')
-    Plug 'Xuyuanp/scrollbar.nvim'
+if has('mac')
+  let s:brew_prefix = '/usr/local'
+elseif executable('brew')
+  let s:brew_prefix = systemlist('brew --prefix')[0]
 endif
 
-" highlight current word
-Plug 'ray-x/vim-interestingwords'
 
-call plug#end()
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+if has('nvim')
+  " LSP releated
+  " call dein#add('neovim/nvim-lspconfig', {'name':'lsp', 'lazy': 1, " 'on_map':['<Plug>','<c-k>','<c-]>'], 'on_ft': ['go', 'bash', 'go', 'c_sharp', " 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', " 'python', 'rust', 'ruby', 'toml', 'typescript']})"
+" 
+  " call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})
+  " call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
+  " call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
+  " call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})
+  " call dein#add('nvim-lua/plenary.nvim')
+  " call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
+
+  " call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, " 'name':'treesitter', 'on_event': 'InsertEnter', 'on_ft': ['bash', " 'c_sharp','c', 'cpp', 'css', 'dart', 'go', 'html', 'java', 'javascript', " 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
+  " call dein#add('nvim-treesitter/completion-treesitter', {'depends': ['treesitter', 'completion'], 'on_event': 'InsertEnter', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
+    " call dein#add('akinsho/nvim-bufferline.lua')
+  call dein#add('norcalli/nvim-colorizer.lua')
+endif
+
+
+
+  call dein#add('ray-x/paleaurora')
+  call dein#end()
+  call dein#save_state()
+endif
+
+
+
 
 set nocompatible                " Enables us Vim specific features
 " filetype off                    " Reset filetype detection first ...
-" filetype plugin indent on       " ... and enable filetype detection
+filetype plugin indent on       " ... and enable filetype detection
 set ttyfast                     " Indicate fast terminal conn for faster redraw
 set laststatus=2                " Show status line always
 set encoding=utf-8              " Set default encoding to UTF-8
@@ -75,10 +84,8 @@ set pumheight=12                " Completion window max size
 set lazyredraw                  " Wait to redraw
 set autoread                    " Automatically read changed files
 set mouse=a
+set termguicolors
 
-if exists(':tnoremap')
-  tnoremap <Esc> <C-\><C-n>
-endif
 
 " file hidden
 set wildmenu
@@ -111,8 +118,12 @@ autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
+setlocal foldmethod=syntax         
+setlocal foldlevelstart=99
+set foldlevel=99
 
-" set fdm=syntax
+set fdm=syntax  "manual" "syntax"
+" setlocal foldlevelstart=99
 " turn line numbers on
 set number
 " highlight matching braces
@@ -162,11 +173,6 @@ map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 
-" Visual linewise up and down by default (and use gj gk to go quicker)
-noremap <Up> gk
-noremap <Down> gj
-noremap j gj
-noremap k gk
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
@@ -175,14 +181,6 @@ nnoremap N Nzzzv
 
 " Act like D and C
 nnoremap Y y$
-
-set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.ist,*/.fdb_latexmk,**/tmp/**,*/.so,*/.swp,*/.zip,*/.o
-
-set grepprg=rg\ --vimgrep    " set grepprg=ag\ --vimgrep\ $*
-" Ggrep only search files under git control
-" set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
-set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
-" :grep 'pattern' after setup and :cfdo %s/Neovim/Nvim/g | update
 
 
 " " Copy to clipboard
@@ -201,89 +199,44 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
 
-" Tab
-map <C-H> :bn<CR>
-map <C-L> :bp<CR>
-map <C-T>c Bw <cr>
-map <C-T>n :tabnew split<CR>
+" augroup ScrollbarInit
+"   autocmd!
+"   autocmd WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
+"   autocmd WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
+" augroup end
+" 
+" augroup config_scrollbar_nvim
+"     autocmd!
+"     autocmd BufEnter    * silent! lua require('scrollbar').show()
+"     autocmd BufLeave    * silent! lua require('scrollbar').clear()
+"     autocmd FocusGained * silent! lua require('scrollbar').show()
+"     autocmd FocusLost   * silent! lua require('scrollbar').clear()
+"     autocmd CursorMoved * silent! lua require('scrollbar').show()
+"     autocmd VimResized  * silent! lua require('scrollbar').show()
+" augroup end
+" 
+" 
+" lua require('lsp_config')
+" 
 
-"" Python
-au BufNewFile,BufRead *.py set colorcolumn=79
-au BufNewFile,BufRead *.py set expandtab
-au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py setlocal foldmethod=indent
-au BufNewFile,BufRead *.py vmap <CR> :s/\(^\s*\)/\1# /<CR>:let @/ = ""<CR>
-au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
-
-"" Javascript
-let javascript_enable_domhtmlcss = 1
-
-" markdown disable conceal when edit current line
-set concealcursor="i"
-
-set statusline+=%#warningmsg#
-set statusline+=%*
-
-autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>
-autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>
-
-augroup ScrollbarInit
-  autocmd!
-  autocmd WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
-  autocmd WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
-augroup end
-
-augroup config_scrollbar_nvim
-    autocmd!
-    autocmd BufEnter    * silent! lua require('scrollbar').show()
-    autocmd BufLeave    * silent! lua require('scrollbar').clear()
-    autocmd FocusGained * silent! lua require('scrollbar').show()
-    autocmd FocusLost   * silent! lua require('scrollbar').clear()
-    autocmd CursorMoved * silent! lua require('scrollbar').show()
-    autocmd VimResized  * silent! lua require('scrollbar').show()
-augroup end
-
-augroup postUILoads
-  autocmd!
-   autocmd VimEnter * lua require('lsp_init')
-   autocmd VimEnter * lua require('lsp_location')
-   autocmd VimEnter * lua require('treesitter')
-   autocmd VimEnter * set clipboard^=unnamed
-   autocmd VimEnter * set clipboard^=unnamedplus
-   autocmd VimEnter * silent! lua require('expressline')
-augroup END
-
-lua require'bufferline'.setup{
-\  options = {
-\    view = "multiwindow",
-\    numbers = "ordinal",
-\    mappings = true,
-\    max_name_length = 16,
-\    tab_size = 16,
-\    separator_style = "thin",
-\    always_show_tab = false,
-\  },
-\ }
-
-set termguicolors
-
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " set background=dark
 colorscheme paleaurora
-
+execute 'source' fnameescape(s:config_home . '/pluginrc.d/pluginrc.vim')
 execute 'source' fnameescape(s:config_home . '/pluginrc.d/clap.vim')
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/lsp.vim')
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/nvim-tree.vim')
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/vista.vim')
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/nvim-tree.vim')
+execute 'source' fnameescape(s:config_home . '/pluginrc.d/lsp.nvim')
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/nvim-tree.nvim')
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/vista.vim')
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/nvim-tree.vim')
 
 
-let g:scrollbar_max_size = 6
-let g:scrollbar_min_size = 2
-let g:scrollbar_right_offset = 0
-let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vista_kind', 'vim-startify', 'LuaTree']
+" let g:scrollbar_max_size = 6
+" let g:scrollbar_min_size = 2
+" let g:scrollbar_right_offset = 0
+" let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vista_kind', 'vim-startify', 'LuaTree']
+" 
 
-nmap <S-F1> :LuaTreeToggle<CR>
+command! Dg :lua require'lsp.diagnostic'.show_buf_diagnostics()
+command! Dc :call dein#recache_runtimepath()
+command! Du :call dein#update()
