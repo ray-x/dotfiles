@@ -11,6 +11,7 @@ lsp_status.config {
           character = 0,
           line = vim.fn.byte2line(symbol.valueRange[1])
         },
+
         ["end"] = {
           character = 0,
           line = vim.fn.byte2line(symbol.valueRange[2])
@@ -41,14 +42,12 @@ nvim_lsp.pyls_ms.setup({
 
 nvim_lsp.gopls.setup({
   callbacks = lsp_status.extensions.gopls.setup(),
-  settings = { python = { workspaceSymbols = { enabled = true }}},
   on_attach = lsp_status.on_attach,
   capabilities = lsp_status.capabilities
 })
 
 nvim_lsp.tsserver.setup({
   callbacks = lsp_status.extensions.tsserver.setup(),
-  settings = { python = { workspaceSymbols = { enabled = true }}},
   on_attach = lsp_status.on_attach,
   capabilities = lsp_status.capabilities
 })

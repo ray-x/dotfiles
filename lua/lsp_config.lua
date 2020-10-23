@@ -6,6 +6,8 @@ local util = require('nvim_lsp/util')
 local configs = require('nvim_lsp/configs')
 vim.lsp.set_log_level("info")
 
+print("lsp_config is loading")
+
 lsp_status.register_progress()
 
 lsp_status.config {
@@ -67,17 +69,17 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)  
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)  
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',  '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  --vim.api.nvim_buf_set_keymap(bufnr, 'n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>de', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -97,12 +99,27 @@ local on_attach = function(client, bufnr)
   vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
   vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   vim.lsp.callbacks['window/showMessage'] = function(...) print('') end  --- supress showMessage when I enable -tags=integration
+  
+  vim.api.nvim_command ([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
+  vim.api.nvim_command ([[autocmd BufWritePre <buffer> lua go_organize_imports_sync(1000)]])
+    
+  local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,c,cpp,typescript"
+  vim.api.nvim_command [[augroup nvim_lsp_autos]]
+  vim.api.nvim_command [[autocmd!]]
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
+    
+    --[[ mappings that are shared across all supported langs ]]--
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gt       <cmd>lua vim.lsp.buf.type_definition()<CR>]])
 
-  vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-  vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-  vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
-  vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
-  vim.api.nvim_command [[autocmd BufWritePre <buffer> lua go_organize_imports_sync(1000)]]
+  vim.api.nvim_command([[augroup END]])
   local method = "textDocument/publishDiagnostics"
   local default_callback = vim.lsp.callbacks[method]
   vim.lsp.callbacks[method] = function(err, method, result, client_id)
@@ -146,10 +163,23 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+
+--[[ Go ]]--
 nvim_lsp.gopls.setup {
     on_attach=on_attach,
     capabilities = lsp_status.capabilities,
-    cmd = {"gopls", "serve"},
+    cmd = {
+        "gopls",
+
+        -- share the gopls instance if there is one already
+        "-remote=auto",
+
+        --[[ debug options ]]--
+        --"-logfile=auto",
+        --"-debug=:0",
+        --"-remote.debug=:0",
+        --"-rpc.trace",
+    },
     settings = {
       gopls = {
         analyses = {
@@ -161,8 +191,12 @@ nvim_lsp.gopls.setup {
           gc_details = true, --  // Show a code lens toggling the display of gc's choices.
 
         },
+        usePlaceholders    = true,
+        completeUnimported = true,
         staticcheck = true,
-        buildFlags = {"-tags", "integration"}
+        matcher            = "fuzzy",
+        symbolMatcher      = "fuzzy",
+        -- buildFlags = {"-tags", "integration"}
         -- buildFlags = {"-tags", "functional"}
       },
     }
@@ -171,6 +205,8 @@ nvim_lsp.gopls.setup {
       return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
     end;
 }
+
+
 
 -- populate quickfix list with diagnostics
 local method = "textDocument/publishDiagnostics"

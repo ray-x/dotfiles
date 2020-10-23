@@ -2,6 +2,8 @@
 if has('nvim')
 
 autocmd BufNewFile,BufRead *.go,*.sh,*.cs,*.cpp,*.c,*.css,*.dart,*.html,*.java,*.js,*.jsdoc,*.json,*.lua,*.py,*.rs,*.ruby,*.toml,*.ts,*tsx silent!  lua require('treesitter')
+autocmd BufNewFile,BufRead *.go,*.sh,*.cs,*.cpp,*.c,*.css,*.dart,*.html,*.java,*.js,*.jsdoc,*.json,*.lua,*.py,*.rs,*.ruby,*.toml,*.ts,*tsx silent!  lua require('lsp_config')
+
 
 
 augroup ScrollbarInit

@@ -5,16 +5,8 @@ if dein#load_state('~/.cache/dein')
    call dein#add('shmup/vim-sql-syntax', {'on_ft': ['sql', 'pgsql']})
    call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista', 'Vista!!']})
    call dein#add('kamykn/spelunker.vim', {'on_func': 'spelunker#check', 'on_cmd': 'Spell'})
-   call dein#add('skywind3000/asynctasks.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
-   call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
 
    call dein#add('mattn/emmet-vim', { 'on_ft': ['html','css', 'js', 'ts', 'tsx'] })
-   "" auto close
-   call dein#add('cohama/lexima.vim', { 'on_event': 'InsertEnter',  'on_map': '<Plug>'})
-   " \ 'hook_post_source': "
-   "   \ let g:lexima_no_default_rules = 1 \n
-   "   \ call lexima#set_default_rules() \n
-   "   \ imap <expr> <cr>  pumvisible()  ?  '\<Plug>(completion_confirm_completion)'  : '\<c-e>\' . lexima#expand('<CR>', 'i') : lexima#expand('<CR>', 'i') "})
 
    " add comments to code, tomtom/tcomment_vim is another alternative
    call dein#add('preservim/nerdcommenter', {'on_cmd': ['NERDCommenterComment', 'NERDCommenterToggle'], 'on_map':'<Leader>c<space>'})
@@ -132,4 +124,16 @@ endif ""end of nvim
    call dein#end()
    call dein#save_state()
 endif
+
+
+"" Not used in last 4 weeks
+   "" auto close
+   " call dein#add('cohama/lexima.vim', { 'on_event': 'InsertEnter',  'on_map': '<Plug>'})
+   " \ 'hook_post_source': "
+   "   \ let g:lexima_no_default_rules = 1 \n
+   "   \ call lexima#set_default_rules() \n
+   "   \ imap <expr> <cr>  pumvisible()  ?  '\<Plug>(completion_confirm_completion)'  : '\<c-e>\' . lexima#expand('<CR>', 'i') : lexima#expand('<CR>', 'i') "})
+   " call dein#add('Raimondi/delimitMate', { 'on_event': 'InsertEnter',  'on_map': '<Plug>'})
+""   call dein#add('skywind3000/asynctasks.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
+""   call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
 

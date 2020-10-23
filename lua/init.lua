@@ -10,8 +10,6 @@ if vim.wo.diff then
   return ''
 end
 
-local ok, _ = pcall(function() require('lsp_config') end)
-
 RELOAD = require('plenary.reload').reload_module
 
 R = function(name)
@@ -24,19 +22,10 @@ end
 
 
 require('expressline')
--- require('treesitter')  -- bufferenter
--- 
 
 
 -- Run the first time to install it
 
--- 
--- 
--- 
--- 
-vim.cmd [[autocmd BufNewFile,BufRead " go,*.sh,*.cs,*.cpp,*.c,*.css,*.dart,*.html,*.java,*.js,*.jsdoc,*.json,*.lua,*.py,*.rs,*.ruby,*.toml,*.ts,*tsx silent!  lua require('treesitter')]]
--- 
--- local ok, _ = pcall(function() require('expressline') end)
 local ok, _ = pcall(function() require('completion').on_attach() end)
 
 require'bufferline'.setup{  options = {

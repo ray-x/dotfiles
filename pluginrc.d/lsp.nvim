@@ -1,7 +1,9 @@
-finish
+" finish
 " if &diff
 "   finish
 " endif
+
+
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_enable_underline = 1
 let g:diagnostic_auto_popup_while_jump = 1
@@ -9,7 +11,7 @@ let g:diagnostic_insert_delay = 1
 let g:nvim_lsp = 1
 
 " start the lsp"
-
+lua require('lsp_config')
 
 nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
@@ -33,44 +35,15 @@ let g:completion_chain_complete_list = {
     \   }
     \}
 
-" let g:completion_chain_complete_list = {
-"         \ 'go': [
-"         \    'string': [
-"         \        {'complete_items': ['buffer']}
-"         \        {'mode': '<c-p>'},
-"         \        {'mode': '<c-n>'}],
-"         \    'func' : [{'complete_items': ['lsp', 'ts']}],
-"         \    'comment': [{'complete_items': ['buffer']}],
-"         \    'default': [
-"         \       {'complete_items': ['lsp', 'tabnine', 'ts']},
-"         \       {'complete_items': ['snippet']},
-"         \       {'complete_items': ['path'], 'triggered_only': ['/']},
-"         \       {'mode': '<c-p>'},
-"         \       {'mode': '<c-n>'}],
-"         \],
-"         \ 'default' : {
-"         \   'default': [
-"         \       {'complete_items': ['lsp', 'snippet', 'ts']},
-"         \       {'mode': '<c-p>'},
-"         \       {'mode': '<c-n>'}],
-"         \   'comment': [{'complete_items': ['buffer']}],
-"         \   'string':  [{'complete_items': ['buffer']}]
-"         \   }
-"         \}
-
-" let g:completion_chain_complete_list = [
-"             \{'complete_items': ['lsp', 'tabnine', 'ts']},
-"             \{'complete_items': ['snippet']},
-"             \{'complete_items': ['path'], 'triggered_only': ['/']},
-"             \{'mode': '<c-p>'},
-"             \{'mode': '<c-n>'}]
-
 
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-let g:completion_confirm_key = "\<C-y>"
-
+" let g:completion_confirm_key = "\<C-y>"
+let g:completion_confirm_key = ""
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 set shortmess+=c
+
 
 function! s:check_back_space() abort
     let col = col('.') - 1
