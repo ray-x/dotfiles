@@ -47,11 +47,12 @@ end
 
 local should_show = function()
   -- body
-  local exclude = Set { "LuaTree", "vista", "vista_kind", "floatterm", "defx"}
+  local exclude = Set {"LuaTree", "vista", "vista_kind", "floatterm", "defx"}
   local ft = vim.api.nvim_buf_get_option(0, 'filetype')
-  if exclude[ft] then
+  if exclude[ft] or winwidth() < 80 then
     return false
   end
+
   return true
 end
 
@@ -76,6 +77,51 @@ local TrimmedDirectory = function(dir)
   return(pc)
 end
 
+-- show current line percent of all lines
+local function current_line_percent()
+  local current_line = vim.fn.line('.')
+  local total_line = vim.fn.line('$')
+  if current_line == 1 then
+    return ' Top '
+  elseif current_line == vim.fn.line('$') then
+    return ' Bot '
+  end
+  local result,_ = math.modf((current_line/total_line)*100)
+  return ' '.. result .. '%% '
+end
+
+-- extension for scoll bar
+function scrollbar_instance()
+  local current_line = vim.fn.line('.')
+  local total_lines = vim.fn.line('$')
+  local default_chars = {'__', '▁▁', '▂▂', '▃▃', '▄▄', '▅▅', '▆▆', '▇▇', '██'}
+  local chars = default_chars
+  local index = 1
+
+  if  current_line == 1 then
+    index = 1
+  elseif current_line == total_lines then
+    index = #chars
+  else
+    local line_no_fraction = vim.fn.floor(current_line) / vim.fn.floor(total_lines)
+    index = vim.fn.float2nr(line_no_fraction * #chars)
+    if index == 0 then
+      index = 1
+    end
+  end
+  percent = current_line_percent()
+  return percent..' % '..chars[index]
+end
+
+
+local function diagnostic_ale_error()
+  local buf_nr = vim.fn.bufnr()
+  local counts = vim.fn['ale#statusline#Count'](buf_nr)
+  local error_counts = counts.error + counts.style_error
+  return error_counts
+end
+
+
 local generator = function()
   local el_segments = {}
   local builtin = require('el.builtin')
@@ -99,13 +145,26 @@ local generator = function()
   set_highlight('ELGitIcon', '#fd4b47', '#4f425e', 'NONE')
   set_highlight('ELFunc', '#10abf7', '#4f425e', 'Bold')
   -- set_highlight('ELDirectory', '#10abf7', '#4f225e', 'NONE')
-  local lspstatus = require('lsp-status')
   if not should_show() then
-    return {extensions.mode}
+    return {}
   end
   return {
       extensions.mode,
-      sections.split,
+      sections.highlight('ELGitIcon', extensions.git_icon),
+      subscribe.buf_autocmd(
+        "el_git_branch",
+        "BufRead",
+        function(window, buffer)
+          if winwidth() < 80 then return '' end
+          local branch = extensions.git_branch(window, buffer)
+          if branch == nil then
+            return ''
+          else
+
+            return sections.highlight('ELGit',  branch .. '')()
+          end
+        end
+      ),
       subscribe.buf_autocmd(
         "el_folder",
         "BufEnter",
@@ -141,30 +200,24 @@ local generator = function()
           return sections.highlight('ELFunc', lsp_statusline.segment(window, buffer))()
         end
       ),
-      ' [', builtin.line, ' : ',  builtin.column, ']',
+      -- subscribe.buf_autocmd(
+      --   "el_lsp_status",
+      --   "CursorHold,CursorHoldI",
+      --   function(window, buffer)
+      --     if winwidth() < 80 then return '' end
+      --     return sections.highlight('ELFunc', require('lsp-status').status())()
+      --   end
+      -- ),
+      sections.split,
+      ' [', builtin.line, ' : ',  builtin.column, '] ',
       sections.collapse_builtin{
-        '[', builtin.help_list, builtin.readonly_list, ']',
+      ' [', builtin.help_list, builtin.readonly_list, '] ',
       },
-      sections.highlight('ELGitIcon', extensions.git_icon),
       subscribe.buf_autocmd(
         "el_git_status",
         "BufWritePost",
         function(window, buffer)
           return  extensions.git_changes(window, buffer)
-        end
-      ),
-      ' ',
-      subscribe.buf_autocmd(
-        "el_git_branch",
-        "BufRead",
-        function(window, buffer)
-          if winwidth() < 80 then return '' end
-          local branch = extensions.git_branch(window, buffer)
-          if branch == nil then
-            return ''
-          else
-            return sections.highlight('ELGit',  branch)()
-          end
         end
       ),
       subscribe.buf_autocmd(
@@ -177,6 +230,14 @@ local generator = function()
       ),
       builtin.filetype,
       builtin.number_of_lines,
+      subscribe.buf_autocmd(
+        "el_scrol",
+        "CursorMoved",
+        function(_, buffer)
+          if winwidth() < 50 then return '' end
+          return sections.highlight('ELFileIcon', scrollbar_instance)()
+        end
+      ),
     }
 
 end
@@ -185,6 +246,6 @@ end
 
 -- And then when you're all done, just call
 require('el').setup { generator = generator }
-local st = require('lsp-status.statusline')
+
 
 

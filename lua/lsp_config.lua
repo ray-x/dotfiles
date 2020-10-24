@@ -7,7 +7,7 @@ local configs = require('nvim_lsp/configs')
 local status = require('lsp.status')
 vim.lsp.set_log_level("info")
 
-print("lsp_config is loading")
+-- print("lsp_config is loading")
 
 lsp_status.register_progress()
 
@@ -471,16 +471,16 @@ end
 
 
 vim.api.nvim_set_keymap('n', '<leader>df',
-                        '<cmd>lua require("lsp_location").peek_definition()<CR>',
+                        '<cmd>lua require("lsp.location").peek_definition()<CR>',
                         { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>di',
-                        '<cmd>lua require("lsp_location").preview_implementation()<CR>',
+                        '<cmd>lua require("lsp.location").preview_implementation()<CR>',
                         { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<leader>ww',
-                        '<cmd>lua require("lsp_location").work_space_symbol()<CR>',
+                        '<cmd>lua require("lsp.location").work_space_symbol()<CR>',
                         { noremap = true, silent = true })
 
-print("lsp_config is loading return")
+-- print("lsp_config is loading return")
 
 return M

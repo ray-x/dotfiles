@@ -56,5 +56,4 @@ vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse>
 
 require'colorizer'.setup()
 
-
 require'core'

@@ -44,9 +44,9 @@ function M.disable_distribution_plugins()
 end
 
 function M.leader_map()
-  vim.g.mapleader = " "
-  vim.fn.nvim_set_keymap('n',' ','',{noremap = true})
-  vim.fn.nvim_set_keymap('x',' ','',{noremap = true})
+  vim.g.mapleader = "\\"
+  --vim.fn.nvim_set_keymap('n',' ','',{noremap = true})
+  --vim.fn.nvim_set_keymap('x',' ','',{noremap = true})
 end
 
 function M.load_core()

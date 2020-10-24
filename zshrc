@@ -152,7 +152,7 @@ alias vdiff='/usr/local/bin/nvim -d -u ~/github/dotfiles/init.min'
 alias gdv='git difftool --tool gvimdiff'
 alias gd='git difftool --tool nvimdiff'
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-
+export PATH="/usr/local/opt/llvm/bin:$PATH"
 compinit
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin

@@ -1,6 +1,6 @@
 local global = require 'global'
 local syntax = require 'lsp.syntax'
--- local server = require 'lsp.serverconf'
+local server = require 'lsp.serverconf'
 local callbacks = require 'lsp.callbacks'
 local autocmd = require 'event'
 local vim,api= vim,vim.api
