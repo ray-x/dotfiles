@@ -46,9 +46,10 @@ function autocmd.load_autocmds()
     yank = {
       {"TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]]};
     };
-    lsp= {
-      {"BufReadPost,BufNewFile","*","lua require'lsp.lspinit'.start_lsp_server()"};
-    };
+    -- lsp.lspinit replace nvim-lspconfig?
+    -- lsp= {
+    --   {"BufReadPost,BufNewFile","*","lua require'lsp.lspinit'.start_lsp_server()"};
+    -- };
     -- gitblame = {
     --   {"CursorHold","*","lua require'version'.blameVirtualText()"};
     --   {"CursorMoved,CursorMovedI","*","lua require'version'.clearBlameVirtualText()"};

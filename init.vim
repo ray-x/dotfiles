@@ -260,8 +260,6 @@ au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 set concealcursor="i"
 
 
-
-
 " zc close, zo open  za toggle, zi open all, zm one level
 if !&diff
   set foldmethod=expr
@@ -360,3 +358,4 @@ autocmd FileType html,css EmmetInstall
 command! Dg :lua require'lsp.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
+
