@@ -1,9 +1,6 @@
 local global = require 'global'
-local options = require 'options'
+
 local autocmd = require 'event'
-local dein = require 'dein'
--- local pack =require 'pack'
-local map = require 'mapping'
 local vim = vim
 local M = {}
 
@@ -56,17 +53,6 @@ function M.load_core()
   M.createdir()
   M.disable_distribution_plugins()
   M.leader_map()
-
-  local ops = options:new()
-  ops:load_options()
-  pcall(require, 'zephyr')
-
-  local d = dein:new()
-  d:load_repos()
-  -- local p = pack:new()
-  -- p:load_repos()
-
-  map.load_mapping()
   autocmd.load_autocmds()
 end
 

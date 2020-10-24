@@ -216,7 +216,7 @@ nnoremap <leader>P "+P
 " augroup end
 " 
 " 
-" lua require('lsp_config')
+
 " 
 
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"

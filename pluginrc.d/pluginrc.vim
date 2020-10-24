@@ -82,3 +82,23 @@ nmap <silent> t<C-g> :TestVisit<CR>
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_inside_quotes = 1
+
+
+let g:git_messenger_include_diff = 'current'
+let g:git_messenger_always_into_popup = 1
+
+
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+
+let g:startify_bookmarks = [
+            \ { 'c': '~/github/dotfiles' },
+            \ ] 
+let g:startify_change_to_vcs_root = 1
+
+let g:startify_enable_special = 0
+let g:startify_change_to_dir = 1

@@ -4,6 +4,7 @@ local completion = require('completion')
 local lsp_status = require('lsp-status')
 local util = require('nvim_lsp/util')
 local configs = require('nvim_lsp/configs')
+local status = require('lsp.status')
 vim.lsp.set_log_level("info")
 
 print("lsp_config is loading")
@@ -100,8 +101,9 @@ local on_attach = function(client, bufnr)
   vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   vim.lsp.callbacks['window/showMessage'] = function(...) print('') end  --- supress showMessage when I enable -tags=integration
   
-  vim.api.nvim_command ([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
-  vim.api.nvim_command ([[autocmd BufWritePre <buffer> lua go_organize_imports_sync(1000)]])
+  -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
+  vim.api.nvim_command ([[autocmd FileType python,javascript,typescript,lua,vim autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
+  vim.api.nvim_command ([[autocmd FileType go autocmd BufWritePre <buffer> lua go_organize_imports_sync(1000)]])
     
   local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,c,cpp,typescript"
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
@@ -145,7 +147,7 @@ local on_attach = function(client, bufnr)
 
 end
 
-local servers = { 'gopls', 'tsserver', 'bashls', 'pyls_ms', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'ccls', 'dockerls' }
+local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'ccls', 'dockerls' }
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
@@ -233,94 +235,23 @@ vim.lsp.callbacks[method] = function(err, method, result, client_id)
     end
 
 
--- local function nmap_lsp(keys, cmd)
---   api.nvim_buf_set_keymap(
---     bufnr, 'n', keys, '<cmd>lua vim.lsp.'..cmd..'<CR>', opts
---   )
--- end
 
--- local custom_on_attach = function(client, bufnr)
---   api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
---   -- Mappings.
-
---   local opts = {
---     noremap=true,
---     silent=true,
---   }
---   local function nmap_lsp(keys, cmd)
---     api.nvim_buf_set_keymap(
---       bufnr, 'n', keys, '<cmd>lua vim.lsp.'..cmd..'<CR>', opts
---     )
---   end
---   nmap_lsp('gd',    'buf.declaration()')
---   nmap_lsp('<c-]>', 'buf.definition()')
---   nmap_lsp('K',     'buf.hover()')
---   nmap_lsp('D',     'util.show_line_diagnostics()')
---   nmap_lsp('gi',    'util.implementation()')
---   nmap_lsp('<C-k>', 'buf.signature_help()')
---   nmap_lsp(',rn',   'buf.rename()')
---   nmap_lsp('gy',    'buf.type_definition()')
---   nmap_lsp('pd',    'buf.peek_definition()')
---   nmap_lsp('gr',    'buf.references()')
---   vim.g['diagnostic_enable_virtual_text'] = 1
---   -- api.nvim_set_var('diagnostic_enable_virtual_text','1')
---   require'diagnostic'.on_attach()
---   require'completion'.on_attach()
---   lsp_status.on_attach(client)
--- end
--- -- nvim_lsp.tsserver.setup{}
--- local custom_on_attach_folding = function(client, bufnr)
---   custom_on_attach(client, bufnr)
---   require('folding').on_attach()
--- end
-
--- local custom_on_attach_sumneko_lua = function(client, bufnr)
---   lsp_status.config {
---     select_symbol = function(cursor_pos, symbol)
---       if symbol.valueRange then
---         local value_range = {
---           ["start"] = {
---             character = 0,
---             line = vim.fn.byte2line(symbol.valueRange[1])
---           },
---           ["end"] = {
---             character = 0,
---             line = vim.fn.byte2line(symbol.valueRange[2])
---           }
---         }
-
---         return require("lsp-status.util").in_range(cursor_pos, value_range)
---       end
---     end
---   }
---   custom_on_attach_folding(client, bufnr)
--- end
-
--- nvim_lsp.sumneko_lua.setup{
---   on_attach = custom_on_attach_sumneko_lua,
---   capabilities = lsp_status.capabilities,
---   settings = {
---     Lua = {
---       runtime = {
---         version = "LuaJIT"
---       }
---     }
---   }
--- }
-
--- require'nvim_lsp'.sumneko_lua.setup{
---     on_attach = on_attach,
---     capabilities = lsp_status.capabilities,
---     settings = {
---         Lua = {
---             diagnostics = {
---                 globals = {"vim", "vis", "rpm"},
---                 disable = {"lowercase-global"}
---             }
---         }
---     }
--- }
+nvim_lsp.sumneko_lua.setup{
+  on_attach = on_attach,
+  capabilities = lsp_status.capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+          globals = {"vim", "vis", "rpm"},
+          disable = {"lowercase-global"}
+      },
+      runtime = {
+        version = "LuaJIT"
+      }
+    }
+  }
+}
 
 
 -- Some arbitrary servers
@@ -333,12 +264,12 @@ nvim_lsp.clangd.setup({
   capabilities = lsp_status.capabilities
 })
 
--- nvim_lsp.pyls_ms.setup({
---   callbacks = lsp_status.extensions.pyls_ms.setup(),
---   settings = { python = { workspaceSymbols = { enabled = true }}},
---   on_attach = lsp_status.on_attach,
---   capabilities = lsp_status.capabilities
--- })
+nvim_lsp.pyls_ms.setup({
+  callbacks = lsp_status.extensions.pyls_ms.setup(),
+  settings = { python = { workspaceSymbols = { enabled = true }}},
+  on_attach = lsp_status.on_attach,
+  capabilities = lsp_status.capabilities
+})
 
 -- nvim_lsp.gopls.setup({
 --   callbacks = lsp_status.extensions.gopls.setup(),
@@ -549,5 +480,7 @@ vim.api.nvim_set_keymap('n', '<leader>di',
 vim.api.nvim_set_keymap('n', '<leader>ww',
                         '<cmd>lua require("lsp_location").work_space_symbol()<CR>',
                         { noremap = true, silent = true })
+
+print("lsp_config is loading return")
 
 return M

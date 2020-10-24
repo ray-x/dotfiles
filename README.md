@@ -6,7 +6,7 @@ not need to configure my setup everytime....... I am still using sublime edit(as
 vimr is one of the best nvim-gui. But it does not in active development(It is hard for a one developer
 project), some of the crash durning coding is annoying. I only use nvim(nightly) + kitty now.
 
-The `Plug` config is located in branch ![Plug branch](https://github.com/ray-x/dotfiles/tree/zprezto-plug)
+The `Plug` config is located in branch [Plug branch](https://github.com/ray-x/dotfiles/tree/zprezto-plug)
 
 * nvim+kitty configured with pop menu:
 
@@ -36,12 +36,13 @@ I used following plugin a lots
 
 * vim-clap
 
-   One of the best plugin for search anything. I used it to replace fzf, leaderF, leaderP, defx, Ag/Ack/Rg, yank(ring), project management. undolist and many more
+   One of the best plugin for search anything. I used it to replace fzf, leaderF, leaderP, defx, Ag/Ack/Rg, yank(ring), project management. undolist and many more. 
 
 * coc.nvim -> nvim-lsp
 
    I disabled vim-go auto-complete/LSP and turn to nvim-lsp. It add around 200ms bootup time and some of the extensions
    might crash when I using coc (but it hard to check which becuase ~4 node.js services coc forked)
+   Some useful script from TJ, and [glepnir](https://github.com/glepnir)
 
    nvim-tree: file-explorer (lightweight and fast)
    nvim-lua/completion-nvim: auto-complete
@@ -64,12 +65,12 @@ I used following plugin a lots
 
 * ALE
 
-  Well, I am still using ALE and configure lots of lint tool with it. It is good to find something compiler missing.
+  Well, I am still using ALE and configure lint tools with it. It is good to find something compiler missed.
 
 * Programming support:
 
   YCM (used to be my favourite, only for C++ and python now), but I am using lsp more offen now, primary using nvim-lsp for autocomplete and syntax check.
-  vim-go(for go testing, highlight, gopls disabled), vsnipt, emmet-vim, tagbar/vista, and some language specific plugins (e.g html, js/ts, swift),  tree-sitter with some cool AST highlight.
+  vim-go(for go testing, highlight, gopls disabled), vsnipt, emmet-vim, Vista(function list with lsp), and some language specific plugins (e.g html, js/ts, swift),  tree-sitter with some cool AST highlight.
 
 * Debug:
 
@@ -77,7 +78,7 @@ I used following plugin a lots
 
 * Theme, look&feel:
 
-  home cooked paleaurora, express-line (lua), devicons(lua), startify, vista(function list with lsp), indentLine(with nerdfont),
+  home cooked paleaurora, express-line (lua), devicons(lua), startify, indentLine(with nerdfont),
 
 * Color:
 

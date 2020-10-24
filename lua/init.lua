@@ -22,7 +22,7 @@ end
 
 
 require('expressline')
-
+-- require('spaceline')
 
 -- Run the first time to install it
 
@@ -56,3 +56,5 @@ vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse>
 
 require'colorizer'.setup()
 
+
+require'core'

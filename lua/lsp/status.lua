@@ -40,17 +40,17 @@ nvim_lsp.pyls_ms.setup({
   capabilities = lsp_status.capabilities
 })
 
-nvim_lsp.gopls.setup({
-  callbacks = lsp_status.extensions.gopls.setup(),
-  on_attach = lsp_status.on_attach,
-  capabilities = lsp_status.capabilities
-})
+-- nvim_lsp.gopls.setup({
+--   callbacks = lsp_status.extensions.gopls.setup(),
+--   on_attach = lsp_status.on_attach,
+--   capabilities = lsp_status.capabilities
+-- })
 
-nvim_lsp.tsserver.setup({
-  callbacks = lsp_status.extensions.tsserver.setup(),
-  on_attach = lsp_status.on_attach,
-  capabilities = lsp_status.capabilities
-})
+-- nvim_lsp.tsserver.setup({
+--   callbacks = lsp_status.extensions.tsserver.setup(),
+--   on_attach = lsp_status.on_attach,
+--   capabilities = lsp_status.capabilities
+-- })
 
 
 

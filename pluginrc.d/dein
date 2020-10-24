@@ -58,6 +58,8 @@ if dein#load_state('~/.cache/dein')
        \ 'on_cmd' : ['Gvsplit', 'Gstatus','Gdiffsplit', 'Gvdiffsplit', 'Gvdiffsplit!']
        \ })
 
+   "" for those cannot handle by lsp
+   call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
 
 
@@ -70,7 +72,7 @@ if has('nvim')
    call dein#add('rhysd/git-messenger.vim', {
               \   'lazy' : 1,
               \   'on_cmd' : 'GitMessenger',
-              \   'on_map' : '<Plug>(git-messenger',
+              \   'on_map' : ['<leader>gm', '<Plug>(git-messenger'],
               \ })
    " call dein#add('tveskag/nvim-blame-line' , { 'on_cmd': ['EnableBlameLine', 'ToggleBlameLine', 'SingleBlameLine']})
 
@@ -81,7 +83,9 @@ if has('nvim')
    
    call dein#add('akinsho/nvim-bufferline.lua')
 
-   call dein#add('neovim/nvim-lspconfig')" , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
+   call dein#add('neovim/nvim-lspconfig')
+
+   " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
 
    call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
 
@@ -108,14 +112,19 @@ if has('nvim')
    call dein#add('RishabhRD/popfix')
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})
    " call dein#add('nvim-lua/popup.nvim')
-   call dein#add('nvim-lua/plenary.nvim')
+
    call dein#add('Xuyuanp/scrollbar.nvim')
+   
+   call dein#add('nvim-lua/plenary.nvim')  "lua library"
    call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
+   
+   " call dein#add('glepnir/galaxyline.nvim')
    call dein#add('kdheepak/lazygit.nvim', { 'on_cmd': 'LazyGit' })
    call dein#add('norcalli/nvim-colorizer.lua')
 
    call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
    call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
+
    " call dein#add('nvim-lua/telescope.nvim')
 "  """""""""""""LUA Plugins end""""""""""""""
 endif ""end of nvim
@@ -125,6 +134,10 @@ endif ""end of nvim
    call dein#save_state()
 endif
 
+
+" could try"
+" rhysd/conflict-marker.vim"
+"rhysd/vim-grammarous"
 
 "" Not used in last 4 weeks
    "" auto close
