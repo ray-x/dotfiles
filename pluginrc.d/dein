@@ -119,8 +119,7 @@ if has('nvim')
    
    " call dein#add('glepnir/galaxyline.nvim')
    
-   " call dein#add('kdheepak/lazygit.nvim', { 'on_cmd': 'LazyGit' })
-   " call dein#add('kevinhwang91/rnvimr', {'on_cmd':'RnvimrToggle'})
+
    
    call dein#add('norcalli/nvim-colorizer.lua')
 
@@ -152,3 +151,6 @@ endif
 ""   call dein#add('skywind3000/asynctasks.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
 ""   call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
 
+""""""replaced"""""""""
+   " call dein#add('kdheepak/lazygit.nvim', { 'on_cmd': 'LazyGit' })
+   " call dein#add('kevinhwang91/rnvimr', {'on_cmd':'RnvimrToggle'})

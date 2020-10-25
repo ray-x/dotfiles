@@ -24,8 +24,8 @@ autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.
 let g:completion_chain_complete_list = {
     \ 'default' : {
     \   'default': [
-    \       {'complete_items': ['lsp', 'ts', 'tablenine']},
-    \       {'complete_items': ['buffer', 'snippet','tablenine']},
+    \       {'complete_items': ['lsp', 'snippet']},
+    \       {'complete_items': ['tablenine', 'buffer','tablenine', 'ts']},
     \       {'complete_items': ['path'], 'triggered_only': ['/']},
     \       {'mode': '<c-p>'},
     \       {'mode': '<c-n>'}],

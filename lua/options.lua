@@ -98,8 +98,6 @@ function options:load_options()
   self.helpheight     = 12;
   self.previewheight  = 12;
 
-  self.number         = true;
-  self.relativenumber = true;  -- turn hybrid line numbers off set nonu nornu
   self.showcmd        = true;
   self.cmdheight      = 1;
   self.cmdwinheight   = 5;
@@ -109,16 +107,12 @@ function options:load_options()
   self.display        = "lastline";
 
   self.foldenable     = true;
-  self.foldmethod     = "indent";
+
   self.foldlevelstart = 99;
 
-  self.signcolumn     = "yes";
-  self.showbreak      = "↳  ";
-  self.list           = true;
-
+  self.showbreak      = "↳";
   self.listchars      = "tab:┊ ,nbsp:+,trail:·,extends:→,precedes:←";  -- tab:»·, 
   self.conceallevel   = 2;
-  self.concealcursor  = "niv";
 
   self.pumblend       = 10;
   self.winblend       = 10;
@@ -127,7 +121,7 @@ function options:load_options()
   -- self.termencoding   = "utf-8";  -- decprecate
   self.cindent        = true;
   self.wrap           = true;
-  self.breakindent    = true;
+  self.breakindent    = true;  -- Make it so that long lines wrap smartly
   self.smartindent    = true;  -- use intelligent indentation
   self.numberwidth    = 3;
   self.showmatch      = true;  -- highlight matching braces
@@ -147,9 +141,19 @@ function options:load_options()
     vim.g.python_host_prog = '/usr/bin/python'
     vim.g.python3_host_prog = '/usr/local/bin/python3'
   end
+  -- todo set vim.wo[name]
   for name, value in pairs(self) do
     vim.o[name] = value
   end
+
+
+  vim.wo.number = true
+  vim.wo.relativenumber = true
+  vim.wo.list = true
+  vim.wo.concealcursor = "niv"
+  vim.wo.foldmethod="expr"  -- indent?
+
+  
 end
 
 return options

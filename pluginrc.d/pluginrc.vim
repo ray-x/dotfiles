@@ -67,9 +67,13 @@ let g:omni_sql_no_default_maps = 1
 nmap <leader>ft :FloatermNew <CR>
 let test#strategy = {
   \ 'nearest': 'neovim',
-  \ 'file':    'floaterm',
-  \ 'suite':   'floaterm',
+  \ 'file':    'neovim',
+  \ 'suite':   'neovim',
 \}
+" let test#neovim#term_position = "topleft"
+" let test#neovim#term_position = "vert"
+let test#neovim#term_position = "vert botright 60"
+let test#go#runner = 'ginkgo'
 
 "vim test
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
@@ -79,9 +83,9 @@ nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_inside_quotes = 1
+" let g:delimitMate_expand_cr = 1
+" let g:delimitMate_expand_space = 1
+" let g:delimitMate_expand_inside_quotes = 1
 
 
 let g:git_messenger_include_diff = 'current'

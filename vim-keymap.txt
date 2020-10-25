@@ -145,8 +145,29 @@ nnoremap ? q?i
 Using "finish" stops Vim from reading the rest of the file, it's much quicker
 than using if-endif around the whole file.
 
-https://google.github.io/styleguide/vimscriptfull.xml
 let [s:plugin, s:enter] = maktaba#plugin#Enter(expand('<sfile>:p'))
 if !s:enter
   finish
 endif
+
+Here is a TDD recipe for a small project. No plugins used:
+nvim feature.py
+Split a new terminal vertically
+
+:vsp | :terminal
+Get the terminal's job id.
+
+<C-[>
+:echo b:terminal_job_id
+3
+Switch to the other window
+
+<C-[>
+<C-w>w
+Add an autocmd that sends a command to the terminal to run the tests. The job id is used here.
+
+:au BufWritePost <buffer> :call jobsend(3, "\<C-c>clear\<CR>python3 feature_test.py\<CR>")
+# do tdd
+Clean up the buffer's autocmd. Run on the code window.
+
+:au! * <buffer>

@@ -46,6 +46,12 @@ set nocompatible  " nvim is always nocompatible, vim only
 set termguicolors
 set noshowmode                  " We show the mode with airline or lightline
 
+" lua vim.wo options
+" set foldmethod=indent
+" set signcolumn=yes/auto
+" set list
+" set concealcursor=niv
+
 " set nocursorcolumn              " (turn off to speeds up highlighting)
 " set nocursorline                " (turn off speeds up highlighting)
 " set lazyredraw                  " Wait to redraw
@@ -65,19 +71,6 @@ if !has('nvim')
   set ttyscroll=3                 " Speedup scrolling
   set ttymouse=xterm2
 endif
-
-" file hidden
-set wildmenu
-" set wildmode=longest:full,full
-set wildmode=longest,list,full
-if has('nvim')
-  set wildoptions+=pum
-  set pumblend=17
-  set wildmode-=list
-  set wildmode+=longest
-  set wildmode+=full
-endif
-
 
 " configure tabwidth and insert spaces instead of tabs
 set tabstop=4        " tab width is 4 spaces
@@ -205,6 +198,8 @@ if &diff
   set noreadonly
   colorscheme paleaurora
   set wrap
+  let g:go_gopls_enabled = 0
+  lua require("core")
   finish  " skip all following 
 endif
 
@@ -219,36 +214,19 @@ set statusline+=%#warningmsg#
 " file hidden
 set wildmenu
 set wildignore+=**/node_modules/**,/node_modules/*,*/tmp/*,*.so,*.swp,*.zip
-if has('nvim')
-  set wildoptions=pum
-endif
+
+
+set wildmode=longest,list,full
 
 if has('nvim')
-  " Use cool floating wildmenu options
-  set pumblend=17
-
-  set wildmode-=list
-  set wildmode+=longest
-  set wildmode+=full
-
-  " Makes floating PopUpMenu for completing stuff on the command line.
-  "     Very similar to completing in insert mode.
   set wildoptions+=pum
-else
-  set wildmode=longest,list,full
-
-  " Vim Galore recommended mappings
-  " Make next and previous use smart history
-  cnoremap <C-N> <Up>
-  cnoremap <C-P> <Down>
+  " Use cool floating wildmenu options
+  set pumblend=17 " Makes floating PopUpMenu for completing stuff on the command line.
+  set wildmode-=list
 end
 
-set cindent
-set wrap
-
-" Make it so that long lines wrap smartly
-set breakindent
-set linebreak
+cnoremap <C-N> <Up>
+cnoremap <C-P> <Down>
 
 
 """""""""""""""""""""
