@@ -105,14 +105,14 @@ function mapping:load_plugin_define()
     -- ["n|<Leader>fz"]     = map_cr('Farf'):with_noremap():with_silent();
     -- ["v|<Leader>fz"]     = map_cr('Farf'):with_noremap():with_silent();
     -- Plugin Clap
-    ["n|<Leader>tc"]     = map_cu('Clap colors'):with_noremap():with_silent(),
+    -- ["n|<Leader>tc"]     = map_cu('Clap colors'):with_noremap():with_silent(),
     ["n|<Leader>bb"]     = map_cu('Clap buffers'):with_noremap():with_silent(),
-    ["n|<Leader>fa"]     = map_cu('Clap grep'):with_noremap():with_silent(),
+    -- ["n|<Leader>fa"]     = map_cu('Clap grep'):with_noremap():with_silent(),
     ["n|<Leader>fb"]     = map_cu('Clap marks'):with_noremap():with_silent(),
-    ["n|<C-x><C-f>"]     = map_cu('Clap filer'):with_noremap():with_silent(),
-    ["n|<Leader>ff"]     = map_cu('Clap files ++finder=rg --ignore --hidden --files'):with_noremap():with_silent(),
+    -- ["n|<C-x><C-f>"]     = map_cu('Clap filer'):with_noremap():with_silent(),
+    -- ["n|<Leader>ff"]     = map_cu('Clap files ++finder=rg --ignore --hidden --files'):with_noremap():with_silent(),
     ["n|<Leader>fg"]     = map_cu('Clap gfiles'):with_noremap():with_silent(),
-    ["n|<Leader>fw"]     = map_cu('Clap grep ++query=<Cword>'):with_noremap():with_silent(),
+    -- ["n|<Leader>fw"]     = map_cu('Clap grep ++query=<Cword>'):with_noremap():with_silent(),
     ["n|<Leader>fh"]     = map_cu('Clap history'):with_noremap():with_silent(),
     ["n|<Leader>fW"]     = map_cu('Clap windows'):with_noremap():with_silent(),
     ["n|<Leader>fl"]     = map_cu('Clap loclist'):with_noremap():with_silent(),

@@ -90,7 +90,6 @@ function options:load_options()
   self.scrolloff      = 2;
   self.sidescrolloff  = 5;
   self.ruler          = false;
-  self.list           = true;
 
   self.showtabline    = 2;
   self.winwidth       = 30;
@@ -115,7 +114,9 @@ function options:load_options()
 
   self.signcolumn     = "yes";
   self.showbreak      = "↳  ";
-  self.listchars      = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←";
+  self.list           = true;
+
+  self.listchars      = "tab:┊ ,nbsp:+,trail:·,extends:→,precedes:←";  -- tab:»·, 
   self.conceallevel   = 2;
   self.concealcursor  = "niv";
 

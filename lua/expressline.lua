@@ -166,6 +166,14 @@ local generator = function()
         end
       ),
       subscribe.buf_autocmd(
+        "el_file_icon",
+        "BufRead",
+        function(_, buffer)
+          if winwidth() < 80 then return '' end
+          return sections.highlight('ELFileIcon',  extensions.file_icon(_, buffer))()
+        end
+      ),
+      subscribe.buf_autocmd(
         "el_folder",
         "BufEnter",
         function(window, buffer)
@@ -176,7 +184,7 @@ local generator = function()
             return  TrimmedDirectory(dir)
         end
       ),
-      builtin.tail_file,
+      builtin.tail_file,'',
       sections.collapse_builtin {
         ' ',
         builtin.modified_flag
@@ -199,7 +207,7 @@ local generator = function()
           if winwidth() < 80 then return '' end
           return sections.highlight('ELFunc', lsp_statusline.segment(window, buffer))()
         end
-      ),
+      ),'▋',
       -- subscribe.buf_autocmd(
       --   "el_lsp_status",
       --   "CursorHold,CursorHoldI",
@@ -218,14 +226,6 @@ local generator = function()
         "BufWritePost",
         function(window, buffer)
           return  extensions.git_changes(window, buffer)
-        end
-      ),
-      subscribe.buf_autocmd(
-        "el_file_icon",
-        "BufRead",
-        function(_, buffer)
-          if winwidth() < 80 then return '' end
-          return sections.highlight('ELFileIcon',  extensions.file_icon(_, buffer))()
         end
       ),
       builtin.filetype,

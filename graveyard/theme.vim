@@ -1,7 +1,6 @@
 
 " Colorscheme
 syntax enable
-set termguicolors
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -18,11 +17,11 @@ set cursorcolumn  " for code alignment and indentation
 
 " set list lcs=tab:\\
 " set list listchars=tab:\|\-
-let g:indentLine_color_gui = '#34453E'
-let g:indentLine_color_dark = 1 " (default: 2)
-"let g:indentLine_bgcolor_gui = '#1B2B34'  " use hi Normal to check the bg
-let g:indentLine_char_list = ['|', '¦', '┆', '┊', '']
-let g:indentLine_enabled = 1
+" let g:indentLine_color_gui = '#34453E'
+" let g:indentLine_color_dark = 1 " (default: 2)
+" "let g:indentLine_bgcolor_gui = '#1B2B34'  " use hi Normal to check the bg
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊', '']
+" let g:indentLine_enabled = 1
 
 colorscheme paleaurora
 "colorscheme palenight
