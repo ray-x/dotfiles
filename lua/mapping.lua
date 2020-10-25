@@ -98,9 +98,10 @@ function mapping:load_plugin_define()
     -- Plugin DadbodUI
     -- ["n|<Leader>od"]     = map_cr('DBUIToggle'):with_noremap():with_silent(),
     -- Plugin Floaterm
-    ["n|<A-d>"]          = map_cu("lua require('selfunc').float_terminal()"):with_noremap():with_silent(),
-    ["t|<A-d>"]          = map_cu([[<C-\><C-n>:lua require('selfunc').close_float_terminal()<CR>]]):with_noremap():with_silent(),
-    ["n|<Leader>g"]      = map_cu("lua require('selfunc').float_terminal('lazygit')"):with_noremap():with_silent(),
+    -- ["n|<C-t>t"]          = map_cu("lua require('selfunc').float_terminal()"):with_noremap():with_silent(),
+    -- ["t|<C-t>t"]          = map_cu([[<C-\><C-n>:lua require('selfunc').close_float_terminal()<CR>]]):with_noremap():with_silent(),
+      ["n|<C-t>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
+    -- ["n|<Leader>g"]      = map_cu("lua require('selfunc').float_terminal('lazygit')"):with_noremap():with_silent(),
     -- Far.vim
     -- ["n|<Leader>fz"]     = map_cr('Farf'):with_noremap():with_silent();
     -- ["v|<Leader>fz"]     = map_cr('Farf'):with_noremap():with_silent();

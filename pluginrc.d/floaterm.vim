@@ -10,8 +10,8 @@ let g:floaterm_keymap_prev   = '<S-F8>'
 let g:floaterm_keymap_next   = '<S-F9>'
 let g:floaterm_keymap_toggle = '<S-F12>'
 command! NNN FloatermNew nnn
-command! LG FloatermNew lazygit
-
+command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit
+command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger
 
 " function! floaterm#wrapper#goint#(cmd) abort
 "   let s:fzf_tmpfile = tempname()
