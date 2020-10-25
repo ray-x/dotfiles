@@ -1,6 +1,9 @@
 local global = require 'global'
 
 local autocmd = require 'event'
+local map = require 'mapping'
+local options = require 'options'
+
 local vim = vim
 local M = {}
 
@@ -44,7 +47,7 @@ function M.disable_distribution_plugins()
 end
 
 function M.leader_map()
-  vim.g.mapleader = "\\"
+  --vim.g.mapleader = "\\"
   --vim.fn.nvim_set_keymap('n',' ','',{noremap = true})
   --vim.fn.nvim_set_keymap('x',' ','',{noremap = true})
 end
@@ -52,7 +55,11 @@ end
 function M.load_core()
   M.createdir()
   M.disable_distribution_plugins()
-  M.leader_map()
+  -- TODO
+  -- M.leader_map()
+  map.load_mapping()
+  local ops = options:new()
+  ops:load_options()
   autocmd.load_autocmds()
 end
 

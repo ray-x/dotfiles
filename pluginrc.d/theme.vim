@@ -61,3 +61,11 @@ let g:signify_sign_delete = '﫧'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_change = ''
 let g:signify_sign_show_count = 5
+
+
+augroup vimrc_todo
+    au!
+    au Syntax * syn match MyTodo /\v<(FIXME|Fixme|NOTE|Note|TODO|ToDo|OPTIMIZE|XXX):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyTodo Todo

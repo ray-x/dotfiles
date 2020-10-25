@@ -41,39 +41,14 @@ autocmd StdinReadPre * let s:std_in=1
 """"""""""""""""""""""
 "      Settings      "
 """"""""""""""""""""""
-set nocompatible                " Enables us Vim specific features
-" filetype off                    " Reset filetype detection first ...
-" filetype plugin indent on       " ... and enable filetype detection
-set ttyfast                     " Indicate fast terminal conn for faster redraw
-set laststatus=2                " Show status line always
-set encoding=utf-8              " Set default encoding to UTF-8
-set autoindent                  " Enabile Autoindent
-set backspace=indent,eol,start  " Makes backspace key more powerful.
-set incsearch                   " Shows the match while typing
-set hlsearch                    " Highlight found searches
-set noerrorbells                " No beeps
-set number                      " Show line numbers
-set showcmd                     " Show me what I'm typing
-set noswapfile                  " Don't use swapfile
-set nobackup                    " Don't create annoying backup files
-set splitright                  " Vertical windows should be split to right
-set splitbelow                  " Horizontal windows should split to bottom
-set autowrite                   " Automatically save before :next, :make etc.
-set hidden                      " Buffer should still exist if window is closed
-set fileformats=unix,mac,dos    " Prefer Unix over Windows over OS 9 formats
+"" see options.lua
+set nocompatible  " nvim is always nocompatible, vim only
+set termguicolors
 set noshowmode                  " We show the mode with airline or lightline
-set ignorecase                  " Search case insensitive...
-set smartcase                   " ... but not it begins with upper case
-set completeopt=menuone,noinsert,noselect    " Show popup menu, even if there is one entry
-set diffopt+=algorithm:patience
-set diffopt+=iwhite
 
-set pumheight=14                " Completion window max size
 " set nocursorcolumn              " (turn off to speeds up highlighting)
 " set nocursorline                " (turn off speeds up highlighting)
-set lazyredraw                  " Wait to redraw
-set autoread                    " Automatically read changed files
-set termguicolors
+" set lazyredraw                  " Wait to redraw
 " au FocusGained,BufEnter * :checktime  " autoload
 
 " augroup vimrc
@@ -95,7 +70,6 @@ endif
 set wildmenu
 " set wildmode=longest:full,full
 set wildmode=longest,list,full
-set wildignore+=**/node_modules/**,/node_modules/*,*/tmp/*,*.so,*.swp,*.zip
 if has('nvim')
   set wildoptions+=pum
   set pumblend=17
@@ -104,46 +78,19 @@ if has('nvim')
   set wildmode+=full
 endif
 
-set cindent
-set wrap
 
-" Make it so that long lines wrap smartly
-set breakindent
-let &showbreak=repeat(' ', 3)
-set linebreak
-
-" set UTF-8 encoding
-set enc=utf-8
-set fenc=utf-8
-set termencoding=utf-8
-" disable vi compatibility (emulation of old bugs)
-set nocompatible
-
-" use intelligent indentation for C
-set smartindent
 " configure tabwidth and insert spaces instead of tabs
 set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
-set expandtab        " expand tabs to spaces
 
-set numberwidth=3
 set cpoptions+=n                " use the number column for the text of wrapped lines
 
 " list of files use two space as tab
 autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 
-" wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-set textwidth=120
 
-" turn line numbers on
-set number
-" highlight matching braces
-set showmatch
 " intelligent comments
 set comments=sl:/*,mb:\ *,elx:\ */
-
-
-set updatetime=400 "Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
 
 
 " yank
@@ -152,11 +99,6 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=1500, on_visual=false}
 augroup END
 
-" This enables us to undo files even if you exit Vim.
-if has('persistent_undo')
-  set undofile
-  set undodir=~/.config/vim/tmp/undo/
-endif
 
 
 """"""""""""""""""""""
@@ -207,19 +149,7 @@ noremap k gk
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap <leader><leader>d "_d    "" \\dw to delete without put it to register
-
-" Act like D and C
-nnoremap Y y$
 "
-" set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.ist,*/.fdb_latex" mk,**/tmp/**,*/.so,*/.swp,*/.zip,*/.o
-
-set grepprg=rg\ --vimgrep    " set grepprg=ag\ --vimgrep\ $*
-" Ggrep only search files under git control
-" set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
-set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
-" :grep 'pattern' after setup and :cfdo %s/Neovim/Nvim/g | update
-
-set mouse=a
 
 " paste and copy
 "
@@ -247,7 +177,6 @@ map <C-T>n :tabnew split<CR>
 
 "" Python
 au BufNewFile,BufRead *.py set colorcolumn=79
-au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set shiftwidth=4
 au BufNewFile,BufRead *.py set softtabstop=4
 au BufNewFile,BufRead *.py set tabstop=4
@@ -280,19 +209,12 @@ if &diff
 endif
 
 
-set number relativenumber " turn hybrid line numbers off set nonu nornu
-
 set statusline+=%#warningmsg#
 
 " set statusline+=%*
 " open quickfix window automatically at x lines height
 " let g:asyncrun_open = 8
 
-augroup postUILoads
-  autocmd!
-   autocmd VimEnter * set clipboard^=unnamed
-   autocmd VimEnter * set clipboard^=unnamedplus
-augroup END
 
 " file hidden
 set wildmenu
@@ -326,7 +248,6 @@ set wrap
 
 " Make it so that long lines wrap smartly
 set breakindent
-let &showbreak=repeat(' ', 3)
 set linebreak
 
 

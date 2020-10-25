@@ -24,7 +24,7 @@ function mapping:load_vim_define()
     -- Vim map
   --   ["n|<C-x>k"]     = map_cr('Bdelete'):with_noremap(),
   --   ["n|<C-s>"]      = map_cu('write'):with_noremap(),
-  --   ["n|Y"]          = map_cmd('y$'),
+    ["n|Y"]          = map_cmd('y$'),  -- Act like D and C
   --   ["n|]w"]         = map_cu('WhitespaceNext'):with_noremap(),
   --   ["n|[w"]         = map_cu('WhitespacePrev'):with_noremap(),
   --   ["n|]b"]         = map_cu('bp'):with_noremap(),
@@ -36,8 +36,8 @@ function mapping:load_vim_define()
   --   ["n|<C-k>"]      = map_cmd('<C-w>k'):with_noremap(),
   --   ["n|<C-w>["]     = map_cr('vertical resize -5'),
   --   ["n|<C-w>]"]     = map_cr('vertical resize +5'),
-  --   ["n|<Leader>ss"] = map_cu('SessionSave'):with_noremap(),
-  --   ["n|<Leader>sl"] = map_cu('SessionLoad'):with_noremap(),
+    ["n|<Leader>ss"] = map_cu('SessionSave'):with_noremap(),
+    ["n|<Leader>sl"] = map_cu('SessionLoad'):with_noremap(),
   -- -- Insert
   --   ["i|<C-w>"]      = map_cmd('<C-[>diwa'):with_noremap(),
   --   ["i|<C-h>"]      = map_cmd('<BS>'):with_noremap(),
@@ -50,10 +50,10 @@ function mapping:load_vim_define()
   --   ["i|<C-o>"]      = map_cmd('<Esc>o'):with_noremap(),
   --   ["i|<C-s>"]      = map_cmd('<Esc>:w<CR>'),
   --   ["i|<C-q>"]      = map_cmd('<Esc>:wq<CR>'),
-    ["i|<C-e>"]      = map_cmd([[pumvisible() ? "\<C-e>" : "\<End>"]]):with_noremap():with_expr(),
-    -- TODO Wrap line
-    ["i|<TAB>"]      = map_cmd([[pumvisible() ? "\<C-n>" : vsnip#available(1) ?"\<Plug>(vsnip-expand-or-jump)" : v:lua.check_back_space() ? "\<TAB>" : completion#trigger_completion()]]):with_expr():with_silent(),
-    ["i|<S-TAB>"]    = map_cmd([[pumvisible() ? "\<C-p>" : "\<C-h>"]]):with_noremap():with_expr(),
+    -- ["i|<C-e>"]      = map_cmd([[pumvisible() ? "\<C-e>" : "\<End>"]]):with_noremap():with_expr(),
+    -- -- TODO Wrap line
+    -- ["i|<TAB>"]      = map_cmd([[pumvisible() ? "\<C-n>" : vsnip#available(1) ?"\<Plug>(vsnip-expand-or-jump)" : v:lua.check_back_space() ? "\<TAB>" : completion#trigger_completion()]]):with_expr():with_silent(),
+    -- ["i|<S-TAB>"]    = map_cmd([[pumvisible() ? "\<C-p>" : "\<C-h>"]]):with_noremap():with_expr(),
     -- ["i|<CR>"]       = map_cmd([[pumvisible() ? complete_info()["selected"] != "-1" ?"\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>":(delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")]]):with_expr(),
   -- command line
     -- ["c|<C-b>"]      = map_cmd('<Left>'):with_noremap(),
@@ -79,6 +79,9 @@ function mapping:load_plugin_define()
     ["n|gr"]             = map_cmd("<cmd>lua vim.lsp.buf.references()<CR>"):with_noremap():with_silent(),
     ["n|gh"]             = map_cmd("<cmd>lua require'lsp.provider'.lsp_peek_references()<CR>"):with_noremap():with_silent(),
     ["n|gt"]             = map_cmd("<cmd>lua vim.lsp.buf.type_definition()<CR>"):with_noremap():with_silent(),
+    ["n|<c-]>"]          = map_cmd("<cmd>lua vim.lsp.buf.definition()<CR>"):with_noremap():with_silent(),
+    ["n|gL"]             = map_cmd("<cmd>lua vim.lsp.util.show_line_diagnostics()()<CR>"):with_noremap():with_silent(),
+    
     ["n|<Leader>cw"]     = map_cmd("<cmd>lua vim.lsp.buf.workspace_symbol()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>ce"]     = map_cmd("<cmd>lua require'lsp.diagnostic'.show_buf_diagnostics()<CR>"):with_noremap():with_silent(),
     -- dein
