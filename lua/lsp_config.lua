@@ -9,6 +9,8 @@ vim.lsp.set_log_level("info")
 
 -- print("lsp_config is loading")
 
+local M = {}
+
 lsp_status.register_progress()
 
 lsp_status.config {
@@ -42,20 +44,6 @@ local function preview_location_callback(_, method, result)
   end
 end
 
--- Synchronously organise (Go) imports.
-function go_organize_imports_sync(timeout_ms)
-  local context = { source = { organizeImports = true } }
-  vim.validate { context = { context, 't', true } }
-  local params = vim.lsp.util.make_range_params()
-  params.context = context
-
-  local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
-  if not result then return end
-  result = result[1].result
-  if not result then return end
-  edit = result[1].edit
-  vim.lsp.util.apply_workspace_edit(edit)
-end
 
 function peek_definition()
   local params = vim.lsp.util.make_position_params()
@@ -63,13 +51,14 @@ function peek_definition()
 end
 
 function auto_group()
+  
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
   local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,lua,typescript"
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
-    -- vim.cmd [[nnoremap <leader>gr <cmd>lua require'telescope.builtin'.lsp_references{ shorten_path = true }<CR>]]
-    vim.api.nvim_command ([[autocmd FileType go autocmd BufWritePre <buffer> lua go_organize_imports_sync(1000)<CR>]])
-    vim.api.nvim_command ([[autocmd FileType ]] .. file_types .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()<CR>]])
+    vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.provider').go_organize_imports_sync(1000)")
+
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]])
@@ -290,4 +279,4 @@ nvim_lsp.rust_analyzer.setup({
 
 
 
-return {}
+return M
