@@ -100,22 +100,19 @@ function auto_group()
 
   vim.api.nvim_command([[augroup END]])
 
-end
-
-local on_attach = function(client, bufnr)
-  diagnostic.on_attach(client, bufnr)
-
-  lsp_status.on_attach(client, bufnr)
-
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   local opts = { noremap=true, silent=true }
-  -- mapping.lua
-
+  local bufnr = vim.api.nvim_win_get_buf(winnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', ':PrevDiagnostic<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':NextDiagnostic<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':PrevDiagnosticCycle<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':NextDiagnosticCycle<CR>', opts)
+end
+
+local on_attach = function(client, bufnr)
+  diagnostic.on_attach(client, bufnr)
+  lsp_status.on_attach(client, bufnr)
+
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- hook to nvim-lsputils
   vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
@@ -132,8 +129,6 @@ local on_attach = function(client, bufnr)
   vim.lsp.callbacks['window/showMessage'] = function(...) print('') end  --- supress showMessage when I enable -tags=integration
   
   vim.lsp.callbacks['textDocument/references'] = require'telescope.builtin'.lsp_references
-
-  auto_group()
 
   local method = "textDocument/publishDiagnostics"
   local default_callback = vim.lsp.callbacks[method]
@@ -161,6 +156,8 @@ local on_attach = function(client, bufnr)
 
 end
 
+auto_group()
+
 local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'ccls', 'dockerls' }
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
@@ -180,7 +177,7 @@ for _, lsp in ipairs(servers) do
 end
 
 
---[[ Go ]]--
+-- --[[ Go ]]--
 nvim_lsp.gopls.setup {
     on_attach=on_attach,
     capabilities = lsp_status.capabilities,
@@ -246,14 +243,14 @@ nvim_lsp.clangd.setup({
   init_options = {
     clangdFileStatus = true
   },
-  on_attach = lsp_status.on_attach,
+  on_attach = on_attach,
   capabilities = lsp_status.capabilities
 })
 
 nvim_lsp.pyls_ms.setup({
   callbacks = lsp_status.extensions.pyls_ms.setup(),
   settings = { python = { workspaceSymbols = { enabled = true }}},
-  on_attach = lsp_status.on_attach,
+  on_attach = on_attach,
   capabilities = lsp_status.capabilities
 })
 
@@ -268,14 +265,14 @@ nvim_lsp.pyls_ms.setup({
 
 
 
-nvim_lsp.ghcide.setup({
-  on_attach = lsp_status.on_attach,
-  capabilities = lsp_status.capabilities
-})
-nvim_lsp.rust_analyzer.setup({
-  on_attach = lsp_status.on_attach,
-  capabilities = lsp_status.capabilities
-})
+-- nvim_lsp.ghcide.setup({
+--   on_attach = lsp_status.on_attach,
+--   capabilities = lsp_status.capabilities
+-- })
+-- nvim_lsp.rust_analyzer.setup({
+--   on_attach = lsp_status.on_attach,
+--   capabilities = lsp_status.capabilities
+-- })
 
 
 

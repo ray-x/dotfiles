@@ -51,7 +51,12 @@ require'bufferline'.setup{  options = {
 --- telescope
 require('telescope').setup {
   defaults = {
-    shorten_path = false -- currently the default value is true
+    shorten_path = false, -- currently the default value is true
+    height = 10,
+    layout_strategy = 'horizontal',
+    layout_options = {
+      preview_width = 0.75,
+    },
   }
 }
 
