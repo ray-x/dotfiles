@@ -1,8 +1,8 @@
 local global = require 'global'
-
+local options = require 'options'
 local autocmd = require 'event'
 local map = require 'mapping'
-local options = require 'options'
+local saga = require 'lspsaga.saga'
 
 local vim = vim
 local M = {}
@@ -15,12 +15,14 @@ function M.createdir()
     global.cache_dir..'tags',
     global.cache_dir..'undo'
   }
+  -- There only check once that If cache_dir exists
+  -- Then I don't want to check subs dir exists
   if not global.isdir(global.cache_dir) then
     os.execute("mkdir -p " .. global.cache_dir)
-  end
-  for _,v in pairs(data_dir) do
-    if not global.isdir(v) then
-      os.execute("mkdir -p " .. v)
+    for _,v in pairs(data_dir) do
+      if not global.isdir(v) then
+        os.execute("mkdir -p " .. v)
+      end
     end
   end
 end
@@ -57,10 +59,14 @@ function M.load_core()
   M.disable_distribution_plugins()
   -- TODO
   -- M.leader_map()
-  map.load_mapping()
-  local ops = options:new()
+
+    local ops = options:new()
   ops:load_options()
+
+  map.load_mapping()
+
   autocmd.load_autocmds()
+  saga.create_saga_augroup()
 end
 
 M.load_core()

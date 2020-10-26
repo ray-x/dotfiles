@@ -4,7 +4,7 @@ local completion = require('completion')
 local lsp_status = require('lsp-status')
 local util = require('nvim_lsp/util')
 local configs = require('nvim_lsp/configs')
-local status = require('lsp.status')
+local status = require('lspsaga.status')
 vim.lsp.set_log_level("info")
 
 -- print("lsp_config is loading")

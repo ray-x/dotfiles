@@ -51,8 +51,9 @@ function autocmd.load_autocmds()
     };
     -- lsp.lspinit replace nvim-lspconfig?
     -- lsp= {
-    --   {"BufReadPost,BufNewFile","*","lua require'lsp.lspinit'.start_lsp_server()"};
+    --   {"BufReadPost,BufNewFile","*","lua require'lspsaga.lspinit'.start_lsp_server()"};
     -- };
+
     -- gitblame = {
     --   {"CursorHold","*","lua require'version'.blameVirtualText()"};
     --   {"CursorMoved,CursorMovedI","*","lua require'version'.clearBlameVirtualText()"};

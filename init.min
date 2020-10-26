@@ -237,6 +237,6 @@ execute 'source' fnameescape(s:config_home . '/pluginrc.d/lsp.nvim')
 " let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vista_kind', 'vim-startify', 'LuaTree']
 " 
 
-command! Dg :lua require'lsp.diagnostic'.show_buf_diagnostics()
+command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()

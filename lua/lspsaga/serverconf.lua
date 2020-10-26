@@ -4,7 +4,6 @@ local vim = vim
 
 -- gopls configuration template use daemon
 server.go = {
-  name = "gopls";
   cmd = {"gopls","--remote=auto"};
   filetypes = {'go','gomod'};
   root_patterns = {'go.mod','.git'};
@@ -16,9 +15,8 @@ server.go = {
 }
 
 server.lua = {
-  name = "lualsp";
-  cmd = { global.home.."/github/lua-language-server/bin/macOS/lua-language-server", "-E",
-          global.home.."/github/lua-language-server/main.lua"};
+  cmd = { global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
+          global.home.."/lua-language-server/main.lua"};
   filetypes = {'lua'};
   root_patterns = {'.git'};
   settings = {
@@ -36,45 +34,34 @@ server.lua = {
 }
 
 server.rust = {
-  name = "rust-analyzer";
   cmd = { "rust-analyzer" };
   filetypes = {"rust"};
   root_patterns = {"Cargo.toml", "rust-project.json"}
 }
 
 server.zig = {
-  name = "zls";
   cmd = { "zls" };
   filetypes = {"zig"};
   root_patterns = {".git"}
 }
 
 server.sh = {
-  name = "bashlsp";
   cmd = { "bash-language-server", "start" };
   filetypes = { "sh" };
-  root_patterns = {".git",vim.fn.getcwd()}
+  root_patterns = {".git"}
 }
 
 server.Dockerfile = {
-  name = "Dockerlsp";
   cmd = { "docker-langserver", "--stdio" };
   filetypes = { "Dockerfile", "dockerfile" };
   root_patterns = {"Dockerfile"};
 }
 
-function server.load_filetype_server()
-  local filetype_server_map = {}
-  if vim.tbl_isempty(server) then return end
-  for idx,value in pairs(server) do
-    if type(value) == 'table' then
-      for _,filetype in pairs(value.filetypes) do
-        filetype_server_map[filetype] = idx
-      end
-    end
-  end
-  return filetype_server_map
-end
+server.tsserver = {
+  cmd = {"typescript-language-server","--stdio"};
+  filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx"};
+  root_patterns  = {"package.json", "tsconfig.json", ".git"}
+}
 
 local lsp_intall_scripts = [=[
 # Install gopls
@@ -105,7 +92,7 @@ mv $RUSTANALYZER /usr/local/bin/
 
 ]=]
 
--- -- TODO: check install scripts and design a better install function
+-- TODO: check install scripts and design a better install function
 function server.lsp_install_server()
   os.execute("sh -c"..lsp_intall_scripts)
 end

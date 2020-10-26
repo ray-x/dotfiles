@@ -220,8 +220,6 @@ set wildmode=longest,list,full
 
 if has('nvim')
   set wildoptions+=pum
-  " Use cool floating wildmenu options
-  set pumblend=17 " Makes floating PopUpMenu for completing stuff on the command line.
   set wildmode-=list
 end
 
@@ -254,7 +252,7 @@ autocmd FileType html,css EmmetInstall
 
 
 " command! Gt :lua require('selfunc').float_terminal()
-command! Dg :lua require'lsp.diagnostic'.show_buf_diagnostics()
+command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
 

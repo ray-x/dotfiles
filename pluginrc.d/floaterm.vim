@@ -12,4 +12,3 @@ let g:floaterm_keymap_toggle = '<S-F12>'
 command! NNN FloatermNew nnn
 command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit
 command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger
-
