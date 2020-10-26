@@ -30,19 +30,23 @@ if dein#load_state('~/.cache/dein')
 
 if has('nvim')
   " LSP releated
-  " call dein#add('neovim/nvim-lspconfig', {'name':'lsp', 'lazy': 1, " 'on_map':['<Plug>','<c-k>','<c-]>'], 'on_ft': ['go', 'bash', 'go', 'c_sharp', " 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', " 'python', 'rust', 'ruby', 'toml', 'typescript']})"
-" 
-  " call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})
-  " call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
-  " call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
-  " call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})
+  call dein#add('neovim/nvim-lspconfig',{'name':'lsp'}) 
+
+  ", {'name':'lsp', 'lazy': 1, " 'on_map':['<Plug>','<c-k>','<c-]>'], 'on_ft': ['go', 'bash', 'go', 'c_sharp', " 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', " 'python', 'rust', 'ruby', 'toml', 'typescript']})"
+
+  call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})
+  call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
+  call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
+
+  call dein#add('RishabhRD/popfix')
+  call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})
   " call dein#add('nvim-lua/plenary.nvim')
   " call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
 
   " call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, " 'name':'treesitter', 'on_event': 'InsertEnter', 'on_ft': ['bash', " 'c_sharp','c', 'cpp', 'css', 'dart', 'go', 'html', 'java', 'javascript', " 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
   " call dein#add('nvim-treesitter/completion-treesitter', {'depends': ['treesitter', 'completion'], 'on_event': 'InsertEnter', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
     " call dein#add('akinsho/nvim-bufferline.lua')
-  call dein#add('norcalli/nvim-colorizer.lua')
+  " call dein#add('norcalli/nvim-colorizer.lua')
 endif
 
 
@@ -236,6 +240,8 @@ execute 'source' fnameescape(s:config_home . '/pluginrc.d/lsp.nvim')
 " let g:scrollbar_right_offset = 0
 " let g:scrollbar_excluded_filetypes = ['defx', 'vista', 'vista_kind', 'vim-startify', 'LuaTree']
 " 
+
+let g:min_load=1
 
 command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()

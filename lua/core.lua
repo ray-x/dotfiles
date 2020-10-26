@@ -60,13 +60,13 @@ function M.load_core()
   -- TODO
   -- M.leader_map()
 
-    local ops = options:new()
+  local ops = options:new()
   ops:load_options()
 
   map.load_mapping()
 
   autocmd.load_autocmds()
-  saga.create_saga_augroup()
+  -- saga.create_saga_augroup()  -- use nvim-lspconfig
 end
 
 M.load_core()

@@ -5,7 +5,11 @@
 
 -- Load lsp config
 
--- local load = vim.g.full_load
+local load = vim.g.min_load
+if vim.g.min_load == 1 then 
+  return ''
+end
+
 if vim.wo.diff then
   return ''
 end

@@ -102,13 +102,14 @@ local on_attach = function(client, bufnr)
   vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
   vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
   -- us telescope for following binding
-  -- vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
-  -- vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-  -- vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+  vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
+  vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+  vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+  
   vim.lsp.callbacks['window/showMessage'] = function(...) print('') end  --- supress showMessage when I enable -tags=integration
   
-  vim.lsp.callbacks['textDocument/references'] = require'telescope.builtin'.lsp_references
-  vim.lsp.callbacks['textDocument/documentSymbol'] = require'telescope.builtin'.lsp_workspace_symbols
+  -- vim.lsp.callbacks['textDocument/references'] = require'telescope.builtin'.lsp_references
+  -- vim.lsp.callbacks['textDocument/documentSymbol'] = require'telescope.builtin'.lsp_workspace_symbols
   vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   
 
