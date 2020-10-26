@@ -109,8 +109,8 @@ if has('nvim')
 
    call dein#add('aca/completion-tabnine', {'do': './install.sh' , 'on_event': 'InsertEnter'})
    call dein#add('RishabhRD/popfix')
-   call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})
-   " call dein#add('nvim-lua/popup.nvim')
+   call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
+   
 
    call dein#add('Xuyuanp/scrollbar.nvim')
    
@@ -119,14 +119,13 @@ if has('nvim')
    
    " call dein#add('glepnir/galaxyline.nvim')
    
-
    
    call dein#add('norcalli/nvim-colorizer.lua')
 
    call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
    call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
-
-   " call dein#add('nvim-lua/telescope.nvim')
+   call dein#add('nvim-lua/popup.nvim')
+   call dein#add('nvim-lua/telescope.nvim')
 "  """""""""""""LUA Plugins end""""""""""""""
 endif ""end of nvim
 

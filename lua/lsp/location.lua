@@ -183,10 +183,11 @@ vim.api.nvim_set_keymap('n', '<leader>ww',
                         { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', 'gh',
-                        '<cmd>lua require'lsp.provider'.lsp_peek_references()<CR>',
+                        '<cmd>lua require("lsp.provider").lsp_peek_references()<CR>',
                         { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap('n', '<leader>ce',
-                        '<cmd>lua require'lsp.diagnostic'.show_buf_diagnostics()<CR><CR>',
+                        '<cmd>lua require("lsp.diagnostic").show_buf_diagnostics()<CR><CR>',
                         { noremap = true, silent = true })
 
 return M

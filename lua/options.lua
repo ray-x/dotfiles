@@ -12,7 +12,7 @@ end
 function options:load_options()
   self.ttyfast        = true;  -- Indicate fast terminal conn for faster redraw
   self.mouse          = "a";
-  self.report         = 0;
+  self.report         = 2;
   self.errorbells     = false;             -- No beeps
   self.visualbell     = false;
   self.hidden         = true;             -- Buffer should still exist if window is closed
@@ -153,7 +153,7 @@ function options:load_options()
   vim.wo.concealcursor = "niv"
   vim.wo.foldmethod="expr"  -- indent?
 
-  
+
 end
 
 return options

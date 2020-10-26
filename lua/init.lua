@@ -43,6 +43,18 @@ require'bufferline'.setup{  options = {
  }
 }
 
+
+--- telescope
+require('telescope').setup {
+  defaults = {
+    shorten_path = false -- currently the default value is true
+  }
+}
+
+vim.cmd [[nnoremap <leader> gr <cmd>lua require'telescope.builtin'.lsp_references{ shorten_path = true }<CR>]]
+
+
+
 -- 
 vim.cmd [[nmap <S-F1> :LuaTreeToggle<CR>]]
 vim.cmd [[autocmd Filetype LuaTree set cursorline]]
