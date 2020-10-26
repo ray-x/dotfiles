@@ -55,7 +55,7 @@ require('telescope').setup {
   }
 }
 
-vim.cmd [[nnoremap <leader> gr <cmd>lua require'telescope.builtin'.lsp_references{ shorten_path = true }<CR>]]
+
 
 
 
@@ -66,9 +66,9 @@ vim.cmd [[autocmd Filetype LuaTree set cursorline]]
 -- 
 vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
 -- 
--- 
-vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>]]
-vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>]]
+-- vim.cmd [[nnoremap <leader>gr <cmd>lua require'telescope.builtin'.lsp_references{ shorten_path = true }<CR>]]
+-- vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>]]
+-- vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>]]
 
 require'colorizer'.setup()
 

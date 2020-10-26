@@ -66,7 +66,7 @@ function M.load_core()
   map.load_mapping()
 
   autocmd.load_autocmds()
-  -- saga.create_saga_augroup()  -- use nvim-lspconfig
+  --saga.create_saga_augroup()
 end
 
 M.load_core()
