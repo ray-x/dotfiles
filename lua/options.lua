@@ -83,7 +83,7 @@ function options:load_options()
     switchbuf      = "useopen";
     backspace      = "indent,eol,start"; --Makes backspace key more powerful.
     diffopt        = "filler,iwhite,internal,algorithm:patience";
-    completeopt    = "menu,menuone,noselect,noinsert";  -- Show popup menu, even if there is one entry
+    completeopt    = "menu,noselect,noinsert";  -- Show popup menu, even if there is one entry  menuone?
     jumpoptions    = "stack";
 
     showmode       = false;
@@ -118,7 +118,6 @@ function options:load_options()
     autoread       = true;  -- Automatically read changed files
     -- termencoding   = "utf-8";  -- decprecate
     cindent        = true;
-    wrap           = true;
     breakindent    = true;  -- Make it so that long lines wrap smartly
     smartindent    = true;  -- use intelligent indentation
     numberwidth    = 3;

@@ -171,3 +171,27 @@ Add an autocmd that sends a command to the terminal to run the tests. The job id
 Clean up the buffer's autocmd. Run on the code window.
 
 :au! * <buffer>
+let g:lua_tree_bindings = {
+    \ 'edit':            ['<CR>', 'o'],
+    \ 'edit_vsplit':     '<C-v>',
+    \ 'edit_split':      '<C-x>',
+    \ 'edit_tab':        '<C-t>',
+    \ 'toggle_ignored':  'I',
+    \ 'toggle_dotfiles': 'H',
+    \ 'refresh':         'R',
+    \ 'preview':         '<Tab>',
+    \ 'cd':              '<C-]>',
+    \ 'create':          'a',
+    \ 'remove':          'd',
+    \ 'rename':          'r',
+    \ 'cut':             'x',
+    \ 'copy':            'c',
+    \ 'paste':           'p',
+    \ 'prev_git_item':   '[c',
+    \ 'next_git_item':   ']c',
+    \ }
+
+ replace the term currently under the cursor 
+%s/<c-r><c-w>/new value/g       "c-r, c-w insert word under cursor"
+or use * , the substitute command uses the last searched one.
+and %s//new value/

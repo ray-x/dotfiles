@@ -6,7 +6,7 @@ env:
   # Note that some xterm terminfo databases don't declare support for italics.
   # You can verify this by checking for the presence of `smso` and `sitm` in
   # `infocmp xterm-256color`.
-  TERM: xterm-256color-italic
+  TERM: alacritty
 
 window:
   # Window dimensions (changes require restart)
@@ -48,10 +48,21 @@ window:
   #   - SimpleFullscreen
   startup_mode: Windowed
 
+  # Window title
+  title: Alacritty
+
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+# Window class (Linux/BSD only):
+  # class:
+    # Application instance name
+    # instance: Alacritty
+    # General application class
+    # general: Alacritty
 scrolling:
   # maximum number of lines in the scrollback buffer. Specifying '0' will
   # disable scrolling.
-  history: 0
+  history: 10000
 
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
@@ -62,23 +73,34 @@ font:
   # The normal (roman) font face to use.
   # Style can be specified to pick a specific face.
   normal:
-    family: VictorMono Nerd Font
+    family: "Fira Code"
+    style: Retina
+    # family: Victor Mono Italic
     # family: "Fira Code"
     # family: "Source Code Pro"
+    # family: "Casadia Code PL"
+    family: "FiraCode Nerd Font"
+    # style: Regular
+    # family: Consolas
     # style: Retina
 
   # The bold font face
   bold:
-    family: JetBrainsMono Nerd Font
+    family: "JetBrains Mono"
+    style: Bold
     # family: "Fira Code"
     # family: "Source Code Pro"
 
   # The italic font face
   italic:
-    family: VictorMono Nerd Font
+    family: "Victor Mono"
+    style: Italic
     # family: "Fira Code"
     # family: "Source Code Pro"
     # style: "Medium Italic"
+  bold_italic:
+    family: "JetBrains Mono"
+    style: ExtraBold Italic
 
   # Point size of the font
   size: 16.0
@@ -159,6 +181,20 @@ colors:
     magenta: '#aa6292'
     cyan:    '#86d3ce'
     white:   '#f7f7f7'
+  #vi_mode_cursor:
+   # text: CellBackground
+   # cursor: CellForeground
+
+  #search:
+    # Allowed values are CellForeground and CellBackground, which reference the
+    # affected cell, or hexadecimal colors like #ff00ff.
+    #matches:
+    foreground: '#000000'
+    background: '#ffffff'
+
+    #bar:
+    background: '#c5c8c6'
+    foreground: '#1d1f21'
 
   # Dim colors
   dim:
@@ -231,13 +267,139 @@ colors:
 #
 # To completely disable the visual bell, set its duration to 0.
 #
-visual_bell:
-  animation: EaseOutExpo
-  color: '0xffffff'
-  duration: 0
+# visual:
+#   animation: EaseOutExpo
+#   color: '0xffffff'
+#   duration: 0
 
 # Background opacity
-background_opacity: 1.0
+background_opacity: 0.8
+
+# selection:
+# #  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+#   # When set to `true`, selected text will be copied to the primary clipboard.
+#   save_to_clipboard: true
+
+cursor:
+  # Cursor style
+  #
+  # Values for `style`:
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  style: Block
+
+  # Vi mode cursor style
+  #
+  # If the vi mode cursor style is `None` or not specified, it will fall back to
+  # the style of the active value of the normal cursor.
+  #
+  # See `cursor.style` for available options.
+  vi_mode_style: None
+
+  # If this is `true`, the cursor will be rendered as a hollow box when the
+  # window is not focused.
+  unfocused_hollow: true
+
+  # Thickness of the cursor relative to the cell width as floating point number
+  # from `0.0` to `1.0`.
+  thickness: 0.15
+
+# Live config reload (changes require restart)
+live_config_reload: true
+
+# Shell
+#
+# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
+# Entries in `shell.args` are passed unmodified as arguments to the shell.
+#
+# Default:
+#   - (macOS) /bin/bash --login
+#   - (Linux/BSD) user login shell
+#   - (Windows) powershell
+shell:
+  program: /bin/zsh
+  # args:
+  #   - --login
+
+# Startup directory
+#
+# Directory the shell is started in. If this is unset, or `None`, the working
+# directory of the parent process will be used.
+#working_directory: None
+
+# WinPTY backend (Windows only)
+#
+# Alacritty defaults to using the newer ConPTY backend if it is available,
+# since it resolves a lot of bugs and is quite a bit faster. If it is not
+# available, the WinPTY backend will be used instead.
+#
+# Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
+# even if the ConPTY backend is available.
+#winpty_backend: false
+
+# Send ESC (\x1b) before characters when alt is pressed.
+#alt_send_esc: true
+
+mouse:
+  # Click settings
+  #
+  # The `double_click` and `triple_click` settings control the time
+  # alacritty should wait for accepting multiple clicks as one double
+  # or triple click.
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true
+
+  url:
+    # URL launcher
+    #
+    # This program is executed when clicking on a text which is recognized as a URL.
+    # The URL is always added to the command as the last parameter.
+    #
+    # When set to `launcher: None`, URL launching will be disabled completely.
+    #
+    # Default:
+    #   - (macOS) open
+    #   - (Linux/BSD) xdg-open
+    #   - (Windows) explorer
+    launcher:
+     program: open
+     args: []
+
+    # URL modifiers
+    #
+    # These are the modifiers that need to be held down for opening URLs when clicking
+    # on them. The available modifiers are documented in the key binding section.
+    #modifiers: None
+
+# Mouse bindings
+#
+# Mouse bindings are specified as a list of objects, much like the key
+# bindings further below.
+#
+# To trigger mouse bindings when an application running within Alacritty captures the mouse, the
+# `Shift` modifier is automatically added as a requirement.
+#
+# Each mouse binding will specify a:
+#
+# - `mouse`:
+#
+#   - Middle
+#   - Left
+#   - Right
+#   - Numeric identifier such as `5`
+#
+# - `action` (see key bindings)
+#
+# And optionally:
+#
+# - `mods` (see key bindings)
+#mouse_bindings:
+#  - { mouse: Middle, action: PasteSelection }
 
 # Key bindings
 #
@@ -398,18 +560,15 @@ key_bindings:
   - { key: RBracket, mods: Command,       chars: "\x02o"                       }  # select next pane
   - { key: LBracket, mods: Command,       chars: "\x02;"                       }  # select last (previously used) pane
   - { key: F,        mods: Command,       chars: "\x02/"                       }  # search (upwards) (see tmux.conf)
-
-mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
-
-  # If this is `true`, the cursor is temporarily hidden when typing.
-  hide_when_typing: true
+  - { key: C,        mods: Command|Shift, chars: "\x1b:Clap\n"                       }  # search (upwards) (see tmux.conf)
+  - { key: S,        mods: Command,       chars: "\x1b:w\n" }
+  - { key: P,        mods: Command,       chars: "\x1b:Clap files\n" }
+  - { key: P,        mods: Command|Shift, chars: "\x1b:Clap filer\n" }
+  #- { key: F,        mods: Command,       chars: "\x1b:Clap grep  ++query=<cword>\n" }
+  - { key: F,        mods: Command|Shift, chars: "\x1b:Clap grep2  ++query=<cword>\n" }
+  # - { key: \/,                             chars: "\\c\x20" }
+  - { key: B,        mods: Command|Shift, chars: "\x1b:Clap buffers\n" }
+  - { key: H,        mods: Command|Shift, chars: "\x1b:Clap command_history\n" }
 
   # URL launcher
   # url:
@@ -430,11 +589,6 @@ mouse:
     # on them. The available modifiers are documented in the key binding section.
     # modifiers: Control|Shift
 
-selection:
-  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  save_to_clipboard: false
 
 # Mouse bindings
 #
@@ -454,30 +608,14 @@ selection:
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
-cursor:
-  # Cursor style
-  #
-  # Values for 'style':
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
-  style: Block
-
-  # If this is `true`, the cursor will be rendered as a hollow box when the
-  # window is not focused.
-  unfocused_hollow: true
 
 # dynamic_title: false
 
-# Live config reload (changes require restart)
-live_config_reload: true
 
 # Shell
 #
 # You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
 # Entries in shell.args are passed unmodified as arguments to the shell.
-shell:
-  program: /usr/local/bin/nvim
 #  args:
 #    - --command=tmux
 

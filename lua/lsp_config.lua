@@ -11,6 +11,36 @@ vim.lsp.set_log_level("info")
 
 local M = {}
 
+
+vim.g.lsp_utils_location_opts = {
+  height = 24,
+  mode = 'editor',
+  preview = {
+    title = 'Location Preview'
+  },
+  keymaps = {
+    n = {
+      ['<C-n>'] = 'j',
+      ['<C-p>'] = 'k',
+    }
+  }
+}
+
+vim.g.lsp_utils_symbols_opts = {
+  height = 0,
+  mode = 'editor',
+  preview = {
+    title = 'Symbol Preview'
+  },
+  keymaps = {
+    n = {
+      ['<C-n>'] = 'j',
+      ['<C-p>'] = 'k',
+    }
+  }
+}
+
+
 lsp_status.register_progress()
 
 lsp_status.config {
@@ -54,11 +84,12 @@ function auto_group()
   
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
   local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,lua,typescript"
+  local format_files =  "c,cpp,go,python,vim,sh,javascript,html,css,typescript"
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
     vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.provider').go_organize_imports_sync(1000)")
 
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]])
@@ -91,9 +122,8 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> di      <cmd>lua require("lspsaga.location").preview_implementation()<CR>]])    
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> df      <cmd>lua require("lspsaga.location").peek_definition()<CR>]])
 
-
-
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <Leader>gr       <cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_dropdown({results_height = 20; width = 0.6; preview_width = 0.5}))<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols(theme)<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> tw      <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>]])  -- not with golang
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <C-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g<LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>]])
@@ -120,15 +150,25 @@ local on_attach = function(client, bufnr)
   vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
   vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
   vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+
+  -- https://github.com/fsouza
+  vim.lsp.callbacks['textDocument/documentHighlight'] = function(_, _, result, _)
+    if not result then
+      return
+    end
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.lsp.util.buf_clear_references(bufnr)
+    vim.lsp.util.buf_highlight_references(bufnr, result)
+  end
   
   -- us telescope for following binding
-  -- vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
+  vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
   vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
   vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   
   vim.lsp.callbacks['window/showMessage'] = function(...) print('') end  --- supress showMessage when I enable -tags=integration
   
-  vim.lsp.callbacks['textDocument/references'] = require'telescope.builtin'.lsp_references
+  -- vim.lsp.callbacks['textDocument/references'] = require'telescope.builtin'.lsp_references
 
   local method = "textDocument/publishDiagnostics"
   local default_callback = vim.lsp.callbacks[method]
@@ -209,11 +249,10 @@ nvim_lsp.gopls.setup {
         staticcheck = true,
         matcher            = "fuzzy",
         symbolMatcher      = "fuzzy",
-        -- buildFlags = {"-tags", "integration"}
+        buildFlags = {"-tags", "integration"},
         -- buildFlags = {"-tags", "functional"}
       },
-    }
-    ,
+    },
     root_dir = function(fname)
       return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
     end;

@@ -5,7 +5,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
-
+Plug 'nvim-treesitter/completion-treesitter'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
 
 " let s:config_home = stdpath('config')
@@ -19,18 +21,24 @@ call plug#end()
 lua <<EOF
 local nvim_lsp = require('nvim_lsp')
 nvim_lsp.gopls.setup{
-    on_attach=on_attach_vim
+    on_attach=require'completion'.on_attach
 }
 local servers = { 'gopls', 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = on_attach,
+    on_attach = require'completion'.on_attach,
   }
 end
 
 EOF
 
 lua require('treesitter')
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
 
 " nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -45,3 +53,34 @@ lua require('treesitter')
 " nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
 " 
+
+let g:completion_enable_snippet = 'vim-vsnip'
+let g:completion_chain_complete_list = {
+    \   'default': [
+    \       {'complete_items': ['lsp', 'ts', 'snippet']},
+    \       {'complete_items': ['path'], 'triggered_only': ['/']},
+    \       {'mode': '<c-p>'},
+    \       {'mode': '<c-n>'}]
+    \}
+let g:completion_items_priority = {
+        \ 'Field': 8,
+        \ 'Function': 8,
+        \ 'Variables': 7,
+        \ 'Method': 10,
+        \ 'Interfaces': 6,
+        \ 'Constant': 6,
+        \ 'Class': 6,
+        \ 'Struct': 6,
+        \ 'Keyword': 5,
+        \ 'Treesitter': 4,
+        \ 'vim-vsnip' : 0,
+        \ 'snippet' :0,
+        \ 'Buffers' : 0,
+        \ 'TabNine' : 1,
+        \ 'File' : 2,
+        \}
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+let g:completion_trigger_character = ['.']
+let g:vsnip_snippet_dir = '/Users/ray.xu/github/dotfiles/snips'

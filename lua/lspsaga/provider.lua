@@ -59,7 +59,7 @@ local function defintion_reference(result,method_type)
       end
       table.insert(contents,target_line)
       target_line_count = target_line_count + index
-      local lines = api.nvim_buf_get_lines(bufnr,range.start.line-0,range["end"].line+1+5,false)
+      local lines = api.nvim_buf_get_lines(bufnr,range.start.line-preview_head,range["end"].line+1+preview_rows,false)
       short_link[target_line_count] = {link=link,preview=lines,row=range.start.line+1,col=range.start.character+1}
       short_link[target_line_count].preview_data = {}
       short_link[target_line_count].preview_data.status = 0
@@ -88,9 +88,12 @@ local function defintion_reference(result,method_type)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"DefinitionIcon",0,1,#method_option[method_type].icon-1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetWord",0,#method_option[method_type].icon,#params+#method_option[method_type].icon+1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"DefinitionCount",0,0,-1)
-      api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetWord",3+definition_uri,#method_option[method_type].icon,#params+#method_option[method_type].icon+1)
+      api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetWord",3+definition_uri, #method_option[method_type].icon, #params+#method_option[method_type].icon+1)
+      
       api.nvim_buf_add_highlight(M.contents_buf,-1,"ReferencesIcon",3+definition_uri,1,#method_option[method_type].icon+4)
+      
       api.nvim_buf_add_highlight(M.contents_buf,-1,"ReferencesCount",3+definition_uri,0,-1)
+      
       api.nvim_buf_add_highlight(M.contents_buf,-1,"HelpTitle",definition_uri+reference_uri+15,0,-1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"HelpItem",definition_uri+reference_uri+17,0,-1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"HelpItem",definition_uri+reference_uri+18,0,-1)

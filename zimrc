@@ -22,9 +22,11 @@ zmodule homebrew
 zmodule git-info
 # A customizable version of sorin's prompt theme.
 # zmodule sorin
+
+# zmodule steeef
 zmodule romkatv/powerlevel10k
 # Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions
+# zmodule zsh-users/zsh-completions
 # Enables and configures smart and extensive tab completion.
 # completion must be sourced after zsh-users/zsh-completions
 zmodule completion
