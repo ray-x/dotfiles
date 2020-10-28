@@ -17,6 +17,14 @@ autocmd Filetype go,lua,c,cpp,javascript,typescript setlocal omnifunc=v:lua.vim.
 
 " Configure the completion chains
 
+" let g:completion_chain_complete_list = [
+"         \  {'complete_items': ['lsp']},
+"         \  {'complete_items': ['snippet']},
+"         \  {'complete_items': ['ts', 'tablenine']},
+"         \  {'complete_items': ['path']},
+"         \  {'mode': '<c-p>'},
+"         \  {'mode': '<c-n>'}]
+
 " let g:completion_chain_complete_list = {
 "       \'default' : {
 "       \ 'default' : [
@@ -48,6 +56,20 @@ autocmd Filetype go,lua,c,cpp,javascript,typescript setlocal omnifunc=v:lua.vim.
 "     \       {'mode': '<c-n>'}],
 "     \   'comment': [],
 "     \   'string': []
+"     \   }
+"     \}
+
+" let g:completion_chain_complete_list = {
+"     \ 'default' : {
+"     \   'default': [
+"     \       {'complete_items': ['lsp']},
+"     \       {'complete_items': ['snippet', 'tablenine', 'ts']},
+"     \       {'complete_items': ['path'], 'triggered_only': ['/']},
+"     \       {'mode': '<c-p>'},
+"     \       {'mode': '<c-n>'}],
+"     \   'func' : [{'complete_items': ['lsp']}, {'complete_items': ['snippet','ts','tablenine']}],
+"     \   'comment': [{'complete_items': ['buffer', 'tablenine']}],
+"     \   'string':  [{'complete_items': ['buffer', 'tablenine']}]
 "     \   }
 "     \}
 
@@ -87,7 +109,7 @@ inoremap <silent><expr> <TAB>
 
 let g:completion_enable_snippet = 'vim-vsnip'  " 'UltiSnips' 'vim-vsnip'
 
-let g:completion_matching_strategy_list = [ 'exact', 'all', 'substring', 'fuzzy']   "'fuzzy','all'" , 'substring' 'exact'
+let g:completion_matching_strategy_list = ['exact', 'all', 'substring', 'fuzzy']   "'fuzzy','all'" , 'substring' 'exact'
 let g:completion_trigger_character = ['.']
 
 augroup CompletionTriggerCharacter
