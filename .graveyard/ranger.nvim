@@ -1,3 +1,5 @@
+finish " no longer used"
+
 "  turn it on if you want <Esc> to return nvim
 " tnoremap <Esc> <C-\><C-n>
 
