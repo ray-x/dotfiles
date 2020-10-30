@@ -136,7 +136,7 @@ export GOROOT="/usr/local/opt/go/libexec"
 # export GOROOT=/usr/local/go
 export GOBIN=$GOPATH/bin
 export GO111MODULE="on"
-export PATH=~/bin:$PATH
+export PATH=~/bin:/usr/local/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$GOROOT/bin:$PATH
 export GOPRIVATE="bitbucket.org/appcurator"
@@ -161,8 +161,10 @@ export TERM_ITALICS=true
 
 
 export KITTY_LISTEN_ON=unix:/tmp/mykitty-$PPID
+SKIM_DEFAULT_COMMAND="fd --type f || git ls-tree -r --name-only HEAD || rg --files || find ."
 
-
+alias fzf='fzf --preview="bat {} --color=always"'
+alias sk='sk --preview="bat {} --color=always"'
 # }}} End configuration added by Zim install
 
 
@@ -170,3 +172,7 @@ export KITTY_LISTEN_ON=unix:/tmp/mykitty-$PPID
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/github/dotfiles/.p10k.zsh.
+[[ ! -f ~/github/dotfiles/.p10k.zsh ]] || source ~/github/dotfiles/.p10k.zsh
+

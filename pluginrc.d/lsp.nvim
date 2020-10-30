@@ -1,10 +1,6 @@
-" finish
-" if &diff
-"   finish
-" endif
-
-
-
+if &diff
+  finish
+endif
 
 nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
@@ -166,7 +162,8 @@ let g:completion_customize_lsp_label = {
       \ 'TypeParameter': "\uf278",
       \ 'Default': "\uf29c"
       \}
-
+" https://github.com/vn-ki/coc-clap/blob/master/autoload/clap/provider/coc_symbols.vim"
+" all lsp types"
 let g:completion_items_priority = {
         \ 'Field': 8,
         \ 'Function': 8,

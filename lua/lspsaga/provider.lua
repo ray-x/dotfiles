@@ -1,22 +1,16 @@
-local global = require'global'
 local window = require 'lspsaga.window'
 local vim,api,lsp = vim,vim.api,vim.lsp
+
 local short_link = {}
 local root_dir = vim.lsp.buf_get_clients()[1].config.root_dir
 local M = {}
+
 
 local contents = {}
 local target_line_count = 0
 local definition_uri = 0
 local reference_uri = 0
-
-local function apply_float_map(contents_bufnr)
-  api.nvim_buf_set_keymap(contents_bufnr,'n',"o",":lua require'lspsaga.provider'.open_link(1)<CR>",{noremap = true,silent = true})
-  api.nvim_buf_set_keymap(contents_bufnr,'n',"s",":lua require'lspsaga.provider'.open_link(2)<CR>",{noremap = true,silent = true})
-  api.nvim_buf_set_keymap(contents_bufnr,'n',"i",":lua require'lspsaga.provider'.open_link(3)<CR>",{noremap = true,silent = true})
-  api.nvim_buf_set_keymap(contents_bufnr,'n',"<TAB>",":lua require'lspsaga.provider'.insert_preview()<CR>",{noremap = true,silent = true})
-  api.nvim_buf_set_keymap(contents_bufnr,'n',"q",":lua require'lspsaga.provider'.quit_float_window()<CR>",{noremap = true,silent = true})
-end
+require 'lspsaga.syntax'.add_highlight()
 
 local function defintion_reference(result,method_type)
   if vim.tbl_islist(result) then
@@ -59,7 +53,7 @@ local function defintion_reference(result,method_type)
       end
       table.insert(contents,target_line)
       target_line_count = target_line_count + index
-      local lines = api.nvim_buf_get_lines(bufnr,range.start.line-preview_head,range["end"].line+1+preview_rows,false)
+      local lines = api.nvim_buf_get_lines(bufnr,range.start.line-0,range["end"].line+1+5,false)
       short_link[target_line_count] = {link=link,preview=lines,row=range.start.line+1,col=range.start.character+1}
       short_link[target_line_count].preview_data = {}
       short_link[target_line_count].preview_data.status = 0
@@ -88,12 +82,9 @@ local function defintion_reference(result,method_type)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"DefinitionIcon",0,1,#method_option[method_type].icon-1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetWord",0,#method_option[method_type].icon,#params+#method_option[method_type].icon+1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"DefinitionCount",0,0,-1)
-      api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetWord",3+definition_uri, #method_option[method_type].icon, #params+#method_option[method_type].icon+1)
-      
+      api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetWord",3+definition_uri,#method_option[method_type].icon,#params+#method_option[method_type].icon+1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"ReferencesIcon",3+definition_uri,1,#method_option[method_type].icon+4)
-      
       api.nvim_buf_add_highlight(M.contents_buf,-1,"ReferencesCount",3+definition_uri,0,-1)
-      
       api.nvim_buf_add_highlight(M.contents_buf,-1,"HelpTitle",definition_uri+reference_uri+15,0,-1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"HelpItem",definition_uri+reference_uri+17,0,-1)
       api.nvim_buf_add_highlight(M.contents_buf,-1,"HelpItem",definition_uri+reference_uri+18,0,-1)
@@ -106,7 +97,7 @@ local function defintion_reference(result,method_type)
         api.nvim_buf_add_highlight(M.contents_buf,-1,"TargetFileName",i+definition_uri+4,0,-1)
       end
       -- load float window map
-      apply_float_map(M.contents_buf)
+      M.apply_float_map(M.contents_buf)
       -- clear contents
       contents = {}
       target_line_count = 0
@@ -114,6 +105,14 @@ local function defintion_reference(result,method_type)
       reference_uri = 0
     end
   end
+end
+
+function M.apply_float_map(contents_bufnr)
+  api.nvim_buf_set_keymap(contents_bufnr,'n',"o",":lua require'lspsaga.provider'.open_link(1)<CR>",{noremap = true,silent = true})
+  api.nvim_buf_set_keymap(contents_bufnr,'n',"s",":lua require'lspsaga.provider'.open_link(2)<CR>",{noremap = true,silent = true})
+  api.nvim_buf_set_keymap(contents_bufnr,'n',"i",":lua require'lspsaga.provider'.open_link(3)<CR>",{noremap = true,silent = true})
+  api.nvim_buf_set_keymap(contents_bufnr,'n',"<TAB>",":lua require'lspsaga.provider'.insert_preview()<CR>",{noremap = true,silent = true})
+  api.nvim_buf_set_keymap(contents_bufnr,'n',"q",":lua require'lspsaga.provider'.quit_float_window()<CR>",{noremap = true,silent = true})
 end
 
 -- action 1 mean enter
@@ -186,50 +185,6 @@ function M.lsp_peek_references(timeout)
   return
 end
 
--- jump to definition in split window
-function M.lsp_jump_definition()
-  local winr = vim.fn.winnr("$")
-  local winsize = vim.api.nvim_exec([[
-  echo (winwidth(0) - (max([len(line('$')), &numberwidth-1]) + 1)) < 110
-  ]],true)
-  if winr >= 4 or winsize == 1 then
-    vim.lsp.buf.definition()
-  else
-    vim.api.nvim_command("vsplit")
-    vim.lsp.buf.definition()
-  end
-end
-
--- Synchronously organise (Go) imports. Taken from
--- https://github.com/neovim/nvim-lsp/issues/115#issuecomment-654427197.
-function M.go_organize_imports_sync(timeout_ms)
-  local context = { source = { organizeImports = true } }
-  vim.validate { context = { context, 't', true } }
-  local params = vim.lsp.util.make_range_params()
-  params.context = context
-
-  -- See the implementation of the textDocument/codeAction callback
-  -- (lua/vim/lsp/callbacks.lua) for how to do this properly.
-  local result = lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
-  if not result then return end
-  local actions = result[1].result
-  if not actions then return end
-  local action = actions[1]
-
-  -- textDocument/codeAction can return either Command[] or CodeAction[]. If it
-  -- is a CodeAction, it can have either an edit, a command or both. Edits
-  -- should be executed first.
-  if action.edit or type(action.command) == "table" then
-    if action.edit then
-      vim.lsp.util.apply_workspace_edit(action.edit)
-    end
-    if type(action.command) == "table" then
-      vim.lsp.buf.execute_command(action.command)
-    end
-  else
-    vim.lsp.buf.execute_command(action)
-  end
-end
 
 function M.preview_definiton(timeout_ms)
   local method = "textDocument/definition"

@@ -87,12 +87,12 @@ function auto_group()
   local format_files =  "c,cpp,go,python,vim,sh,javascript,html,css,typescript"
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
-    vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.provider').go_organize_imports_sync(1000)")
+    vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.action').go_organize_imports_sync(1000)")
 
-    vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
 
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
     
     --[[ mappings that are shared across all supported langs ]]--
@@ -100,7 +100,8 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> K       <cmd>lua vim.lsp.buf.hover()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-k>   <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gs      <cmd>lua vim.lsp.buf.signature_help()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g0      <cmd>lua vim.lsp.buf.document_symbol()<CR>]])  --lsputil or telescope
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g0      <cmd>lua vim.lsp.buf.document_symbol()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <leader>g0       <cmd>Vista finder clap<CR>]])  --use clap
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gW      <cmd>lua vim.lsp.buf.workspace_symbol()<CR>]]) --lsputil or telescope 
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-]>   <cmd>lua vim.lsp.buf.definition()<CR>]])
@@ -130,8 +131,11 @@ function auto_group()
 
   vim.api.nvim_command([[augroup END]])
 
+
+end
+
+local diagnostic_map = function (bufnr)
   local opts = { noremap=true, silent=true }
-  local bufnr = vim.api.nvim_win_get_buf(winnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', ':PrevDiagnostic<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':NextDiagnostic<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':PrevDiagnosticCycle<CR>', opts)
@@ -141,6 +145,7 @@ end
 local on_attach = function(client, bufnr)
   diagnostic.on_attach(client, bufnr)
   lsp_status.on_attach(client, bufnr)
+  diagnostic_map(bufnr)
 
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -152,14 +157,14 @@ local on_attach = function(client, bufnr)
   vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 
   -- https://github.com/fsouza
-  vim.lsp.callbacks['textDocument/documentHighlight'] = function(_, _, result, _)
-    if not result then
-      return
-    end
-    local bufnr = vim.api.nvim_get_current_buf()
-    vim.lsp.util.buf_clear_references(bufnr)
-    vim.lsp.util.buf_highlight_references(bufnr, result)
-  end
+  -- vim.lsp.callbacks['textDocument/documentHighlight'] = function(_, _, result, _)
+  --   if not result then
+  --     return
+  --   end
+  --   local bufnr = vim.api.nvim_get_current_buf()
+  --   vim.lsp.util.buf_clear_references(bufnr)
+  --   vim.lsp.util.buf_highlight_references(bufnr, result)
+  -- end
   
   -- us telescope for following binding
   vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler

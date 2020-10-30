@@ -1,3 +1,4 @@
+
 set encoding=utf-8
 
 if &compatible
@@ -199,7 +200,7 @@ if &diff
   colorscheme paleaurora
   set wrap
   let g:go_gopls_enabled = 0
-  lua require("core")
+  lua require("domain.core")
   finish  " skip all following 
 endif
 

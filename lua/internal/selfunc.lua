@@ -1,4 +1,3 @@
-local global = require('global')
 local vim,api = vim,vim.api
 local window = require('lspsaga.window')
 local M = {
@@ -79,6 +78,7 @@ function M.float_terminal(command)
 
   local contents_bufnr,contents_winid,border_bufnr,border_winid = window.create_float_window({},'floaterm',1,true,false,opts)
   api.nvim_command('terminal '..cmd)
+  api.nvim_command('setlocal nobuflisted')
   api.nvim_command('startinsert!')
   api.nvim_command("hi LspFloatWinBorder guifg=#c594c5")
   api.nvim_buf_set_var(contents_bufnr,'float_terminal_win',{contents_winid,border_winid,border_bufnr})
@@ -89,12 +89,8 @@ function M.close_float_terminal()
   if float_terminal_win[1] ~= nil and api.nvim_win_is_valid(float_terminal_win[1]) and float_terminal_win[2] ~= nil and api.nvim_win_is_valid(float_terminal_win[2]) then
     api.nvim_win_close(float_terminal_win[1],true)
     api.nvim_win_close(float_terminal_win[2],true)
-    local bfnr = vim.fn.bufnr()
-    pcall(vim.cmd,string.format("silent! bdelete %d",bfnr))
-    api.nvim_command('bd! '.. float_terminal_win[3]+1)
   end
 end
-
 
 function M.blameVirtualText()
   local fname = vim.fn.expand('%')
@@ -123,6 +119,5 @@ function M.clearBlameVirtualText()
   local ns_id = api.nvim_create_namespace("GitLens")
   api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
 end
-
 
 return M

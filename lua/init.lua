@@ -107,4 +107,4 @@ vim.cmd [[autocmd BufEnter * lua require'completion'.on_attach()]]
 
 require'colorizer'.setup()
 
-require'core'
+require'domain.core'

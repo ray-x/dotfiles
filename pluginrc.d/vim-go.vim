@@ -17,10 +17,10 @@ if !executable('go') && !executable('mod') && !executable('tmpl')
   finish
 endif
 
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "gofumports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
-let g:go_fmt_autosave = 0
+let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 1
 
 let g:deoplete#enable_at_startup = 0

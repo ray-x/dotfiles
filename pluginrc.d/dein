@@ -4,7 +4,7 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('shmup/vim-sql-syntax', {'on_ft': ['sql', 'pgsql']})
    call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista', 'Vista!!']})
-   call dein#add('kamykn/spelunker.vim', {'on_func': 'spelunker#check', 'on_cmd': 'Spell'})
+   call dein#add('kamykn/spelunker.vim', {'on_cmd': 'Spell'})  " nevim-qt 'on_func': 'spelunker#check'failed"
 
    call dein#add('mattn/emmet-vim', { 'on_ft': ['html','css', 'js', 'ts', 'tsx'] })
 
@@ -63,6 +63,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('ray-x/paleaurora')
 
 
+
 if has('nvim')
 
    call dein#add('hrsh7th/vim-vsnip', {'on_event': 'InsertEnter'})
@@ -78,11 +79,11 @@ if has('nvim')
    """""""""""""LUA Plugins""""""""""""""
    call dein#add('kyazdani42/nvim-web-devicons',{'name': 'devicons'})
    
-   call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['LuaTreeToggle', 'LuaTreeOpen'] })
+   call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['LuaTreeToggle', 'LuaTreeOpen'], 'hook_add':'autocmd FileType LuaTree setlocal nowrap'})
    
    call dein#add('akinsho/nvim-bufferline.lua')
 
-   call dein#add('neovim/nvim-lspconfig')
+   call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
 
    " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
 
@@ -126,6 +127,7 @@ if has('nvim')
    call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
    call dein#add('nvim-lua/popup.nvim')
    call dein#add('nvim-lua/telescope.nvim')
+
 "  """""""""""""LUA Plugins end""""""""""""""
 endif ""end of nvim
 

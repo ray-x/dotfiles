@@ -25,6 +25,10 @@ Plug 'airblade/vim-gitgutter' " , { 'on': ['GitGutterBufferEnable', 'GitGutterEn
 Plug 'pangloss/vim-javascript'
 Plug 'pseewald/vim-anyfold', { 'on': ['AnyFoldActivate']}
 
+   call dein#add('junegunn/fzf', { 'build': './install', 'rtp': '' })
+   "call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) "
+   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+
 Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 " Javascript

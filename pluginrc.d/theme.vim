@@ -9,7 +9,7 @@ set cursorcolumn  " for code alignment and indentation
 
 " nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
-" colorscheme paleaurora
+hi Normal guibg=NONE ctermbg=NONE " remove background
 
 " eleline
 set laststatus=2

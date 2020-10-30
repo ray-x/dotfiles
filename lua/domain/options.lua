@@ -1,18 +1,9 @@
-local global = require 'global'
+local global = require('domain.global')
 local vim = vim
-local options = {}
-
-function options:new()
-  local instance = {}
-  setmetatable(instance,self)
-  self.__index = self
-  self.global_local = {}
-  self.window_local = {}
-  return instance
-end
+local options = setmetatable({}, { __index = { global_local = {},window_local = {} } })
 
 function options:load_options()
-  self.global_loocal = {
+  self.global_local = {
     ttyfast        = true;  -- Indicate fast terminal conn for faster redraw
     mouse          = "a";
     report         = 2;
@@ -151,18 +142,15 @@ function options:load_options()
       },
       cache_enabled = 0
     }
-    vim.g.python_host_prog = '/usr/bin/python'
-    vim.g.python3_host_prog = '/usr/local/bin/python3'
+    vim.g.python_host_prog = '/usr/bin/python2'
+    vim.g.python3_host_prog = '/usr/local/bin/python3.8'
   end
-  -- todo set vim.wo[name]
-  for name, value in pairs(self.global_loocal) do
+  for name, value in pairs(self.global_local) do
     vim.o[name] = value
   end
-
   for name, value in pairs(self.window_local) do
     vim.wo[name] = value
   end
-
 end
 
 return options

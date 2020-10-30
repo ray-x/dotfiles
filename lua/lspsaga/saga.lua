@@ -1,8 +1,9 @@
-local global = require 'global'
+local global = require 'domain.global'
+local ptbl = require 'publibs.pltbl'
 local syntax = require 'lspsaga.syntax'
 local server = require 'lspsaga.serverconf'
 local callbacks = require 'lspsaga.callbacks'
-local autocmd = require 'event'
+local autocmd = require 'internal.event'
 local vim,api= vim,vim.api
 
 -- A table to store our root_dir to client_id lookup. We want one LSP per
@@ -33,7 +34,7 @@ local function add_options(server_setup)
   };
 
   for option,value in pairs(options) do
-    if not global.has_key(server_setup,option) then
+    if not ptbl.has_key(server_setup,option) then
       server_setup[option] = value
     end
   end
@@ -110,12 +111,19 @@ end
 
 local lspsaga = {}
 
+local function load_completion()
+    if not vim.o.runtimepath:find('completion-nvim') then
+      vim.o.runtimepath = vim.o.runtimepath ..','.. global.cache_dir ..'dein/repos/github.com/nvim-lua/completion-nvim.lua'
+    end
+    require('completion').on_attach()
+end
+
 function lspsaga.start_lsp_server()
   local client_id = nil
   local bufnr = api.nvim_get_current_buf()
   local buf_filetype = api.nvim_buf_get_option(bufnr,'filetype')
   -- Filter which files we are considering.
-  if not global.has_key(filetype_server_map,buf_filetype) then
+  if not ptbl.has_key(filetype_server_map,buf_filetype) then
     -- load completion in buffer for complete something else
     return
   end
@@ -148,15 +156,7 @@ function lspsaga.start_lsp_server()
   end
 
   local on_attach = function(client,bufnr)
-    if not vim.o.runtimepath:find('completion-nvim') then
-      vim.o.runtimepath = vim.o.runtimepath ..','.. global.cache_dir ..'dein/repos/github.com/nvim-lua/completion-nvim.lua'
-    end
-    local has_completion,completion = pcall(require,'completion-nvim')
-    if has_completion then
-      -- passing in a table with on_attach function
-      completion.on_attach()
-    end
-
+    load_completion()
     local lsp_event = {}
     if client.resolved_capabilities.document_highlight then
       lsp_event.highlights = {
@@ -165,9 +165,9 @@ function lspsaga.start_lsp_server()
       }
     end
     if client.resolved_capabilities.document_formatting then
-      if vim.api.nvim_buf_get_option(bufnr, "filetype") == "go" then
+      if vim.bo.filetype == "go" then
         lsp_event.organizeImports = {
-          {"BufWritePre","*.go","lua require('lspsaga.provider').go_organize_imports_sync(1000)"}
+          {"BufWritePre","*.go","lua require('lspsaga.action').go_organize_imports_sync(1000)"}
         }
       end
       lsp_event.autoformat = {

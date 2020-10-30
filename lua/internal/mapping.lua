@@ -1,14 +1,12 @@
-local M = {}
+local pbind = require('publibs.plbind')
+local map_cr = pbind.map_cr
+local map_cu = pbind.map_cu
+local map_cmd = pbind.map_cmd
 local vim = vim
 local mapping = {}
 local rhs_options = {}
 
-function mapping:new()
-  local instance = {}
-  setmetatable(instance, self)
-  self.__index = self
-  return instance
-end
+local mapping = setmetatable({}, { __index = { vim = {},plugin = {} } })
 
 function _G.check_back_space()
     local col = vim.fn.col('.') - 1
@@ -106,7 +104,17 @@ function mapping:load_plugin_define()
     ["n|<Leader>fu"]     = map_cu('Clap git_diff_files'):with_noremap():with_silent(),
     ["n|<Leader>fv"]     = map_cu('Clap grep ++query=@visual'):with_noremap():with_silent(),
     ["n|<Leader>fd"]     = map_cu('Clap dotfiles'):with_noremap():with_silent(),
-    ["n|<Leader>fs"]      = map_cu('Clap gosource'):with_noremap():with_silent(),
+
+    -- ["n|<Leader>bb"]     = map_cu('TelescopeBuffers'):with_noremap():with_silent(),
+    -- ["n|<Leader>fa"]     = map_cu('TelescopeGrepString'):with_noremap():with_silent(),
+    -- ["n|<Leader>fb"]     = map_cu('TelescopeMarks'):with_noremap():with_silent(),
+    -- ["n|<Leader>ff"]     = map_cu('TelescopeFindFile'):with_noremap():with_silent(),
+    -- ["n|<Leader>fg"]     = map_cu('TelescopeFindGitFile'):with_noremap():with_silent(),
+    -- ["n|<Leader>fw"]     = map_cu('lua require"telescope.builtin".grep_string{search=true}'):with_noremap():with_silent(),
+    -- ["n|<Leader>fh"]     = map_cu('TelescopeOldFiles'):with_noremap():with_silent(),
+    -- ["n|<Leader>fl"]     = map_cu('TelescopeLocalList'):with_noremap():with_silent(),
+    -- ["n|<Leader>fd"]     = map_cu('lua require"telescope".load_dotfiles()'):with_noremap():with_silent(),
+    -- ["n|<Leader>fs"]      = map_cu('Clap gosource'):with_noremap():with_silent(),
     -- Plugin acceleratedjk
     -- ["n|j"]              = map_cmd('<Plug>(accelerated_jk_gj)'):with_silent(),
     -- ["n|k"]              = map_cmd('<Plug>(accelerated_jk_gk)'):with_silent(),
@@ -135,84 +143,11 @@ function mapping:load_plugin_define()
   };
 end
 
-function M.nvim_load_mapping(mapping)
-  for _,v in pairs(mapping) do
-    for key,value in pairs(v) do
-      local mode,keymap = key:match("([^|]*)|?(.*)")
-      if type(value) == 'table' then
-        local rhs = value.cmd
-        local options = value.options
-        vim.fn.nvim_set_keymap(mode,keymap,rhs,options)
-      end
-    end
-  end
+local function load_mapping()
+  mapping:load_vim_define()
+  mapping:load_plugin_define()
+  pbind.nvim_load_mapping(mapping.vim)
+  pbind.nvim_load_mapping(mapping.plugin)
 end
 
-function rhs_options:new()
-  local instance = {
-    cmd = '',
-    options = {
-      noremap = false,
-      silent = false,
-      expr = false,
-    }
-  }
-  setmetatable(instance,self)
-  self.__index = self
-  return instance
-end
-
-function rhs_options:map_cmd(cmd_string)
-  self.cmd = cmd_string
-  return self
-end
-
-function rhs_options:map_cr(cmd_string)
-  self.cmd = (":%s<CR>"):format(cmd_string)
-  return self
-end
-
-function rhs_options:map_cu(cmd_string)
-  self.cmd = (":<C-u>%s<CR>"):format(cmd_string)
-  return self
-end
-
-function rhs_options:with_silent()
-  self.options.silent = true
-  return self
-end
-
-function rhs_options:with_noremap()
-  self.options.noremap = true
-  return self
-end
-
-function rhs_options:with_expr()
-  self.options.expr = true
-  return self
-end
-
-function map_cr(cmd_string)
-  local ro = rhs_options:new()
-  return ro:map_cr(cmd_string)
-end
-
-function map_cmd(cmd_string)
-  local ro = rhs_options:new()
-  return ro:map_cmd(cmd_string)
-end
-
-function map_cu(cmd_string)
-  local ro = rhs_options:new()
-  return ro:map_cu(cmd_string)
-end
-
-
-function M.load_mapping()
-  local map = mapping:new()
-  map:load_vim_define()
-  map:load_plugin_define()
-  M.nvim_load_mapping(map)
-end
-
-return M
+load_mapping()

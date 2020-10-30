@@ -1,12 +1,13 @@
-local global = require 'global'
-local options = require 'options'
-local autocmd = require 'event'
-local map = require 'mapping'
+local options = require 'domain.options'
+local global = require 'domain.global'
+-- local dein = require 'domain.dein'
+local autocmd = require 'internal.event'
 local saga = require 'lspsaga.saga'
-
+local fs = require 'publibs.plfs'
 local vim = vim
 local M = {}
 
+-- Create cache dir and subs dir
 function M.createdir()
   local data_dir = {
     global.cache_dir..'backup',
@@ -17,7 +18,7 @@ function M.createdir()
   }
   -- There only check once that If cache_dir exists
   -- Then I don't want to check subs dir exists
-  if not global.isdir(global.cache_dir) then
+  if not fs.isdir(global.cache_dir) then
     os.execute("mkdir -p " .. global.cache_dir)
     for _,v in pairs(data_dir) do
       if not global.isdir(v) then
@@ -49,24 +50,26 @@ function M.disable_distribution_plugins()
 end
 
 function M.leader_map()
-  --vim.g.mapleader = "\\"
-  --vim.fn.nvim_set_keymap('n',' ','',{noremap = true})
-  --vim.fn.nvim_set_keymap('x',' ','',{noremap = true})
+  vim.g.mapleader = " "
+  vim.fn.nvim_set_keymap('n',' ','',{noremap = true})
+  vim.fn.nvim_set_keymap('x',' ','',{noremap = true})
 end
 
 function M.load_core()
   M.createdir()
   M.disable_distribution_plugins()
-  -- TODO
   -- M.leader_map()
 
-  local ops = options:new()
-  ops:load_options()
+  options:load_options()
+  -- load my colorscheme
+  -- require'internal.zephyr'
 
-  map.load_mapping()
+  -- dein:load_repos()
 
+  require('internal.mapping')
   autocmd.load_autocmds()
-  --saga.create_saga_augroup()
+  -- require('internal.spaceline')
+  -- saga.create_saga_augroup()
 end
 
 M.load_core()
