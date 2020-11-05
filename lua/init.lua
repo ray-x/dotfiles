@@ -32,21 +32,29 @@ require('expressline')
 
 local ok, _ = pcall(function() require('completion').on_attach() end)
 
-require'bufferline'.setup{  options = {
-   view = "multiwindow",
-   numbers = "buffer_id",
-   number_style = "superscript",
-   mappings = true,
-   close_icon = "x",
-   max_name_length = 18,
-   tab_size = 16,
-   show_buffer_close_icons = false,
-   separator_style = "thin",
-   enforce_regular_tabs = false,
-   always_show_bufferline = false,
- }
+require'bufferline'.setup{
+  options = {
+    view = "multiwindow",
+    numbers ="none",  --"none" | "ordinal" | "buffer_id",
+    number_style = "superscript" ,
+    mappings = true ,
+    buffer_close_icon= '',
+    modified_icon = '●',
+    close_icon = '',
+    left_trunc_marker = '',
+    right_trunc_marker = '',
+    max_name_length = 18,
+    tab_size = 18,
+    show_buffer_close_icons = false,
+    -- can also be a table containing 2 custom separators
+    -- [focused and unfocused]. eg: { '|', '|' }
+    separator_style = "thin",
+    enforce_regular_tabs = false,
+    always_show_bufferline = true,
+    -- 'extension' | 'directory' | 
+    sort_by = 'directory'
+  }
 }
-
 
 --- telescope
 

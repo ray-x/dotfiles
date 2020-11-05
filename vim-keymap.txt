@@ -195,3 +195,11 @@ let g:lua_tree_bindings = {
 %s/<c-r><c-w>/new value/g       "c-r, c-w insert word under cursor"
 or use * , the substitute command uses the last searched one.
 and %s//new value/
+
+
+color=$( convert filename.png -format "%[pixel:p{0,0}]" info:- )
+convert filename.png -alpha off -bordercolor $color -border 1 \
+    \( +clone -fuzz 30% -fill none -floodfill +0+0 $color \
+       -alpha extract -geometry 200% -blur 0x0.5 \
+       -morphology erode square:1 -geometry 50% \) \
+    -compose CopyOpacity -composite -shave 1 outputfilename.png

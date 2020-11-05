@@ -87,9 +87,17 @@ let g:completion_chain_complete_list = {
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " let g:completion_confirm_key = "\<C-y>"
-" let g:completion_confirm_key = ""
+
+let g:completion_confirm_key = ""
+" inoremap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?  "\<C-n>\<CR>"  : "\<c-e>\<CR>" :  "\<CR>"
+
+
+" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+
+"imap <expr> <CR> pumvisible() ? (complete_info().selected == -1 ? '\<C-n><Plug>(completion_confirm_completion)' : '\<Plug>(completion_confirm_completion)') : '\<CR>'
+
 set shortmess+=c
 
 
@@ -238,5 +246,5 @@ function! LspStatus() abort
 endfunction
 
 
-" start the lsp"
-lua require('lsp_config')
+" start the lsp for specific file type
+" lua require('lsp_config')

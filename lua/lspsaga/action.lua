@@ -27,7 +27,9 @@ function M.go_organize_imports_sync(timeout_ms)
   -- (lua/vim/lsp/callbacks.lua) for how to do this properly.
   local result = lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
   if not result then return end
+  vim.inspect(result)
   local actions = result[1].result
+  vim.inspect(actions)
   if not actions then return end
   local action = actions[1]
 

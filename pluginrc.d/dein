@@ -4,8 +4,10 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('shmup/vim-sql-syntax', {'on_ft': ['sql', 'pgsql']})
    call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista', 'Vista!!']})
-   call dein#add('kamykn/spelunker.vim', {'on_cmd': 'Spell'})  " nevim-qt 'on_func': 'spelunker#check'failed"
 
+   call dein#add('kamykn/spelunker.vim', {'on_cmd': 'Spell','on_func': 'spelunker#check'})  " nevim-qt 'on_func': 'spelunker#check'failed"
+   call dein#add('rhysd/vim-grammarous')
+   
    call dein#add('mattn/emmet-vim', { 'on_ft': ['html','css', 'js', 'ts', 'tsx'] })
 
    " add comments to code, tomtom/tcomment_vim is another alternative
@@ -79,7 +81,7 @@ if has('nvim')
    """""""""""""LUA Plugins""""""""""""""
    call dein#add('kyazdani42/nvim-web-devicons',{'name': 'devicons'})
    
-   call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['LuaTreeToggle', 'LuaTreeOpen'], 'hook_add':'autocmd FileType LuaTree setlocal nowrap'})
+   call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['LuaTreeToggle', 'LuaTreeOpen'])
    
    call dein#add('akinsho/nvim-bufferline.lua')
 

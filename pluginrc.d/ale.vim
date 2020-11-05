@@ -6,8 +6,8 @@ let g:ale_go_revive_executable = 'revive'
 
 let g:ale_go_golangci_lint_options = '--enable-all --disable dogsled --disable gocognit --disable godot --disable godox --disable lll --disable nestif --disable wsl --disable gocyclo --disable asciicheck --disable gochecknoglobals'
 let g:ale_lint_delay = 1000                 " begin lint after 1s
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'normal'   " do not lint when I am typing
+let g:ale_lint_on_save = 0
+" let g:ale_lint_on_text_changed = 'never'   " do not lint when I am typing  'normal (def)'   'never' 
 let g:ale_sign_column_always = 0
 let g:ale_go_golangci_lint_package = 1
 
@@ -37,7 +37,6 @@ let g:ale_fixers = {
 
 augroup auto_go
   " autocmd BufWritePre *.go lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
-  " autocmd BufWritePre *.go :GoFmt
   autocmd BufWriteCmd *.mod :GoModFmt
   autocmd BufWritePost *.mod :AsyncRun -cwd=<root> go mod tidy
   " autocmd BufWritePost *_test.go :AsyncRun -raw -cwd=%:p:h go test ./... -tags=integration | lopen 3

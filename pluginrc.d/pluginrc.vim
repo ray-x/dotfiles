@@ -14,7 +14,7 @@ endif
  let g:vim_markdown_edit_url_in = 'vsplit'
  let g:vim_markdown_fenced_languages = ['c++=javascript',  'js=javascript', 'json=javascript', 'jsx=javascript',  'tsx=javascript'] "} )
 
-command! Spell :call spelunker#check()
+command! Spell call spelunker#check()
 
 let g:enable_spelunker_vim_on_readonly = 0
 let g:spelunker_check_type = 0
@@ -106,3 +106,5 @@ let g:startify_change_to_vcs_root = 1
 
 let g:startify_enable_special = 0
 let g:startify_change_to_dir = 1
+
+" autocmd FileType LuaTree setlocal nowrap

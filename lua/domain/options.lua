@@ -118,7 +118,7 @@ function options:load_options()
   self.window_local   = {
     list           = true;
     -- breakindentopt = "shift:2,min:20";
-    wrap           = true;
+    -- wrap           = true;
     linebreak      = true;
     number         = true;
     relativenumber = true;

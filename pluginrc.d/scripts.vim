@@ -242,3 +242,45 @@ command! Jsonf :execute '%!python -c "import json,sys,collections,re; sys.stdout
 "     ["i|<S-TAB>"]    = map_cmd([[pumvisible() ? "\<C-p>" : "\<C-h>"]]):with_noremap():with_expr(),
 "     ["i|<CR>"]       = map_cmd([[pumvisible() ? complete_info()["selected"] != "-1" ?"\<Plug>(completion_confirm_completion)"  : " "\<c-e>\<CR>":(delimitMate#WithinEmptyPair() ? "\<Plug>delimitMateCR" : "\<CR>")]]):with_expr(),
 
+
+"""""""""""""""""""""""maximizer""""""""""""""""""""""""""""
+fun! s:maximize()
+    let t:maximizer_sizes = { 'before': winrestcmd() }
+    vert resize | resize
+    let t:maximizer_sizes.after = winrestcmd()
+    normal! ze
+endfun
+
+fun! s:toggle(force)
+    if exists('t:maximizer_sizes') && (a:force || (t:maximizer_sizes.after == winrestcmd()))
+        call s:restore()
+    elseif winnr('$') > 1
+        call s:maximize()
+    endif
+endfun
+
+fun! s:maximize()
+    let t:maximizer_sizes = { 'before': winrestcmd() }
+    vert resize | resize
+    let t:maximizer_sizes.after = winrestcmd()
+    normal! ze
+endfun
+
+fun! s:restore()
+    if exists('t:maximizer_sizes')
+        silent! exe t:maximizer_sizes.before
+        if t:maximizer_sizes.before != winrestcmd()
+            wincmd =
+        endif
+        unlet t:maximizer_sizes
+        normal! ze
+    end
+endfun
+
+augroup maximizer
+    au!
+    au WinLeave * call s:restore()
+augroup END
+
+command! -bang -nargs=0 -range MaximizerToggle :call s:toggle(<bang>0)
+"""""""""""""""""""""""maximizer""""""""""""""""""""""""""""

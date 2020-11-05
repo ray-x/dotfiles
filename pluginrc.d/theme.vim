@@ -9,8 +9,9 @@ set cursorcolumn  " for code alignment and indentation
 
 " nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
+" if need transpant background
 hi Normal guibg=NONE ctermbg=NONE " remove background
-
+hi EndOfBuffer guibg=NONE ctermbg=NONE " remove background
 " eleline
 set laststatus=2
 let g:eleline_powerline_fonts = 1
@@ -22,7 +23,7 @@ let g:airline_powerline_fonts = 1 "backword compatbilitylet
 """"""""""""""""""""""""""""""""
 
 " spell
-highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e
+highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e 
 highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 
 

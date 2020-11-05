@@ -33,7 +33,7 @@ function autocmd.load_autocmds()
       -- {"WinEnter,BufEnter", "*", [[if ! &cursorline && &filetype !~# '^\(denite\|clap_\)' && ! &pvw | setlocal cursorline | endif]]};
 
       -- turn off wrap for small size
-      {"WinEnter,BufEnter", "*", [[if winwidth(0) < 80 | set nowrap | endif]]};
+      {"WinEnter,BufEnter", "*", [[if winwidth(0) < 80 | set nowrap | else | set wrap | endif]]};
       -- Equalize window dimensions when resizing vim window
       {"VimResized", "*", [[tabdo wincmd =]]};
       -- Force write shada on leaving nvim
