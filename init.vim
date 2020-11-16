@@ -94,7 +94,6 @@ augroup highlight_yank
 augroup END
 
 
-
 """"""""""""""""""""""
 "      Mappings      "
 """"""""""""""""""""""
@@ -199,7 +198,7 @@ if &diff
   set noreadonly
   colorscheme paleaurora
   let g:go_gopls_enabled = 0
-  lua require("domain.core")
+  lua require('domain.core')
   finish  " skip all following 
 endif
 
@@ -257,5 +256,4 @@ command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
 
-
-set wrap
+lua  require('lsp_config')

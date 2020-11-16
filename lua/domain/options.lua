@@ -50,7 +50,7 @@ function options:load_options()
     ttimeout       = true;
     timeoutlen     = 500;
     ttimeoutlen    = 10;
-    updatetime     = 400;   -- Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
+    updatetime     = 500;   -- Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
     redrawtime     = 1500;
 
     ignorecase     = true;  -- Search case insensitive...
@@ -58,7 +58,7 @@ function options:load_options()
     infercase      = true;
     incsearch      = true;  -- Shows the match while typing
     hlsearch       = true;  -- Highlight found searches
-    wrapscan       = true;
+    -- wrapscan       = true;
 
     complete       = ".,w,b,k";
     inccommand     = "nosplit";
@@ -118,7 +118,7 @@ function options:load_options()
   self.window_local   = {
     list           = true;
     -- breakindentopt = "shift:2,min:20";
-    -- wrap           = true;
+    wrap           = true;
     linebreak      = true;
     number         = true;
     relativenumber = true;

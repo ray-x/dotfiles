@@ -1,7 +1,7 @@
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
-local nvim_lsp = require('nvim_lsp')
+local nvim_lsp = require('lspconfig')
 
 lsp_status.config {
   select_symbol = function(cursor_pos, symbol)
@@ -18,7 +18,7 @@ lsp_status.config {
         }
       }
 
-      return require("lsp-status.util").in_range(cursor_pos, value_range)
+      return require('lsp-status.util').in_range(cursor_pos, value_range)
     end
   end
 }

@@ -19,7 +19,7 @@ call plug#end()
 " let g:echodoc#type = 'floating'
 
 lua <<EOF
-local nvim_lsp = require('nvim_lsp')
+local nvim_lsp = require('lspconfig')
 nvim_lsp.gopls.setup{
     on_attach=require'completion'.on_attach
 }

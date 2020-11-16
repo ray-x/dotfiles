@@ -20,6 +20,7 @@ function autocmd.load_autocmds()
       {"BufWritePost",[[$VIM_PATH/{*.vim,*.yaml,vimrc} nested source $MYVIMRC | redraw]]};
       -- Reload Vim script automatically if setlocal autoread
       {"BufWritePost,FileWritePost","*.vim", [[nested if &l:autoread > 0 | source <afile> | echo 'source ' . bufname('%') | endif]]};
+      {"BufWritePost,FileWritePost","*", "redraw"};
       {"BufWritePre","/tmp/*","setlocal noundofile"};
       {"BufWritePre","COMMIT_EDITMSG","setlocal noundofile"};
       {"BufWritePre","MERGE_MSG","setlocal noundofile"};
@@ -33,7 +34,7 @@ function autocmd.load_autocmds()
       -- {"WinEnter,BufEnter", "*", [[if ! &cursorline && &filetype !~# '^\(denite\|clap_\)' && ! &pvw | setlocal cursorline | endif]]};
 
       -- turn off wrap for small size
-      {"WinEnter,BufEnter", "*", [[if winwidth(0) < 80 | set nowrap | else | set wrap | endif]]};
+      {"WinEnter,BufEnter,BufWritePost", "*", [[if winwidth(0) > 80 | set wrap | endif]]};
       -- Equalize window dimensions when resizing vim window
       {"VimResized", "*", [[tabdo wincmd =]]};
       -- Force write shada on leaving nvim

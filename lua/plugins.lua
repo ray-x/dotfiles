@@ -72,11 +72,11 @@ use {
         {'https://gitlab.com/HiPhish/completion-nvim-vlime', after = {'completion-nvim', 'vlime'}},
       }
     },
-    'haorenW1025/diagnostic-nvim',
+ --    'haorenW1025/diagnostic-nvim',
     {'nvim-treesitter/completion-treesitter', opt = true},
     {'steelsojka/completion-buffers',   opt = true},
     {'aca/completion-tabnine', run = './install.sh',   opt = true},
-    {'nvim-treesitter/nvim-treesitter', config = 'require("treesitter")'}
+    {'nvim-treesitter/nvim-treesitter', config = 'require('treesitter')'}
   }
 }
    

@@ -35,7 +35,7 @@ if has('nvim')
   ", {'name':'lsp', 'lazy': 1, " 'on_map':['<Plug>','<c-k>','<c-]>'], 'on_ft': ['go', 'bash', 'go', 'c_sharp', " 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', " 'python', 'rust', 'ruby', 'toml', 'typescript']})"
   call dein#add('liuchengxu/vim-clap' , { 'hook_post_update': 'call clap#installer#force_download()','on_map': '<Plug>' } )
   
-  call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})
+  " call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})  "builtin
   call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
   call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
 
@@ -121,8 +121,6 @@ set cpoptions+=n                " use the number column for the text of wrapped 
 " list of files use two space as tab
 autocmd FileType javascript,vim,yml,markdown setlocal ts=2 sts=2 sw=2
 
-" wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-set textwidth=120
 setlocal foldmethod=syntax         
 setlocal foldlevelstart=99
 set foldlevel=99
@@ -135,7 +133,6 @@ set number
 set showmatch
 " intelligent comments
 " set comments=sl:/*,mb:\ *,elx:\ */
-set updatetime=300
 
 augroup highlight_yank
     autocmd!
@@ -202,25 +199,6 @@ imap <M-V> <C-R>+   " for mac
 " " Paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
-
-
-" augroup ScrollbarInit
-"   autocmd!
-"   autocmd WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
-"   autocmd WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
-" augroup end
-" 
-" augroup config_scrollbar_nvim
-"     autocmd!
-"     autocmd BufEnter    * silent! lua require('scrollbar').show()
-"     autocmd BufLeave    * silent! lua require('scrollbar').clear()
-"     autocmd FocusGained * silent! lua require('scrollbar').show()
-"     autocmd FocusLost   * silent! lua require('scrollbar').clear()
-"     autocmd CursorMoved * silent! lua require('scrollbar').show()
-"     autocmd VimResized  * silent! lua require('scrollbar').show()
-" augroup end
-" 
-" 
 
 " 
 

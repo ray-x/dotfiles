@@ -46,6 +46,12 @@ nmap <S-F3> :Clap filer<CR>
 
 nmap <c-E> :Clap filer<CR>
 
+" let g:clap_theme = 'atom_dark'
+let g:clap_selected_sign = { 'text': '', 'texthl': "ClapSelectedSign", "linehl": "ClapSelected" }
+let g:clap_current_selection_sign = { 'text': '', 'texthl': "ClapCurrentSelectionSign", "linehl":     "ClapCurrentSelection" }
+
+
+finish
 command! -bang -nargs=* History call s:history(<q-args>)
 " command! Files :Clap files  "cmd-p"
 command! Buffers :Clap buffers
@@ -63,7 +69,3 @@ command! Ag2 :Clap grep2 ++query<cword>
 command! -nargs=0 His :Clap history
 command! -nargs=0 Ch :Clap command_history
 command! -nargs=0 Sh :Clap search_history
-
-" let g:clap_theme = 'atom_dark'
-let g:clap_selected_sign = { 'text': '', 'texthl': "ClapSelectedSign", "linehl": "ClapSelected" }
-let g:clap_current_selection_sign = { 'text': '', 'texthl': "ClapCurrentSelectionSign", "linehl":     "ClapCurrentSelection" }

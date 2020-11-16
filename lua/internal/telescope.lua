@@ -11,15 +11,15 @@ local previewers = require('telescope.previewers')
 local conf = require('telescope.config').values
 
 
-local layout = require("telescope.pickers.layout_strategies")
-local resolve = require("telescope.config.resolve")
-local make_entry = require("telescope.make_entry")
-local previewers = require("telescope.previewers")
-local sorters = require("telescope.sorters")
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
-local builtin = require("telescope.builtin")
-local config = require("telescope.config")
+local layout = require('telescope.pickers.layout_strategies')
+local resolve = require('telescope.config.resolve')
+local make_entry = require('telescope.make_entry')
+local previewers = require('telescope.previewers')
+local sorters = require('telescope.sorters')
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local builtin = require('telescope.builtin')
+local config = require('telescope.config')
 
 require('telescope').setup{
   defaults = {
@@ -96,7 +96,7 @@ end
 
 
 vim.api.nvim_command(
-    [[ command! -nargs=1 Rg call luaeval('require("telescope.builtin").grep_string(
+    [[ command! -nargs=1 Rg call luaeval('require('telescope.builtin').grep_string(
         require("config.telescope").theme({
             search = _A
         })

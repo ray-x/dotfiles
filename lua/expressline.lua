@@ -217,7 +217,7 @@ local generator = function()
       --   end
       -- ),
       sections.split,
-      ' [', builtin.line, ' : ',  builtin.column, '] ',
+      ' [', builtin.line, ':',  builtin.column, '] ',
       sections.collapse_builtin{
       ' [', builtin.help_list, builtin.readonly_list, '] ',
       },

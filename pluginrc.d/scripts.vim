@@ -28,9 +28,27 @@ function! FindProjectRoot(lookFor)
     endwhile
     return s:root
 endfunction
-let g:root_dir = FindProjectRoot('.git')   " 搜索 .git 为项目路径
+   " 搜索 .git 为项目路径
 
-" autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
+
+function! FindRoot()
+  let s:root = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+  let s:list = ['go.mod', 'Makefile', 'CMakefile.txt']
+  if len(s:root) == 0
+    for k in s:list
+      let s:root =  FindProjectRoot(k)
+      if len(s:root) > 0
+        return s:root
+      endif
+    endfor
+  else
+    return s:root
+  endif
+  return expand("%:p:h")
+endfunction
+
+let g:root_dir = FindRoot()
+autocmd BufEnter * silent! lcd g:root_dir  " 设置当前路径为项目路径
 
 
 " Protect large files from sourcing and other overhead.
@@ -283,4 +301,4 @@ augroup maximizer
 augroup END
 
 command! -bang -nargs=0 -range MaximizerToggle :call s:toggle(<bang>0)
-"""""""""""""""""""""""maximizer""""""""""""""""""""""""""""
+

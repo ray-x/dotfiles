@@ -2,8 +2,9 @@ local global = require 'domain.global'
 local ptbl = require 'publibs.pltbl'
 local syntax = require 'lspsaga.syntax'
 local server = require 'lspsaga.serverconf'
-local callbacks = require 'lspsaga.callbacks'
+local handlers = require 'lspsaga.handlers'
 local autocmd = require 'internal.event'
+local action = require 'lspsaga.action'
 local vim,api= vim,vim.api
 
 -- A table to store our root_dir to client_id lookup. We want one LSP per
@@ -25,7 +26,7 @@ end
 
 local function add_options(server_setup)
   local options = {
-    callbacks = {};
+    handlers = {};
     capabilities = vim.lsp.protocol.make_client_capabilities();
     settings = vim.empty_dict();
     init_options = vim.empty_dict();
@@ -39,6 +40,8 @@ local function add_options(server_setup)
     end
   end
 
+  -- see https://github.com/neovim/neovim/issues/12795
+  server_setup.capabilities.textDocument.completion.completionItem.snippetSupport = true
   server_setup.capabilities = vim.tbl_deep_extend('keep', server_setup.capabilities, {
     workspace = {
       configuration = true;
@@ -62,7 +65,7 @@ local function add_options(server_setup)
 
   server_setup._on_attach = server_setup.on_attach;
 
-  callbacks.add_callbacks(server_setup)
+  handlers.add_handlers(server_setup)
 
   return server_setup
 end
@@ -118,6 +121,7 @@ local function load_completion()
     require('completion').on_attach()
 end
 
+-- Start Lsp server
 function lspsaga.start_lsp_server()
   local client_id = nil
   local bufnr = api.nvim_get_current_buf()
@@ -130,12 +134,19 @@ function lspsaga.start_lsp_server()
 
   local server_setup = server[filetype_server_map[buf_filetype]]
 
+  -- like css/shell etc server that does not have a root file.
+  -- so use the home dir as the root
+  if server_setup.root_patterns == nil then
+    server_setup.root_patterns = {os.getenv('HOME')}
+  end
   -- Try to find our root directory.
   local root_dir = buffer_find_root_dir(bufnr, function(dir)
     for _,root_file in pairs(server_setup.root_patterns) do
       if vim.fn.filereadable(path_join(dir, root_file)) == 1 then
         return true
       elseif is_dir(path_join(dir, root_file)) then
+        return true
+      elseif root_file == os.getenv("HOME") then
         return true
       end
     end
@@ -158,25 +169,13 @@ function lspsaga.start_lsp_server()
   local on_attach = function(client,bufnr)
     load_completion()
     local lsp_event = {}
-    if client.resolved_capabilities.document_highlight then
-      lsp_event.highlights = {
-        {"CursorHold,CursorHoldI","<buffer>", "lua vim.lsp.buf.document_highlight()"};
-        {"CursorMoved","<buffer>","lua vim.lsp.buf.clear_references()"};
-      }
-    end
+
     if client.resolved_capabilities.document_formatting then
-      if vim.bo.filetype == "go" then
-        lsp_event.organizeImports = {
-          {"BufWritePre","*.go","lua require('lspsaga.action').go_organize_imports_sync(1000)"}
-        }
-      end
-      lsp_event.autoformat = {
-        {"BufWritePre","*" ,"lua vim.lsp.buf.formatting_sync(nil, 1000)"}
-      }
+      lsp_event.autofmt = action.lsp_before_save(server_setup.filetypes)
     end
+
     -- register lsp event
     autocmd.nvim_create_augroups(lsp_event)
-    -- api.nvim_command("autocmd CompleteDone <buffer> lua require'lsp.callbacks'.show_signature_help()")
     -- Source omnicompletion from LSP.
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end
@@ -187,17 +186,26 @@ function lspsaga.start_lsp_server()
   local new_config = vim.tbl_extend("error",add_options(server_setup), {
     root_dir = root_dir;
   })
+  -- lsp sign
+  local diagnositc_config_sign = function ()
+    vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
+    vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
+    vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
+    vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
+  end
+
   -- start a new lsp server and store the cliend_id
   client_id = vim.lsp.start_client(new_config)
   if client_id ~= nil then
     lsp_store[root_dir] = client_id
     vim.lsp.buf_attach_client(bufnr, client_id)
-
+    diagnositc_config_sign()
     syntax.add_highlight()
   end
 end
 
 function lspsaga.create_saga_augroup()
+
   if vim.tbl_isempty(server) then return end
   for server_name,value in pairs(server) do
     if type(value) == 'table' then
@@ -206,6 +214,7 @@ function lspsaga.create_saga_augroup()
       end
     end
   end
+
   vim.api.nvim_command('augroup lsp_saga_event')
   vim.api.nvim_command('autocmd!')
   for ft, _ in pairs(filetype_server_map) do
