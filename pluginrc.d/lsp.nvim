@@ -226,11 +226,10 @@ let g:diagnostic_insert_delay = 1
 " let g:nvim_lsp = 1 "this disable lsp_config
 
 
-
-sign define LspDiagnosticsErrorSign text=  linehl= texthl=LspDiagnosticsErrorSign numhl=                        
-sign define LspDiagnosticsWarningSign text=  linehl= texthl=LspDiagnosticsWarningSign numhl=                    
-sign define LspDiagnosticsInformationSign text=כֿ  linehl= texthl=LspDiagnosticsInformationSign numhl=            
-sign define LspDiagnosticsHintSign text=λ  linehl= texthl=LspDiagnosticsHintSign numhl= 
+sign define LspDiagnosticsSignError text=  linehl= texthl=LspDiagnosticsSignError numhl=                        
+sign define LspDiagnosticsSignWarning text=  linehl= texthl=LspDiagnosticsSignWarning numhl=                    
+sign define LspDiagnosticsSignInformation text=כֿ  linehl= texthl=LspDiagnosticsSignInformation numhl=            
+sign define LspDiagnosticsSignHint text=λ  linehl= texthl=LspDiagnosticsSignHint numhl= 
 
 function! LspStatus() abort
     let sl = ''

@@ -201,6 +201,34 @@ local on_attach = function(client, bufnr)
     }
   )
 
+
+
+  local method = "textDocument/publishDiagnostics"
+  local default_callback = vim.lsp.callbacks[method]
+  -- insert into quickfix
+  vim.lsp.callbacks[method] = function(err, method, result, client_id)
+    default_callback(err, method, result, client_id)
+    if result and result.diagnostics then
+        local item_list = {}
+        for _, v in ipairs(result.diagnostics) do
+            local fname = result.uri
+            table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
+            print(v.message)
+        end
+        local old_items = vim.fn.getqflist()
+        for _, old_item in ipairs(old_items) do
+            local bufnr = vim.uri_to_bufnr(result.uri)
+            if vim.uri_from_bufnr(old_item.bufnr) ~= result.uri
+                then
+                    table.insert(item_list, old_item)
+                end
+            end
+            vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
+        end
+      end
+    end
+
+
   vim.lsp.handlers['textDocument/hover'] = function(_, method, result)
     vim.lsp.util.focusable_float(method, function()
         if not (result and result.contents) then return end
@@ -214,8 +242,6 @@ local on_attach = function(client, bufnr)
         return bufnr,contents_winid
     end)
   end
-
-end
 
 
 auto_group()
