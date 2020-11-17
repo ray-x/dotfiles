@@ -112,7 +112,7 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gD      <cmd>lua vim.lsp.buf.implementation()<CR>]])  --lsputil
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gt      <cmd>lua vim.lsp.buf.type_definition()<CR>]])  --? no for go
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ga      <cmd>lua vim.lsp.buf.code_action()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gL      <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gL      <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> [e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ]e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]])
@@ -226,7 +226,8 @@ local on_attach = function(client, bufnr)
             vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
         end
       end
-    end
+      
+    
 
 
   vim.lsp.handlers['textDocument/hover'] = function(_, method, result)
@@ -242,6 +243,7 @@ local on_attach = function(client, bufnr)
         return bufnr,contents_winid
     end)
   end
+end
 
 
 auto_group()
