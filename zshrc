@@ -176,3 +176,4 @@ alias sk='sk --preview="bat {} --color=always"'
 # To customize prompt, run `p10k configure` or edit ~/github/dotfiles/.p10k.zsh.
 [[ ! -f ~/github/dotfiles/.p10k.zsh ]] || source ~/github/dotfiles/.p10k.zsh
 
+source ~/.fzffun.zsh

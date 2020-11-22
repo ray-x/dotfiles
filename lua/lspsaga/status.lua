@@ -25,7 +25,7 @@ lsp_status.config {
 
 -- Some arbitrary servers
 nvim_lsp.clangd.setup({
-  callbacks = lsp_status.extensions.clangd.setup(),
+  handlers = lsp_status.extensions.clangd.setup(),
   init_options = {
     clangdFileStatus = true
   },
@@ -33,12 +33,12 @@ nvim_lsp.clangd.setup({
   capabilities = lsp_status.capabilities
 })
 
-nvim_lsp.pyls_ms.setup({
-  callbacks = lsp_status.extensions.pyls_ms.setup(),
-  settings = { python = { workspaceSymbols = { enabled = true }}},
-  on_attach = lsp_status.on_attach,
-  capabilities = lsp_status.capabilities
-})
+-- nvim_lsp.pyls_ms.setup({
+--   handlers = lsp_status.extensions.pyls_ms.setup(),
+--   settings = { python = { workspaceSymbols = { enabled = true }}},
+--   on_attach = lsp_status.on_attach,
+--   capabilities = lsp_status.capabilities
+-- })
 
 -- nvim_lsp.gopls.setup({
 --   callbacks = lsp_status.extensions.gopls.setup(),

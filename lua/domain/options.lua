@@ -48,10 +48,10 @@ function options:load_options()
 
     timeout        = true;
     ttimeout       = true;
-    timeoutlen     = 500;
+    timeoutlen     = 1000;
     ttimeoutlen    = 10;
     updatetime     = 500;   -- Vim waits after you stop typing before it triggers the plugin is governed by the setting updatetime
-    redrawtime     = 1500;
+    redrawtime     = 1000;
 
     ignorecase     = true;  -- Search case insensitive...
     smartcase      = true;  -- ... but not it begins with upper case

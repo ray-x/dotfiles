@@ -1,13 +1,11 @@
 local nvim_lsp = require('lspconfig')
 local util = require('lspconfig').util
---local diagnostic = require('diagnostic')
-local completion = require('completion')
 local lsp_status = require('lsp-status')
 
 local status = require('lspsaga.status')
 vim.lsp.set_log_level("info")
 
-print("lsp_config is loading")
+-- print("lsp_config is loading")
 
 local M = {}
 
@@ -122,9 +120,9 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> di      <cmd>lua require('lspsaga.location').preview_implementation()<CR>]])    
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> df      <cmd>lua require('lspsaga.location').peek_definition()<CR>]])
 
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <Leader>gr       <cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_dropdown({results_height = 20; width = 0.6; preview_width = 0.5}))<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols(theme)<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> tw      <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>]])  -- not with golang
+    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <Leader>gr       <cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_dropdown({results_height = 20; width = 0.6; preview_width = 0.5}))<CR>]])
+    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols(theme)<CR>]])
+    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> tw      <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>]])  -- not with golang
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <C-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g<LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>]])
 
@@ -135,10 +133,11 @@ end
 
 local diagnostic_map = function (bufnr)
   local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', ':PrevDiagnostic<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':NextDiagnostic<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':PrevDiagnosticCycle<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':NextDiagnosticCycle<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', ':lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']O', ':lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
 local on_attach = function(client, bufnr)
@@ -148,14 +147,14 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- hook to nvim-lsputils
-  vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-  vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
-  vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-  vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-  vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+  vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+  vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+  vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+  vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+  vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 
   -- https://github.com/fsouza
-  vim.lsp.callbacks['textDocument/documentHighlight'] = function(_, _, result, _)
+  vim.lsp.handlers['textDocument/documentHighlight'] = function(_, _, result, _)
     if not result then
       return
     end
@@ -165,16 +164,35 @@ local on_attach = function(client, bufnr)
   end
   
   -- us telescope for following binding
-  vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
-  vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-  vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+  vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+  vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+  vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   
-  vim.lsp.callbacks['window/showMessage'] = function(err, method, params, client_id)
-    if params and params.type <= server_setup.message_level then
-      assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
-      vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
-    end
-  end
+  -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
+  --   if params and params.type <= vim.lsp.message_level then
+  --     assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
+  --     vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
+  --   end
+  -- end
+  -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
+  --   if params and params.type <= vim.lsp.message_level then
+  --     assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
+  --     vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
+  --   end
+  -- end
+
+  -- vim.lsp.handlers["window/logMessage"] = function log_message(err, method, result, client_id)
+  --   local message_type = result.type
+  --   local message = result.message
+  --   local client = vim.lsp.get_client_by_id(client_id)
+  --   local client_name = client and client.name or string.format("id=%d", client_id)
+  --   if not client then
+  --     err_message("LSP[", client_name, "] client has shut down after sending the message")
+  --   end
+  --   local message_type_name = vim.lsp.protocol.MessageType[message_type]
+  --   vim.api.nvim_out_write(string.format("LSP[%s][%s] %s\n", client_name, message_type_name, message))
+  --   return result
+  -- end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -182,8 +200,8 @@ local on_attach = function(client, bufnr)
       underline = true,
       -- Enable virtual text, override spacing to 4
       virtual_text = {
-        spacing = 4,
-        prefix = '~',
+        spacing = 0,
+        prefix = '',
       },
       -- Use a function to dynamically turn signs off
       -- and on, using buffer local variables
@@ -204,16 +222,17 @@ local on_attach = function(client, bufnr)
 
 
   local method = "textDocument/publishDiagnostics"
-  local default_callback = vim.lsp.callbacks[method]
+  local default_handler = vim.lsp.handlers[method]
   -- insert into quickfix
-  vim.lsp.callbacks[method] = function(err, method, result, client_id)
-    default_callback(err, method, result, client_id)
+  vim.lsp.handlers[method] = function(err, method, result, client_id)
+    if default_callback ~= nil then
+      default_callback(err, method, result, client_id)
+    end
     if result and result.diagnostics then
         local item_list = {}
         for _, v in ipairs(result.diagnostics) do
             local fname = result.uri
             table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
-            print(v.message)
         end
         local old_items = vim.fn.getqflist()
         for _, old_item in ipairs(old_items) do
@@ -226,9 +245,6 @@ local on_attach = function(client, bufnr)
             vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
         end
       end
-      
-    
-
 
   vim.lsp.handlers['textDocument/hover'] = function(_, method, result)
     vim.lsp.util.focusable_float(method, function()
@@ -243,12 +259,31 @@ local on_attach = function(client, bufnr)
         return bufnr,contents_winid
     end)
   end
+  -- write to quickfix had been implemented
+  -- vim.lsp.callbacks = {}
+  -- vim.lsp.callbacks['textDocument/hover'] = function(_, method, result)  -- completion still using callbacks
+  --   vim.lsp.util.focusable_float(method, function()
+  --       if not (result and result.contents) then return end
+  --       local markdown_lines = lsp.util.convert_input_to_markdown_lines(result.contents)
+  --       markdown_lines = lsp.util.trim_empty_lines(markdown_lines)
+  --       if vim.tbl_isempty(markdown_lines) then return end
+
+  --       local bufnr,contents_winid,_,border_winid = window.fancy_floating_markdown(markdown_lines)
+  --       lsp.util.close_preview_autocmd({"CursorMoved", "BufHidden", "InsertCharPre"}, contents_winid)
+  --       lsp.util.close_preview_autocmd({"CursorMoved", "BufHidden", "InsertCharPre"}, border_winid)
+  --       return bufnr,contents_winid
+  --   end)
+  -- end
+
 end
 
+-- 
 
 auto_group()
 
-local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'ccls', 'dockerls' }
+-- , 'dockerls' 'ccls' pyls_ms
+
+local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd'}
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
@@ -261,6 +296,8 @@ for _, lsp in ipairs(servers) do
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   })
   nvim_lsp[lsp].setup {
+    message_level = vim.lsp.protocol.MessageType.Error;
+    log_level = vim.lsp.protocol.MessageType.Error;
     on_attach = on_attach,
     capabilities = lsp_status.capabilities
   }
@@ -271,6 +308,7 @@ end
 nvim_lsp.gopls.setup {
     on_attach=on_attach,
     capabilities = lsp_status.capabilities,
+    message_level = vim.lsp.protocol.MessageType.Error;
     cmd = {
         "gopls",
 
@@ -310,6 +348,7 @@ nvim_lsp.gopls.setup {
 
 
 nvim_lsp.sumneko_lua.setup{
+  cmd = {'/Users/ray.xu/github/sumneko/lua-language-server/bin/macOS/lua-language-server'};
   on_attach = on_attach,
   capabilities = lsp_status.capabilities,
   settings = {
@@ -328,7 +367,7 @@ nvim_lsp.sumneko_lua.setup{
 
 -- Some arbitrary servers
 nvim_lsp.clangd.setup({
-  callbacks = lsp_status.extensions.clangd.setup(),
+  handlers = lsp_status.extensions.clangd.setup(),
   init_options = {
     clangdFileStatus = true
   },
@@ -336,8 +375,14 @@ nvim_lsp.clangd.setup({
   capabilities = lsp_status.capabilities
 })
 
-nvim_lsp.pyls_ms.setup({
-  callbacks = lsp_status.extensions.pyls_ms.setup(),
+-- nvim_lsp.pyls_ms.setup({
+--   handlers = lsp_status.extensions.pyls_ms.setup(),
+--   settings = { python = { workspaceSymbols = { enabled = true }}},
+--   on_attach = on_attach,
+--   capabilities = lsp_status.capabilities
+-- })
+
+nvim_lsp.pyls.setup({
   settings = { python = { workspaceSymbols = { enabled = true }}},
   on_attach = on_attach,
   capabilities = lsp_status.capabilities
@@ -346,7 +391,7 @@ nvim_lsp.pyls_ms.setup({
 
 
 -- nvim_lsp.tsserver.setup({
---   callbacks = lsp_status.extensions.tsserver.setup(),
+--   handlers = lsp_status.extensions.tsserver.setup(),
 --   settings = { python = { workspaceSymbols = { enabled = true }}},
 --   on_attach = lsp_status.on_attach,
 --   capabilities = lsp_status.capabilities

@@ -21,7 +21,7 @@ end
 require('expressline')
 -- require('spaceline')
 
-local ok, _ = pcall(function() require('completion').on_attach() end)
+-- local ok, _ = pcall(function() require('completion').on_attach() end)
 
 require'bufferline'.setup{
   options = {
@@ -50,43 +50,43 @@ require'bufferline'.setup{
 --- telescope
 
 
-require('telescope').setup {
-  defaults = {
-    winblend = 0,
-    layout_strategy = "flex",
-    preview_cutoff = 120,
-    layout_options = {
-      preview_width = 0.75,
-    },
+-- require('telescope').setup {
+--   defaults = {
+--     winblend = 0,
+--     layout_strategy = "flex",
+--     preview_cutoff = 120,
+--     layout_options = {
+--       preview_width = 0.75,
+--     },
 
-    sorting_strategy = "descending",
-    prompt_position = "bottom",
+--     sorting_strategy = "descending",
+--     prompt_position = "bottom",
 
-    -- sorting_strategy = "ascending",
-    -- prompt_position = "top",
+--     -- sorting_strategy = "ascending",
+--     -- prompt_position = "top",
 
-    -- border = false,
-    -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+--     -- border = false,
+--     -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
 
-    -- for the top/right/bottom/left border.  Optionally
-    -- followed by the character to use for the
-    -- topleft/topright/botright/botleft corner.
-    -- border = {},
-    --   true,
+--     -- for the top/right/bottom/left border.  Optionally
+--     -- followed by the character to use for the
+--     -- topleft/topright/botright/botleft corner.
+--     -- border = {},
+--     --   true,
 
-    --   prompt = true,
-    -- },
+--     --   prompt = true,
+--     -- },
 
-    borderchars = {
-      { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+--     borderchars = {
+--       { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
 
-      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-    },
+--       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+--     },
 
-    -- borderchars = { 'b', 'e', 'g', 'i', 'n', 'b', 'o', 't'}
-  }
+--     -- borderchars = { 'b', 'e', 'g', 'i', 'n', 'b', 'o', 't'}
+--   }
 
-}
+-- }
 
 -- 
 vim.cmd [[nmap <S-F1> :LuaTreeToggle<CR>]]

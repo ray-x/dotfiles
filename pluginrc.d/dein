@@ -53,7 +53,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('luochen1990/rainbow')
    " call dein#add('Yggdroot/indentLine')
    call dein#add('mtdl9/vim-log-highlighting', {'on_ft': ['text', 'log']})
-   call dein#add('ray-x/vim-interestingwords', {'on_map': ['<Leader>u']})
+   call dein#add('ray-x/vim-interestingwords', {'on_func': 'InterestingWords', 'on_map': ['<Plug>', '<Leader>u']})
    call dein#add('justinmk/vim-sneak', {'on_map': ['<Plug>Sneak_', 's']})
    
    call dein#add('tpope/vim-fugitive', {
@@ -64,11 +64,14 @@ if dein#load_state('~/.cache/dein')
    call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
 
-   "" seems to be duplicate clap. 
-   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
-   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-   call dein#add('chengzeyi/fzf-preview.vim', { 'depends': 'fzf' })
+   "" seems to be duplicate clap. just in case clap is crashing
+   " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
+   " call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+   " call dein#add('chengzeyi/fzf-preview.vim', { 'depends': 'fzf' })
 
+   " call dein#add('Shougo/deoplete.nvim')
+   " call dein#add('Shougo/deoplete-lsp')
+   
 if has('nvim')
 
    call dein#add('hrsh7th/vim-vsnip', {'on_event': 'InsertEnter'})
@@ -132,7 +135,7 @@ if has('nvim')
    call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
    call dein#add('nvim-lua/popup.nvim')
    "" note: search is slower compared to FZF and clap
-   call dein#add('nvim-lua/telescope.nvim')
+   " call dein#add('nvim-lua/telescope.nvim')
 
 "  """""""""""""LUA Plugins end""""""""""""""
 endif ""end of nvim

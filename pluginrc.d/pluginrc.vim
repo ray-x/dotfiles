@@ -44,6 +44,8 @@ let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '
 
 let g:interestingWordsDefaultMappingsK=0
 nnoremap <silent> <leader>u :call InterestingWords('n')<cr>
+vnoremap <silent> <leader>u :call InterestingWords('v')<cr>
+nnoremap <silent> <leader>U :call UncolorAllWords()<cr>
 " nnoremap <silent> <leader>U :call UncolorAllWords()<cr>
 let g:interestingWordsDefaultMappingsN=0
 nnoremap <silent> m :call WordNavigation('forward')<cr>
@@ -108,3 +110,10 @@ let g:startify_enable_special = 0
 let g:startify_change_to_dir = 1
 
 " autocmd FileType LuaTree setlocal nowrap
+
+
+" emmet"
+let g:user_emmet_install_global = 1
+" autocmd FileType html,css EmmetInstall
+"enable all function in all mode.
+let g:user_emmet_mode='a'

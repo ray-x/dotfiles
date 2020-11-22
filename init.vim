@@ -55,7 +55,7 @@ set noshowmode                  " We show the mode with airline or lightline
 
 " set nocursorcolumn              " (turn off to speeds up highlighting)
 " set nocursorline                " (turn off speeds up highlighting)
-" set lazyredraw                  " Wait to redraw
+set lazyredraw                  " Wait to redraw
 " au FocusGained,BufEnter * :checktime  " autoload
 
 " augroup vimrc
@@ -203,7 +203,7 @@ if &diff
 endif
 
 
-
+" let g:deoplete#enable_at_startup = 1
 set statusline+=%#warningmsg#
 
 " set statusline+=%*

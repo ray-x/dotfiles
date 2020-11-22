@@ -37,6 +37,7 @@ if has('nvim')
   
   " call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})  "builtin
   call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
+  call dein#add('aca/completion-tabnine', {'do': './install.sh' , 'on_event': 'InsertEnter'})
   call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
 
   call dein#add('RishabhRD/popfix')
@@ -225,3 +226,14 @@ let g:min_load=1
 command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
+
+
+let g:completion_chain_complete_list = {
+    \ 'default': [
+    \    {'complete_items': ['lsp', 'tabnine' ]},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \]
+\}
+let g:completion_enable_auto_popup = 1
+autocmd BufEnter * lua require'completion'.on_attach()
