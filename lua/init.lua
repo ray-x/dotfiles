@@ -19,7 +19,7 @@ end
 -- TODO: Experiment with lua tree sitter and make it the coolest ever.
 
 require('expressline')
--- require('spaceline')
+-- require('eviline')
 
 -- local ok, _ = pcall(function() require('completion').on_attach() end)
 

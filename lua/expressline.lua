@@ -189,6 +189,8 @@ local generator = function()
         ' ',
         builtin.modified_flag
       },
+      sections.split,
+      sections.highlight('ELFileIcon',  ' '),
       -- sections.split,
       --  subscribe.buf_autocmd(
       --   "el_wc",
@@ -199,15 +201,19 @@ local generator = function()
       --     return vim.fn['WordCount']()
       --   end
       -- ),
-      sections.highlight('ELFileIcon',  ' '),
-      subscribe.buf_autocmd(
-        "el_lsp_status_segment",
-        "CursorHold,CursorHoldI",
-        function(window, buffer)
-          if winwidth() < 80 then return '' end
-          return sections.highlight('ELFunc', lsp_statusline.segment(window, buffer))()
-        end
-      ),'▋',
+
+      lsp_statusline.current_function,
+      lsp_statusline.server_progress,
+
+      -- subscribe.buf_autocmd(
+      --   "el_lsp_status_segment",
+      --   "CursorHold",
+      --   function(window, buffer)
+      --     if winwidth() < 80 then return '' end
+      --     print(lsp_statusline.segment(window, buffer))
+      --     return sections.highlight('ELFunc', lsp_statusline.segment(window, buffer))()
+      --   end
+      -- ),'▋',
       -- subscribe.buf_autocmd(
       --   "el_lsp_status",
       --   "CursorHold,CursorHoldI",

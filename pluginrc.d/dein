@@ -102,8 +102,8 @@ if has('nvim')
 
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
    " call dein#add('weilbith/nvim-lsp-smag', {'depends':'lsp', 'on_event': 'InsertEnter'})
-   call dein#add('weilbith/nvim-lsp-diamove', {
-      \ 'on_cmd': ['Dabove', 'Dbelow'],
+    call dein#add('weilbith/nvim-lsp-diamove', {
+       \ 'on_cmd': ['Dabove', 'Dbelow'],
       \ })
 
    call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
