@@ -7,12 +7,12 @@ if vim.wo.diff then
   return ''
 end
 
-RELOAD = require('plenary.reload').reload_module
+-- RELOAD = require('plenary.reload').reload_module
 
-R = function(name)
-  RELOAD(name)
-  return require(name)
-end
+-- R = function(name)
+--   RELOAD(name)
+--   return require(name)
+-- end
 
 -- require('lsp_config')
 

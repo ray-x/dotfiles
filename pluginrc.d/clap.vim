@@ -1,4 +1,4 @@
-let g:clap_layout = {'relative': 'editor', 'width': '71%', 'height': '39%', 'row': '13%', 'col': '10%' }
+let g:clap_layout = {'relative': 'editor', 'width': '81%', 'height': '43%', 'row': '5%', 'col': '10%' }
 let g:clap_preview_size = 10  "" def: 5
 let g:airline_powerline_fonts = 1
 let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', '']     }

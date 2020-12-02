@@ -33,7 +33,7 @@ if has('nvim')
   call dein#add('neovim/nvim-lspconfig',{'name':'lsp'}) 
 
   ", {'name':'lsp', 'lazy': 1, " 'on_map':['<Plug>','<c-k>','<c-]>'], 'on_ft': ['go', 'bash', 'go', 'c_sharp', " 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', " 'python', 'rust', 'ruby', 'toml', 'typescript']})"
-  call dein#add('liuchengxu/vim-clap' , { 'hook_post_update': 'call clap#installer#force_download()','on_map': '<Plug>' } )
+  " call dein#add('liuchengxu/vim-clap' , { 'hook_post_update': 'call clap#installer#force_download()','on_map': '<Plug>' } )
   
   " call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})  "builtin
   call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
@@ -210,6 +210,7 @@ colorscheme paleaurora
 execute 'source' fnameescape(s:config_home . '/pluginrc.d/pluginrc.vim')
 execute 'source' fnameescape(s:config_home . '/pluginrc.d/clap.vim')
 execute 'source' fnameescape(s:config_home . '/pluginrc.d/lsp.nvim')
+execute 'source' fnameescape(s:config_home . '/pluginrc.d/lua.nvim')
 " execute 'source' fnameescape(s:config_home . '/pluginrc.d/nvim-tree.nvim')
 " execute 'source' fnameescape(s:config_home . '/pluginrc.d/vista.vim')
 " execute 'source' fnameescape(s:config_home . '/pluginrc.d/nvim-tree.vim')

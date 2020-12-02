@@ -150,7 +150,7 @@ alias nv='/usr/local/bin/nvim'
 alias nm='/usr/local/bin/nvim -u ~/github/dotfiles/init.min'
 alias vdiff='/usr/local/bin/nvim -d -u ~/github/dotfiles/init.min'
 alias gdv='git difftool --tool gvimdiff'
-alias gd='git difftool --tool nvimdiff'
+alias nd='git difftool --tool nvimdiff'
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 autoload -Uz compinit

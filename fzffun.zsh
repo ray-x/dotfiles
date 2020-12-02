@@ -64,7 +64,7 @@ _fzf_complete_doge() {
 #       --ansi --phony --query "$INITIAL_QUERY" \
 #       --height=50% --layout=reverse
 
-export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
+# export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 
 # install fzf extra git clone https://github.com/atweiden/fzf-extras ~/.fzf-extras
 
