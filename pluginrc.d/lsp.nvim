@@ -94,9 +94,9 @@ let g:completion_confirm_key = ""
 
 " imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
-
-"imap <expr> <CR> pumvisible() ? (complete_info().selected == -1 ? '\<C-n><Plug>(completion_confirm_completion)' : '\<Plug>(completion_confirm_completion)') : '\<CR>'
+                \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+ 
+" imap <expr> <CR> pumvisible() ? (complete_info().selected == -1 ? '\<C-n><Plug>(completion_confirm_completion)' : '\<Plug>(completion_confirm_completion)') : '\<CR>'
 
 set shortmess+=c
 
@@ -252,3 +252,29 @@ function! LspStatus() abort
 endfunction
 " start the lsp for specific file type
 " lua require('lsp_config')
+
+
+if executable('sqls')
+    augroup LspSqls
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'sqls',
+        \   'cmd': {server_info->['sqls']},
+        \   'whitelist': ['sql'],
+        \   'workspace_config': {
+        \     'sqls': {
+        \       'connections': [
+        \         {
+        \           'driver': 'postgresql',
+        \           'dataSourceName': 'host=127.0.0.1 port=15432 user=user_db password=svcpass dbname=tag sslmode=disable',
+        \         },
+        \         {
+        \           'driver': 'postgresql',
+        \           'dataSourceName': 'host=127.0.0.1 port=15432 user=user_db password=svcpass dbname=user sslmode=disable',
+        \         },
+        \       ],
+        \     },
+        \   },
+        \ })
+    augroup END
+endif

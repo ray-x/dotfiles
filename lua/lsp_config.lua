@@ -3,9 +3,9 @@ local util = require('lspconfig').util
 local lsp_status = require('lsp-status')
 
 local status = require('lspsaga.status')
-vim.lsp.set_log_level("info")
+vim.lsp.set_log_level("error")
 
--- print("lsp_config is loading")
+print("lsp_config is loading")
 
 local M = {}
 
@@ -81,7 +81,7 @@ function auto_group()
   
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
   local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,lua,typescript"
-  local format_files =  "c,cpp,go,python,vim,javascript,html,css,typescript"
+  local format_files =  "c,cpp,go,python,vim,javascript,typescript"  --html,css,
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
     vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.action').go_organize_imports_sync(1000)")
@@ -168,18 +168,18 @@ local on_attach = function(client, bufnr)
   vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
   vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   
-  -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
-  --   if params and params.type <= vim.lsp.message_level then
-  --     assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
-  --     vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
-  --   end
-  -- end
-  -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
-  --   if params and params.type <= vim.lsp.message_level then
-  --     assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
-  --     vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
-  --   end
-  -- end
+  vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
+    if params and params.type <= vim.lsp.message_level then
+      assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
+      vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
+    end
+  end
+  vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
+    if params and params.type <= vim.lsp.message_level then
+      assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
+      vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
+    end
+  end
 
   -- vim.lsp.handlers["window/logMessage"] = function log_message(err, method, result, client_id)
   --   local message_type = result.type
@@ -346,23 +346,54 @@ nvim_lsp.gopls.setup {
     end;
 }
 
+-- nvim_lsp.sqls.setup({settings = {
+--     on_attach=on_attach,
+--     cmd = {"sqls", "-config", "$HOME/.config/sqls/config.yml"},
+--     workspace = {
+--       library = {
+--         -- This loads the `lua` files from nvim into the runtime.
+--         [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+--         [vim.fn.expand("~/repos/nvim/lua")] = true,
+--       },
+--     },
+--   },
+-- })
 
-nvim_lsp.sumneko_lua.setup{
-  cmd = {'/Users/ray.xu/github/sumneko/lua-language-server/bin/macOS/lua-language-server'};
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities,
-  settings = {
+-- require'lspconfig'.sqlls.setup{
+--   cmd = {"sql-language-server", "up", "--method", "stdio"};
+-- }
+nvim_lsp.sumneko_lua.setup({settings = {
+    on_attach=on_attach,
+    --cmd = {'/Users/ray.xu/github/sumneko/lua-language-server/bin/macOS/lua-language-server'},
     Lua = {
-      diagnostics = {
-          globals = {"vim", "vis", "rpm"},
-          disable = {"lowercase-global"}
-      },
       runtime = {
-        version = "LuaJIT"
-      }
-    }
-  }
-}
+          version = "LuaJIT", 
+          path = vim.split(package.path, ";")
+          },
+      diagnostics = {
+        enable = true,
+        globals = {
+          "vim",
+          "describe",
+          "it",
+          "before_each",
+          "after_each",
+          "teardown",
+          "pending",
+        },
+      },
+      completion = {keywordSnippet = "Disable"},
+      workspace = {
+        library = {
+          -- This loads the `lua` files from nvim into the runtime.
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("~/repos/nvim/lua")] = true,
+        },
+      },
+    },
+  },
+})
+
 
 
 -- Some arbitrary servers
@@ -371,6 +402,7 @@ nvim_lsp.clangd.setup({
   init_options = {
     clangdFileStatus = true
   },
+
   on_attach = on_attach,
   capabilities = lsp_status.capabilities
 })

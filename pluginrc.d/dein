@@ -5,7 +5,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('shmup/vim-sql-syntax', {'on_ft': ['sql', 'pgsql']})
    call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista', 'Vista!!']})
 
-   call dein#add('kamykn/spelunker.vim', {'on_cmd': 'Spell','on_func': 'spelunker#check'})  " nevim-qt 'on_func': 'spelunker#check'failed"
+   call dein#add('kamykn/spelunker.vim', {'on_func': 'spelunker#check'})  " nevim-qt 'on_func': 'spelunker#check'failed"
    call dein#add('rhysd/vim-grammarous')
    
    call dein#add('mattn/emmet-vim', { 'on_ft': ['html','css', 'js', 'ts', 'tsx'] })
@@ -64,6 +64,9 @@ if dein#load_state('~/.cache/dein')
    call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
 
+   " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
+   call dein#add('lighttiger2505/sqls.vim',{'on_ft': ['sql']})
+
    "" seems to be duplicate clap. just in case clap is crashing
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
    " call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
@@ -93,11 +96,9 @@ if has('nvim')
 
    call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
 
-   " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
+   " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript', 'sql']})
 
    call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
-
-   " call dein#add('nvim-lua/diagnostic-nvim', {'depends':'lsp'})  -- deprecated  https://github.com/nvim-lua/diagnostic-nvim/issues/73   
 
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
    " call dein#add('weilbith/nvim-lsp-smag', {'depends':'lsp', 'on_event': 'InsertEnter'})
@@ -109,7 +110,7 @@ if has('nvim')
 
    call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter', 'on_event': 'InsertEnter', 'on_ft': ['bash', 'c_sharp','c', 'cpp', 'css', 'dart', 'go', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
    " call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter'})
-   
+
    call dein#add('ncm2/float-preview.nvim', {'on_event': 'InsertEnter'})
 
    call dein#add('nvim-treesitter/completion-treesitter', {'depends': ['treesitter', 'completion'], 'on_event': 'InsertEnter', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
@@ -120,7 +121,6 @@ if has('nvim')
    call dein#add('RishabhRD/popfix')
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
    
-
    call dein#add('Xuyuanp/scrollbar.nvim')
    
    call dein#add('nvim-lua/plenary.nvim')  "lua library"
@@ -131,9 +131,9 @@ if has('nvim')
    
    call dein#add('norcalli/nvim-colorizer.lua')
 
-   call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
-   call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
-   call dein#add('nvim-lua/popup.nvim')
+   " call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
+   " call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
+   " call dein#add('nvim-lua/popup.nvim')
    "" note: search is slower compared to FZF and clap
    " call dein#add('nvim-lua/telescope.nvim')
 

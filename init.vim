@@ -256,4 +256,4 @@ command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
 
-lua  require('lsp_config')
+lua require('lsp_config')
