@@ -5,8 +5,8 @@ endif
 nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
 
-" imap <c-j> <cmd>lua require'completion.source'.prevCompletion()<CR>
-" imap <c-k> <cmd>lua require'completion.source'.nextCompletion()<CR>
+imap <c-j> <cmd>lua require'completion.source'.prevCompletion()<CR>
+imap <c-k> <cmd>lua require'completion.source'.nextCompletion()<CR>
 
 autocmd Filetype go,lua,c,cpp,javascript,typescript setlocal omnifunc=v:lua.vim.lsp.omnifunc
 

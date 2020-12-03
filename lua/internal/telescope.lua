@@ -270,4 +270,46 @@ function M.load_dotfiles()
   require('telescope.builtin').dotfiles()
 end
 
+
+--- telescope
+
+
+-- require('telescope').setup {
+--   defaults = {
+--     winblend = 0,
+--     layout_strategy = "flex",
+--     preview_cutoff = 120,
+--     layout_options = {
+--       preview_width = 0.75,
+--     },
+
+--     sorting_strategy = "descending",
+--     prompt_position = "bottom",
+
+--     -- sorting_strategy = "ascending",
+--     -- prompt_position = "top",
+
+--     -- border = false,
+--     -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+
+--     -- for the top/right/bottom/left border.  Optionally
+--     -- followed by the character to use for the
+--     -- topleft/topright/botright/botleft corner.
+--     -- border = {},
+--     --   true,
+
+--     --   prompt = true,
+--     -- },
+
+--     borderchars = {
+--       { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+
+--       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+--     },
+
+--     -- borderchars = { 'b', 'e', 'g', 'i', 'n', 'b', 'o', 't'}
+--   }
+
+-- }
+
 return M

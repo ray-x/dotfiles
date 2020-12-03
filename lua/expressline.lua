@@ -5,6 +5,39 @@
 -- api.nvim_command('hi DirSeparator guifg='..dir_bg)
 -- nvim_get_option() get global option nvim_buf_get_option() get current buffer option
 
+--[[
+let s:left_sep = ' ❯❯ '
+let s:right_sep = ' ❮❮ '  
+        let s:seperator.filenameright = ''
+        let s:seperator.filesizeright = ''
+        let s:seperator.gitleft = ''
+        let s:seperator.gitright = ''
+        let s:seperator.lineinfoleft = ''
+        let s:seperator.lineformatright = ''
+        let s:seperator.EndSeperate = ' '
+        let s:seperator.emptySeperate1 = ''
+    elseif a:style == 'slant-cons'
+        let s:seperator.homemoderight = ''
+        let s:seperator.filenameright = ''
+        let s:seperator.filesizeright = '' let s:seperator.gitleft = ''
+        let s:seperator.gitright = ''
+        let s:seperator.lineinfoleft = ''
+        let s:seperator.lineformatright = ''
+        let s:seperator.EndSeperate = ' '
+        let s:seperator.emptySeperate1 = ''
+    elseif a:style == 'slant-fade'
+        let s:seperator.homemoderight = ''
+        let s:seperator.filenameright = ''
+        let s:seperator.filesizeright = ''
+        let s:seperator.gitleft = ''
+        let s:seperator.gitright = ''
+        " let s:seperator.gitright = ''
+        let s:seperator.lineinfoleft = ''
+        let s:seperator.lineformatright = ''
+        let s:seperator.EndSeperate = ' '
+        let s:seperator.emptySeperate1 = ''
+--]]
+
 function split(str, pat)
    local t = {}  -- NOTE: use {n = 0} in Lua-5.0
    local fpat = "(.-)" .. pat
@@ -26,6 +59,61 @@ end
 function split_path(str)
    return split(str,'[\\/]+')
 end
+
+lstatus = function  (_, buffer)
+  if not buffer.lsp or not has_lsp_status then
+    return ''
+  end
+
+  local ok, result = pcall(lsp_status.status)
+  if not ok then
+    return ''
+  end
+  return string.format('%s', result)
+end
+
+local function git()
+  local stl_text = ''
+  if vim.fn.exists('g:loaded_fugitive') and vim.bo.modifiable then
+    local git_head = vim.fn['fugitive#head']()
+    stl_text = string.len(git_head) > 0 and '%#stlGit#[' .. git_head .. ']%*' or ''
+  end
+  return stl_text
+end
+
+local function diagnostics(level)
+  if #vim.lsp.buf_get_clients() == 0 then
+    return ''
+  end
+
+  local count = vim.lsp.diagnostic.get_count(0, level)
+  print( 'diagnostics' .. count)
+  if count ~= 0 then
+    return ' '..count..' '
+  else
+    count = diagnostic_ale_error()
+    if count ~= 0 then
+      return ' '..count..' '
+    end
+  end
+
+  return ' _ '
+end
+
+current_function = function(_, buffer)
+  if not buffer.lsp or not has_lsp_status then
+    return ''
+  end
+
+  local ok, current_func = pcall(get_current_function, _, buffer)
+  if ok and current_func and #current_func > 0 then
+    return string.format('[ %s ]', current_func)
+  end
+
+  return ''
+end
+
+
 function getEntryFromEnd(table, entry)
     local count = (table and #table or false)
     if (count) then
@@ -150,7 +238,7 @@ local generator = function()
   end
   return {
       extensions.mode,
-      sections.highlight('ELGitIcon', extensions.git_icon),
+      sections.highlight('ELGitIcon', ' '),
       subscribe.buf_autocmd(
         "el_git_branch",
         "BufRead",
@@ -202,31 +290,44 @@ local generator = function()
       --   end
       -- ),
 
-      lsp_statusline.current_function,
-      lsp_statusline.server_progress,
-
+      -- lsp_statusline.current_function,
+      -- lsp_statusline.segment,
+      -- lsp_statusline.server_progress,
+      subscribe.buf_autocmd(
+        "el_lsp_status",
+        "BufWritePost,BufEnter,CursorHold",
+        function(window, buffer)
+          if winwidth() < 80 then return '' end
+          -- return sections.highlight('ELFunc', lsp_statusline.segment(window, buffer))()
+          return sections.highlight('ELFunc', require('lsp-status').status())()
+        end
+      ),
+      builtin.tail_file,' ',
+      -- sections.highlight('ELGit',  ' '),
       -- subscribe.buf_autocmd(
-      --   "el_lsp_status_segment",
-      --   "CursorHold",
+      --   "el_lsp_diagnostics",
+      --   "BufWritePost, BufEnter",
       --   function(window, buffer)
-      --     if winwidth() < 80 then return '' end
-      --     print(lsp_statusline.segment(window, buffer))
-      --     return sections.highlight('ELFunc', lsp_statusline.segment(window, buffer))()
-      --   end
-      -- ),'▋',
-      -- subscribe.buf_autocmd(
-      --   "el_lsp_status",
-      --   "CursorHold,CursorHoldI",
-      --   function(window, buffer)
-      --     if winwidth() < 80 then return '' end
-      --     return sections.highlight('ELFunc', require('lsp-status').status())()
+      --     return sections.highlight('ELGit', diagnostics('Error'))()
       --   end
       -- ),
+      -- sections.highlight('ELFileIcon',  ' '),
+      -- subscribe.buf_autocmd(
+      --   "el_lsp_diagnostics",
+      --   "BufWritePost,BufEnter",
+      --   function(window, buffer)
+      --     return sections.highlight('ELGit', diagnostics('Warning'))()
+      --   end
+      -- ),
+      sections.split,
+      -- lsp_statusline.server_progress,
+
       sections.split,
       ' [', builtin.line, ':',  builtin.column, '] ',
       sections.collapse_builtin{
       ' [', builtin.help_list, builtin.readonly_list, '] ',
       },
+      sections.highlight('ELFileIcon',  ' '),
       subscribe.buf_autocmd(
         "el_git_status",
         "BufWritePost",

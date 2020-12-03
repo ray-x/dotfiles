@@ -174,12 +174,6 @@ local on_attach = function(client, bufnr)
       vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
     end
   end
-  vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
-    if params and params.type <= vim.lsp.message_level then
-      assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
-      vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
-    end
-  end
 
   -- vim.lsp.handlers["window/logMessage"] = function log_message(err, method, result, client_id)
   --   local message_type = result.type
@@ -193,9 +187,28 @@ local on_attach = function(client, bufnr)
   --   vim.api.nvim_out_write(string.format("LSP[%s][%s] %s\n", client_name, message_type_name, message))
   --   return result
   -- end
+  local hdlr =  function(err, method, result, client_id)
+    vim.lsp.diagnostic.on_publish_diagnostics(err, method, result, client_id, bufnr, config)
+    if result and result.diagnostics then
+        local item_list = {}
+        for _, v in ipairs(result.diagnostics) do
+            local fname = result.uri
+            table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
+        end
+        local old_items = vim.fn.getqflist()
+        for _, old_item in ipairs(old_items) do
+            local bufnr = vim.uri_to_bufnr(result.uri)
+            if vim.uri_from_bufnr(old_item.bufnr) ~= result.uri then
+                    table.insert(item_list, old_item)
+            end
+        end
+        vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
+      end
+    end 
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
+    hdlr, 
+    {
       -- Enable underline, use default values
       underline = true,
       -- Enable virtual text, override spacing to 4
@@ -206,6 +219,8 @@ local on_attach = function(client, bufnr)
       -- Use a function to dynamically turn signs off
       -- and on, using buffer local variables
       signs = function(bufnr, client_id)
+
+
         local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
         -- No buffer local variable set, so just enable by default
         if not ok then
@@ -218,33 +233,6 @@ local on_attach = function(client, bufnr)
       update_in_insert = false,
     }
   )
-
-
-
-  local method = "textDocument/publishDiagnostics"
-  local default_handler = vim.lsp.handlers[method]
-  -- insert into quickfix
-  vim.lsp.handlers[method] = function(err, method, result, client_id)
-    if default_callback ~= nil then
-      default_callback(err, method, result, client_id)
-    end
-    if result and result.diagnostics then
-        local item_list = {}
-        for _, v in ipairs(result.diagnostics) do
-            local fname = result.uri
-            table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
-        end
-        local old_items = vim.fn.getqflist()
-        for _, old_item in ipairs(old_items) do
-            local bufnr = vim.uri_to_bufnr(result.uri)
-            if vim.uri_from_bufnr(old_item.bufnr) ~= result.uri
-                then
-                    table.insert(item_list, old_item)
-                end
-            end
-            vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
-        end
-      end
 
   vim.lsp.handlers['textDocument/hover'] = function(_, method, result)
     vim.lsp.util.focusable_float(method, function()
@@ -259,21 +247,6 @@ local on_attach = function(client, bufnr)
         return bufnr,contents_winid
     end)
   end
-  -- write to quickfix had been implemented
-  -- vim.lsp.callbacks = {}
-  -- vim.lsp.callbacks['textDocument/hover'] = function(_, method, result)  -- completion still using callbacks
-  --   vim.lsp.util.focusable_float(method, function()
-  --       if not (result and result.contents) then return end
-  --       local markdown_lines = lsp.util.convert_input_to_markdown_lines(result.contents)
-  --       markdown_lines = lsp.util.trim_empty_lines(markdown_lines)
-  --       if vim.tbl_isempty(markdown_lines) then return end
-
-  --       local bufnr,contents_winid,_,border_winid = window.fancy_floating_markdown(markdown_lines)
-  --       lsp.util.close_preview_autocmd({"CursorMoved", "BufHidden", "InsertCharPre"}, contents_winid)
-  --       lsp.util.close_preview_autocmd({"CursorMoved", "BufHidden", "InsertCharPre"}, border_winid)
-  --       return bufnr,contents_winid
-  --   end)
-  -- end
 
 end
 

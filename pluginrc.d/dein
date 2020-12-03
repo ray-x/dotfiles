@@ -42,7 +42,7 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('mhinz/vim-signify', { 'on_cmd': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] })
 
-   call dein#add('w0rp/ale', {'lazy':1, 'on_cmd': 'ALEToggle', 'on_event':['BufWritePre']})
+   call dein#add('w0rp/ale', {'lazy':1, 'on_cmd': 'ALEEnable', 'on_event':['BufWritePre']})
    
    call dein#add('vim-test/vim-test'  , { 'on_cmd': ['TestNearest', 'TestFile', 'TestSuite'] })
 
@@ -126,7 +126,7 @@ if has('nvim')
    call dein#add('nvim-lua/plenary.nvim')  "lua library"
    call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
    
-   " call dein#add('glepnir/galaxyline.nvim')
+   call dein#add('glepnir/galaxyline.nvim')
    
    
    call dein#add('norcalli/nvim-colorizer.lua')
