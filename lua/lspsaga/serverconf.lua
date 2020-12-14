@@ -59,8 +59,13 @@ server.Dockerfile = {
 
 server.tsserver = {
   cmd = {"typescript-language-server","--stdio"};
-  filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx"};
+  filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact"};
   root_patterns  = {"package.json", "tsconfig.json", ".git"}
+}
+
+server.cssls = {
+  cmd = {'css-languageserver','--stdio'};
+  filetypes = {"css", "scss", "less"};
 }
 
 local lsp_intall_scripts = [=[

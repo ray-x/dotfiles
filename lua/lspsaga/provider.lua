@@ -1,19 +1,16 @@
 local window = require 'lspsaga.window'
 local vim,api,lsp = vim,vim.api,vim.lsp
-
 local short_link = {}
-local root_dir = vim.lsp.buf_get_clients()[1].config.root_dir
+local root_dir = lsp.buf_get_clients()[1].config.root_dir or ''
 local M = {}
-
 
 local contents = {}
 local target_line_count = 0
 local definition_uri = 0
 local reference_uri = 0
-require 'lspsaga.syntax'.add_highlight()
 
 local function defintion_reference(result,method_type)
-  if vim.tbl_islist(result) then
+  if type(result) == 'table' then
     local method_option = {
       {icon = vim.g.lsp_nvim_defintion_icon or '   ',title = ':  '.. #result ..' Definitions'};
       {icon = vim.g.lsp_nvim_references_icon or '   ',title = ':  '.. #result ..' References',};
@@ -220,7 +217,6 @@ function M.preview_definiton(timeout_ms)
     vim.api.nvim_buf_add_highlight(contents_buf,-1,"DefinitionPreviewTitle",0,0,-1)
   end
 end
-
 
 -- TODO: codeAction
 function M.code_action(timeout_ms)

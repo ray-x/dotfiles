@@ -117,25 +117,24 @@ if has('nvim')
 
    call dein#add('steelsojka/completion-buffers', {'depends': 'completion', 'on_event': 'InsertEnter'})
 
-   call dein#add('aca/completion-tabnine', {'do': './install.sh' , 'on_event': 'InsertEnter'})
-   call dein#add('RishabhRD/popfix')
+   call dein#add('aca/completion-tabnine', {'build': './install.sh' , 'on_event': 'InsertEnter'})
+   call dein#add('RishabhRD/popfix',{'build': 'make'})
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
    
    call dein#add('Xuyuanp/scrollbar.nvim')
    
-   call dein#add('nvim-lua/plenary.nvim')  "lua library"
-   call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
-   
    call dein#add('glepnir/galaxyline.nvim')
-   
+   " call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
    
    call dein#add('norcalli/nvim-colorizer.lua')
 
    " call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
    " call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
-   " call dein#add('nvim-lua/popup.nvim')
+   
    "" note: search is slower compared to FZF and clap
-   " call dein#add('nvim-lua/telescope.nvim')
+   call dein#add('nvim-lua/plenary.nvim')  "lua library"
+   call dein#add('nvim-lua/popup.nvim')
+   call dein#add('nvim-telescope/telescope.nvim')
 
 "  """""""""""""LUA Plugins end""""""""""""""
 endif ""end of nvim

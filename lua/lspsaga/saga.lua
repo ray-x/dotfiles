@@ -121,14 +121,28 @@ local function load_completion()
     require('completion').on_attach()
 end
 
+
+local init_server_map = function()
+  if vim.tbl_isempty(server) then return end
+  for server_name,value in pairs(server) do
+    if type(value) == 'table' then
+      for _,filetype in pairs(value.filetypes) do
+        filetype_server_map[filetype] = server_name
+      end
+    end
+  end
+end
+
 -- Start Lsp server
 function lspsaga.start_lsp_server()
   local client_id = nil
   local bufnr = api.nvim_get_current_buf()
-  local buf_filetype = api.nvim_buf_get_option(bufnr,'filetype')
+  local buf_filetype = vim.bo.filetype
+  if next(filetype_server_map) == nil then
+    init_server_map()
+  end
   -- Filter which files we are considering.
   if not ptbl.has_key(filetype_server_map,buf_filetype) then
-    -- load completion in buffer for complete something else
     return
   end
 
@@ -154,7 +168,7 @@ function lspsaga.start_lsp_server()
 
   -- We couldn't find a root directory, so ignore this file.
   if not root_dir then
-    print(string.format("initialize %s failed doesn't find root_dir",server_setup.name))
+    api.nvim_command('silent! echomsg not found root dir')
     return
   end
 
@@ -177,15 +191,16 @@ function lspsaga.start_lsp_server()
     -- register lsp event
     autocmd.nvim_create_augroups(lsp_event)
     -- Source omnicompletion from LSP.
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   end
 
   -- config the server config on_attach
   server_setup.on_attach= on_attach
     -- build a new server config
-  local new_config = vim.tbl_extend("error",add_options(server_setup), {
+  local new_config = vim.tbl_extend("keep",add_options(server_setup), {
     root_dir = root_dir;
   })
+
   -- lsp sign
   local diagnositc_config_sign = function ()
     vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
@@ -205,16 +220,9 @@ function lspsaga.start_lsp_server()
 end
 
 function lspsaga.create_saga_augroup()
-
-  if vim.tbl_isempty(server) then return end
-  for server_name,value in pairs(server) do
-    if type(value) == 'table' then
-      for _,filetype in pairs(value.filetypes) do
-        filetype_server_map[filetype] = server_name
-      end
-    end
+  if next(filetype_server_map) == nil then
+    init_server_map()
   end
-
   vim.api.nvim_command('augroup lsp_saga_event')
   vim.api.nvim_command('autocmd!')
   for ft, _ in pairs(filetype_server_map) do

@@ -187,6 +187,7 @@ local on_attach = function(client, bufnr)
   --   vim.api.nvim_out_write(string.format("LSP[%s][%s] %s\n", client_name, message_type_name, message))
   --   return result
   -- end
+
   local hdlr =  function(err, method, result, client_id)
     vim.lsp.diagnostic.on_publish_diagnostics(err, method, result, client_id, bufnr, config)
     if result and result.diagnostics then
