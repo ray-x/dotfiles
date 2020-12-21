@@ -7,6 +7,10 @@ if vim.wo.diff then
   return ''
 end
 
+
+-- command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
+require('lsp_config')
+
 -- RELOAD = require('plenary.reload').reload_module
 
 -- R = function(name)

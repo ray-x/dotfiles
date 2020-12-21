@@ -17,6 +17,8 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('euclio/vim-markdown-composer', { 'build': 'cargo build --release', 'on_cmd': ['ComposerStart', 'ComposerOpen']})
 
+   call dein#add('prettier/vim-prettier', { 'build': 'yarn install', 'on_ft': ['html','css', 'js', 'ts', 'tsx', 'md']})
+
    call dein#add('plasticboy/vim-markdown',{
    \ 'on_ft': ['markdown'],
    \ 'depends': 'tabular',
@@ -76,8 +78,8 @@ if dein#load_state('~/.cache/dein')
    " call dein#add('Shougo/deoplete-lsp')
    
 if has('nvim')
-
    call dein#add('hrsh7th/vim-vsnip', {'on_event': 'InsertEnter'})
+
    call dein#add('hrsh7th/vim-vsnip-integ', {'on_event': 'InsertEnter'})
    """""""""""""Nvim specific""""""""""""""
    call dein#add('rhysd/git-messenger.vim', {
@@ -85,24 +87,22 @@ if has('nvim')
               \   'on_cmd' : 'GitMessenger',
               \   'on_map' : ['<leader>gm', '<Plug>(git-messenger'],
               \ })
-   " call dein#add('tveskag/nvim-blame-line' , { 'on_cmd': ['EnableBlameLine', 'ToggleBlameLine', 'SingleBlameLine']})
+ " call dein#add('tveskag/nvim-blame-line' , { 'on_cmd': ['EnableBlameLine', 'ToggleBlameLine', 'SingleBlameLine']})
 
-   """""""""""""LUA Plugins""""""""""""""
+ """""""""""""LUA Plugins""""""""""""""
    call dein#add('kyazdani42/nvim-web-devicons',{'name': 'devicons'})
-   
+
    call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['LuaTreeToggle', 'LuaTreeOpen'])
-   
-   call dein#add('akinsho/nvim-bufferline.lua')
 
    call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
 
-   " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript', 'sql']})
+   " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', ust', " 'ruby', 'toml', 'typescript', 'sql']})
 
    call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
 
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
    " call dein#add('weilbith/nvim-lsp-smag', {'depends':'lsp', 'on_event': 'InsertEnter'})
-    call dein#add('weilbith/nvim-lsp-diamove', {
+   call dein#add('weilbith/nvim-lsp-diamove', {
        \ 'on_cmd': ['Dabove', 'Dbelow'],
       \ })
 
@@ -122,16 +122,17 @@ if has('nvim')
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
    
    call dein#add('Xuyuanp/scrollbar.nvim')
-   
+   call dein#add('akinsho/nvim-bufferline.lua')
+
    call dein#add('glepnir/galaxyline.nvim')
    " call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
    
    call dein#add('norcalli/nvim-colorizer.lua')
 
-   " call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
-   " call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
+   call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
+   call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
    
-   "" note: search is slower compared to FZF and clap
+  " note: search is slower compared to FZF and clap
    call dein#add('nvim-lua/plenary.nvim')  "lua library"
    call dein#add('nvim-lua/popup.nvim')
    call dein#add('nvim-telescope/telescope.nvim')

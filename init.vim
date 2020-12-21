@@ -63,10 +63,10 @@ set lazyredraw                  " Wait to redraw
 "    autocmd BufWinEnter,Syntax * syn sync minlines=200 maxlines=200
 " augroup END
 
-" syntax sync minlines=256
+syntax sync minlines=256
 syntax on
-" set synmaxcol=128
-" set re=1
+set synmaxcol=128
+set re=1
 
 if !has('nvim')
   set ttyscroll=3                 " Speedup scrolling
@@ -181,15 +181,6 @@ au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 " markdown disable conceal when edit current line
 set concealcursor="i"
 
-
-" zc close, zo open  za toggle, zi open all, zm one level
-if !&diff
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
-  set foldlevel=4
-  set foldnestmax=3
-endif
-
 if &diff
   set foldmethod=diff
   set diffopt+=context:0
@@ -201,6 +192,10 @@ if &diff
   lua require('domain.core')
   finish  " skip all following 
 endif
+
+" command! Gt :lua require('selfunc').float_terminal()
+command! Dc :call dein#recache_runtimepath()
+command! Du :call dein#update()
 
 
 " let g:deoplete#enable_at_startup = 1
@@ -251,9 +246,6 @@ autocmd FileType html,css EmmetInstall
 
 
 
-" command! Gt :lua require('selfunc').float_terminal()
-command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
-command! Dc :call dein#recache_runtimepath()
-command! Du :call dein#update()
 
-lua require('lsp_config')
+
+

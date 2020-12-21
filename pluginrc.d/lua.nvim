@@ -5,11 +5,6 @@ autocmd BufNewFile,BufReadPre *.go,*.sh,*.cs,*.cpp,*.c,*.h,*.hpp,*.css,*.dart,*.
 autocmd BufNewFile,BufRead *.go,*.sh,*.cs,*.cpp,*.c,*.h,*.hpp,*.css,*.dart,*.html,*.java,*.js,*.jsdoc,*.json,*.lua,*.py,*.rs,*.ruby,*.toml,*.ts,*tsx,*.sql silent!  lua require'completion'.on_attach()
 " autocmd BufNewFile,BufRead *.go,*.sh,*.cs,*.cpp,*.c,*.css,*.dart,*.html,*.java,*.js,*.jsdoc,*.json,*.lua,*.py,*.rs,*.ruby,*.toml,*.ts,*tsx silent!  call deoplete#enable()
 
-augroup ScrollbarInit
-  autocmd!
-  autocmd WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
-  autocmd WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
-augroup end
 
 augroup config_scrollbar_nvim
     autocmd!

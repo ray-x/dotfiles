@@ -1,5 +1,5 @@
 " if has('nvim')
-if 0
+" if 0
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
     highlight = {
@@ -72,4 +72,4 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = ['go', 'javascript', 'python', 'c', cpp', 'rust', 'html', 'jsdoc', 'bash', 'lua', 'typescript'] -- 'all' -- one of 'all', 'language', or a list of languages
 }
 EOF
-endif
+" endif
