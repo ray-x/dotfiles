@@ -92,7 +92,7 @@ if has('nvim')
  """""""""""""LUA Plugins""""""""""""""
    call dein#add('kyazdani42/nvim-web-devicons',{'name': 'devicons'})
 
-   call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['LuaTreeToggle', 'LuaTreeOpen'])
+   call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['NvimTreeToggle', 'NvimTreeOpen'])
 
    call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
 

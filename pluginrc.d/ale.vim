@@ -35,11 +35,3 @@ let g:ale_fixers = {
 \   'lua': ['luafmt'],
 \   'python': ['autopep8', 'yapf']
 \}
-
-" augroup auto_go
-  " autocmd BufWritePre *.go lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
-  " autocmd BufWriteCmd *.mod :GoModFmt "enabled by default
-  " autocmd BufWritePost *.mod :AsyncRun -cwd=<root> go mod tidy
-  " autocmd BufWritePost *_test.go :AsyncRun -raw -cwd=%:p:h go test ./... -tags=integration | lopen 3
-" augroup end
-

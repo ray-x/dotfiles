@@ -18,8 +18,6 @@ require('lsp_config')
 --   return require(name)
 -- end
 
--- require('lsp_config')
-
 -- TODO: Experiment with lua tree sitter and make it the coolest ever.
 
 -- require('expressline')
@@ -53,7 +51,7 @@ require'bufferline'.setup{
 
 
 -- 
-vim.cmd [[nmap <S-F1> :LuaTreeToggle<CR>]]
+vim.cmd [[nmap <S-F1> :NvimTreeToggle<CR>]]
 vim.cmd [[autocmd Filetype LuaTree set cursorline]]
 -- 
 -- 
