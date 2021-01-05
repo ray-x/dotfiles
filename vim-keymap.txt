@@ -89,6 +89,8 @@ search and replace
 args `grep Neovim -l -r .` or args `rg Neovim -l`
 
 argdo %s/Neovim/Nvim/ge | update
+with register and clap
+:cfdo %s/<C-r>s// \| update
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set grepformat=%f:%l:%c:%m

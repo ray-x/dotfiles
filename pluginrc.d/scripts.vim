@@ -302,3 +302,24 @@ augroup END
 
 command! -bang -nargs=0 -range MaximizerToggle :call s:toggle(<bang>0)
 
+
+" nnoremap <Leader>s :let @s='\<'.expand('<cword>').'\>'<CR>:%s/<C-r>s//<Left>
+" xnoremap <Leader>s "sy:%s/<C-r>s//<Left>
+
+" https://bluz71.github.io/2019/03/11/find-replace-helpers-for-vim.html
+" search and replace 
+" args `grep Neovim -l -r .` or args `rg Neovim -l`
+
+" argdo %s/Neovim/Nvim/ge | update"
+
+" nnoremap <Leader>S
+"   \ :let @s='\<'.expand('<cword>').'\>'<CR>
+"   \ :args `grep -cword -noprompt`<CR>
+"   \ :argdo %s/<C-r>s// \| update
+"   \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" xmap <Leader>S
+"   \ "sy \|
+"   \ :GrepperRg <C-r>s<CR>
+"   \ :cfdo %s/<C-r>s// \| update
+"   \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+

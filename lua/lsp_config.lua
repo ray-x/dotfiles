@@ -84,7 +84,7 @@ function auto_group()
   local format_files =  "c,cpp,go,python,vim,javascript,typescript"  --html,css,
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
-    vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.action').go_organize_imports_sync(1000)")
+    vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.action').go_organize_imports_sync(1000) ")
 
     vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
 
@@ -336,16 +336,38 @@ nvim_lsp.gopls.setup {
 -- require'lspconfig'.sqlls.setup{
 --   cmd = {"sql-language-server", "up", "--method", "stdio"};
 -- }
-nvim_lsp.sumneko_lua.setup({settings = {
-    on_attach=on_attach,
-    --cmd = {'/Users/ray.xu/github/sumneko/lua-language-server/bin/macOS/lua-language-server'},
+
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
+
+-- lua setup
+-- local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+-- local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-serve"
+local sumneko_root_path = vim.fn.expand("$HOME")..'/github/sumneko/lua-language-server'
+local sumneko_binary = vim.fn.expand("$HOME")..'/github/sumneko/lua-language-server/bin/macOS/lua-language-server'
+
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
     Lua = {
       runtime = {
-          version = "LuaJIT", 
-          path = vim.split(package.path, ";")
-          },
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = vim.split(package.path, ';'),
+      },
       diagnostics = {
         enable = true,
+        -- Get the language server to recognize the `vim` global
         globals = {
           "vim",
           "describe",
@@ -356,17 +378,49 @@ nvim_lsp.sumneko_lua.setup({settings = {
           "pending",
         },
       },
-      completion = {keywordSnippet = "Disable"},
       workspace = {
+        -- Make the server aware of Neovim runtime files
         library = {
-          -- This loads the `lua` files from nvim into the runtime.
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
           [vim.fn.expand("~/repos/nvim/lua")] = true,
         },
       },
     },
   },
-})
+}
+
+-- nvim_lsp.sumneko_lua.setup({settings = {
+--     on_attach=on_attach,
+--     --cmd = {'/Users/ray.xu/github/sumneko/lua-language-server/bin/macOS/lua-language-server'},
+--     Lua = {
+--       runtime = {
+--           version = "LuaJIT", 
+--           path = vim.split(package.path, ";")
+--           },
+--       diagnostics = {
+--         enable = true,
+--         globals = {
+--           "vim",
+--           "describe",
+--           "it",
+--           "before_each",
+--           "after_each",
+--           "teardown",
+--           "pending",
+--         },
+--       },
+--       completion = {keywordSnippet = "Disable"},
+--       workspace = {
+--         library = {
+--           -- This loads the `lua` files from nvim into the runtime.
+--           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+--           [vim.fn.expand("~/repos/nvim/lua")] = true,
+--         },
+--       },
+--     },
+--   },
+-- })
 
 
 

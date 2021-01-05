@@ -65,6 +65,7 @@ if dein#load_state('~/.cache/dein')
    "" for those cannot handle by lsp
    call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
+   " call dein#add('brooth/far.vim')
 
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
    call dein#add('lighttiger2505/sqls.vim',{'on_ft': ['sql']})

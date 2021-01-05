@@ -122,6 +122,7 @@ gls.left[10] = {
   LeftEnd = {
     provider = function() return '' end,
     separator = '',
+    condition = checkwidth,
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.line_bg,colors.line_bg}
   }
@@ -130,11 +131,13 @@ gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
+    condition = checkwidth,
     highlight = {colors.red,colors.bg}
   }
 }
 gls.left[12] = {
   Space = {
+    condition = checkwidth,
     provider = function () return ' ' end
   }
 }
@@ -143,13 +146,14 @@ gls.left[13] = {
     provider = 'DiagnosticWarn',
     icon = '  ',
     separator = ' |',
+    condition = checkwidth,
     highlight = {colors.blue,colors.bg},
   }
 }
 gls.left[14] = {
   LspStatus = {
     provider = current_function,
-    condition =  function() return "n" == vim.fn.mode()  end,
+    condition =  function() return "n" == vim.fn.mode() and checkwidth()  end,
     -- separator = '',
     icon = '  ',
     highlight = {colors.blue,colors.line_bg},
@@ -159,6 +163,7 @@ gls.right[1]= {
   FileFormat = {
     provider = 'FileFormat',
     separator = ' ',
+    condition = checkwidth,
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.fg,colors.line_bg,'bold'},
   }
@@ -167,6 +172,7 @@ gls.right[2] = {
   LineInfo = {
     provider = 'LineColumn',
     separator = ' | ',
+    condition = checkwidth,
     separator_highlight = {colors.blue,colors.line_bg},
     highlight = {colors.fg,colors.line_bg},
   },
@@ -175,6 +181,7 @@ gls.right[3] = {
   PerCent = {
     provider = 'LinePercent',
     separator = ' ',
+    condition = checkwidth,
     separator_highlight = {colors.line_bg,colors.line_bg},
     highlight = {colors.cyan,colors.darkblue,'bold'},
   }
@@ -182,6 +189,7 @@ gls.right[3] = {
 gls.right[4] = {
   ScrollBar = {
     provider = 'ScrollBar',
+    -- condition = checkwidth,
     highlight = {colors.blue,colors.purple},
   }
 }
@@ -190,6 +198,7 @@ gls.short_line_left[1] = {
   BufferType = {
     provider = 'FileTypeName',
     separator = '',
+    condition = checkwidth,
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
   }
@@ -200,6 +209,7 @@ gls.short_line_right[1] = {
   BufferIcon = {
     provider= 'BufferIcon',
     separator = '',
+    condition = checkwidth,
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
   }

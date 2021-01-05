@@ -116,3 +116,11 @@ let g:user_emmet_install_global = 1
 " autocmd FileType html,css EmmetInstall
 "enable all function in all mode.
 let g:user_emmet_mode='a'
+
+
+
+
+" Far
+let g:far#source = 'rgnvim'
+let g:far#enable_undo = 1
+" let g:far#ignore_files = ['.git/']
