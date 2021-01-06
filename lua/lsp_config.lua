@@ -116,9 +116,10 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ]e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ce      <cmd>lua require'lspsaga.diagnostic'.show_buf_diagnostics()<CR>]])
 
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gh      <cmd>lua require'lspsaga.provider'.lsp_peek_references()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gh      <cmd>lua require'lspsaga.provider'.lsp_finder({definition_icon='  ',reference_icon = '  '})<CR>"]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> di      <cmd>lua require('lspsaga.location').preview_implementation()<CR>]])    
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> df      <cmd>lua require('lspsaga.location').peek_definition()<CR>]])
+
 
     -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <Leader>gr       <cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_dropdown({results_height = 20; width = 0.6; preview_width = 0.5}))<CR>]])
     -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols(theme)<CR>]])
@@ -140,9 +141,21 @@ local diagnostic_map = function (bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']O', ':lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
+-- lsp sign
+local diagnositc_config_sign = function ()
+  vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
+end
+
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   diagnostic_map(bufnr)
+  -- lspsaga
+  diagnositc_config_sign()
+  require 'lspsaga.syntax'.add_highlight()
+
 
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -357,6 +370,7 @@ local sumneko_binary = vim.fn.expand("$HOME")..'/github/sumneko/lua-language-ser
 
 require'lspconfig'.sumneko_lua.setup {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  on_attach = on_attach,
   settings = {
     Lua = {
       runtime = {
