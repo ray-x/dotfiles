@@ -5,7 +5,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('shmup/vim-sql-syntax', {'on_ft': ['sql', 'pgsql']})
    call dein#add('liuchengxu/vista.vim', {'on_cmd': ['Vista', 'Vista!!']})
 
-   call dein#add('kamykn/spelunker.vim', {'on_func': 'spelunker#check'})  " nevim-qt 'on_func': 'spelunker#check'failed"
+   call dein#add('kamykn/spelunker.vim', {'on_func': ['spelunker#check','spelunker#check_displayed_words']})  " nevim-qt 'on_func': 'spelunker#check'failed"
    call dein#add('rhysd/vim-grammarous')
    
    call dein#add('mattn/emmet-vim', { 'on_ft': ['html','css', 'js', 'ts', 'tsx'] })
@@ -59,7 +59,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('justinmk/vim-sneak', {'on_map': ['<Plug>Sneak_', 's']})
    
    call dein#add('tpope/vim-fugitive', {
-       \ 'on_cmd' : ['Gvsplit', 'Gstatus','Gdiffsplit', 'Gvdiffsplit', 'Gvdiffsplit!']
+       \ 'on_cmd' : ['Gvsplit','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!']
        \ })
 
    "" for those cannot handle by lsp

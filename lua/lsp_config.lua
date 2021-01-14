@@ -142,18 +142,18 @@ local diagnostic_map = function (bufnr)
 end
 
 -- lsp sign
-local diagnositc_config_sign = function ()
-  vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
-end
+-- local diagnositc_config_sign = function ()
+--   vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
+--   vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
+--   vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
+--   vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
+-- end
 
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   diagnostic_map(bufnr)
   -- lspsaga
-  diagnositc_config_sign()
+  -- diagnositc_config_sign()
   require 'lspsaga.syntax'.add_highlight()
 
 
@@ -481,6 +481,35 @@ nvim_lsp.pyls.setup({
 --   on_attach = lsp_status.on_attach,
 --   capabilities = lsp_status.capabilities
 -- })
+
+
+
+
+vim.g.lsp_utils_location_opts = {
+  height = 38,
+  mode = 'editor',
+  preview = {
+    title = 'Location Preview',
+    border = true,
+    border_chars = border_chars
+  },
+  keymaps = {
+    n = {
+      ['<C-n>'] = 'j',
+      ['<C-p>'] = 'k',
+    }
+  }
+}
+vim.g.lsp_utils_symbols_opts = {
+  height = 38,
+  mode = 'editor',
+  preview = {
+    title = 'Symbols Preview',
+    border = true,
+    border_chars = border_chars
+  },
+  prompt = {},
+}
 
 
 

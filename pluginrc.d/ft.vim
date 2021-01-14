@@ -14,7 +14,7 @@ augroup auto_go
   " autocmd BufWritePre *.go lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
   au BufWritePost *.sum :silent :GoModTidy
   au BufWritePost *.mod :silent :GoModTidy
-  autocmd BufWriteCmd *.mod :GoModFmt "enabled by default
+  " autocmd BufWriteCmd *.mod :GoModFmt "enabled by default
   " autocmd BufWritePost *.mod :%! go mod tidy
   " autocmd BufWritePost *_test.go :AsyncRun -raw -cwd=%:p:h go test ./... -tags=integration | lopen 3
 augroup end

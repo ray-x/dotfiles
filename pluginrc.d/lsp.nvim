@@ -89,17 +89,17 @@ let g:completion_chain_complete_list = {
 " let g:completion_confirm_key = "\<C-y>"
 
 let g:completion_confirm_key = ""
-" inoremap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?  "\<C-n>\<CR>"  : "\<c-e>\<CR>" :  "\<CR>"
 
-
-" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
- 
+
+" inoremap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?  "\<C-n>\<CR>"  : "\<c-e>\<CR>" :  "\<CR>"
+" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>" 
 " imap <expr> <CR> pumvisible() ? (complete_info().selected == -1 ? '\<C-n><Plug>(completion_confirm_completion)' : '\<Plug>(completion_confirm_completion)') : '\<CR>'
 
-set shortmess+=c
+let g:completion_enable_auto_signature = 1
 
+set shortmess+=c
 
 function! s:check_back_space() abort
     let col = col('.') - 1

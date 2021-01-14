@@ -139,7 +139,6 @@ export GO111MODULE="on"
 export PATH=~/bin:/usr/local/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$GOROOT/bin:$PATH
-export GOPRIVATE="bitbucket.org/appcurator"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.cargo/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"

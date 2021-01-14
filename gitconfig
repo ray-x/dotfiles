@@ -48,9 +48,13 @@
 
 
 [difftool "vimdiff"]
-  cmd = "gvimdiff -d $LOCAL -c \"set noreadonly\" $REMOTE"
+    cmd = "gvimdiff -d $LOCAL -c \"set noreadonly\" $REMOTE"
 [difftool "nvimdiff"]
-  # cmd = "nvim -u ~/github/dotfiles/init.min -d \"$LOCAL\" \"$REMOTE\""
-  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+    # cmd = "nvim -u ~/github/dotfiles/init.min -d \"$LOCAL\" \"$REMOTE\""
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [mergetool "nvimdiff"]
-  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+	insteadOf = https://github.com/
