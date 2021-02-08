@@ -89,7 +89,7 @@ nmap <silent> t<C-g> :TestVisit<CR>
 " let g:delimitMate_expand_inside_quotes = 1
 
 
-let g:git_messenger_include_diff = 'current'
+let g:git_messenger_include_diff = 'none'
 let g:git_messenger_always_into_popup = 1
 
 
@@ -102,7 +102,7 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [
             \ { 'c': '~/github/dotfiles' },
-            \ ] 
+            \ ]
 let g:startify_change_to_vcs_root = 1
 
 let g:startify_enable_special = 0

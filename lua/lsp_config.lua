@@ -1,13 +1,16 @@
 local nvim_lsp = require('lspconfig')
 local util = require('lspconfig').util
 local lsp_status = require('lsp-status')
+local format = require('internal.format')
 
-local status = require('lspsaga.status')
+require 'lspsaga'.init_lsp_saga()
+
 vim.lsp.set_log_level("error")
 
 print("lsp_config is loading")
 
 local M = {}
+
 
 vim.g.lsp_utils_location_opts = {
   height = 24,
@@ -84,8 +87,7 @@ function auto_group()
   local format_files =  "c,cpp,go,python,vim,javascript,typescript"  --html,css,
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
-    vim.api.nvim_command("au BufWritePre *.go lua require('lspsaga.action').go_organize_imports_sync(1000) ")
-
+  
     vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()]])
@@ -142,21 +144,23 @@ local diagnostic_map = function (bufnr)
 end
 
 -- lsp sign
--- local diagnositc_config_sign = function ()
---   vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
---   vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
---   vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
---   vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
--- end
+local diagnositc_config_sign = function ()
+  vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
+end
 
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   diagnostic_map(bufnr)
   -- lspsaga
-  -- diagnositc_config_sign()
-  require 'lspsaga.syntax'.add_highlight()
+  diagnositc_config_sign()
+  require 'internal.highlight'.add_highlight()
 
-
+  if client.resolved_capabilities.document_formatting then
+    format.lsp_before_save()
+  end
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- hook to nvim-lsputils
@@ -181,12 +185,12 @@ local on_attach = function(client, bufnr)
   vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
   vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
   
-  vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
-    if params and params.type <= vim.lsp.message_level then
-      assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
-      vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
-    end
-  end
+  -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
+  --   if params and params.type <= vim.lsp.message_level then
+  --     assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
+  --     vim.lsp.handlers["window/showMessage"](err, method, params, client_id)
+  --   end
+  -- end
 
   -- vim.lsp.handlers["window/logMessage"] = function log_message(err, method, result, client_id)
   --   local message_type = result.type
@@ -314,7 +318,7 @@ nvim_lsp.gopls.setup {
           unusedparams = true,
           unreachable = false,
         },
-        codelens = {
+        codelenses = {
           generate = true, -- Don't show the `go generate` lens.
           gc_details = true, --  // Show a code lens toggling the display of gc's choices.
 
@@ -324,6 +328,7 @@ nvim_lsp.gopls.setup {
         staticcheck = true,
         matcher            = "fuzzy",
         symbolMatcher      = "fuzzy",
+        gofumpt            = true,
         buildFlags = {"-tags", "integration"},
         -- buildFlags = {"-tags", "functional"}
       },

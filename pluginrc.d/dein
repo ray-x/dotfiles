@@ -96,6 +96,7 @@ if has('nvim')
    call dein#add('kyazdani42/nvim-tree.lua') ", { 'depends': 'devicons','on_cmd': ['NvimTreeToggle', 'NvimTreeOpen'])
 
    call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
+   call dein#add('glepnir/lspsaga.nvim')
 
    " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', ust', " 'ruby', 'toml', 'typescript', 'sql']})
 
@@ -109,7 +110,7 @@ if has('nvim')
 
    call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
 
-   call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter', 'on_event': 'InsertEnter', 'on_ft': ['bash', 'c_sharp','c', 'cpp', 'css', 'dart', 'go', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
+   call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter', 'on_event': 'InsertEnter', 'on_ft': ['bash', 'c_sharp','c', 'cpp', 'css', 'dart', 'go', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'yaml', 'ruby', 'toml', 'typescript']})
    " call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter'})
 
    call dein#add('ncm2/float-preview.nvim', {'on_event': 'InsertEnter'})

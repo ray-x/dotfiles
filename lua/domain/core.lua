@@ -2,7 +2,6 @@ local options = require 'domain.options'
 local global = require 'domain.global'
 -- local dein = require 'domain.dein'
 local autocmd = require 'internal.event'
-local saga = require 'lspsaga.saga'
 local fs = require 'publibs.plfs'
 local vim = vim
 local M = {}
@@ -69,7 +68,6 @@ function M.load_core()
   require('internal.mapping')
   autocmd.load_autocmds()
   -- require('internal.spaceline')
-  -- saga.create_saga_augroup()
 end
 
 M.load_core()

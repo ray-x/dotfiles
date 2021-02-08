@@ -66,5 +66,5 @@ require'nvim-treesitter.configs'.setup {
           ["im"] = "@call.inner"
       }
     },
-    ensure_installed = 'all' --['go','javascript', 'python', 'c', 'cpp', 'rust', 'html', 'jsdoc', 'bash', 'lua', 'typescript'] -- one of 'all', 'language', or a list of languages
+    ensure_installed = 'all' --['go','javascript', 'python', 'c', 'cpp', 'rust', 'html', 'json', 'jsdoc', 'bash', 'lua', 'typescript', 'tsx', 'yaml', 'css'] -- one of 'all', 'language', or a list of languages
 }

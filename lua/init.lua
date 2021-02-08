@@ -7,7 +7,7 @@ if vim.wo.diff then
   return ''
 end
 
-
+require'completion'.on_attach()
 -- command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 require('lsp_config')
 

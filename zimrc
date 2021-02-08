@@ -3,6 +3,9 @@
 # Modules
 # -------
 
+zstyle ':zim:ssh' ids 'id_ed25519' 'id_ed25519_deltatre' 'id_ed25519_github_deltatre
+
+
 # Sets sane Zsh built-in environment options.
 zmodule environment
 # Provides handy git aliases and functions.

@@ -94,6 +94,9 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 #typeset -A ZSH_HIGHLIGHT_STYLES
 #ZSH_HIGHLIGHT_STYLES[comment]='fg=10'
 
+
+zstyle ':zim:ssh' ids 'id_ed25519' 'id_ed25519_deltatre' 'id_ed25519_github_deltatre'
+
 # ------------------
 # Initialize modules
 # ------------------
@@ -139,6 +142,7 @@ export GO111MODULE="on"
 export PATH=~/bin:/usr/local/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$GOROOT/bin:$PATH
+export GOPRIVATE="bitbucket.org/appcurator,github.com/deltatre-vxp"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.cargo/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
@@ -150,6 +154,8 @@ alias nm='/usr/local/bin/nvim -u ~/github/dotfiles/init.min'
 alias vdiff='/usr/local/bin/nvim -d -u ~/github/dotfiles/init.min'
 alias gdv='git difftool --tool gvimdiff'
 alias nd='git difftool --tool nvimdiff'
+alias ls='ls -G'
+alias ll='ls -lG'
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 autoload -Uz compinit
@@ -164,6 +170,10 @@ SKIM_DEFAULT_COMMAND="fd --type f || git ls-tree -r --name-only HEAD || rg --fil
 
 alias fzf='fzf --preview="bat {} --color=always"'
 alias sk='sk --preview="bat {} --color=always"'
+
+# typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+{eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_ed25519_github_deltatre}  2>/dev/null 1>/dev/null
+
 # }}} End configuration added by Zim install
 
 
