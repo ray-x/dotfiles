@@ -84,7 +84,25 @@ function mapping:load_plugin_define()
     -- Plugin Floaterm
     -- ["n|<C-t>t"]          = map_cu("lua require('selfunc').float_terminal()"):with_noremap():with_silent(),
     -- ["t|<C-t>t"]          = map_cu([[<C-\><C-n>:lua require('selfunc').close_float_terminal()<CR>]]):with_noremap():with_silent(),
-      ["n|<C-t>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
+
+    -- Lsp mapp work when insertenter and lsp start
+    ["n|<C-f>"]          = map_cmd("<cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>"):with_silent():with_noremap():with_nowait(),
+    ["n|<C-b>"]          = map_cmd("<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>"):with_silent():with_noremap():with_nowait(),
+    ["n|[d"]             = map_cr('Lspsaga diagnostic_jump_next'):with_noremap():with_silent(),
+    ["n|]d"]             = map_cr('Lspsaga diagnostic_jump_prev'):with_noremap():with_silent(),
+    ["n|K"]              = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
+    ["n|ga"]             = map_cr("Lspsaga code_action"):with_noremap():with_silent(),
+    ["v|ga"]             = map_cu("Lspsaga range_code_action"):with_noremap():with_silent(),
+    ["n|gd"]             = map_cr('Lspsaga preview_definition'):with_noremap():with_silent(),
+    ["n|gD"]             = map_cmd("<cmd>lua vim.lsp.buf.implementation()<CR>"):with_noremap():with_silent(),
+    ["n|gs"]             = map_cr('Lspsaga signature_help'):with_noremap():with_silent(),
+    -- ["n|gr"]             = map_cr('Lspsaga rename'):with_noremap():with_silent(),
+    ["n|gh"]             = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
+    ["n|gt"]             = map_cmd("<cmd>lua vim.lsp.buf.type_definition()<CR>"):with_noremap():with_silent(),
+    ["n|<Leader>cw"]     = map_cmd("<cmd>lua vim.lsp.buf.workspace_symbol()<CR>"):with_noremap():with_silent(),
+    ["n|<Leader>ce"]     = map_cr('Lspsaga show_line_diagnostics'):with_noremap():with_silent(),
+    -- ["n|<Leader>ct"]      = map_args("Template"),
+    --   ["n|<C-t>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
     -- ["n|<Leader>g"]      = map_cu("lua require('selfunc').float_terminal('lazygit')"):with_noremap():with_silent(),
     -- Far.vim
     -- ["n|<Leader>fz"]     = map_cr('Farf'):with_noremap():with_silent();

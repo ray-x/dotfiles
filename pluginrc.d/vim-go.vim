@@ -17,7 +17,13 @@ if !executable('go') && !executable('mod') && !executable('tmpl')
   finish
 endif
 
-let g:go_fmt_command = "gofumports"
+" let g:go_fmt_command = "gofumports"
+" This is sync call and can be very slow, use lua script call Golines()
+let g:go_fmt_command = "golines"
+let g:go_fmt_options = {
+    \ 'golines': '-m 128 --base-formatter=gofumports',
+    \ }
+
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 0

@@ -39,6 +39,8 @@ function! Golines()
   lua require('internal.golines').golines_format()
 endfunction
 
+command Golines call Golines()
+
 function! FindRoot()
   let s:root = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
   let s:list = ['go.mod', 'Makefile', 'CMakefile.txt']

@@ -3,7 +3,7 @@ local util = require('lspconfig').util
 local lsp_status = require('lsp-status')
 local format = require('internal.format')
 
-require 'lspsaga'.init_lsp_saga()
+require('internal.sagaopts')
 
 vim.lsp.set_log_level("error")
 
@@ -81,51 +81,35 @@ function peek_definition()
 end
 
 function auto_group()
-  
+
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
   local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,lua,typescript"
   local format_files =  "c,cpp,go,python,vim,javascript,typescript"  --html,css,
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
-  
-    vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
+
+    -- vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
-    
+
     --[[ mappings that are shared across all supported langs ]]--
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gr      <cmd>lua vim.lsp.buf.references()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> K       <cmd>lua vim.lsp.buf.hover()<CR>]])
+
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-k>   <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gs      <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g0      <cmd>lua vim.lsp.buf.document_symbol()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <leader>g0       <cmd>Vista finder clap<CR>]])  --use clap
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gW      <cmd>lua vim.lsp.buf.workspace_symbol()<CR>]]) --lsputil or telescope 
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <leader> g0      <cmd>Vista finder clap<CR>]])  --use clap
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gW      <cmd>lua vim.lsp.buf.workspace_symbol()<CR>]]) --lsputil or telescope
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-]>   <cmd>lua vim.lsp.buf.definition()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> de      <cmd>lua vim.lsp.buf.declaration()<CR>]]) --?
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <Leader>rn  <cmd>lua vim.lsp.buf.rename()<CR>]])
 
-    -- im.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gd      <cmd>lua vim.lsp.buf.declaration()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gd      <cmd>lua require'lspsaga.provider'.preview_definiton()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gD      <cmd>lua vim.lsp.buf.implementation()<CR>]])  --lsputil
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gt      <cmd>lua vim.lsp.buf.type_definition()<CR>]])  --? no for go
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ga      <cmd>lua vim.lsp.buf.code_action()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gL      <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
-
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> [e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ]e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ce      <cmd>lua require'lspsaga.diagnostic'.show_buf_diagnostics()<CR>]])
-
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gh      <cmd>lua require'lspsaga.provider'.lsp_finder({definition_icon='  ',reference_icon = '  '})<CR>"]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> di      <cmd>lua require('lspsaga.location').preview_implementation()<CR>]])    
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> df      <cmd>lua require('lspsaga.location').peek_definition()<CR>]])
-
-
-    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <Leader>gr       <cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_dropdown({results_height = 20; width = 0.6; preview_width = 0.5}))<CR>]])
-    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols(theme)<CR>]])
-    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> tw      <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>]])  -- not with golang
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <C-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g<LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>]])
 
@@ -136,26 +120,22 @@ end
 
 local diagnostic_map = function (bufnr)
   local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', ':lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']O', ':lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
 -- lsp sign
-local diagnositc_config_sign = function ()
-  vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
-end
+-- local diagnositc_config_sign = function ()
+--   vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
+--   vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
+--   vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
+--   vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
+-- end
 
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   diagnostic_map(bufnr)
   -- lspsaga
-  diagnositc_config_sign()
+  -- diagnositc_config_sign()
   require 'internal.highlight'.add_highlight()
 
   if client.resolved_capabilities.document_formatting then
@@ -179,12 +159,12 @@ local on_attach = function(client, bufnr)
     vim.lsp.util.buf_clear_references(bufnr)
     vim.lsp.util.buf_highlight_references(bufnr, result)
   end
-  
+
   -- us telescope for following binding
   vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
   vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
   vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
-  
+
   -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
   --   if params and params.type <= vim.lsp.message_level then
   --     assert(vim.lsp.handlers["window/showMessage"], "Callback for window/showMessage notification is not defined")
@@ -222,10 +202,10 @@ local on_attach = function(client, bufnr)
         end
         vim.fn.setqflist({}, ' ', { title = 'LSP'; items = item_list; })
       end
-    end 
+    end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, 
+    vim.lsp.diagnostic.on_publish_diagnostics,
     {
       -- Enable underline, use default values
       underline = true,
@@ -268,7 +248,7 @@ local on_attach = function(client, bufnr)
 
 end
 
--- 
+--
 
 auto_group()
 
@@ -283,7 +263,7 @@ for _, lsp in ipairs(servers) do
     indicator_warnings = '',
     indicator_info = 'כֿ',
     indicator_hint = 'λ',
-    indicator_ok = '✔️', 
+    indicator_ok = '✔️',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   })
   nvim_lsp[lsp].setup {
@@ -414,7 +394,7 @@ require'lspconfig'.sumneko_lua.setup {
 --     --cmd = {'/Users/ray.xu/github/sumneko/lua-language-server/bin/macOS/lua-language-server'},
 --     Lua = {
 --       runtime = {
---           version = "LuaJIT", 
+--           version = "LuaJIT",
 --           path = vim.split(package.path, ";")
 --           },
 --       diagnostics = {
@@ -519,3 +499,28 @@ vim.g.lsp_utils_symbols_opts = {
 
 
 return M
+
+
+  -- moved out
+  --     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> K       <cmd>lua vim.lsp.buf.hover()<CR>]])
+  -- im.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gd      <cmd>lua vim.lsp.buf.declaration()<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gd      <cmd>lua require'lspsaga.provider'.preview_definiton()<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ga      <cmd>lua vim.lsp.buf.code_action()<CR>]]) --saga code action
+
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> [e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ]e      <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> ce      <cmd>lua require'lspsaga.diagnostic'.show_buf_diagnostics()<CR>]])
+
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gh      <cmd>lua require'lspsaga.provider'.lsp_finder({definition_icon='  ',reference_icon = '  '})<CR>"]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> di      <cmd>lua require('lspsaga.location').preview_implementation()<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <Leader>df      <cmd>lua require('lspsaga.location').peek_definition()<CR>]])
+
+
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <Leader>gr       <cmd>lua require'telescope.builtin'.lsp_references(require('telescope.themes').get_dropdown({results_height = 20; width = 0.6; preview_width = 0.5}))<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> td      <cmd>lua require'telescope.builtin'.lsp_document_symbols(theme)<CR>]])
+  -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> tw      <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>]])  -- not with golang
+
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', ':lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', ':lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '[D', ':lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', ']D', ':lua vim.lsp.diagnostic.goto_next()<CR>', opts)

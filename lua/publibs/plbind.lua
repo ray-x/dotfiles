@@ -4,19 +4,9 @@ local pbind = {}
 function pbind.bind_option(options)
   for k, v in pairs(options) do
     if v == true or v == false then
-      vim.api.nvim_command('set ' .. k)
-    elseif type(v) == 'table' then
-      local values = ''
-      for k2, v2 in pairs(v) do
-        if k2 == 1 then
-          values = values .. v2
-        else
-          values = values .. ',' .. v2
-        end
-      end
-      vim.api.nvim_command('set ' .. k .. '=' .. values)
+      vim.cmd('set ' .. k)
     else
-      vim.api.nvim_command('set ' .. k .. '=' .. v)
+      vim.cmd('set ' .. k .. '=' .. v)
     end
   end
 end
@@ -30,6 +20,7 @@ function rhs_options:new()
       noremap = false,
       silent = false,
       expr = false,
+      nowait = false,
     }
   }
   setmetatable(instance,self)
@@ -44,6 +35,11 @@ end
 
 function rhs_options:map_cr(cmd_string)
   self.cmd = (":%s<CR>"):format(cmd_string)
+  return self
+end
+
+function  rhs_options:map_args(cmd_string)
+  self.cmd = (":%s<Space>"):format(cmd_string)
   return self
 end
 
@@ -67,6 +63,11 @@ function rhs_options:with_expr()
   return self
 end
 
+function rhs_options:with_nowait()
+  self.options.nowait = true
+  return self
+end
+
 function pbind.map_cr(cmd_string)
   local ro = rhs_options:new()
   return ro:map_cr(cmd_string)
@@ -80,6 +81,11 @@ end
 function pbind.map_cu(cmd_string)
   local ro = rhs_options:new()
   return ro:map_cu(cmd_string)
+end
+
+function pbind.map_args(cmd_string)
+  local ro = rhs_options:new()
+  return ro:map_args(cmd_string)
 end
 
 function pbind.nvim_load_mapping(mapping)

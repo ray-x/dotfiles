@@ -95,74 +95,7 @@ gls.left[6] = {
     highlight = {colors.fg,colors.bg},
   },
 }
-
 gls.left[7] = {
-  PerCent = {
-    provider = 'LinePercent',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.fg,colors.bg,'bold'},
-  }
-}
-
-gls.left[8] = {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.bg}
-  }
-}
-gls.left[9] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.yellow,colors.bg},
-  }
-}
-
-gls.left[10] = {
-  DiagnosticHint = {
-    provider = 'DiagnosticHint',
-    icon = '  ',
-    highlight = {colors.cyan,colors.bg},
-  }
-}
-
-gls.left[11] = {
-  DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
-    icon = '  ',
-    highlight = {colors.blue,colors.bg},
-  }
-}
-
-gls.left[12] = {
-  ScrollBar = {
-    provider = 'ScrollBar',
-    -- condition = checkwidth,
-    highlight = {colors.blue,colors.purple},
-  }
-}
-
-gls.right[1] = {
-  FileEncode = {
-    provider = 'FileEncode',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.cyan,colors.bg,'bold'}
-  }
-}
-
-gls.right[2] = {
-  FileFormat = {
-    provider = 'FileFormat',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.cyan,colors.bg,'bold'}
-  }
-}
-
-gls.right[3] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
@@ -172,13 +105,84 @@ gls.right[3] = {
   }
 }
 
-gls.right[4] = {
+gls.left[8] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.violet,colors.bg,'bold'},
   }
 }
+gls.left[9] = {
+  DiagnosticError = {
+    provider = 'DiagnosticError',
+    icon = '  ',
+    highlight = {colors.red,colors.bg}
+  }
+}
+gls.left[10] = {
+  DiagnosticWarn = {
+    provider = 'DiagnosticWarn',
+    icon = '  ',
+    highlight = {colors.yellow,colors.bg},
+  }
+}
+
+gls.left[11] = {
+  DiagnosticHint = {
+    provider = 'DiagnosticHint',
+    icon = '  ',
+    highlight = {colors.cyan,colors.bg},
+  }
+}
+
+gls.left[12] = {
+  DiagnosticInfo = {
+    provider = 'DiagnosticInfo',
+    icon = '  ',
+    highlight = {colors.blue,colors.bg},
+  }
+}
+
+
+
+gls.right[1] = {
+  FileEncode = {
+    provider = 'FileEncode',
+    separator = ' ',
+    condition = checkwidth,
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.cyan,colors.bg,'bold'}
+  }
+}
+
+gls.right[2] = {
+  FileFormat = {
+    provider = 'FileFormat',
+    separator = ' ',
+    condition = checkwidth,
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.cyan,colors.bg,'bold'}
+  }
+}
+gls.right[3] = {
+  ScrollBar = {
+    provider = 'ScrollBar',
+    separator = '|',
+    condition = checkwidth,
+    highlight = {colors.blue,colors.purple},
+  }
+}
+gls.right[4] = {
+  PerCent = {
+    provider = 'LinePercent',
+    separator = '|',
+    condition = checkwidth,
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.fg,colors.bg,'bold'},
+  }
+}
+
+
 
 local checkwidth = function()
   local squeeze_width  = vim.fn.winwidth(0) / 2
