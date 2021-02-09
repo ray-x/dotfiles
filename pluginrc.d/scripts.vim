@@ -99,7 +99,7 @@ function! ToggleHiddenAll()
     endif
 endfunction
 
-nnoremap <S-h> :call ToggleHiddenAll()<CR>
+nnoremap <Leader><S-h> :call ToggleHiddenAll()<CR>
 
 function! LF()
     let temp = tempname()

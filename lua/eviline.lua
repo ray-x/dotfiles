@@ -167,7 +167,7 @@ gls.right[2] = {
 gls.right[3] = {
   ScrollBar = {
     provider = 'ScrollBar',
-    separator = '|',
+    separator = ' ',
     condition = checkwidth,
     highlight = {colors.blue,colors.purple},
   }
@@ -175,22 +175,12 @@ gls.right[3] = {
 gls.right[4] = {
   PerCent = {
     provider = 'LinePercent',
-    separator = '|',
+    separator = ' ',
     condition = checkwidth,
     separator_highlight = {'NONE',colors.bg},
     highlight = {colors.fg,colors.bg,'bold'},
   }
 }
-
-
-
-local checkwidth = function()
-  local squeeze_width  = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
-end
 
 gls.right[5] = {
   DiffAdd = {
@@ -204,7 +194,7 @@ gls.right[6] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
-    icon = ' 柳',
+    icon = ' ',   -- 柳
     highlight = {colors.orange,colors.bg},
   }
 }

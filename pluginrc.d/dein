@@ -61,7 +61,8 @@ if dein#load_state('~/.cache/dein')
    call dein#add('tpope/vim-fugitive', {
        \ 'on_cmd' : ['Gvsplit','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!']
        \ })
-
+   call dein#add('lewis6991/gitsigns.nvim')
+   
    "" for those cannot handle by lsp
    call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
@@ -74,9 +75,6 @@ if dein#load_state('~/.cache/dein')
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
    " call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
    " call dein#add('chengzeyi/fzf-preview.vim', { 'depends': 'fzf' })
-
-   " call dein#add('Shougo/deoplete.nvim')
-   " call dein#add('Shougo/deoplete-lsp')
    
 if has('nvim')
    call dein#add('hrsh7th/vim-vsnip', {'on_event': 'InsertEnter'})
@@ -97,6 +95,7 @@ if has('nvim')
 
    call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
    call dein#add('glepnir/lspsaga.nvim')
+   call dein#add('bfredl/nvim-miniyank')   " copy paste failed in block mode when clipboard = unnameplus"
 
    " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', ust', " 'ruby', 'toml', 'typescript', 'sql']})
 
@@ -127,7 +126,7 @@ if has('nvim')
    call dein#add('akinsho/nvim-bufferline.lua')
 
    call dein#add('glepnir/galaxyline.nvim')
-   " call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
+
    
    call dein#add('norcalli/nvim-colorizer.lua')
 
@@ -166,3 +165,6 @@ endif
 """"""replaced"""""""""
    " call dein#add('kdheepak/lazygit.nvim', { 'on_cmd': 'LazyGit' })
    " call dein#add('kevinhwang91/rnvimr', {'on_cmd':'RnvimrToggle'})
+   " call dein#add('tjdevries/express_line.nvim', {'depends': 'plenary'})
+      " call dein#add('Shougo/deoplete.nvim')
+   " call dein#add('Shougo/deoplete-lsp')

@@ -50,6 +50,8 @@ require'bufferline'.setup{
 }
 
 
+require('internal.gitsigns')
+
 -- 
 vim.cmd [[nmap <S-F1> :NvimTreeToggle<CR>]]
 vim.cmd [[autocmd Filetype LuaTree set cursorline]]

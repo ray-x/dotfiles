@@ -124,3 +124,7 @@ let g:user_emmet_mode='a'
 let g:far#source = 'rgnvim'
 let g:far#enable_undo = 1
 " let g:far#ignore_files = ['.git/']
+
+" copy/paste"
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
