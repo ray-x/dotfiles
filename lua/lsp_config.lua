@@ -3,7 +3,7 @@ local util = require('lspconfig').util
 local lsp_status = require('lsp-status')
 local format = require('internal.format')
 
-require('internal.sagaopts')
+require('internal.lspsaga')
 
 vim.lsp.set_log_level("error")
 
