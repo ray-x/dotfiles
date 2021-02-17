@@ -149,6 +149,8 @@ let g:completion_auto_change_source = 1
 let g:completion_sorting = "length"
 let g:completion_matching_ignore_case = 1
 
+"Chinese...綠 禍 fce4(ﳤ)
+
 
 let g:completion_customize_lsp_label = {
       \ 'Function': "\uf794",
@@ -157,14 +159,14 @@ let g:completion_customize_lsp_label = {
       \ 'Constant': "\uf8ff",
       \ 'Struct': "\ufb44",
       \ 'Class': "\uf0e8",
-      \ 'Interface': "\ufa52",
+      \ 'Interface': "\uf492",
       \ 'Text': "\ue612",
       \ 'Enum': "\uf435",
       \ 'EnumMember': "\uf02b",
       \ 'Module': "\uf668",
       \ 'Color': "\ue22b",
       \ 'Property': "\ufab6",
-      \ 'Field': "\uf93d",
+      \ 'Field': "\uf192",
       \ 'Unit': "\uf475",
       \ 'File': "\uf471",
       \ 'Value': "\uf8a3",

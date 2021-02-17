@@ -258,11 +258,11 @@ local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls',
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
-    status_symbol = '',
-    indicator_errors = '',
-    indicator_warnings = '',
-    indicator_info = 'כֿ',
-    indicator_hint = 'λ',
+    status_symbol = '',
+    indicator_errors = '',
+    indicator_warnings = '',
+    indicator_info = '',
+    indicator_hint = '',
     indicator_ok = '✔️',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   })

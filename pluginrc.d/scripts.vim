@@ -30,6 +30,20 @@ function! FindProjectRoot(lookFor)
 endfunction
    " 搜索 .git 为项目路径
 
+function! FJson()
+python << EOF
+import vim
+import json
+try:
+    buf = vim.current.buffer
+    json_content = '\n'.join(buf[:])
+    content = json.loads(json_content)
+    sorted_content = json.dumps(content, indent=4, sort_keys=True)
+    buf[:] = sorted_content.split('\n')
+except Exception, e:
+    print e
+EOF
+endfunction
 
 function! FormatJson()
   %!python -m json.tool
@@ -262,9 +276,10 @@ function! s:CloseBracket()
 endfunction
 inoremap <expr> {<Enter> <SID>CloseBracket()
 
-" forma json" also :%!python -m json.tool
+" forma json" also :%!python3 -m json.tool
 
-command! Jsonf :execute '%!python -c "import json,sys,collections,re; sys.stdout.write(re.sub(r\"\\\u[0-9a-f]{4}\", lambda m:m.group().decode(\"unicode_escape\").encode(\"utf-8\"),json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=2)))"'
+command! Jq :%!jq .
+command! Jsonf :execute '%!python3 -c "import json,sys,collections,re; sys.stdout.write(re.sub(r\"\\\u[0-9a-f]{4}\", lambda m:m.group().decode(\"unicode_escape\").encode(\"utf-8\"),json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=2)))"'
 
 "     ["i|<TAB>"]      = map_cmd([[pumvisible() ? "\<C-n>" : vsnip#available(1) ?"\<Plug>(vsnip-expand-or-jump)" : " v:lua.check_back_space() ? "\<TAB>" : completion#trigger_completion()]]):with_expr():with_silent(),
 "     ["i|<S-TAB>"]    = map_cmd([[pumvisible() ? "\<C-p>" : "\<C-h>"]]):with_noremap():with_expr(),
