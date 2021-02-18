@@ -254,7 +254,7 @@ auto_group()
 
 -- , 'dockerls' 'ccls' pyls_ms
 
-local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd'}
+local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd', 'sqls'}
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({
@@ -313,27 +313,48 @@ nvim_lsp.gopls.setup {
         -- buildFlags = {"-tags", "functional"}
       },
     },
+    workspace = {
+      -- Make the server aware of Neovim runtime files
+      library = {
+        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        [vim.fn.expand("~/repos/nvim/lua")] = true,
+      },
+    },
     root_dir = function(fname)
       return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
     end;
 }
 
--- nvim_lsp.sqls.setup({settings = {
---     on_attach=on_attach,
---     cmd = {"sqls", "-config", "$HOME/.config/sqls/config.yml"},
---     workspace = {
---       library = {
---         -- This loads the `lua` files from nvim into the runtime.
---         [vim.fn.expand("$VIMRUNTIME/lua")] = true,
---         [vim.fn.expand("~/repos/nvim/lua")] = true,
---       },
---     },
---   },
--- })
+nvim_lsp.sqls.setup({
+  on_attach = function(client)
+    client.resolved_capabilities.execute_command = true
+      lsp_status.on_attach(client, bufnr)
+      diagnostic_map(bufnr)
+      -- lspsaga
+      -- diagnositc_config_sign()
+      require 'internal.highlight'.add_highlight()
+    require'sqls'.setup{picker = 'telescope',} -- or default
+  end,
+  settings = {
+    cmd = {"sqls", "-config", "$HOME/.config/sqls/config.yml"},
+    -- alterantively:
+    -- connections = {
+    --   {
+    --     driver = 'postgresql',
+    --     dataSourceName = 'host=127.0.0.1 port=5432 user=postgres password=password dbname=user_db sslmode=disable',
+    --   },
+    -- },
+    workspace = {
+      library = {
+        -- This loads the `lua` files from nvim into the runtime.
+        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+        [vim.fn.expand("~/repos/nvim/lua")] = true,
+      },
+    },
+  },
+})
 
--- require'lspconfig'.sqlls.setup{
---   cmd = {"sql-language-server", "up", "--method", "stdio"};
--- }
 
 local system_name
 if vim.fn.has("mac") == 1 then

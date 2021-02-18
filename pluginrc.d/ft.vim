@@ -11,7 +11,7 @@ autocmd BufRead,BufNewFile *.htm,*.html,*.js,*.ts,*.go,*.c,*.h,*.cpp,*.tsx set f
 :command GoModTidy !go mod tidy -v
 
 augroup auto_go
-  " autocmd BufWritePre *.go lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
+  " autocmd BufWritePre *.go :lua vim.lsp.buf.code_action({ source = { organizeImports = true } })
   au BufWritePost *.sum :silent :GoModTidy
   au BufWritePost *.mod :silent :GoModTidy
   " au BufWritePre *.go lua require('internal.golines').golines_format()
