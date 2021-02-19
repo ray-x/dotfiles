@@ -41,6 +41,14 @@ let g:interestingWordsCycleColors = 1
 let s:interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000']
 
 
+set list lcs=tab:\\
+set list listchars=tab:\|\-
+let g:indentLine_color_gui = '#34453E'
+let g:indentLine_color_dark = 1 " (default: 2)
+"let g:indentLine_bgcolor_gui = '#1B2B34'  " use hi Normal to check the bg
+let g:indentLine_char_list = ['|', '¦', '┆', '┊', '']
+let g:indentLine_enabled = 1
+
 " augroup ToggleSearchHighlighting
 "   autocmd!
 "   autocmd InsertEnter * setlocal nohlsearch

@@ -150,9 +150,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # --------------RAY CONFIG-----------------
 export GOPATH="/Users/ray.xu/go"
-export GOROOT="/usr/local/opt/go/libexec"
-# export GOPATH=$HOME/deltatre/go
-# export GOROOT=/usr/local/go
+# export GOROOT="/usr/local/opt/go/libexec" # install with brew
+
+export GOROOT=/usr/local/go   # install with pkg download from golang.org
 export GOBIN=$GOPATH/bin
 export GO111MODULE="on"
 export PATH=~/bin:/usr/local/bin:$PATH
@@ -172,8 +172,9 @@ alias gdv='git difftool --tool gvimdiff'
 alias nd='git difftool --tool nvimdiff'
 alias ls='ls -G'
 alias ll='ls -lG'
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-export PATH="/usr/local/opt/llvm/bin:$PATH"
+alias icat="kitty +kitten icat"
+export PATH="/usr/local/opt/python@3.9/bin:$PATH"
+export PATH="/usr/local/opt/llvm/bin:/Users/ray.xu/github/dotfiles/bin/:$PATH"
 autoload -Uz compinit
 compinit
 # Completion for kitty
@@ -186,7 +187,7 @@ SKIM_DEFAULT_COMMAND="fd --type f || git ls-tree -r --name-only HEAD || rg --fil
 
 alias fzf='fzf --preview="bat {} --color=always"'
 alias sk='sk --preview="bat {} --color=always"'
-
+alias seperator='viu `echo ~/photos/$(ls ~/photos |sort -R |tail -1)`'
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 {eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_ed25519_github_deltatre}  2>/dev/null 1>/dev/null
 

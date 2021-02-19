@@ -42,8 +42,6 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('voldikss/vim-floaterm', { 'on_cmd': ['FloatermNew','FloatermToggle'] })
 
-   call dein#add('mhinz/vim-signify', { 'on_cmd': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] })
-
    call dein#add('w0rp/ale', {'lazy':1, 'on_cmd': 'ALEEnable', 'on_event':['BufWritePre']})
    
    call dein#add('vim-test/vim-test'  , { 'on_cmd': ['TestNearest', 'TestFile', 'TestSuite'] })
@@ -51,15 +49,15 @@ if dein#load_state('~/.cache/dein')
    call dein#add('chaoren/vim-wordmotion', {'on_map': ['<Plug>WordMotion_', 'ciw']})
 
    call dein#add('liuchengxu/vim-clap' , { 'hook_post_update': 'call clap#installer#force_download()','on_map': '<Plug>' } )
-   call dein#add('simnalamburt/vim-mundo', {'on_cmd':['MundoToggle', 'GundoToggle', 'GundoShow']})
+   call dein#add('mbbill/undotree')
    call dein#add('luochen1990/rainbow')
-   " call dein#add('Yggdroot/indentLine')
+   call dein#add('Yggdroot/indentLine')
    call dein#add('mtdl9/vim-log-highlighting', {'on_ft': ['text', 'log']})
    call dein#add('ray-x/vim-interestingwords', {'on_func': 'InterestingWords', 'on_map': ['<Plug>', '<Leader>u']})
    call dein#add('justinmk/vim-sneak', {'on_map': ['<Plug>Sneak_', 's']})
    
    call dein#add('tpope/vim-fugitive', {
-       \ 'on_cmd' : ['Gvsplit','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!']
+       \ 'on_cmd' : ['Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!']
        \ })
    call dein#add('lewis6991/gitsigns.nvim')
 
@@ -67,7 +65,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
 
-   "" seems to be duplicate clap. just in case clap is crashing
+   "" seems to be redundant clap. just in case clap is crashing
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
    " call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
    " call dein#add('chengzeyi/fzf-preview.vim', { 'depends': 'fzf' })
@@ -99,10 +97,7 @@ if has('nvim')
    call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
 
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
-   " call dein#add('weilbith/nvim-lsp-smag', {'depends':'lsp', 'on_event': 'InsertEnter'})
-   call dein#add('weilbith/nvim-lsp-diamove', {
-       \ 'on_cmd': ['Dabove', 'Dbelow'],
-      \ })
+   call dein#add('weilbith/nvim-lsp-smag', {'depends':'lsp', 'on_event': 'InsertEnter'})
 
    call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
 
@@ -162,4 +157,5 @@ endif
 
 """""" replaced """""""""
    " call dein#add('kevinhwang91/rnvimr', {'on_cmd':'RnvimrToggle'})
-
+   "   call dein#add('mhinz/vim-signify', { 'on_cmd': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] })   GitSign"
+   " call dein#add('Yggdroot/indentLine') 

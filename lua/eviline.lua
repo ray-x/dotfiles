@@ -194,7 +194,7 @@ gls.right[6] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
-    icon = ' ',   -- 柳
+    icon = '  ',   -- 柳
     highlight = {colors.orange,colors.bg},
   }
 }

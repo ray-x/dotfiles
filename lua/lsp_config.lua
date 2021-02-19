@@ -252,7 +252,7 @@ end
 
 auto_group()
 
--- , 'dockerls' 'ccls' pyls_ms
+-- , 'dockerls' 'ccls' pyls_ms 💡 
 
 local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd', 'sqls'}
 for _, lsp in ipairs(servers) do
@@ -262,7 +262,7 @@ for _, lsp in ipairs(servers) do
     indicator_errors = '',
     indicator_warnings = '',
     indicator_info = '',
-    indicator_hint = '',
+    indicator_hint = '💡',
     indicator_ok = '✔️',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   })
