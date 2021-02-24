@@ -16,16 +16,118 @@ local colors = {
   red = '#ec5f67';
 }
 
+local split = function(str, pat)
+   local t = {}  -- NOTE: use {n = 0} in Lua-5.0
+   local fpat = "(.-)" .. pat
+   local last_end = 1
+   local s, e, cap = str:find(fpat, 1)
+   while s do
+      if s ~= 1 or cap ~= "" then
+         table.insert(t, cap)
+      end
+      last_end = e+1
+      s, e, cap = str:find(fpat, last_end)
+   end
+   if last_end <= #str then
+      cap = str:sub(last_end)
+      table.insert(t, cap)
+   end
+   return t
+end
 
+local split_path = function(str)
+   return split(str,'[\\/]+')
+end
 
-current_function = function()
+local current_function = function()
   local current_func = require('lsp-status').status()
+  local fun_name = string.match(current_func, "%((%a+)%)")
   if current_func then
-    return string.format(' %s ', current_func)
+    return string.format(' %s()', fun_name)
   end
   return ' '
 end
 
+local current_function_buf = function(_, buffer)
+  if not buffer.lsp then
+    return ''
+  end
+
+  local current_func = require('lsp-status').status()
+  if not current_func then
+      return ''
+  end
+  local ok, current_func_name = pcall(get_current_function, _, buffer)
+  if ok and current_func_name and #current_func > 0 then
+    return string.format('[ %s ]', current_func)
+  end
+  return ''
+end
+
+local Set = function(list)
+  local set = {}
+  for _, l in ipairs(list) do set[l] = true end
+  return set
+end
+
+local should_show = function()
+  -- body
+  local exclude = Set {"LuaTree", "vista", "vista_kind", "floatterm", "defx"}
+  local ft = vim.api.nvim_buf_get_option(0, 'filetype')
+  if exclude[ft] or winwidth() < 80 then
+    return false
+  end
+
+  return true
+end
+
+function getEntryFromEnd(table, entry)
+    local count = (table and #table or false)
+    if (count) then
+        return table[count-entry];
+    end
+    return nil;
+end
+
+local TrimmedDirectory = function(dir)
+  local home = os.getenv("HOME")
+  local _, index = string.find(dir, home, 1)
+  if index ~= nil and index ~= string.len(dir) then
+    -- TODO Trimmed Home Directory
+    dir = string.gsub(dir, home, '~')
+  end
+  local pa=split_path(dir)
+  local p1=getEntryFromEnd(pa, 1)
+  if p1 then p1, _= string.gsub(p1, "mtribes","m") end
+  local p2=getEntryFromEnd(pa, 2)
+  if p2 then p2, _= string.gsub(p2, "mtribes","m") end
+  local p3=getEntryFromEnd(pa, 3)
+  if p3 then p3, _= string.gsub(p3, "mtribes","m") end
+
+  local pc=''
+  if p3~=nil then
+    pc = string.sub(p3, 0, 4) .. '/' .. string.sub(p2, 0, 4) .. '/' .. string.sub(p1, 0, 4)
+  elseif p2~=nil then
+    pc = string.sub(p2, 0, 5) .. '/' .. string.sub(p1, 0, 5)
+  elseif p2~=nil then
+    pc=p1
+  else
+    pc=''
+  end
+  pc = ' ' .. pc
+  return(pc)
+end
+
+local Set = function(list)
+  local set = {}
+  for _, l in ipairs(list) do set[l] = true end
+  return set
+end
+
+local winwidth = function ()
+  -- body
+  return vim.api.nvim_call_function('winwidth', {0})
+end
 
 local buffer_not_empty = function()
   if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
@@ -71,7 +173,17 @@ gls.left[3] = {
     highlight = {colors.fg,colors.bg}
   }
 }
-gls.left[4] ={
+
+gls.left[4] = {
+  FolderName = {
+    --provider = function() return TrimmedDirectory(vim.api.nvim_call_function('getcwd', {}))  end,
+    provider = function() return TrimmedDirectory(vim.fn.expand('#2:p'))  end,
+    condition = buffer_not_empty,
+    highlight = {'#F38A98',colors.bg,'bold'}
+  }
+}
+
+gls.left[5] ={
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
@@ -79,7 +191,7 @@ gls.left[4] ={
   },
 }
 
-gls.left[5] = {
+gls.left[6] = {
   FileName = {
     provider = {'FileName'},
     condition = buffer_not_empty,
@@ -87,7 +199,7 @@ gls.left[5] = {
   }
 }
 
-gls.left[6] = {
+gls.left[7] = {
   LineInfo = {
     provider = 'LineColumn',
     separator = ' ',
@@ -95,31 +207,41 @@ gls.left[6] = {
     highlight = {colors.fg,colors.bg},
   },
 }
-gls.left[7] = {
+
+gls.left[8] = {
+  CurFunc = {
+    provider = current_function,
+    separator = ' ',
+    separator_highlight = {'NONE',colors.purple},
+    highlight = {colors.magenta, colors.bg},
+  },
+}
+
+gls.left[9] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     separator = ' ',
     separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.violet,colors.bg,'bold'},
+    highlight = {colors.blue, colors.bg, 'bold'},
   }
 }
 
-gls.left[8] = {
+gls.left[10] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
-    highlight = {colors.violet,colors.bg,'bold'},
+    highlight = {colors.blue, colors.bg, 'bold'},
   }
 }
-gls.left[9] = {
+gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = {colors.red,colors.bg}
   }
 }
-gls.left[10] = {
+gls.left[12] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
@@ -127,7 +249,7 @@ gls.left[10] = {
   }
 }
 
-gls.left[11] = {
+gls.left[13] = {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
     icon = '  ',
@@ -135,15 +257,13 @@ gls.left[11] = {
   }
 }
 
-gls.left[12] = {
+gls.left[14] = {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
     icon = '  ',
     highlight = {colors.blue,colors.bg},
   }
 }
-
-
 
 gls.right[1] = {
   FileEncode = {
@@ -246,5 +366,3 @@ gls.short_line_right[1] = {
     highlight = {colors.fg,colors.bg}
   }
 }
-
-

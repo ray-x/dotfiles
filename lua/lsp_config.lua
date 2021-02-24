@@ -86,6 +86,14 @@ function redraw_diagnostic()
   vim.lsp.diagnostic.set_underline(diags, bufnr)
 end
 
+function clear_diagnostic()
+  local bufnr = vim.fn.bufnr()
+  local diags = vim.lsp.diagnostic.get(bufnr)
+  vim.lsp.diagnostic.set_signs(diags, bufnr)
+  vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
+  vim.lsp.diagnostic.set_underline(diags, bufnr)
+end
+
 function auto_group()
 
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
@@ -122,7 +130,6 @@ function auto_group()
 
   vim.api.nvim_command([[augroup END]])
 
-
 end
 
 local diagnostic_map = function (bufnr)
@@ -130,19 +137,10 @@ local diagnostic_map = function (bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']O', ':lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
--- lsp sign
-local diagnositc_config_sign = function ()
-  vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignInformation', {text='💡', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
-  vim.fn.sign_define('LspDiagnosticsSignHint', {text='💡', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
-end
-
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   diagnostic_map(bufnr)
   -- lspsaga
-  diagnositc_config_sign()
   require 'internal.highlight'.add_highlight()
 
   if client.resolved_capabilities.document_formatting then

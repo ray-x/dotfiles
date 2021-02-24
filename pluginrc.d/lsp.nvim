@@ -234,12 +234,6 @@ let g:diagnostic_auto_popup_while_jump = 1
 let g:diagnostic_insert_delay = 1
 " let g:nvim_lsp = 1 "this disable lsp_config
 
-
-sign define LspDiagnosticsSignError text=  linehl= texthl=LspDiagnosticsSignError numhl=                        
-sign define LspDiagnosticsSignWarning text=  linehl= texthl=LspDiagnosticsSignWarning numhl=                    
-sign define LspDiagnosticsSignInformation text=כֿ  linehl= texthl=LspDiagnosticsSignInformation numhl=            
-sign define LspDiagnosticsSignHint text=λ  linehl= texthl=LspDiagnosticsSignHint numhl= 
-
 function! LspStatus() abort
     let sl = ''
     if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
