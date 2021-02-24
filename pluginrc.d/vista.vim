@@ -19,4 +19,3 @@ let g:vista_executive_for = {
   \ 'typescript': 'ctags',
   \ 'go': 'ctags',
   \ }
-map <F3> :Vista!!<CR>

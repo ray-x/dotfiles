@@ -7,8 +7,6 @@ require('internal.lspsaga')
 
 vim.lsp.set_log_level("error")
 
-print("lsp_config is loading")
-
 local M = {}
 
 
@@ -80,6 +78,14 @@ function peek_definition()
   return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
 end
 
+function redraw_diagnostic()
+  local bufnr = vim.fn.bufnr()
+  local diags = vim.lsp.diagnostic.get(bufnr)
+  vim.lsp.diagnostic.set_signs(diags, bufnr)
+  vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
+  vim.lsp.diagnostic.set_underline(diags, bufnr)
+end
+
 function auto_group()
 
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
@@ -88,11 +94,12 @@ function auto_group()
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
 
-    -- vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
-
+    -- vim.api.nvim_command([[autocmd FileType ]] .. format_files .. [[ autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos BufWritePre <buffer> silent! lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos BufWinEnter <buffer> lua redraw_diagnostic()]])
 
     --[[ mappings that are shared across all supported langs ]]--
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gr      <cmd>lua vim.lsp.buf.references()<CR>]])
@@ -124,18 +131,18 @@ local diagnostic_map = function (bufnr)
 end
 
 -- lsp sign
--- local diagnositc_config_sign = function ()
---   vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
---   vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
---   vim.fn.sign_define('LspDiagnosticsSignInformation', {text='', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
---   vim.fn.sign_define('LspDiagnosticsSignHint', {text='', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
--- end
+local diagnositc_config_sign = function ()
+  vim.fn.sign_define('LspDiagnosticsSignError', {text='', texthl='LspDiagnosticsSignError',linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignWarning', {text='', texthl='LspDiagnosticsSignWarning', linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignInformation', {text='💡', texthl='LspDiagnosticsSignInformation', linehl='', numhl=''})
+  vim.fn.sign_define('LspDiagnosticsSignHint', {text='💡', texthl='LspDiagnosticsSignHint', linehl='', numhl=''})
+end
 
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   diagnostic_map(bufnr)
   -- lspsaga
-  -- diagnositc_config_sign()
+  diagnositc_config_sign()
   require 'internal.highlight'.add_highlight()
 
   if client.resolved_capabilities.document_formatting then
@@ -185,12 +192,18 @@ local on_attach = function(client, bufnr)
   --   return result
   -- end
 
-  local hdlr =  function(err, method, result, client_id)
+  -- hdlr alternatively, use lua vim.lsp.diagnostic.set_loclist({open_loclist = false})  -- true to open loclist
+  local diag_hdlr =  function(err, method, result, client_id, bufnr, config)
     vim.lsp.diagnostic.on_publish_diagnostics(err, method, result, client_id, bufnr, config)
     if result and result.diagnostics then
         local item_list = {}
+        local s = result.uri
+        local fname = s
         for _, v in ipairs(result.diagnostics) do
-            local fname = result.uri
+            i, j = string.find(s, "file://")
+            if j then
+              fname = string.sub(s, j + 1)
+            end
             table.insert(item_list, { filename = fname, lnum = v.range.start.line + 1, col = v.range.start.character + 1; text = v.message; })
         end
         local old_items = vim.fn.getqflist()
@@ -204,8 +217,9 @@ local on_attach = function(client, bufnr)
       end
     end
 
+
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
+    diag_hdlr,
     {
       -- Enable underline, use default values
       underline = true,
@@ -216,17 +230,7 @@ local on_attach = function(client, bufnr)
       },
       -- Use a function to dynamically turn signs off
       -- and on, using buffer local variables
-      signs = function(bufnr, client_id)
-
-
-        local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
-        -- No buffer local variable set, so just enable by default
-        if not ok then
-          return true
-        end
-
-        return result
-      end,
+      signs = true,
       -- Disable a feature
       update_in_insert = false,
     }

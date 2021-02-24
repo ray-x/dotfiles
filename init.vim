@@ -181,30 +181,10 @@ au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 " markdown disable conceal when edit current line
 set concealcursor="i"
 
-if &diff
-  set foldmethod=diff
-  set diffopt+=context:0
-  set cursorline
-  set foldlevel=0
-  set noreadonly
-  colorscheme paleaurora
-  let g:go_gopls_enabled = 0
-  lua require('domain.core')
-  finish  " skip all following 
-endif
-
 " command! Gt :lua require('selfunc').float_terminal()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
 let g:dein#install_max_processes = 16
-
-" let g:deoplete#enable_at_startup = 1
-" set statusline+=%#warningmsg#
-
-" set statusline+=%*
-" open quickfix window automatically at x lines height
-" let g:asyncrun_open = 8
-
 
 " file hidden
 set wildmenu
@@ -225,6 +205,17 @@ cnoremap <C-P> <Down>
 """""""""""""""""""""
 "      Plugins      "
 """""""""""""""""""""
+
+if &diff
+  set foldmethod=diff
+  set diffopt+=context:0
+  set cursorline
+  set foldlevel=0
+  set noreadonly
+  colorscheme paleaurora
+  lua require('domain.core')
+  finish  " skip all following 
+endif
 
 
 """"""""" Load other vim plugin config """""""""

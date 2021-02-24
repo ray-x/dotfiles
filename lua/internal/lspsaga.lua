@@ -4,9 +4,9 @@ local function load_saga()
   saga.init_lsp_saga {
     use_saga_diagnostic_sign = true,
     error_sign = '',
-    warn_sign = '',
+    warn_sign = '',
     hint_sign = '',
-    infor_sign = '',
+    infor_sign = '',
     max_preview_lines = 45,
   }
 end

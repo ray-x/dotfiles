@@ -20,8 +20,13 @@ function M.add_highlight()
   api.nvim_command("hi DiagnosticInformation guifg=#6699cc gui=bold")
   api.nvim_command("hi DiagnosticHint guifg=#56b6c2 gui=bold")
 
-  api.nvim_command("sign define LspDiagnosticsErrorSign text=E texthl=LspDiagnosticsError linehl= numhl=")
-  api.nvim_command("sign define LspDiagnosticsWarningSign text=W texthl=LspDiagnosticsWarning linehl= numhl=")
+  api.nvim_command("sign define LspDiagnosticsErrorSign text= texthl=LspDiagnosticsError linehl= numhl=")
+  api.nvim_command("sign define LspDiagnosticsWarningSign text= texthl=LspDiagnosticsWarning linehl= numhl=")
+  
+  api.nvim_command("hi LspDiagnosticsUnderlineError guifg=NONE cterm=underline gui=undercurl")
+  api.nvim_command("hi LspDiagnosticsUnderlineWarning guifg=NONE cterm=underline gui=undercurl")
+  api.nvim_command("hi LspDiagnosticsUnderlineInformation guifg=NONE cterm=underline gui=undercurl")
+  api.nvim_command("hi LspDiagnosticsUnderlineHint guifg=NONE cterm=underline gui=undercurl")
 
   api.nvim_command("hi def link DefinitionPreviewTitle Title")
 

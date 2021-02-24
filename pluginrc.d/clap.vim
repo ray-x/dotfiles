@@ -1,4 +1,3 @@
-let g:clap_layout = {'relative': 'editor', 'width': '80%', 'height': '40%', 'row': '5%', 'col': '10%' }
 let g:clap_preview_size = 10  "lines before the search result, def: 5
 let g:airline_powerline_fonts = 1
 let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', '']     }
@@ -40,18 +39,17 @@ function! s:history(arg)
   exec 'Clap '. l:subcommand . l:query
 endfunction
 
-" noremap <c-F>:Clap grep2 ++query=@visual<CR>
-noremap <s-T> :Clap tags<CR>
-nmap <S-F3> :Clap filer<CR>
-
-nmap <c-E> :Clap filer<CR>
-
 " let g:clap_theme = 'atom_dark'
 let g:clap_selected_sign = { 'text': '', 'texthl': "ClapSelectedSign", "linehl": "ClapSelected" }
 let g:clap_current_selection_sign = { 'text': '', 'texthl': "ClapCurrentSelectionSign", "linehl":     "ClapCurrentSelection" }
 
 
 finish
+" noremap <c-F>:Clap grep2 ++query=@visual<CR>
+noremap <s-T> :Clap tags<CR>
+nmap <S-F3> :Clap filer<CR>
+
+nmap <c-E> :Clap filer<CR>
 command! -bang -nargs=* History call s:history(<q-args>)
 " command! Files :Clap files  "cmd-p"
 command! Buffers :Clap buffers

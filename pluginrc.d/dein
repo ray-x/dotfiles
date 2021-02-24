@@ -12,9 +12,7 @@ if dein#load_state('~/.cache/dein')
 
    " add comments to code, tomtom/tcomment_vim is another alternative
    call dein#add('preservim/nerdcommenter', {'on_cmd': ['NERDCommenterComment', 'NERDCommenterToggle'], 'on_map':'<Leader>c<space>'})
-
-   call dein#add('mhinz/vim-startify')
-
+   " call dein#add('glepnir/dashboard-nvim')
    call dein#add('euclio/vim-markdown-composer', { 'build': 'cargo build --release', 'on_cmd': ['ComposerStart', 'ComposerOpen']})
 
    call dein#add('prettier/vim-prettier', { 'build': 'yarn install', 'on_ft': ['html','css', 'js', 'ts', 'tsx', 'md']})
@@ -55,6 +53,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('mtdl9/vim-log-highlighting', {'on_ft': ['text', 'log']})
    call dein#add('ray-x/vim-interestingwords', {'on_func': 'InterestingWords', 'on_map': ['<Plug>', '<Leader>u']})
    call dein#add('justinmk/vim-sneak', {'on_map': ['<Plug>Sneak_', 's']})
+   call dein#add('AndrewRadev/splitjoin.vim',{'on_cmd':['SplitjoinJoin','SplitjoinSplit']})
    
    call dein#add('tpope/vim-fugitive', {
        \ 'on_cmd' : ['Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!']
@@ -64,6 +63,10 @@ if dein#load_state('~/.cache/dein')
    "" for those cannot handle by lsp
    call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
    call dein#add('ray-x/paleaurora')
+
+
+   call dein#add('tpope/vim-obsession')
+   call dein#add('dhruvasagar/vim-prosession')
 
    "" seems to be redundant clap. just in case clap is crashing
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
@@ -95,7 +98,7 @@ if has('nvim')
    " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', ust', " 'ruby', 'toml', 'typescript', 'sql']})
 
    call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
-
+   " https://github.com/hrsh7th/nvim-compe ?
    call dein#add('RRethy/vim-illuminate')
 
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
@@ -161,3 +164,4 @@ endif
    " call dein#add('kevinhwang91/rnvimr', {'on_cmd':'RnvimrToggle'})
    "   call dein#add('mhinz/vim-signify', { 'on_cmd': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] })   GitSign"
    " call dein#add('Yggdroot/indentLine') 
+   " call dein#add('mhinz/vim-startify')
