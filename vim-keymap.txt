@@ -89,8 +89,18 @@ search and replace
 args `grep Neovim -l -r .` or args `rg Neovim -l`
 
 argdo %s/Neovim/Nvim/ge | update
+
 with register and clap
-:cfdo %s/<C-r>s// \| update
+:cfdo %s/<C-r>s/blabla/ge \| update
+
+replace from current line
+:,$s/old/new/c
+
+Note: use `cdo` is better
+:cdo[!] {cmd} - Execute {cmd} in each valid entry in the quickfix list.
+:cfdo[!] {cmd} - Execute {cmd} in each file in the quickfix list.
+:ld[o][!] {cmd} - Execute {cmd} in each valid entry in the location list for the current window.
+:lfdo[!] {cmd} - Execute {cmd} in each file in the location list for the current window.
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set grepformat=%f:%l:%c:%m
@@ -103,7 +113,7 @@ cfdo %s/Neovim/Nvim/ge | update
 
 cfdo %s/float_win/floating_win/gc|w
 
-cfdo %s/floating_win/float_win/gc|w
+cfdo %s/floatinzrg_win/float_win/gc|w
 
 
 How to see which plugins are making Vim slow?

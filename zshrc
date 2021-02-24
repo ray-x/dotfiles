@@ -188,6 +188,7 @@ SKIM_DEFAULT_COMMAND="fd --type f || git ls-tree -r --name-only HEAD || rg --fil
 alias fzf='fzf --preview="bat {} --color=always"'
 alias sk='sk --preview="bat {} --color=always"'
 alias seperator='viu `echo ~/photos/$(ls ~/photos |sort -R |tail -1)`'
+alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 {eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_ed25519_github_deltatre}  2>/dev/null 1>/dev/null
 

@@ -246,6 +246,8 @@ local on_attach = function(client, bufnr)
     end)
   end
 
+
+  require 'illuminate'.on_attach(client)
 end
 
 --

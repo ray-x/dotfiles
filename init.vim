@@ -196,10 +196,10 @@ endif
 " command! Gt :lua require('selfunc').float_terminal()
 command! Dc :call dein#recache_runtimepath()
 command! Du :call dein#update()
-
+let g:dein#install_max_processes = 16
 
 " let g:deoplete#enable_at_startup = 1
-set statusline+=%#warningmsg#
+" set statusline+=%#warningmsg#
 
 " set statusline+=%*
 " open quickfix window automatically at x lines height
@@ -246,6 +246,6 @@ autocmd FileType html,css EmmetInstall
 
 
 
-
+let g:python3_host_prog = '/usr/bin/python3'
 
 

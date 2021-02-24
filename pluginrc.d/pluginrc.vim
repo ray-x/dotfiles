@@ -128,3 +128,10 @@ let g:far#enable_undo = 1
 " copy/paste"
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
+
+
+
+let g:Illuminate_delay = 200
+let g:Illuminate_ftblacklist = ['nerdtree', 'nvimtree', 'vista']
+
+" let g:Illuminate_ftwhitelist = ['vim', 'sh', 'python', 'go', 'cpp']"

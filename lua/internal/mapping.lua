@@ -101,6 +101,10 @@ function mapping:load_plugin_define()
     ["n|gt"]             = map_cmd("<cmd>lua vim.lsp.buf.type_definition()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>cw"]     = map_cmd("<cmd>lua vim.lsp.buf.workspace_symbol()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>ce"]     = map_cr('Lspsaga show_line_diagnostics'):with_noremap():with_silent(),
+    ["n|<m-n>"]     = map_cr('lua require"illuminate".next_reference{wrap=true}'):with_noremap():with_silent(),
+    ["n|<m-p>"]     = map_cr('lua require"illuminate".next_reference{reverse=true,wrap=true}'):with_noremap():with_silent(),
+
+
     -- ["n|<Leader>ct"]      = map_args("Template"),
     --   ["n|<C-t>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
     -- ["n|<Leader>g"]      = map_cu("lua require('selfunc').float_terminal('lazygit')"):with_noremap():with_silent(),
@@ -122,6 +126,8 @@ function mapping:load_plugin_define()
     ["n|<Leader>fu"]     = map_cu('Clap git_diff_files'):with_noremap():with_silent(),
     ["n|<Leader>fv"]     = map_cu('Clap grep ++query=@visual'):with_noremap():with_silent(),
     ["n|<Leader>fd"]     = map_cu('Clap dotfiles'):with_noremap():with_silent(),
+
+
 
     -- ["n|<Leader>bb"]     = map_cu('Telescope buffers'):with_noremap():with_silent(),
     -- ["n|<Leader>fa"]     = map_cu('Telescope grep_string'):with_noremap():with_silent(),

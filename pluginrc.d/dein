@@ -96,6 +96,8 @@ if has('nvim')
 
    call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
 
+   call dein#add('RRethy/vim-illuminate')
+
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
    call dein#add('weilbith/nvim-lsp-smag', {'depends':'lsp', 'on_event': 'InsertEnter'})
 
