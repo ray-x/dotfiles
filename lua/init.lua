@@ -7,10 +7,54 @@ if vim.wo.diff then
   return ''
 end
 
-require'completion'.on_attach()
 -- command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 require('lsp_config')
-
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = true;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 30;
+  max_kind_width = 4;
+  max_menu_width = 2;
+  documentation = true;
+  -- kind_mapping = {["Function"] = ""; ["Interface"] = "擄"; ["Struct"] = "פּ";
+  -- ["Class"] = ""; ["Constant"] = ""; ["Variable"] = ""};
+  source = {
+    path = {
+      menu = "率";
+    };
+    buffer = {
+      menu = "﬘";
+    };
+    calc = {
+      menu = "";
+    };
+    vsnip =  {
+      menu = "";
+    };
+    nvim_lsp = {
+      -- label = "L";
+      -- menu = "";
+      menu = "";
+    };
+    nvim_lua = true;
+    tabnine = {
+      max_line = 100;
+      max_num_results = 10;
+      priority = 20;
+      menu = "";
+    };
+    spell = true;
+    tags = {menu = ""};
+    snippets_nvim = false;
+    treesitter = {menu = ""};
+  }
+}
 -- RELOAD = require('plenary.reload').reload_module
 
 -- R = function(name)

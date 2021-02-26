@@ -67,6 +67,7 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('tpope/vim-obsession')
    call dein#add('dhruvasagar/vim-prosession')
+   call dein#add('Raimondi/delimitMate', { 'on_event': 'InsertEnter',  'on_map': '<Plug>'})
 
    "" seems to be redundant clap. just in case clap is crashing
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
@@ -97,8 +98,8 @@ if has('nvim')
 
    " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', ust', " 'ruby', 'toml', 'typescript', 'sql']})
 
-   call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
    " https://github.com/hrsh7th/nvim-compe ?
+   call dein#add('hrsh7th/nvim-compe', {'name':'compe'})
    call dein#add('RRethy/vim-illuminate')
 
    " leverages the tagfunc option to customize how tags are searched, use tag in lsp
@@ -106,16 +107,17 @@ if has('nvim')
 
    call dein#add('nvim-lua/lsp-status.nvim', {'depends':'lsp'})
 
-   call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter', 'on_event': 'InsertEnter', 'on_ft': ['bash', 'c_sharp','c', 'cpp', 'css', 'dart', 'go', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'yaml', 'ruby', 'toml', 'typescript']})
-   " call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter'})
+   " call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0, 'name':'treesitter', 'on_event': 'InsertEnter'})
+   call dein#add('nvim-treesitter/nvim-treesitter', {'name':'treesitter'})
 
    call dein#add('ncm2/float-preview.nvim', {'on_event': 'InsertEnter'})
-
-   call dein#add('nvim-treesitter/completion-treesitter', {'depends': ['treesitter', 'completion'], 'on_event': 'InsertEnter', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript']})
-
-   call dein#add('steelsojka/completion-buffers', {'depends': 'completion', 'on_event': 'InsertEnter'})
-
-   call dein#add('aca/completion-tabnine', {'build': './install.sh' , 'on_event': 'InsertEnter'})
+   call dein#add('tzachar/compe-tabnine', { 'build': './install.sh' })
+   " call dein#add('nvim-lua/completion-nvim', {'name':'completion'})
+   "call dein#add('nvim-treesitter/completion-treesitter', {'depends': ['treesitter', "'completion'], 'on_event': 'InsertEnter', 'on_ft': ['go', 'bash', 'go', 'c_sharp', "'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', "'python', 'rust', 'ruby', 'toml', 'typescript']})
+"
+   "call dein#add('steelsojka/completion-buffers', {'depends': 'completion', 'on_event': "'InsertEnter'})
+"
+   "call dein#add('aca/completion-tabnine', {'depends': 'completion', 'build': "'./install.sh' , 'on_event': 'InsertEnter'})
    call dein#add('RishabhRD/popfix',{'build': 'make'})
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
    
@@ -124,11 +126,7 @@ if has('nvim')
 
    call dein#add('glepnir/galaxyline.nvim')
 
-   
    call dein#add('norcalli/nvim-colorizer.lua')
-
-   call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
-   call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
    
   " note: search is slower compared to FZF and clap
    call dein#add('nvim-lua/plenary.nvim')  "lua library"
@@ -159,6 +157,8 @@ endif
 ""   call dein#add('skywind3000/asynctasks.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
 ""   call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': ['AsyncRun', 'AsyncTask']})
 "    call dein#add('brooth/far.vim')
+"   call dein#add('tjdevries/nlua.nvim', {'on_ft':'lua'})
+"   call dein#add('bfredl/nvim-luadev', {'on_ft':'lua'})
 
 """""" replaced """""""""
    " call dein#add('kevinhwang91/rnvimr', {'on_cmd':'RnvimrToggle'})

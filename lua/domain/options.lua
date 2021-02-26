@@ -74,7 +74,7 @@ function options:load_options()
     switchbuf      = "useopen";
     backspace      = "indent,eol,start"; --Makes backspace key more powerful.
     diffopt        = "filler,iwhite,internal,algorithm:patience";
-    completeopt    = "menu,noselect,noinsert";  -- Show popup menu, even if there is one entry  menuone?
+    completeopt    = "menuone,noselect,noinsert";  -- Show popup menu, even if there is one entry  menuone?
     jumpoptions    = "stack";
 
     showmode       = false;
