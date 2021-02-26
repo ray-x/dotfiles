@@ -60,30 +60,20 @@ lsp_status.config {
   end
 }
 
-local function preview_location_callback(_, method, result)
-  if result == nil or vim.tbl_isempty(result) then
-    vim.lsp.log.info(method, 'No location found')
-    return nil
-  end
-  if vim.tbl_islist(result) then
-    vim.lsp.util.preview_location(result[1])
-  else
-    vim.lsp.util.preview_location(result)
-  end
-end
 
-
-function peek_definition()
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
-end
 
 function redraw_diagnostic()
   local bufnr = vim.fn.bufnr()
-  local diags = vim.lsp.diagnostic.get(bufnr)
-  vim.lsp.diagnostic.set_signs(diags, bufnr)
-  vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
-  vim.lsp.diagnostic.set_underline(diags, bufnr)
+  -- vim.cmd('edit')
+  if bufnr ~= nil then
+    local diags = vim.lsp.diagnostic.get(bufnr)
+    if #diags > 0 then
+      vim.lsp.diagnostic.goto_next()
+      vim.lsp.diagnostic.set_signs(diags, bufnr)
+      -- vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
+      -- vim.lsp.diagnostic.set_underline(diags, bufnr)
+    end
+  end
 end
 
 function clear_diagnostic()
@@ -250,6 +240,12 @@ local on_attach = function(client, bufnr)
 
 
   require 'illuminate'.on_attach(client)
+  require 'internal.lspkind'.init()
+
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 end
 
 --
@@ -303,7 +299,7 @@ nvim_lsp.gopls.setup {
           unreachable = false,
         },
         codelenses = {
-          generate = true, -- Don't show the `go generate` lens.
+          generate = true, -- show the `go generate` lens.
           gc_details = true, --  // Show a code lens toggling the display of gc's choices.
 
         },
@@ -334,10 +330,7 @@ nvim_lsp.sqls.setup({
   on_attach = function(client)
     client.resolved_capabilities.execute_command = true
       lsp_status.on_attach(client, bufnr)
-      diagnostic_map(bufnr)
-      -- lspsaga
-      -- diagnositc_config_sign()
-      require 'internal.highlight'.add_highlight()
+      diagnositc_config_sign()
     require'sqls'.setup{picker = 'telescope',} -- or default
   end,
   settings = {

@@ -16,7 +16,6 @@ function M.add_highlight()
   api.nvim_command("hi! link LspDiagnosticsUnderlineWarning SpellRare")
   api.nvim_command("hi! link LspDiagnosticsUnderlineInformation SpellRare")
   api.nvim_command("hi! link LspDiagnosticsUnderlineHint SpellRare")
-  api.nvim_command("hi! link LspDiagnosticsUnderlineError SpellRare")
 
 
   -- lspsaga

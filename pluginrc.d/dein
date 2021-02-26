@@ -67,6 +67,7 @@ if dein#load_state('~/.cache/dein')
 
    call dein#add('tpope/vim-obsession')
    call dein#add('dhruvasagar/vim-prosession')
+   call dein#add('Raimondi/delimitMate', { 'on_event': 'InsertEnter',  'on_map': '<Plug>'})
 
    "" seems to be redundant clap. just in case clap is crashing
    " call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 

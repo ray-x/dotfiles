@@ -5,8 +5,11 @@ endif
 nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
 
-imap <c-j> <cmd>lua require'completion.source'.prevCompletion()<CR>
-imap <c-k> <cmd>lua require'completion.source'.nextCompletion()<CR>
+" inoremap <silent><expr> <C-Space> compe#complete()
+" inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
+" inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+" inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+" inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 autocmd Filetype go,lua,c,cpp,javascript,typescript setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
@@ -90,11 +93,13 @@ let g:completion_chain_complete_list = {
 
 let g:completion_confirm_key = ""
 
-imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+"                \ "\<Plug>(completion_confirm_completion)"  : "\<TAB>\<CR>" :  "\<CR>"
 
 " inoremap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?  "\<C-n>\<CR>"  : "\<c-e>\<CR>" :  "\<CR>"
+
 " imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>" 
+
 " imap <expr> <CR> pumvisible() ? (complete_info().selected == -1 ? '\<C-n><Plug>(completion_confirm_completion)' : '\<Plug>(completion_confirm_completion)') : '\<CR>'
 
 let g:completion_enable_auto_signature = 1
@@ -204,13 +209,13 @@ let g:completion_items_priority = {
         \ 'Struct': 6,
         \ 'Keyword': 5,
         \ 'Treesitter': 4,
-        \ 'vim-vsnip' : 1,
-        \ 'Snippet' :1,
-        \ 'Buffers' : 1,
-        \ 'TabNine' : 2,
+        \ 'vim-vsnip' : 0,
+        \ 'Snippet' :2,
+        \ 'Buffers' : 2,
+        \ 'TabNine' : 3,
         \ 'File' : 2,
         \}
-"         \ 'UltiSnips' : 0,          \ 'Neosnippet' : 0,
+
 " let g:diagnostic_insert_delay = 1
 
 
@@ -274,3 +279,4 @@ if executable('sqls')
         \ })
     augroup END
 endif
+
