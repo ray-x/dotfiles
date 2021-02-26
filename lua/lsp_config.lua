@@ -60,38 +60,46 @@ lsp_status.config {
   end
 }
 
-local function preview_location_callback(_, method, result)
-  if result == nil or vim.tbl_isempty(result) then
-    vim.lsp.log.info(method, 'No location found')
-    return nil
-  end
-  if vim.tbl_islist(result) then
-    vim.lsp.util.preview_location(result[1])
-  else
-    vim.lsp.util.preview_location(result)
-  end
-end
+-- local function preview_location_callback(_, method, result)
+--   if result == nil or vim.tbl_isempty(result) then
+--     vim.lsp.log.info(method, 'No location found')
+--     return nil
+--   end
+--   if vim.tbl_islist(result) then
+--     vim.lsp.util.preview_location(result[1])
+--   else
+--     vim.lsp.util.preview_location(result)
+--   end
+-- end
 
 
-function peek_definition()
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
-end
+-- function peek_definition()
+--   local params = vim.lsp.util.make_position_params()
+--   return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+-- end
 
-function redraw_diagnostic()
+redraw_diagnostic = function ()
   local bufnr = vim.fn.bufnr()
-  local diags = vim.lsp.diagnostic.get(bufnr)
-  vim.lsp.diagnostic.set_signs(diags, bufnr)
-  vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
-  vim.lsp.diagnostic.set_underline(diags, bufnr)
+  -- vim.cmd('edit')
+  if bufnr ~= nil then
+    local diags = vim.lsp.diagnostic.get(bufnr)
+    if #diags > 0 then
+      vim.lsp.diagnostic.goto_next()
+      vim.lsp.diagnostic.set_signs(diags, bufnr)
+      -- vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
+      -- vim.lsp.diagnostic.set_underline(diags, bufnr)
+    end
+  end
 end
 
-function clear_diagnostic()
-  local bufnr = vim.fn.bufnr()
-  local diags = vim.lsp.diagnostic.get(bufnr)
-  vim.lsp.diagnostic.set_signs(diags, bufnr)
-  vim.lsp.diagnostic.set_virtual_text(diags, bufnr)
-  vim.lsp.diagnostic.set_underline(diags, bufnr)
+-- vim.lsp.diagnostic.set_signs(vim.lsp.diagnostic.get(vim.fn.bufnr()), vim.fn.bufnr())
+
+
+M.clear_diagnostic = function ()
+  local clients = vim.lsp.get_active_clients()
+  for _, client in pairs(clients) do
+    vim.lsp.diagnostic.clear(vim.fn.bufnr(), client.id, nil, nil)
+  end
 end
 
 function auto_group()
@@ -192,6 +200,7 @@ local on_attach = function(client, bufnr)
 
   -- hdlr alternatively, use lua vim.lsp.diagnostic.set_loclist({open_loclist = false})  -- true to open loclist
   local diag_hdlr =  function(err, method, result, client_id, bufnr, config)
+    -- vim.lsp.diagnostic.clear(vim.fn.bufnr(), client.id, nil, nil)
     vim.lsp.diagnostic.on_publish_diagnostics(err, method, result, client_id, bufnr, config)
     if result and result.diagnostics then
         local item_list = {}
@@ -221,7 +230,7 @@ local on_attach = function(client, bufnr)
     {
       -- Enable underline, use default values
       underline = true,
-      -- Enable virtual text, override spacing to 4
+      -- Enable virtual text, override spacing to 0
       virtual_text = {
         spacing = 0,
         prefix = '',
@@ -250,6 +259,12 @@ local on_attach = function(client, bufnr)
 
 
   require 'illuminate'.on_attach(client)
+  require 'internal.lspkind'.init()
+
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 end
 
 --
@@ -270,6 +285,8 @@ for _, lsp in ipairs(servers) do
     indicator_ok = '✔️',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   })
+  require 'internal.highlight'.diagnositc_config_sign()
+  require 'internal.highlight'.add_highlight()
   nvim_lsp[lsp].setup {
     message_level = vim.lsp.protocol.MessageType.Error;
     log_level = vim.lsp.protocol.MessageType.Error;
@@ -303,9 +320,8 @@ nvim_lsp.gopls.setup {
           unreachable = false,
         },
         codelenses = {
-          generate = true, -- Don't show the `go generate` lens.
+          generate = true, -- show the `go generate` lens.
           gc_details = true, --  // Show a code lens toggling the display of gc's choices.
-
         },
         usePlaceholders    = true,
         completeUnimported = true,
@@ -334,10 +350,7 @@ nvim_lsp.sqls.setup({
   on_attach = function(client)
     client.resolved_capabilities.execute_command = true
       lsp_status.on_attach(client, bufnr)
-      diagnostic_map(bufnr)
-      -- lspsaga
-      -- diagnositc_config_sign()
-      require 'internal.highlight'.add_highlight()
+      diagnositc_config_sign()
     require'sqls'.setup{picker = 'telescope',} -- or default
   end,
   settings = {
@@ -491,9 +504,6 @@ nvim_lsp.pyls.setup({
 --   on_attach = lsp_status.on_attach,
 --   capabilities = lsp_status.capabilities
 -- })
-
-
-
 
 vim.g.lsp_utils_location_opts = {
   height = 38,

@@ -41,11 +41,15 @@ end
 
 local current_function = function()
   local current_func = require('lsp-status').status()
-  local fun_name = string.match(current_func, "%((%a+)%)")
-  if current_func then
-    return string.format(' %s()', fun_name)
+  local s, _ = string.find(current_func, '%(')
+  if s == nil then return ' ' end
+  local e, _ = string.find(current_func, '%)[^%)]*$')
+  if e == nil then return ' ' end
+  local fun_name = string.sub(current_func, s+1, e-1)
+  if fun_name == nil or fun_name == '' then
+    return '  '
   end
-  return ' '
+  return string.format(' %s()', fun_name)
 end
 
 local current_function_buf = function(_, buffer)
@@ -98,11 +102,11 @@ local TrimmedDirectory = function(dir)
   end
   local pa=split_path(dir)
   local p1=getEntryFromEnd(pa, 1)
-  if p1 then p1, _= string.gsub(p1, "mtribes","m") end
+  if p1 then p1, _= string.gsub(p1, "mtribes%-","m") end
   local p2=getEntryFromEnd(pa, 2)
-  if p2 then p2, _= string.gsub(p2, "mtribes","m") end
+  if p2 then p2, _= string.gsub(p2, "mtribes%-","m") end
   local p3=getEntryFromEnd(pa, 3)
-  if p3 then p3, _= string.gsub(p3, "mtribes","m") end
+  if p3 then p3, _= string.gsub(p3, "mtribes%-","m") end
 
   local pc=''
   if p3~=nil then
