@@ -99,7 +99,7 @@ if has('nvim')
    " , {'name':'lsp', 'on_ft': ['go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', ust', " 'ruby', 'toml', 'typescript', 'sql']})
 
    " https://github.com/hrsh7th/nvim-compe ?
-   call dein#add('hrsh7th/nvim-compe', {'name':'compe', 'on_event': 'InsertEnter'})
+   call dein#add('hrsh7th/nvim-compe', {'name':'compe'})
    call dein#add('ray-x/lsp_signature.nvim')
    call dein#add('RRethy/vim-illuminate')
 
@@ -111,7 +111,7 @@ if has('nvim')
    call dein#add('nvim-treesitter/nvim-treesitter', {'name':'treesitter'})
 
    call dein#add('ncm2/float-preview.nvim', {'on_event': 'InsertEnter'})
-   call dein#add('tzachar/compe-tabnine', { 'build': './install.sh' })
+   call dein#add('tzachar/compe-tabnine', { 'build': './install.sh', 'on_event': 'InsertEnter' })
    call dein#add('RishabhRD/popfix',{'build': 'make'})
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
    
