@@ -86,8 +86,8 @@ function mapping:load_plugin_define()
     -- ["t|<C-t>t"]          = map_cu([[<C-\><C-n>:lua require('selfunc').close_float_terminal()<CR>]]):with_noremap():with_silent(),
 
     -- Lsp mapp work when insertenter and lsp start
-    ["n|<C-f>"]          = map_cmd("<cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>"):with_silent():with_noremap():with_nowait(),
-    ["n|<C-b>"]          = map_cmd("<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>"):with_silent():with_noremap():with_nowait(),
+    ["n|<C-f>"]          = map_cmd("<cmd>lua require('lspsaga.hover').scroll_in_hover(1)<CR>"):with_silent():with_noremap():with_nowait(),
+    ["n|<C-b>"]          = map_cmd("<cmd>lua require('lspsaga.hover').scroll_in_hover(-1)<CR>"):with_silent():with_noremap():with_nowait(),
     ["n|[d"]             = map_cr('Lspsaga diagnostic_jump_next'):with_noremap():with_silent(),
     ["n|]d"]             = map_cr('Lspsaga diagnostic_jump_prev'):with_noremap():with_silent(),
     ["n|K"]              = map_cr("Lspsaga hover_doc"):with_noremap():with_silent(),
