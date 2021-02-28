@@ -119,8 +119,7 @@ function auto_group()
 
     --[[ mappings that are shared across all supported langs ]]--
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gr      <cmd>lua vim.lsp.buf.references()<CR>]])
-
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-k>   <cmd>lua vim.lsp.buf.signature_help()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ imap <silent> <m-k>   <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gs      <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g0      <cmd>lua vim.lsp.buf.document_symbol()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <leader> g0      <cmd>Vista finder clap<CR>]])  --use clap
@@ -147,6 +146,7 @@ end
 
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
+  require'lsp_signature'.on_attach()
   diagnostic_map(bufnr)
   -- lspsaga
   require 'internal.highlight'.add_highlight()
@@ -273,7 +273,7 @@ auto_group()
 
 -- , 'dockerls' 'ccls' pyls_ms 💡 
 
-local servers = { 'gopls', 'tsserver', 'bashls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd', 'sqls'}
+local servers = { 'gopls', 'tsserver', 'bashls', 'dockerls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd', 'sqls'}
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
   lsp_status.config({

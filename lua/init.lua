@@ -20,10 +20,8 @@ require'compe'.setup {
   incomplete_delay = 400;
   max_abbr_width = 30;
   max_kind_width = 4;
-  max_menu_width = 2;
+  max_menu_width = 4;
   documentation = true;
-  -- kind_mapping = {["Function"] = ""; ["Interface"] = "擄"; ["Struct"] = "פּ";
-  -- ["Class"] = ""; ["Constant"] = ""; ["Variable"] = ""};
   source = {
     path = {
       menu = "率";
@@ -38,7 +36,6 @@ require'compe'.setup {
       menu = "";
     };
     nvim_lsp = {
-      -- label = "L";
       -- menu = "";
       menu = "";
     };
@@ -49,7 +46,7 @@ require'compe'.setup {
       priority = 20;
       menu = "";
     };
-    spell = true;
+    spell = {menu = "暈"};
     tags = {menu = ""};
     snippets_nvim = false;
     treesitter = {menu = ""};
