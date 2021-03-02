@@ -1,0 +1,116 @@
+local config = {}
+
+function config.nvim_lsp()
+  require('modules.completion.lspconfig')
+end
+
+function config.nvim_compe()
+  vim.cmd('inoremap <silent><expr> <C-Space> compe#complete()')
+  vim.cmd("inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "<Plug>delimitMateCR", 'mode': '' })")
+  vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
+  vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
+  vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
+  require'compe'.setup {
+    enabled = true;
+    autocomplete = true;
+    debug = true;
+    min_length = 1;
+    preselect = 'enable';
+    throttle_time = 80;
+    source_timeout = 200;
+    incomplete_delay = 400;
+    max_abbr_width = 30;
+    max_kind_width = 4;
+    max_menu_width = 4;
+    documentation = true;
+    source = {
+      path = {
+        menu = "率";
+      };
+      buffer = {
+        menu = "﬘";
+      };
+      calc = {
+        menu = "";
+      };
+      vsnip =  {
+        menu = "";
+      };
+      nvim_lsp = {
+        -- menu = "";
+        menu = "";
+      };
+      nvim_lua = true;
+      tabnine = false;
+      -- tabnine = {
+      --   max_line = 100;
+      --   max_num_results = 10;
+      --   priority = 20;
+      --   menu = "";
+      -- };
+      spell = {menu = "暈"};
+      tags = {menu = ""};
+      snippets_nvim = false;
+      treesitter = {menu = ""};
+    };
+  }
+
+end
+  -- ?
+  -- function! s:check_back_space() abort
+  --     let col = col('.') - 1
+  --     return !col || getline('.')[col - 1]  =~ '\s'
+  -- endfunction
+  
+  -- inoremap <silent><expr> <TAB>
+  --   \ pumvisible() ? "\<C-n>" :
+  --   \ <SID>check_back_space() ? "\<TAB>" :
+  --   \ completion#trigger_completion()
+  
+  --   }
+
+function config.vim_vsnip()
+  vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/.config/nvim/snippets'
+end
+
+function config.telescope()
+  if not packer_plugins['plenary.nvim'].loaded then
+    vim.cmd [[packadd plenary.nvim]]
+    vim.cmd [[packadd popup.nvim]]
+    vim.cmd [[packadd telescope-fzy-native.nvim]]
+  end
+  require('telescope').setup {
+    defaults = {
+      prompt_prefix = '🍔 ',
+      prompt_position = 'top',
+      sorting_strategy = 'ascending',
+      file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+      grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+      qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+    },
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
+    }
+  }
+  require('telescope').load_extension('fzy_native')
+  require'telescope'.load_extension('dotfiles')
+  require'telescope'.load_extension('gosource')
+end
+
+function config.vim_sonictemplate()
+  vim.g.sonictemplate_postfix_key = '<C-,>'
+  vim.g.sonictemplate_vim_template_dir = os.getenv("HOME").. '/.config/nvim/template'
+end
+
+
+function config.emmet()
+  vim.g.user_emmet_complete_tag = 0
+  vim.g.user_emmet_install_global = 0
+  vim.g.user_emmet_install_command = 0
+  vim.g.user_emmet_mode = 'i'
+end
+
+return config

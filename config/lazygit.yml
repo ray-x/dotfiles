@@ -1,0 +1,19 @@
+# link to ~/Library/Application\ Support/jesseduffield/lazygit/config.yml
+
+startuppopupversion: 1
+gui:
+  theme:
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse
+git:
+    paging:
+        colorArg: always
+        pager: delta --dark --paging=never --24-bit-color=always
+customCommands:
+  - key: "M"
+    command: "git mergetool {{ .SelectedFile.Name }}"
+    context: "files"
+    loadingText: "opening git mergetool"
+    subprocess: true
