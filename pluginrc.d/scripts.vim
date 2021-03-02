@@ -53,7 +53,7 @@ function! Golines()
   lua require('internal.golines').golines_format()
 endfunction
 
-command Golines call Golines()
+command GoLines call Golines()
 
 function! FindRoot()
   let s:root = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]

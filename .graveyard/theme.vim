@@ -51,7 +51,6 @@ highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea
 highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 
 "rainbow prentheses"
-"let g:rainbow_active = 1
 
 
 " colorizer

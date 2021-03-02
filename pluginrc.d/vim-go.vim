@@ -29,7 +29,7 @@ let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 0
 let g:go_fmt_fail_silently = 1
 
-let g:deoplete#enable_at_startup = 0
+
 autocmd FileType go nmap <leader>gb  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:go_list_type = "quickfix"
@@ -79,6 +79,7 @@ let g:go_highlight_generate_tags = 0
 
 let g:go_code_completion_enabled = 0 "use neovim-lsp
 let g:go_gopls_enabled = 0 "use neovim-lsp
+let g:go_gopls_options = ['-remote=auto']  " still not working with nvim-lsp
 let g:go_info_mode = "guru"   " use "" to disalbe coc or use gopls/guru
 let g:go_auto_type_info = 0  "causing delay because it is sync
 let g:go_doc_keywordprg_enabled = 0  "godoc use <slient> K conflict with coc, also it is slow....
@@ -190,4 +191,4 @@ autocmd FileType go nmap <F8>  :GoDebugStepOut <CR>
 au FileType go command! GoT :GoBuildTags integration | GoTest
 au FileType go command! Gtn :TestNearest -v -tags=integration
 au FileType go command! Gts :TestSuite -v -tags=integration
-command! Gtl :lua require'selfunc'.run_command()
+" command! Gtl :lua require'selfunc'.run_command()

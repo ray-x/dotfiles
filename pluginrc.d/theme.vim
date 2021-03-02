@@ -1,7 +1,7 @@
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " set background=dark
-colorscheme paleaurora
+colorscheme aurora
 
 " :set cursorline cursorcolumn
 
@@ -14,9 +14,7 @@ hi Normal guibg=NONE ctermbg=NONE " remove background
 hi EndOfBuffer guibg=NONE ctermbg=NONE " remove background
 " eleline
 set laststatus=2
-let g:eleline_powerline_fonts = 1
-let g:airline_powerline_fonts = 1 "backword compatbilitylet
-
+let g:rainbow_active = 1
 
 """"""""""""""""""""""""""""""""
 """""  Plugin Specific color """

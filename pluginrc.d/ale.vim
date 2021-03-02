@@ -1,9 +1,9 @@
 " ale
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
+let g:ale_sign_error = 'ﴫ'
+let g:ale_sign_warning = ''
 let g:ale_go_gopls_executable = 'gopls'
 let g:ale_go_revive_executable = 'revive'
-
+let g:ale_go_gopls_options = "-remote=auto"
 let g:ale_go_golangci_lint_options = '--enable-all --disable dogsled --disable gocognit --disable godot --disable godox --disable lll --disable nestif --disable wsl --disable gocyclo --disable asciicheck --disable gochecknoglobals'
 let g:ale_lint_delay = 1000                 " begin lint after 1s
 let g:ale_lint_on_save = 1

@@ -65,6 +65,7 @@ function mapping:load_vim_define()
 end
 
 function mapping:load_plugin_define()
+
   self.plugin = {
     -- Lsp mapp work when insertenter and lsp start
     
@@ -103,7 +104,10 @@ function mapping:load_plugin_define()
     ["n|<Leader>ce"]     = map_cr('Lspsaga show_line_diagnostics'):with_noremap():with_silent(),
     ["n|<m-n>"]          = map_cr('lua require"illuminate".next_reference{wrap=true}'):with_noremap():with_silent(),
     ["n|<m-p>"]          = map_cr('lua require"illuminate".next_reference{reverse=true,wrap=true}'):with_noremap():with_silent(),
-
+    ["n|<m-l>"]          = map_cr('ALEEnable | ALELint'):with_noremap():with_silent(),
+    ["n|gcj"]          = map_cr('ProDoc'):with_noremap():with_silent(),
+    ["n|gcc"]          = map_cr('ProComment'):with_noremap():with_silent(),
+    ["x|gcc"]          = map_cr('ProComment'):with_noremap():with_silent(),
 
     -- ["n|<Leader>ct"]      = map_args("Template"),
     --   ["n|<C-t>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
@@ -140,27 +144,12 @@ function mapping:load_plugin_define()
     -- ["n|j"]              = map_cmd('<Plug>(accelerated_jk_gj)'):with_silent(),
     -- ["n|k"]              = map_cmd('<Plug>(accelerated_jk_gk)'):with_silent(),
     -- Plugin QuickRun
-    ["n|<Leader>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
+    ["n|<Leader>r"]     = map_cr("lua require'selfunc'.run_command()"):with_noremap():with_silent(),
     -- Plugin Vista 
     ["n|<Leader>v"]      = map_cu('Vista!!'):with_noremap():with_silent(),
     -- Plugin SplitJoin
     ["n|<m-j>"]             = map_cr('SplitjoinJoin'),
     ["n|<m-k>"]             = map_cr('SplitjoinSplit'),
-    -- Plugin vim-operator-replace
-    -- ["x|p"]              = map_cmd("<Plug>(operator-replace)"),
-    -- Plugin vim-operator-surround
-    -- ["n|sa"]             = map_cmd("<Plug>(operator-surround-append)"):with_silent(),
-    -- ["n|sd"]             = map_cmd("<Plug>(operator-surround-delete)"):with_silent(),
-    -- ["n|sr"]             = map_cmd("<Plug>(operator-surround-replace)"):with_silent(),
-    -- Plugin hrsh7th/vim-eft
-    -- ["n|;"]              = map_cmd("<Plug>(eft-repeat)"),
-    -- ["x|;"]              = map_cmd("<Plug>(eft-fepeat)"),
-    -- ["n|f"]              = map_cmd("<Plug>(eft-f)"),
-    -- ["x|f"]              = map_cmd("<Plug>(eft-f)"),
-    -- ["o|f"]              = map_cmd("<Plug>(eft-f)"),
-    -- ["n|F"]              = map_cmd("<Plug>(eft-F)"),
-    -- ["x|F"]              = map_cmd("<Plug>(eft-F)"),
-    -- ["o|F"]              = map_cmd("<Plug>(eft-F)"),
   };
 end
 

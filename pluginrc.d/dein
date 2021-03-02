@@ -15,7 +15,7 @@ if dein#load_state('~/.cache/dein')
    " call dein#add('glepnir/dashboard-nvim')
    call dein#add('euclio/vim-markdown-composer', { 'build': 'cargo build --release', 'on_cmd': ['ComposerStart', 'ComposerOpen']})
 
-   call dein#add('prettier/vim-prettier', { 'build': 'yarn install', 'on_ft': ['html','css', 'js', 'ts', 'tsx', 'md']})
+   " call dein#add('prettier/vim-prettier', { 'build': 'yarn install', 'on_ft': ['html','css', 'js', 'ts', 'tsx', 'md']})
 
    call dein#add('plasticboy/vim-markdown',{
    \ 'on_ft': ['markdown'],
@@ -36,6 +36,7 @@ if dein#load_state('~/.cache/dein')
    call dein#add('godlygeek/tabular')
 
    call dein#add('fatih/vim-go', { 'on_ft': 'go', 'on_event': 'InsertEnter', 'on_cmd': ['GoImport', 'GoImports', 'GoTest', 'GoBuild'],'build': ':GoInstallBinaries' })
+   " call dein#add('zchee/nvim-go', {'build': 'make'})
    call dein#add('buoto/gotests-vim', { 'on_ft': 'go' } )
 
    call dein#add('voldikss/vim-floaterm', { 'on_cmd': ['FloatermNew','FloatermToggle'] })
@@ -58,15 +59,17 @@ if dein#load_state('~/.cache/dein')
    call dein#add('tpope/vim-fugitive', {
        \ 'on_cmd' : ['Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!']
        \ })
-   call dein#add('lewis6991/gitsigns.nvim')
+   call dein#add('lewis6991/gitsigns.nvim')   "replacing gitsignaify
 
    "" for those cannot handle by lsp
-   call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
-   call dein#add('ray-x/paleaurora')
+   " call dein#add('Chiel92/vim-autoformat', {'on_cmd': 'Autoformat'})
+   call dein#add('ray-x/aurora')
 
-
+   " work space management
    call dein#add('tpope/vim-obsession')
    call dein#add('dhruvasagar/vim-prosession')
+
+   " bracket
    call dein#add('Raimondi/delimitMate', { 'on_event': 'InsertEnter',  'on_map': '<Plug>'})
 
    "" seems to be redundant clap. just in case clap is crashing
@@ -93,6 +96,7 @@ if has('nvim')
 
    call dein#add('neovim/nvim-lspconfig', {'name':'lsp'})
    call dein#add('glepnir/lspsaga.nvim')
+   call dein#add('glepnir/prodoc.nvim')
    call dein#add('bfredl/nvim-miniyank')   " copy paste failed in block mode when clipboard = unnameplus"
    call dein#add('nanotee/sqls.nvim', {'on_ft': ['sql', 'mysql', 'pgsql']})  " not working ATM
 
@@ -110,7 +114,7 @@ if has('nvim')
 
    call dein#add('nvim-treesitter/nvim-treesitter', {'name':'treesitter'})
 
-   call dein#add('ncm2/float-preview.nvim', {'on_event': 'InsertEnter'})
+   " call dein#add('ncm2/float-preview.nvim', {'on_event': 'InsertEnter'})
    call dein#add('tzachar/compe-tabnine', { 'build': './install.sh', 'on_event': 'InsertEnter' })
    call dein#add('RishabhRD/popfix',{'build': 'make'})
    call dein#add('RishabhRD/nvim-lsputils', {'depends':'lsp'})  "for code action"
@@ -159,3 +163,5 @@ endif
    "   call dein#add('mhinz/vim-signify', { 'on_cmd': ['SignifyEnable', 'SignifyEnableAll', 'SignifyToggle'] })   GitSign"
    " call dein#add('Yggdroot/indentLine') 
    " call dein#add('mhinz/vim-startify')
+"""""" try?""""""
+"" windwp/nvim-autopairs 

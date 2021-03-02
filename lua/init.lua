@@ -7,6 +7,18 @@ if vim.wo.diff then
   return ''
 end
 
+-- for parker only
+local execute = vim.api.nvim_command
+local fn = vim.fn
+
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+  execute 'packadd packer.nvim'
+end
+
+
 -- command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 require('lsp_config')
 require'compe'.setup {
@@ -40,12 +52,13 @@ require'compe'.setup {
       menu = "";
     };
     nvim_lua = true;
-    tabnine = {
-      max_line = 100;
-      max_num_results = 10;
-      priority = 20;
-      menu = "";
-    };
+    tabnine = false;
+    -- tabnine = {
+    --   max_line = 100;
+    --   max_num_results = 10;
+    --   priority = 20;
+    --   menu = "";
+    -- };
     spell = {menu = "暈"};
     tags = {menu = ""};
     snippets_nvim = false;
@@ -77,8 +90,15 @@ require'bufferline'.setup{
     close_icon = '',
     left_trunc_marker = '',
     right_trunc_marker = '',
-    max_name_length = 18,
-    tab_size = 18,
+    max_name_length = 14,
+    max_prefix_length = 10,
+    tab_size = 16,
+    diagnostics = "nvim_lsp",
+    show_buffer_close_icons = false,
+    diagnostics_indicator = function(count, level)
+      local icon = level:match("error") and "" or ""  -- "" or "" 
+      return "" .. icon .. count
+    end,
     show_buffer_close_icons = false,
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }

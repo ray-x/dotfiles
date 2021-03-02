@@ -22,16 +22,20 @@ elseif executable('brew')
   let s:brew_prefix = systemlist('brew --prefix')[0]
 endif
 
-""""""""""""""Plugins"""""""""""""""""""""
+"""""""""""""" Packer Plugins"""""""""""""""""""""
+" execute 'source' fnameescape(s:config_home . '/pluginrc.d/dein')
+"""""""""""""" Packer Plugins"""""""""""""""""""""
 
-execute 'source' fnameescape(s:config_home . '/pluginrc.d/dein')
 
-" lua require('plugins')
-" command! PackerInstall packadd packer.nvim | lua require('plugins').install()
-" command! PackerUpdate packadd packer.nvim | lua require('plugins').update()
-" command! PackerSync packadd packer.nvim | lua require('plugins').sync()
-" command! PackerClean packadd packer.nvim | lua require('plugins').clean()
-" command! PackerCompile packadd packer.nvim | lua require('plugins').compile()
+
+"""""""""""""" Packer Plugins"""""""""""""""""""""
+
+lua require('plugins')
+command! PackerInstall packadd packer.nvim | lua require('plugins').install()
+command! PackerUpdate packadd packer.nvim | lua require('plugins').update()
+command! PackerSync packadd packer.nvim | lua require('plugins').sync()
+command! PackerClean packadd packer.nvim | lua require('plugins').clean()
+command! PackerCompile packadd packer.nvim | lua require('plugins').compile()
 """"""""""""""Plugins"""""""""""""""""""""
 
 filetype plugin indent on
@@ -136,7 +140,9 @@ noremap <Up> gk
 noremap <Down> gj
 noremap j gj
 noremap k gk
-
+if  exists('g:gonvim_running')
+    set guifont=Victor\ Mono\ SemiBold:h18
+endif
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
@@ -212,7 +218,7 @@ if &diff
   set cursorline
   set foldlevel=0
   set noreadonly
-  colorscheme paleaurora
+  colorscheme aurora
   lua require('domain.core')
   finish  " skip all following 
 endif

@@ -110,9 +110,9 @@ local TrimmedDirectory = function(dir)
 
   local pc=''
   if p3~=nil then
-    pc = string.sub(p3, 0, 4) .. '/' .. string.sub(p2, 0, 4) .. '/' .. string.sub(p1, 0, 4)
+    pc = string.sub(p3, 0, 4) .. '/' .. string.sub(p2, 0, 4) .. '/' .. string.sub(p1, 0, 5)
   elseif p2~=nil then
-    pc = string.sub(p2, 0, 5) .. '/' .. string.sub(p1, 0, 5)
+    pc = string.sub(p2, 0, 5) .. '/' .. string.sub(p1, 0, 6)
   elseif p2~=nil then
     pc=p1
   else
@@ -163,7 +163,19 @@ gls.left[2] = {
                           cv = colors.red,ce=colors.red, r = colors.cyan,
                           rm = colors.cyan, ['r?'] = colors.cyan,
                           ['!']  = colors.red,t = colors.red}
-      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
+      local mod = vim.fn.mode()
+      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[mod])
+      if mod == 'n' then
+        return '  '
+      elseif mod == 'i' or mod == 'ic' then
+        return '  '
+      elseif mod == 'V' or mod == 'cv' then
+        return '  '
+      elseif mod == 'c' or mod == 'ce' then
+        return 'ﴣ  '
+      elseif mod == 'r' or mod == 'rm' or mod == 'r?' or mod == 'R' or mod == 'Rv' then
+        return '  '
+      end
       return '  '
     end,
     highlight = {colors.red,colors.bg,'bold'},
@@ -241,14 +253,14 @@ gls.left[10] = {
 gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.red,colors.bg}
   }
 }
 gls.left[12] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.yellow,colors.bg},
   }
 }
@@ -256,7 +268,7 @@ gls.left[12] = {
 gls.left[13] = {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.cyan,colors.bg},
   }
 }
@@ -264,7 +276,7 @@ gls.left[13] = {
 gls.left[14] = {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
-    icon = '  ',
+    icon = ' 💡 ',
     highlight = {colors.blue,colors.bg},
   }
 }

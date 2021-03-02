@@ -3,7 +3,7 @@ local util = require('lspconfig').util
 local lsp_status = require('lsp-status')
 local format = require('internal.format')
 
-require('internal.lspsaga')
+-- require('internal.lspsaga')
 
 vim.lsp.set_log_level("error")
 
@@ -44,45 +44,29 @@ vim.g.lsp_utils_symbols_opts = {
 
 lsp_status.register_progress()
 
-lsp_status.config {
-  select_symbol = function(cursor_pos, symbol)
-    if symbol.valueRange then
-      local value_range = {
-        ["start"] = {
-          character = 0,
-          line = vim.fn.byte2line(symbol.valueRange[1])
-        },
-        ["end"] = {
-          character = 0,
-          line = vim.fn.byte2line(symbol.valueRange[2])
-        }
-      }
-
-      return require('lsp-status.util').in_range(cursor_pos, value_range)
-    end
-  end
-}
-
-
 redraw_diagnostic = function ()
   local bufnr = vim.fn.bufnr()
   -- vim.cmd('edit')
   if bufnr ~= nil then
-    local diags = vim.lsp.diagnostic.get(bufnr)
-    if #diags > 0 then
+    local err = vim.lsp.diagnostic.get_count(bufnr, [[Error]])
+    if err > 0 then
       -- workaround to trigger draw sign/diagnostic again
       vim.lsp.diagnostic.goto_next()
-      vim.api.nvim_command('startinsert')
-      vim.api.nvim_input(" <ESC>")
-      vim.api.nvim_command('startinsert')
-      vim.api.nvim_input("<BS><ESC>")
+      vim.api.nvim_input("i")
+      vim.api.nvim_input("")
       vim.api.nvim_input("<ESC>")
+      vim.defer_fn(function()
+        vim.api.nvim_input('u')
+        -- vim.api.nvim_input("<BS>")
+        -- vim.api.nvim_command('stopinsert')
+        -- vim.api.nvim_input("<ESC>")
+      end, 50)
     end
   end
 end
 
+M.redraw_diagnostic = redraw_diagnostic
 -- vim.lsp.diagnostic.set_signs(vim.lsp.diagnostic.get(vim.fn.bufnr()), vim.fn.bufnr())
-
 
 M.clear_diagnostic = function ()
   local clients = vim.lsp.get_active_clients()
@@ -222,7 +206,7 @@ local on_attach = function(client, bufnr)
       -- Enable virtual text, override spacing to 0
       virtual_text = {
         spacing = 0,
-        prefix = '',
+        prefix = '', --'',  
       },
       -- Use a function to dynamically turn signs off
       -- and on, using buffer local variables
@@ -265,17 +249,38 @@ auto_group()
 local servers = { 'gopls', 'tsserver', 'bashls', 'dockerls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd', 'sqls'}
 for _, lsp in ipairs(servers) do
   lsp_status.register_progress()
+
   lsp_status.config({
     status_symbol = '',
-    indicator_errors = '',
-    indicator_warnings = '',
-    indicator_info = '',
+    indicator_errors = '', --'',
+    indicator_warnings = '', --'',
+    indicator_info = '﯎',--'',
     indicator_hint = '💡',
-    indicator_ok = '✔️',
+    indicator_ok = '',--'✔️',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
+    select_symbol = function(cursor_pos, symbol)
+    if symbol.valueRange then
+      local value_range = {
+        ["start"] = {
+          character = 0,
+          line = vim.fn.byte2line(symbol.valueRange[1])
+        },
+        ["end"] = {
+          character = 0,
+          line = vim.fn.byte2line(symbol.valueRange[2])
+        }
+      }
+
+      return require('lsp-status.util').in_range(cursor_pos, value_range)
+    end
+  end,
   })
   require 'internal.highlight'.diagnositc_config_sign()
   require 'internal.highlight'.add_highlight()
+end
+
+-- default setup
+for _, lsp in ipairs({ 'tsserver', 'bashls', 'dockerls', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls'}) do
   nvim_lsp[lsp].setup {
     message_level = vim.lsp.protocol.MessageType.Error;
     log_level = vim.lsp.protocol.MessageType.Error;
@@ -294,7 +299,7 @@ nvim_lsp.gopls.setup {
         "gopls",
 
         -- share the gopls instance if there is one already
-        "-remote=auto",
+        -- "-remote=auto",
 
         --[[ debug options ]]--
         --"-logfile=auto",
@@ -304,6 +309,7 @@ nvim_lsp.gopls.setup {
     },
     settings = {
       gopls = {
+        gofumpt = true,
         analyses = {
           unusedparams = true,
           unreachable = false,

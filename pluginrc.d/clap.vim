@@ -1,7 +1,9 @@
 let g:clap_preview_size = 10  "lines before the search result, def: 5
 let g:airline_powerline_fonts = 1
-let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', '']     }
-
+" let g:clap_search_box_border_symbols = { 'arrow': ["\ue0b2", "\ue0b0"], 'curve': ["\ue0b6", "\ue0b4"], 'nil': ['', '']     }
+let g:clap_layout = { 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }
+let g:clap_layout = { 'width': '43%', 'height': '86%', 'row': '7%', 'col': '7%' }
+" { 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }"
 set laststatus=2
 let g:clap_popup_border = "rounded"
 
