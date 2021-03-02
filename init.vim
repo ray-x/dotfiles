@@ -22,20 +22,26 @@ elseif executable('brew')
   let s:brew_prefix = systemlist('brew --prefix')[0]
 endif
 
+
+"""""""""""""" dein Plugins"""""""""""""""""""""
+execute 'source' fnameescape(s:config_home . '/pluginrc.d/dein')
+let g:dein#install_max_processes = 16
+command! Dc :call dein#recache_runtimepath()
+command! Du :call dein#update()
+
 """""""""""""" Packer Plugins"""""""""""""""""""""
-" execute 'source' fnameescape(s:config_home . '/pluginrc.d/dein')
+
+" command! Gt :lua require('selfunc').float_terminal()
+
+
 """""""""""""" Packer Plugins"""""""""""""""""""""
 
-
-
-"""""""""""""" Packer Plugins"""""""""""""""""""""
-
-lua require('plugins')
-command! PackerInstall packadd packer.nvim | lua require('plugins').install()
-command! PackerUpdate packadd packer.nvim | lua require('plugins').update()
-command! PackerSync packadd packer.nvim | lua require('plugins').sync()
-command! PackerClean packadd packer.nvim | lua require('plugins').clean()
-command! PackerCompile packadd packer.nvim | lua require('plugins').compile()
+" lua require('plugins')
+" command! PackerInstall packadd packer.nvim | lua require('plugins').install()
+" command! PackerUpdate packadd packer.nvim | lua require('plugins').update()
+" command! PackerSync packadd packer.nvim | lua require('plugins').sync()
+" command! PackerClean packadd packer.nvim | lua require('plugins').clean()
+" command! PackerCompile packadd packer.nvim | lua require('plugins').compile()
 """"""""""""""Plugins"""""""""""""""""""""
 
 filetype plugin indent on
@@ -140,9 +146,7 @@ noremap <Up> gk
 noremap <Down> gj
 noremap j gj
 noremap k gk
-if  exists('g:gonvim_running')
-    set guifont=Victor\ Mono\ SemiBold:h18
-endif
+
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
@@ -187,10 +191,7 @@ au BufNewFile,BufRead *.py vmap <S-CR> :s/\(^\s*\)# /\1/<CR>:let @/ = ""<CR>
 " markdown disable conceal when edit current line
 set concealcursor="i"
 
-" command! Gt :lua require('selfunc').float_terminal()
-command! Dc :call dein#recache_runtimepath()
-command! Du :call dein#update()
-let g:dein#install_max_processes = 16
+
 
 " file hidden
 set wildmenu
@@ -220,7 +221,7 @@ if &diff
   set noreadonly
   colorscheme aurora
   lua require('domain.core')
-  finish  " skip all following 
+  finish  " skip all following
 endif
 
 
@@ -244,5 +245,3 @@ autocmd FileType html,css EmmetInstall
 
 
 let g:python3_host_prog = '/usr/bin/python3'
-
-

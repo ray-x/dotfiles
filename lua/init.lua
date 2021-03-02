@@ -7,18 +7,6 @@ if vim.wo.diff then
   return ''
 end
 
--- for parker only
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-  execute 'packadd packer.nvim'
-end
-
-
 -- command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
 require('lsp_config')
 require'compe'.setup {
@@ -126,5 +114,7 @@ vim.cmd [[autocmd Filetype LuaTree set cursorline]]
 -- vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>]]
 
 require'colorizer'.setup()
+require'internal.gitsigns'.load_gitsigns()
 
 require'domain.core'
+

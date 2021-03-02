@@ -68,6 +68,7 @@ return require('packer').startup(function()
           "RishabhRD/nvim-lsputils",
         },
       }
+    use {'glepnir/prodoc.nvim'}
 
     use {'ncm2/float-preview.nvim', event = {'InsertEnter'}}
      --{'depends': {'treesitter', 'completion'},
@@ -81,6 +82,7 @@ return require('packer').startup(function()
     use {'preservim/nerdcommenter',
      cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
      keys = '<Leader>c<space>' }
+    use {'nanotee/sqls.nvim', ft = {'sql', 'mysql', 'pgsql'}}
     -- add comments to code, tomtom/tcomment_vim is another alternative
 
 
@@ -106,6 +108,9 @@ return require('packer').startup(function()
     use {'liuchengxu/vim-clap', cmd = {'Clap'}, run = function() vim.fn['clap#installer#force_download()']() end}
     use {'simnalamburt/vim-mundo', cmd ={'MundoToggle', 'GundoToggle', 'GundoShow'}}
     use {'luochen1990/rainbow'}
+    use {'mbbill/undotree'}
+
+    use {'AndrewRadev/splitjoin.vim', cmd={'SplitjoinJoin','SplitjoinSplit'}}
     use {'Yggdroot/indentLine'}
     use {'mtdl9/vim-log-highlighting', ft={'text', 'log'}}
     use {'ray-x/vim-interestingwords', keys =  {'<Leader>u'}}
@@ -125,7 +130,8 @@ return require('packer').startup(function()
     --"""""""""""""LUA Plugins""""""""""""""
     use {'kyazdani42/nvim-tree.lua',
      requires = {'kyazdani42/nvim-web-devicons', as = 'devicons'},
-     cmd = {'LuaTreeToggle', 'LuaTreeOpen'} }
+     cmd = {'NvimTreeToggle', 'NvimTreeOpen'} }
+
     use {'akinsho/nvim-bufferline.lua'}
     use {'glepnir/galaxyline.nvim'}
      -- ft = {'go', 'bash', 'go', 'c_sharp', 'cpp', 'css', 'dart', 'html', 'java', 'javascript', 'jsdoc', 'json', 'lua', 'python', 'rust', 'ruby', 'toml', 'typescript'}}

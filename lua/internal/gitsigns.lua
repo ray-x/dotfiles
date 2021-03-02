@@ -1,4 +1,6 @@
-local function load_gitsigns()
+local M={}
+
+M.load_gitsigns =  function ()
   require('gitsigns').setup {
     signs = {
       add          = {hl = 'GitGutterAdd'   , text = '│', numhl='GitSignsAddNr'},
@@ -34,4 +36,4 @@ local function load_gitsigns()
   }
 end
 
-load_gitsigns()
+return M

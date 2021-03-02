@@ -15,7 +15,7 @@ if dein#load_state('~/.cache/dein')
    " call dein#add('glepnir/dashboard-nvim')
    call dein#add('euclio/vim-markdown-composer', { 'build': 'cargo build --release', 'on_cmd': ['ComposerStart', 'ComposerOpen']})
 
-   " call dein#add('prettier/vim-prettier', { 'build': 'yarn install', 'on_ft': ['html','css', 'js', 'ts', 'tsx', 'md']})
+    call dein#add('prettier/vim-prettier', { 'build': 'yarn install', 'on_ft': ['html','css', 'js', 'ts', 'tsx', 'md']})
 
    call dein#add('plasticboy/vim-markdown',{
    \ 'on_ft': ['markdown'],
