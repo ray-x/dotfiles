@@ -39,17 +39,9 @@ return require('packer').startup(function()
 
    -- Plugins can have dependencies on other plugins
 
-  --use {'neovim/nvim-lspconfig'}
-  --use { 'haorenW1025/completion-nvim'}
---
-  --use {'hrsh7th/vim-vsnip',   opt = true}
-  --use {'hrsh7th/vim-vsnip-integ',   opt = true}
-  --use {'aca/completion-tabnine', run = './install.sh',   opt = true}
-  --use {'steelsojka/completion-buffers',   opt = true}
---
-  --use {'haorenW1025/diagnostic-nvim'}
-  --use {'nvim-treesitter/completion-treesitter', opt = true}
-  --use {'nvim-treesitter/nvim-treesitter', config = 'require("treesitter")'}
+    use {'hrsh7th/vim-vsnip',   opt = true}
+    use {'hrsh7th/vim-vsnip-integ',   opt = true}
+    use {'nvim-treesitter/nvim-treesitter', config = 'require("treesitter")'}
 
     use {
         'neovim/nvim-lspconfig',
@@ -111,11 +103,7 @@ return require('packer').startup(function()
 
     use {'vim-test/vim-test', cmd = {'TestNearest', 'TestFile', 'TestSuite'} }
 
-    use {'liuchengxu/vim-clap', run = 'call clap#installer#force_download()'}
-    --  run = function()
-    --      vim.fn['clap#installer#force_download()'](0)
-    --  end,
-    -- cmd = {'Clap'} }
+    use {'liuchengxu/vim-clap', cmd = {'Clap'}, run = function() vim.fn['clap#installer#force_download()']() end}
     use {'simnalamburt/vim-mundo', cmd ={'MundoToggle', 'GundoToggle', 'GundoShow'}}
     use {'luochen1990/rainbow'}
     use {'Yggdroot/indentLine'}
@@ -146,10 +134,10 @@ return require('packer').startup(function()
       'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
       config = function() require('gitsigns').setup() end
     }
-    use {'tpope/vim-fugitive', cmd = {'Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit','Gvdiffsplit!'}}
-    use{'tpope/vim-obsession'}
-    use{'dhruvasagar/vim-prosession'} 
-    -- use {'nvim-lua/popup.nvim'}
+    use {'tpope/vim-fugitive', cmd = {'Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit'}}
+    use {'tpope/vim-obsession'}
+    use {'dhruvasagar/vim-prosession'} 
+    use {'nvim-lua/popup.nvim'}
     use{'nvim-telescope/telescope.nvim'}
     use {'Xuyuanp/scrollbar.nvim'}
 
