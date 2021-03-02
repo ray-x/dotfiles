@@ -8,6 +8,7 @@ if vim.wo.diff then
 end
 
 -- command! Dg :lua require'lspsaga.diagnostic'.show_buf_diagnostics()
+
 require('lsp_config')
 require'compe'.setup {
   enabled = true;
@@ -114,7 +115,14 @@ vim.cmd [[autocmd Filetype LuaTree set cursorline]]
 -- vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>]]
 
 require'colorizer'.setup()
-require'internal.gitsigns'.load_gitsigns()
+require('gitsigns').setup {
+  signs = {
+    add          = {hl = 'GitGutterAdd'   , text = 'K', numhl= 'GitGutterAdd'},
+    change       = {hl = 'GitGutterChange', text = '│', numhl= 'GitGutterChange'},
+    delete       = {hl = 'GitGutterDelete', text = '_', numhl= 'GitGutterDelete'},
+    topdelete    = {hl = 'GitGutterDelete', text = '‾', numhl= 'GitGutterDelete'},
+    changedelete = {hl = 'GitGutterChange', text = '~', numhl= 'GitGutterChange'},
+  }
+}
 
 require'domain.core'
-
