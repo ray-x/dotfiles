@@ -1,5 +1,16 @@
 local vim = vim
 local options = setmetatable({}, { __index = { global_local = {},window_local = {} } })
+
+local function bind_option(options)
+  for k, v in pairs(options) do
+    if v == true or v == false then
+      vim.cmd('set ' .. k)
+    else
+      vim.cmd('set ' .. k .. '=' .. v)
+    end
+  end
+end
+
 function options:load_options()
   self.global_local = {}
   self.window_local = {}
@@ -34,6 +45,8 @@ function options:load_options()
       grepformat     =  "%f:%l:%m,%m\\ %f\\ match%ts,%f"; --"%f:%l:%c:%m"; 
       grepprg        = 'rg --hidden --vimgrep --smart-case --';
 
+      -- showcmd        = false;
+      cmdheight      = 1;
       splitbelow     = true;  -- Horizontal windows should split to bottom
       splitright     = true;  --Vertical windows should be split to right
       backspace      = "indent,eol,start"; --Makes backspace key more powerful.
@@ -53,14 +66,30 @@ function options:load_options()
       foldmethod     = "expr";  -- indent?
       -- signcolumn     = "yes";   -- auto
     }
-  end 
+
+  end
+  local bw_local  = {
+    synmaxcol      = 500;
+    textwidth      = 120;
+    colorcolumn    = "110";
+    }
+  bind_option(bw_local)
   for name, value in pairs(self.global_local) do
     vim.o[name] = value
   end
   for name, value in pairs(self.window_local) do
     vim.wo[name] = value
   end
+
+  vim.cmd('imap <M-V> <C-R>+')  --mac
+  vim.cmd('imap <C-V> <C-R>*')
+  vim.cmd('vmap <LeftRelease> "*ygv')
+  vim.cmd('unlet loaded_matchparen')
+
 end
 
 options:load_options()
+
+
+
 return options

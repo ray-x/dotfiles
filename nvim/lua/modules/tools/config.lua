@@ -104,29 +104,20 @@ function config.markdown()
 end
 
 function config.floatterm()
-  -- Add spaces after comment delimiters by default
-  vim.g.NERDSpaceDelims = 1
+  -- Set floaterm window's background to black
+  -- Set floating window border line color to cyan, and background to orange
+vim.cmd('hi Floaterm guibg=black')
+-- vim.cmd('hi FloatermBorder guibg=orange guifg=cyan')
+vim.cmd('command! FZF FloatermNew fzf')
+vim.cmd('command! NNN FloatermNew nnn')
+vim.cmd('command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit')
+vim.cmd('command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger')
 
-  -- Use compact syntax for prettified multi-line comments
-  vim.g.NERDCompactSexyComs = 1
-
-  -- Align line-wise comment delimiters flush left instead of following code indentation
-  vim.g.NERDDefaultAlign = 'left'
-
-  -- Set a language to use its alternate delimiters by default
-  -- vim.g.NERDAltDelims_java = 1
-
-  -- Add your own custom formats or override the defaults
-  -- vim.g.NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-  -- Allow commenting and inverting empty lines (useful when commenting a region)
-  vim.g.NERDCommentEmptyLines = 1
-
-  -- Enable trimming of trailing whitespace when uncommenting
-  vim.g.NERDTrimTrailingWhitespace = 1
-
-  -- Enable NERDCommenterToggle to check all selected lines is commented or not 
-  vim.g.NERDToggleCheckAllLines = 1
+vim.g.floaterm_gitcommit='split'
+vim.g.floaterm_keymap_new    = '<S-F7>'
+vim.g.floaterm_keymap_prev   = '<S-F8>'
+vim.g.floaterm_keymap_next   = '<S-F9>'
+vim.g.floaterm_keymap_toggle = '<S-F12>'
 end
 
 function config.spelunker()

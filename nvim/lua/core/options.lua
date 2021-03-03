@@ -109,7 +109,7 @@ local function load_options()
     conceallevel   = 2;
     concealcursor  = "niv";
   }
-
+  
   if global.is_mac then
     vim.g.clipboard = {
       name = "macOS-clipboard",
@@ -129,7 +129,6 @@ local function load_options()
   for name, value in pairs(global_local) do
     vim.o[name] = value
   end
-  bind_option(bw_local)
+
 end
-print("theirs")
 load_options()

@@ -22,7 +22,7 @@ function config.nvim_bufferline()
       diagnostics = "nvim_lsp",
       show_buffer_close_icons = false,
       diagnostics_indicator = function(count, level)
-        local icon = level:match("error") and "" or ""  -- "" or "" 
+        local icon = level:match("error") and "" or ""  -- "" or ""
         return "" .. icon .. count
       end,
       show_buffer_close_icons = false,
@@ -31,7 +31,7 @@ function config.nvim_bufferline()
       separator_style = "thin",
       enforce_regular_tabs = false,
       always_show_bufferline = false,
-      -- 'extension' | 'directory' | 
+      -- 'extension' | 'directory' |
       sort_by = 'directory'
     }
   }
@@ -112,6 +112,9 @@ end
 --   vim.g.signify_sign_show_count = 0
 -- end
 function config.scrollbar()
+  if vim.wo.diff then
+    return
+  end
   local vimcmd = vim.api.nvim_command
   vimcmd('augroup ' .. 'ScrollbarInit')
   vimcmd('autocmd!')
@@ -134,7 +137,7 @@ function config.interestingwords()
   vim.cmd("nnoremap <silent> m :call WordNavigation('forward')<cr>")
   vim.cmd("nnoremap <silent> M :call WordNavigation('backward')<cr>")
   vim.g.interestingWordsCycleColors = 1
-  -- vim.s.interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000'}
+  vim.cmd([[let s:interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000']])
 end
 
 function config.indentline()
@@ -144,7 +147,7 @@ function config.indentline()
   vim.g.indentLine_char_list = {'|', '¦', '┆', '┊', ''}
   vim.g.indentLine_enabled = 1
 end
-function config.theme() 
+function config.theme()
   vim.cmd('colorscheme aurora')
   vim.cmd('hi Normal guibg=NONE ctermbg=NONE') -- remove background
   vim.cmd('hi EndOfBuffer guibg=NONE ctermbg=NONE') -- remove background

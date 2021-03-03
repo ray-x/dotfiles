@@ -8,7 +8,9 @@ tools['kristijanhusak/vim-dadbod-ui'] = {
 }
 
 tools['editorconfig/editorconfig-vim'] = {
-  ft = { 'go','typescript','javascript','vim','rust','zig','c','cpp' }
+  opt = true,
+  cmd = {'EditorConfigReload'},
+  -- ft = { 'go','typescript','javascript','vim','rust','zig','c','cpp' }
 }
 
 tools['glepnir/prodoc.nvim'] = {
@@ -51,13 +53,14 @@ tools['rhysd/git-messenger.vim'] = {
   config=function() 
     vim.g.git_messenger_include_diff = 'none'
     vim.g.git_messenger_always_into_popup = 1
-  end
+  end,
+  opt = true,
 }
 
 tools['lewis6991/gitsigns.nvim'] = {
    config = conf.gitsigns
  }
-tools['tpope/vim-fugitive'] = { cmd = {'Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit'}}
+tools['tpope/vim-fugitive'] = { cmd = {'Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit'}, opt = true}
 
 tools['dhruvasagar/vim-prosession'] = {
   requires={'tpope/vim-obsession'},
@@ -70,12 +73,15 @@ tools['dhruvasagar/vim-prosession'] = {
 tools['prettier/vim-prettier'] = {
   run = 'yarn install', 
   ft={'html','css', 'js', 'ts', 'tsx', 'md'},
-  config=conf.prettier}
-
-tools['buoto/gotests-vim'] = {
-  ft = {'go'}
+  config=conf.prettier,
+  opt = true,
 }
 
-tools['vim-test/vim-test'] = { cmd = {'TestNearest', 'TestFile', 'TestSuite'}, config=conf.vim_test}
+tools['buoto/gotests-vim'] = {
+  ft = {'go'},
+  opt = true,
+}
+
+tools['vim-test/vim-test'] = { cmd = {'TestNearest', 'TestFile', 'TestSuite'}, config=conf.vim_test, opt = true,}
 
 return tools

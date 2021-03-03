@@ -43,6 +43,8 @@ local keys = {
     ["n|<Leader>fu"]     = map_cu('Clap git_diff_files'):with_noremap():with_silent(),
     ["n|<Leader>fv"]     = map_cu('Clap grep ++query=@visual'):with_noremap():with_silent(),
     ["n|<Leader>fd"]     = map_cu('Clap dotfiles'):with_noremap():with_silent(),
+    ["n|Rn"]             = map_cr('Lspsaga rename'):with_noremap():with_silent(),
+    ["n|gr"]             = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
 
     -- Plugin QuickRun
     ["n|<Leader>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
@@ -53,4 +55,11 @@ local keys = {
     ["n|<m-k>"]             = map_cr('SplitjoinSplit'),
 
   };
+
+-- undo leader mapping
+vim.g.mapleader = "\\"
+vim.cmd([[vnoremap  <leader>y  "+y]])
+vim.cmd([[nnoremap  <leader>Y  "+yg_]])
+vim.cmd([[vnoremap  <M-c>  "+y]])
+vim.cmd([[nnoremap  <M-c>  "+yg_]])
 bind.nvim_load_mapping(keys)

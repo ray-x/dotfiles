@@ -11,7 +11,7 @@ editor['rhysd/accelerated-jk'] = {
 }
 
 editor['norcalli/nvim-colorizer.lua'] = {
-  ft = { 'html','css','sass','vim','typescript','typescriptreact'},
+  -- ft = { 'html','css','sass','vim','typescript','typescriptreact'},
   config = conf.nvim_colorizer
 }
 
@@ -26,18 +26,18 @@ editor['hrsh7th/vim-eft'] = {
   end
 }
 
-editor['kana/vim-operator-replace'] = {
-  keys = {{'x','p'}},
-  config = function()
-    vim.api.nvim_set_keymap("x", "p", "<Plug>(operator-replace)",{silent =true})
-  end,
-  requires = 'kana/vim-operator-user'
-}
+-- editor['kana/vim-operator-replace'] = {
+--   keys = {{'x','p'}},
+--   config = function()
+--     vim.api.nvim_set_keymap("x", "p", "<Plug>(operator-replace)",{silent =true})
+--   end,
+--   requires = 'kana/vim-operator-user'
+-- }
 
-editor['rhysd/vim-operator-surround'] = {
-  event = 'BufRead',
-  requires = 'kana/vim-operator-user'
-}
+-- editor['rhysd/vim-operator-surround'] = {
+--   event = 'BufRead',
+--   requires = 'kana/vim-operator-user'
+-- }
 
 editor['kana/vim-niceblock']  = {
   opt = true
@@ -50,7 +50,7 @@ editor['kana/vim-smartchr'] = {
 
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
-  keys = '<Leader>c<space>',
+  keys = {'<Leader>c<space>', '\\', '/', '<M-/>'},
   config = conf.nerdcommenter,
 }
 -- copy paste failed in block mode when clipboard = unnameplus"
@@ -66,6 +66,6 @@ editor['simnalamburt/vim-mundo']  = { cmd ={'MundoToggle', 'GundoToggle', 'Gundo
 editor['mbbill/undotree']  = {opt = true}
 editor['AndrewRadev/splitjoin.vim']  = {cmd={'SplitjoinJoin','SplitjoinSplit'}}
 editor['justinmk/vim-sneak']  = {keys = {'s'}} 
-editor['chaoren/vim-wordmotion']  = {keys = {'ciw','w','W'}} 
+editor['chaoren/vim-wordmotion']  = {keys = {'ci', 'ciw','w','W'}} 
 -- chaoren/vim-wordmotion
 return editor

@@ -27,7 +27,8 @@ completion['nvim-telescope/telescope.nvim'] = {
     {'nvim-lua/popup.nvim', opt = true},
     {'nvim-lua/plenary.nvim',opt = true},
     {'nvim-telescope/telescope-fzy-native.nvim',opt = true},
-  }
+  },
+  opt=true,
 }
 
 completion['mattn/vim-sonictemplate'] = {
@@ -52,9 +53,10 @@ completion['RRethy/vim-illuminate'] = {
 completion['tzachar/compe-tabnine'] = {
   event = 'InsertEnter',
   run = './install.sh', 
+  opt=true,
 }
 completion['nvim-lua/lsp-status.nvim'] = {
-  opt=true,
+  opt=false,
 }
 
 completion['ray-x/lsp_signature.nvim'] = {

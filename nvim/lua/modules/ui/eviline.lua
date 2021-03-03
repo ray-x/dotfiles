@@ -39,17 +39,62 @@ local split_path = function(str)
    return split(str,'[\\/]+')
 end
 
-local current_function = function()
-  local current_func = require('lsp-status').status()
-  local s, _ = string.find(current_func, '%(')
-  if s == nil then return ' ' end
-  local e, _ = string.find(current_func, '%)[^%)]*$')
-  if e == nil then return ' ' end
-  local fun_name = string.sub(current_func, s+1, e-1)
-  if fun_name == nil or fun_name == '' then
-    return '  '
+local Set = function(list)
+  local set = {}
+  for _, l in ipairs(list) do set[l] = true end
+  return set
+end
+
+local winwidth = function ()
+  -- body
+  return vim.api.nvim_call_function('winwidth', {0})
+end
+
+local current_lsp_function = function()
+  local status, lspstatus = pcall(require, "lsp-status")
+  if(status) then 
+    local current_func = lspstatus.status()
+    local s, _ = string.find(current_func, '%(')
+    if s == nil then return ' ' end
+    local e, _ = string.find(current_func, '%)[^%)]*$')
+    if e == nil then return ' ' end
+    local fun_name = string.sub(current_func, s+1, e-1)
+    if fun_name == nil or fun_name == '' then
+      return ''
+    end
+    return string.format(' %s()', fun_name)
+  end
+  return ''
+end
+
+local current_treesitter_function = function()
+  local f = vim.fn['nvim_treesitter#statusline'](70)
+  local fun_name = string.format('%s', f)
+  -- print(string.find(fun_name, "vim.NIL"))
+  if fun_name == 'vim.NIL' then
+   return ''
   end
   return string.format(' %s()', fun_name)
+end
+
+local current_function = function()
+  if winwidth() < 40 then
+    return ''
+  end
+  local lsp = current_lsp_function()
+  local ts = current_treesitter_function()
+  local ret = ''
+  if string.len(lsp) < 3 then
+    ret = ret .. ' '
+  end
+  if winwidth() < 120 then
+    return lsp
+  end
+  if string.len(ts) < 3 then
+    ret = ret .. ' '
+    return
+  end
+  return ' ' .. ts
 end
 
 local current_function_buf = function(_, buffer)
@@ -120,17 +165,6 @@ local TrimmedDirectory = function(dir)
   end
   pc = ' ' .. pc
   return(pc)
-end
-
-local Set = function(list)
-  local set = {}
-  for _, l in ipairs(list) do set[l] = true end
-  return set
-end
-
-local winwidth = function ()
-  -- body
-  return vim.api.nvim_call_function('winwidth', {0})
 end
 
 local buffer_not_empty = function()
@@ -226,7 +260,7 @@ gls.left[7] = {
 
 gls.left[8] = {
   CurFunc = {
-    provider = function()end, --current_function,
+    provider = current_function,
     separator = ' ',
     separator_highlight = {'NONE',colors.purple},
     highlight = {colors.magenta, colors.bg},

@@ -84,8 +84,8 @@ function config.go()
   -- vim.g.go_info_mode = "guru"  --  use -- --  to disalbe coc or use gopls/guru
   vim.g.go_auto_type_info = 0  -- causing delay because it is sync
   vim.g.go_doc_keywordprg_enabled = 0  -- godoc use <slient> K conflict with coc, also it is slow....
-  vim.g.go_textobj_enable = 0  -- use coc for textobj  if, af, ic, ac
-  vim.g.go_echo_go_info = 1 -- guru is too slow, pls too much memory if multiple proj opens
+  vim.g.go_textobj_enable = 0  -- use luatree for textobj  if, af, ic, ac
+  vim.g.go_echo_go_info = 0 -- guru is too slow, pls too much memory if multiple proj opens
   vim.g.go_def_mapping_enabled = 0 -- disable default key mapping because we disabled gopls gd/gr/gf wont work
   
    

@@ -10,7 +10,7 @@ local saga = require 'lspsaga'
 saga.init_lsp_saga()
 
 
--- vim.cmd [[packadd lsp-status.nvim]]
+vim.cmd [[packadd lsp-status.nvim]]
 local lsp_status = require('lsp-status')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -45,7 +45,7 @@ function auto_group()
     -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos BufWinEnter <buffer> lua redraw_diagnostic()]])
 
     --[[ mappings that are shared across all supported langs ]]--
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gr      <cmd>lua vim.lsp.buf.references()<CR>]])
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gR      <cmd>lua vim.lsp.buf.references()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ imap <silent> <m-k>   <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gs      <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g0      <cmd>lua vim.lsp.buf.document_symbol()<CR>]])

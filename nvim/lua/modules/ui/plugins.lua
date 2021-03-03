@@ -13,6 +13,17 @@ ui['glepnir/galaxyline.nvim'] = {
 
 ui['glepnir/indent-guides.nvim'] = {
   event = 'BufReadPre',
+  config = function()
+    require('indent_guides').setup({
+      -- put your options in here
+      indent_guide_size = 1;
+      indent_start_level = 2;
+      indent_tab_guides = true;
+      indent_pretty_mode = true;
+      even_colors = { fg ='#3a3834', bg='#232b36' };
+      odd_colors  = { fg ='#471b56', bg='#1f1b24'};
+    })
+  end
 }
 
 ui['Akin909/nvim-bufferline.lua'] = {
@@ -26,8 +37,8 @@ ui['Akin909/nvim-bufferline.lua'] = {
 
 ui['kyazdani42/nvim-tree.lua'] = {
   cmd = {'NvimTreeToggle','NvimTreeOpen'},
+  requires = {'kyazdani42/nvim-web-devicons'},
   config = conf.nvim_tree,
-  requires = {'kyazdani42/nvim-web-devicons'}
 }
 
 -- ui['mhinz/vim-signify'] = {
@@ -35,10 +46,14 @@ ui['kyazdani42/nvim-tree.lua'] = {
 --   config = conf.vim_signify
 -- }
 
-
-ui['luochen1990/rainbow'] = {opt=true}
-ui['Yggdroot/indentLine'] = {config=conf.identline}
-ui['ray-x/vim-interestingwords'] = { keys =  {'<Leader>u'}, config = conf.interestingwords}
+-- not compatiable with treesitter, need to disable treesiter hl-match
+-- ui['luochen1990/rainbow'] = {
+-- 	opt=false, 
+-- 	event = {'BufReadPre','BufNewFile'},
+-- 	config=function () vim.g.rainbow_active = 1 end
+-- }
+-- ui['Yggdroot/indentLine'] = {config=conf.identline}
+ui['ray-x/vim-interestingwords'] = { keys =  {'<Leader>u'}, config = conf.interestingwords, opt = true}
 ui['ray-x/aurora'] = {config = conf.theme}
 
 ui['Xuyuanp/scrollbar.nvim'] = {config=conf.scrollbar}
