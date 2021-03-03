@@ -22,10 +22,10 @@ function options:load_options()
       mouse="a";
     }
     self.window_local   = {
-      foldmethod     = "expr";  -- indent?
+      foldmethod     = "expr";
       cursorline = true;
       -- noreadonly = false;
-      -- signcolumn     = "yes";   -- auto
+      -- signcolumn = "yes";   -- auto
     }
   else
     self.global_local = {

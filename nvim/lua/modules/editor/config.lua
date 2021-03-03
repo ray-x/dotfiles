@@ -61,4 +61,19 @@ function  config.nerdcommenter()
   vim.g.NERDToggleCheckAllLines = 1
 end
 
+function config.vmulti()
+  vim.g.VM_mouse_mappings = 1
+  -- mission control takes <C-up/down> so remap <M-up/down> to <C-Up/Down>
+  vim.api.nvim_set_keymap("n", "<M-n>", "<C-n>",{silent =true})
+  vim.api.nvim_set_keymap("n", "<M-Down>", "<C-Down>",{silent =true})
+  vim.api.nvim_set_keymap("n", "<M-Up>", "<C-Up>",{silent =true})
+  -- for mac C-L/R was mapped to mission control
+  -- print('vmulti')
+  -- vim.g.VM_maps = {}
+  -- vim.g.VM_maps['Find Under']         = '<M-d>'
+  -- vim.g.VM_maps['Find Subword Under'] = '<M-d>'
+  -- vim.g.VM_maps["Select Cursor Down"] = '<M-Down>'
+  -- vim.g.VM_maps["Select Cursor Up"]   = '<M-Up>'
+end
+
 return config

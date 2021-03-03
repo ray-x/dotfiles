@@ -3,21 +3,59 @@ local map_cr = bind.map_cr
 local map_cu = bind.map_cu
 local map_cmd = bind.map_cmd
 local map_args = bind.map_args
+K = {}
+local function check_back_space()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+
+-- K.mv_move = function(key)
+--   if packer_plugins['mg979/vim-visual-multi'] and not packer_plugins['mg979/vim-visual-multi'].loaded then
+--     vim.cmd [[packadd mg979/vim-visual-multi]]
+--   end
+--   if map = key == '<M-Down>' then return t('<C-Down>') end
+--   if map = key == '<M-Up>' then return t('<C-Up>') end
+
+-- end
+
+-- _G.enhance_ft_move = function(key)
+--   if not packer_plugins['vim-eft'].loaded then
+--     vim.cmd [[packadd vim-eft]]
+--   end
+--   local map = {
+--     f = '<Plug>(eft-f)',
+--     F = '<Plug>(eft-F)',
+--     [';'] = '<Plug>(eft-repeat)'
+--   }
+--   return t(map[key])
+-- end
+
+
+
 
 
 local keys = {
-    ["n|F13"]  = map_cmd("<S-F1>"),
-    ["n|F14"]  = map_cmd("<S-F2>"),
-    ["n|F15"]  = map_cmd("<S-F3>"),
-    ["n|F16"]  = map_cmd("<S-F4>"),
-    ["n|F17"]  = map_cmd("<S-F5>"),
-    ["n|F18"]  = map_cmd("<S-F6>"),
-    ["n|F19"]  = map_cmd("<S-F7>"),
-    ["n|F20"]  = map_cmd("<S-F8>"),
-    ["n|F21"]  = map_cmd("<S-F9>"),
-    ["n|F22"]  = map_cmd("<S-F10>"),
-    ["n|F23"]  = map_cmd("<S-F11>"),
-    ["n|F24"]  = map_cmd("<S-F12>"),
+    -- ["n|F13"]  = map_cmd("<S-F1>"),
+    -- ["n|F14"]  = map_cmd("<S-F2>"),
+    -- ["n|F15"]  = map_cmd("<S-F3>"),
+    -- ["n|F16"]  = map_cmd("<S-F4>"),
+    -- ["n|F17"]  = map_cmd("<S-F5>"),
+    -- ["n|F18"]  = map_cmd("<S-F6>"),
+    -- ["n|F19"]  = map_cmd("<S-F7>"),
+    -- ["n|F20"]  = map_cmd("<S-F8>"),
+    -- ["n|F21"]  = map_cmd("<S-F9>"),
+    -- ["n|F22"]  = map_cmd("<S-F10>"),
+    -- ["n|F23"]  = map_cmd("<S-F11>"),
+    -- ["n|F24"]  = map_cmd("<S-F12>"),
 
 
     -- pack?
@@ -69,7 +107,12 @@ vim.cmd([[unmap sr]])
 vim.cmd([[xunmap I]])
 vim.cmd([[xunmap gI]])
 vim.cmd([[xunmap A]])
+-- vim.cmd([[nunmap <A-d>]])
+-- vim.cmd([[tunmap <A-d>]])
 -- etf
 vim.cmd([[nmap ; <Plug>Sneak_;]])
 
+
 bind.nvim_load_mapping(keys)
+
+return K

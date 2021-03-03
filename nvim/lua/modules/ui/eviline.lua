@@ -89,7 +89,6 @@ local current_function = function()
     return
   end
   return ' ' .. ts
->>>>>>> comp-packer:nvim/lua/modules/ui/eviline.lua
 end
 
 local current_function_buf = function(_, buffer)
@@ -195,17 +194,18 @@ gls.left[2] = {
       local mod = vim.fn.mode()
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[mod])
       if mod == 'n' then
-        return '  '
+        return ' '
       elseif mod == 'i' or mod == 'ic' then
-        return '  '
+        return ' '
       elseif mod == 'V' or mod == 'cv' then
-        return '  '
+        return ' '
       elseif mod == 'c' or mod == 'ce' then
-        return 'ﴣ  '
+        return 'ﴣ '
       elseif mod == 'r' or mod == 'rm' or mod == 'r?' or mod == 'R' or mod == 'Rv' then
-        return '  '
+        return ' '
       end
-      return '  '
+
+      return ' '
     end,
     highlight = {colors.red,colors.bg,'bold'},
   },

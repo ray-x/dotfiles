@@ -184,7 +184,7 @@ local on_attach = function(client, bufnr)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  require 'internal.lspkind'.init()
+  require 'utils.lspkind'.init()
 
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
