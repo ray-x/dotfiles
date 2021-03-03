@@ -39,25 +39,6 @@ local split_path = function(str)
    return split(str,'[\\/]+')
 end
 
-<<<<<<< HEAD:lua/eviline.lua
-local current_function = function()
-  local current_func = require('lsp-status').status()
-  local s, _ = string.find(current_func, '%(')
-  if s == nil then return ' ' end
-  local e, _ = string.find(current_func, '%)[^%)]*$')
-  if e == nil then return ' ' end
-  local fun_name = string.sub(current_func, s+1, e-1)
-  if fun_name == nil or fun_name == '' then
-    return '  '
-  end
-  return string.format(' %s()', fun_name)
-=======
-local Set = function(list)
-  local set = {}
-  for _, l in ipairs(list) do set[l] = true end
-  return set
-end
-
 local winwidth = function ()
   -- body
   return vim.api.nvim_call_function('winwidth', {0})
@@ -65,7 +46,7 @@ end
 
 local current_lsp_function = function()
   local status, lspstatus = pcall(require, "lsp-status")
-  if(status) then 
+  if(status) then
     local current_func = lspstatus.status()
     local s, _ = string.find(current_func, '%(')
     if s == nil then return ' ' end
