@@ -67,6 +67,10 @@ function config.clap()
   vim.g.clap_popup_border = "rounded"
   vim.g.clap_selected_sign = { text = '', texthl = "ClapSelectedSign", linehl = "ClapSelected" }
   vim.g.clap_current_selection_sign = { text = '', texthl = "ClapCurrentSelectionSign", linehl = "ClapCurrentSelection" }
+  vim.g.clap_always_open_preview = true
+  if not packer_plugins['nvim-compe'].loaded then
+    vim.cmd [[packadd nvim-compe]]
+  end
   vim.api.nvim_command("autocmd FileType clap_input call compe#setup({ 'enabled': v:false }, 0)")
 end
 
@@ -76,11 +80,11 @@ function config.gitsigns()
   end
   require('gitsigns').setup {
     signs = {
-      add          = {hl = 'GitGutterAdd'   , text = 'K', numhl= 'GitGutterAdd'},
+      add          = {hl = 'GitGutterAdd'   , text = '│', numhl= 'GitGutterAdd'},
       change       = {hl = 'GitGutterChange', text = '│', numhl= 'GitGutterChange'},
-      delete       = {hl = 'GitGutterDelete', text = '_', numhl= 'GitGutterDelete'},
-      topdelete    = {hl = 'GitGutterDelete', text = '‾', numhl= 'GitGutterDelete'},
-      changedelete = {hl = 'GitGutterChange', text = '~', numhl= 'GitGutterChange'},
+      delete       = {hl = 'GitGutterDelete', text = 'ﬠ', numhl= 'GitGutterDelete'},
+      topdelete    = {hl = 'GitGutterDelete', text = 'ﬢ', numhl= 'GitGutterDelete'},
+      changedelete = {hl = 'GitGutterChange', text = '┊', numhl= 'GitGutterChange'},
     }
   }
  end

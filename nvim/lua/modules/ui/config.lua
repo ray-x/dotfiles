@@ -122,6 +122,8 @@ function config.indentline()
 end
 function config.theme() 
   vim.cmd('colorscheme aurora')
+  vim.cmd('hi Normal guibg=NONE ctermbg=NONE') -- remove background
+  vim.cmd('hi EndOfBuffer guibg=NONE ctermbg=NONE') -- remove background
   vim.cmd('set cursorcolumn')
   vim.cmd('augroup vimrc_todo')
   vim.cmd('au!')

@@ -45,8 +45,8 @@ completion['mattn/emmet-vim'] = {
 completion['RRethy/vim-illuminate'] = {
   event = 'InsertEnter',
   config = function()
-  vim.g.Illuminate_delay = 200
-  vim.g.Illuminate_ftblacklist = {'nerdtree', 'nvimtree', 'vista'}
+    vim.g.Illuminate_delay = 200
+    vim.g.Illuminate_ftblacklist = {'nerdtree', 'nvimtree', 'vista'}
   end
 }
 completion['tzachar/compe-tabnine'] = {
@@ -54,14 +54,11 @@ completion['tzachar/compe-tabnine'] = {
   run = './install.sh', 
 }
 completion['nvim-lua/lsp-status.nvim'] = {
+  opt=true
 }
 
 completion['ray-x/lsp_signature.nvim'] = {
   config = function() require "lsp_signature".on_attach() end
 }
 
-completion['RishabhRD/nvim-lsputils'] = {
-  event = 'InsertEnter',
-  requires = {'RishabhRD/popfix'}
-}
 return completion

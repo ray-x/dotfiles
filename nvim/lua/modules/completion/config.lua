@@ -6,7 +6,7 @@ end
 
 function config.nvim_compe()
   vim.cmd('inoremap <silent><expr> <C-Space> compe#complete()')
-  vim.cmd("inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "<Plug>delimitMateCR", 'mode': '' })")
+  vim.cmd("inoremap <silent><expr> <CR>      compe#confirm({ 'keys': '<Plug>delimitMateCR', 'mode': '' })")
   vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
   vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
   vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
@@ -38,7 +38,7 @@ function config.nvim_compe()
       };
       nvim_lsp = {
         -- menu = "";
-        menu = "";
+        menu = "";
       };
       nvim_lua = true;
       tabnine = false;

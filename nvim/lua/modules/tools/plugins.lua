@@ -41,7 +41,7 @@ tools['voldikss/vim-floaterm'] = {
 }
 
 tools['liuchengxu/vim-clap'] = {
- cmd = {'Clap'}, run = function() vim.fn['clap#installer#force_download()']() end,
+ cmd = {'Clap'}, run = function() vim.fn['clap#installer#download_binary']() end,
  config = conf.clap,
 }
 
