@@ -131,5 +131,5 @@ local function load_options()
   end
   bind_option(bw_local)
 end
-
+print("theirs")
 load_options()

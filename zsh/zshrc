@@ -173,6 +173,7 @@ alias nd='git difftool --tool nvimdiff'
 alias ls='ls -G'
 alias ll='ls -lG'
 alias icat="kitty +kitten icat"
+alias RM='/bin/rm'
 export PATH="/usr/local/opt/python@3.9/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:/Users/ray.xu/github/dotfiles/bin/:$PATH"
 autoload -Uz compinit

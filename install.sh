@@ -1,7 +1,7 @@
 ln -s ~/github/dotfiles/zsh/zimrc ~/.zimrc
 ln -s ~/github/dotfiles/zsh/zshrc ~/.zshrc
 ln -s ~/github/dotfiles/zsh/fzffun.zsh ~/.fzffun.zsh
-ln -s ~/github/dotfiles/~/github/dotfiles/conf/gitconfig ~/.gitconfig
+ln -s ~/github/dotfiles/conf/gitconfig ~/.gitconfig
 mkdir -p ~/Library/Application\ Support/jesseduffield/lazygit
 ln -s ~/github/dotfiles/conf/lazygit.yml ~/Library/Application\ Support/jesseduffield/lazygit/config.yml
 ln -s ~/github/dotfiles/nvim ~/.config/nvim

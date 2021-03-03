@@ -30,3 +30,4 @@ function autocmd.load_autocmds()
 end
 
 autocmd.load_autocmds()
+return autocmd

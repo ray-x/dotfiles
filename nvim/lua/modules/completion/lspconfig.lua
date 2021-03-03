@@ -3,72 +3,16 @@ local lspconfig = require 'lspconfig'
 local global = require 'core.global'
 local format = require('modules.completion.format')
 local lsp_status = require('lsp-status')
-local util = require('lspconfig').util
-local M = {}
+
 
 vim.cmd [[packadd lspsaga.nvim]]
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
 
-print("lsp start")
-vim.g.lsp_utils_location_opts = {
-  height = 38,
-  mode = 'editor',
-  preview = {
-    title = 'Location Preview',
-    border = true,
-    border_chars = border_chars
-  },
-  keymaps = {
-    n = {
-      ['<C-n>'] = 'j',
-      ['<C-p>'] = 'k',
-    }
-  }
-}
-vim.g.lsp_utils_symbols_opts = {
-  height = 38,
-  mode = 'editor',
-  preview = {
-    title = 'Symbols Preview',
-    border = true,
-    border_chars = border_chars
-  },
-  keymaps = {
-    n = {
-      ['<C-n>'] = 'j',
-      ['<C-p>'] = 'k',
-    }
-  },
-  prompt = {},
-}
 
-lsp_status.register_progress()
-
-redraw_diagnostic = function ()
-  local bufnr = vim.fn.bufnr()
-  -- vim.cmd('edit')
-  if bufnr ~= nil then
-    local err = vim.lsp.diagnostic.get_count(bufnr, [[Error]])
-    if err > 0 then
-      -- workaround to trigger draw sign/diagnostic again
-      vim.lsp.diagnostic.goto_next()
-      vim.api.nvim_input("i")
-      vim.api.nvim_input("")
-      vim.api.nvim_input("<ESC>")
-      vim.defer_fn(function()
-        vim.api.nvim_input('u')
-        -- vim.api.nvim_input("<BS>")
-        -- vim.api.nvim_command('stopinsert')
-        -- vim.api.nvim_input("<ESC>")
-      end, 50)
-    end
-  end
-end
-
-M.redraw_diagnostic = redraw_diagnostic
-
-vim.lsp.set_log_level("error")
+vim.cmd [[packadd lsp-status.nvim]]
+local lsp_status = require('lsp-status')
+print("status")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -86,7 +30,6 @@ end
 vim.cmd('command! -nargs=0 LspLog call v:lua.open_lsp_log()')
 vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
 
-
 function auto_group()
 
     -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
@@ -100,7 +43,7 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHold  <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos BufWinEnter <buffer> lua redraw_diagnostic()]])
+    -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos BufWinEnter <buffer> lua redraw_diagnostic()]])
 
     --[[ mappings that are shared across all supported langs ]]--
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gr      <cmd>lua vim.lsp.buf.references()<CR>]])
@@ -119,17 +62,17 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gL      <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <C-LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g<LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>]])
-
+    vim.api.nvim_command([[nnoremap <leader>gr <cmd>lua require'telescope.builtin'.lsp_references{ shorten_path = true }<CR>]])
+    vim.api.nvim_command([[autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>]])
+    vim.api.nvim_command([[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>]])
   vim.api.nvim_command([[augroup END]])
 
 end
-
 
 local diagnostic_map = function (bufnr)
   local opts = { noremap=true, silent=true }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']O', ':lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
-
 
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
@@ -143,12 +86,6 @@ local on_attach = function(client, bufnr)
   end
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- hook to nvim-lsputils
-  vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-  vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
-  vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-  vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-  vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 
   -- https://github.com/fsouza
   vim.lsp.handlers['textDocument/documentHighlight'] = function(_, _, result, _)
@@ -160,10 +97,6 @@ local on_attach = function(client, bufnr)
     vim.lsp.util.buf_highlight_references(bufnr, result)
   end
 
-  -- us telescope for following binding
-  vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
-  vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-  vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
   -- vim.lsp.handlers['window/showMessage'] = function(err, method, params, client_id)
   --   if params and params.type <= vim.lsp.message_level then
@@ -254,8 +187,17 @@ local on_attach = function(client, bufnr)
 
 end
 
-local enhance_attach = on_attach
 auto_group()
+
+local mini_attach = function(client,bufnr)
+  if client.resolved_capabilities.document_formatting then
+    format.lsp_before_save()
+  end
+  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+end
+
+
+local enhance_attach = on_attach
 
 local servers = { 'gopls', 'tsserver', 'bashls', 'dockerls', 'pyls', 'sumneko_lua', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls', 'clangd', 'sqls'}
 for _, lsp in ipairs(servers) do
@@ -287,12 +229,12 @@ for _, lsp in ipairs(servers) do
   end,
   })
   require 'utils.highlight'.diagnositc_config_sign()
-  require 'internal.highlight'.add_highlight()
+  require 'utils.highlight'.add_highlight()
 end
 
--- default setup
+
 for _, lsp in ipairs({ 'tsserver', 'bashls', 'dockerls', 'vimls', 'html', 'jsonls', 'cssls', 'yamlls'}) do
-  nvim_lsp[lsp].setup {
+  lspconfig[lsp].setup {
     message_level = vim.lsp.protocol.MessageType.Error;
     log_level = vim.lsp.protocol.MessageType.Error;
     on_attach = on_attach,
@@ -300,23 +242,28 @@ for _, lsp in ipairs({ 'tsserver', 'bashls', 'dockerls', 'vimls', 'html', 'jsonl
   }
 end
 
--- --[[ Go ]]--
-nvim_lsp.gopls.setup {
-    on_attach=on_attach,
-    capabilities = lsp_status.capabilities,
-    message_level = vim.lsp.protocol.MessageType.Error;
-    cmd = {
-        "gopls",
 
-        -- share the gopls instance if there is one already
-        -- "-remote=auto",
+lspconfig.gopls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    usePlaceholders=true,
+    completeUnimported=true,
+  },
 
-        --[[ debug options ]]--
-        --"-logfile=auto",
-        --"-debug=:0",
-        --"-remote.debug=:0",
-        --"-rpc.trace",
-    },
+  message_level = vim.lsp.protocol.MessageType.Error;
+  cmd = {
+      "gopls",
+
+      -- share the gopls instance if there is one already
+      -- "-remote=auto",
+
+      --[[ debug options ]]--
+      --"-logfile=auto",
+      --"-debug=:0",
+      --"-remote.debug=:0",
+      --"-rpc.trace",
+  },
     settings = {
       gopls = {
         gofumpt = true,
@@ -338,20 +285,13 @@ nvim_lsp.gopls.setup {
         -- buildFlags = {"-tags", "functional"}
       },
     },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-        [vim.fn.expand("~/repos/nvim/lua")] = true,
-      },
-    },
     root_dir = function(fname)
+      local util = require('lspconfig').util
       return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
     end;
 }
 
-nvim_lsp.sqls.setup({
+lspconfig.sqls.setup({
   on_attach = function(client)
     client.resolved_capabilities.execute_command = true
       lsp_status.on_attach(client, bufnr)
@@ -432,7 +372,6 @@ require'lspconfig'.sumneko_lua.setup {
 }
 
 
-
 lspconfig.tsserver.setup {
   on_attach = function(client)
     client.resolved_capabilities.document_formatting = false
@@ -461,10 +400,3 @@ for _,server in ipairs(servers) do
 end
 
 
-
-vim.cmd [[nnoremap <leader>gr <cmd>lua require'telescope.builtin'.lsp_references{ shorten_path = true }<CR>]]
-vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>]]
-vim.cmd [[autocmd VimEnter * nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse><cmd>lua vim.lsp.buf.implementation()<CR>]]
-
-
-return M

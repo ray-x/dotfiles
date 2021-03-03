@@ -6,7 +6,7 @@ function options:load_options()
     errorbells     = false;             -- No beeps
     hidden         = true;             -- Buffer should still exist if window is closed
     fileencoding   = "utf-8";  --fenc
-
+    mouse          = "a";
 
     textwidth      = 120;   -- wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
     expandtab      = true;  -- " expand tabs to spaces
@@ -46,4 +46,5 @@ function options:load_options()
   end
 end
 
+options:load_options()
 return options

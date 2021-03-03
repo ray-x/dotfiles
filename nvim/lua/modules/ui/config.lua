@@ -7,10 +7,32 @@ end
 function config.nvim_bufferline()
   require('bufferline').setup{
     options = {
-      modified_icon = '✥',
-      buffer_close_icon = '',
-      mappings = true,
+      view = "multiwindow",
+      numbers ="none",  --"none" | "ordinal" | "buffer_id",
+      number_style = "superscript" ,
+      mappings = true ,
+      buffer_close_icon= '',
+      modified_icon = '●',
+      close_icon = '',
+      left_trunc_marker = '',
+      right_trunc_marker = '',
+      max_name_length = 14,
+      max_prefix_length = 10,
+      tab_size = 16,
+      diagnostics = "nvim_lsp",
+      show_buffer_close_icons = false,
+      diagnostics_indicator = function(count, level)
+        local icon = level:match("error") and "" or ""  -- "" or "" 
+        return "" .. icon .. count
+      end,
+      show_buffer_close_icons = false,
+      -- can also be a table containing 2 custom separators
+      -- [focused and unfocused]. eg: { '|', '|' }
+      separator_style = "thin",
+      enforce_regular_tabs = false,
       always_show_bufferline = false,
+      -- 'extension' | 'directory' | 
+      sort_by = 'directory'
     }
   }
 end
@@ -49,6 +71,8 @@ end
 -- end
 
 function config.nvim_tree()
+  vim.cmd [[nmap <S-F1> :NvimTreeToggle<CR>]]
+  vim.cmd [[autocmd Filetype LuaTree set cursorline]]
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
