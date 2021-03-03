@@ -70,7 +70,7 @@ end
   --   }
 
 function config.vim_vsnip()
-  vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/.config/nvim/snippets'
+  vim.g.vsnip_snippet_dir = os.getenv('HOME') .. '/.config/nvim/snips'
 end
 
 function config.telescope()
