@@ -54,7 +54,7 @@ completion['tzachar/compe-tabnine'] = {
   run = './install.sh', 
 }
 completion['nvim-lua/lsp-status.nvim'] = {
-  opt=true
+  opt=true,
 }
 
 completion['ray-x/lsp_signature.nvim'] = {

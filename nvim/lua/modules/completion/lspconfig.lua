@@ -10,9 +10,8 @@ local saga = require 'lspsaga'
 saga.init_lsp_saga()
 
 
-vim.cmd [[packadd lsp-status.nvim]]
+-- vim.cmd [[packadd lsp-status.nvim]]
 local lsp_status = require('lsp-status')
-print("status")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

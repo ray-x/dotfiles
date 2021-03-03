@@ -226,7 +226,7 @@ gls.left[7] = {
 
 gls.left[8] = {
   CurFunc = {
-    provider = current_function,
+    provider = function()end, --current_function,
     separator = ' ',
     separator_highlight = {'NONE',colors.purple},
     highlight = {colors.magenta, colors.bg},

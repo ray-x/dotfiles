@@ -66,6 +66,6 @@ editor['simnalamburt/vim-mundo']  = { cmd ={'MundoToggle', 'GundoToggle', 'Gundo
 editor['mbbill/undotree']  = {opt = true}
 editor['AndrewRadev/splitjoin.vim']  = {cmd={'SplitjoinJoin','SplitjoinSplit'}}
 editor['justinmk/vim-sneak']  = {keys = {'s'}} 
-
+editor['chaoren/vim-wordmotion']  = {keys = {'ciw','w','W'}} 
 -- chaoren/vim-wordmotion
 return editor
