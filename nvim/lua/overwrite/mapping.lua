@@ -62,4 +62,8 @@ vim.cmd([[vnoremap  <leader>y  "+y]])
 vim.cmd([[nnoremap  <leader>Y  "+yg_]])
 vim.cmd([[vnoremap  <M-c>  "+y]])
 vim.cmd([[nnoremap  <M-c>  "+yg_]])
+vim.cmd([[unmap sa]])
+vim.cmd([[unmap sd]])
+vim.cmd([[unmap sr]])
+
 bind.nvim_load_mapping(keys)

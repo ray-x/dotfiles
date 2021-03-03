@@ -56,16 +56,15 @@ editor['preservim/nerdcommenter'] = {
 -- copy paste failed in block mode when clipboard = unnameplus"
 editor['bfredl/nvim-miniyank']  = {
   config = function ()
-  vim.api.nvim_command('map p <Plug>(miniyank-autoput)')
-  vim.api.nvim_command('map P <Plug>(miniyank-autoPut)')
-
+    vim.api.nvim_command('map p <Plug>(miniyank-autoput)')
+    vim.api.nvim_command('map P <Plug>(miniyank-autoPut)')
   end
 }
 
 editor['simnalamburt/vim-mundo']  = { cmd ={'MundoToggle', 'GundoToggle', 'GundoShow'}}
 editor['mbbill/undotree']  = {opt = true}
-editor['AndrewRadev/splitjoin.vim']  = {cmd={'SplitjoinJoin','SplitjoinSplit'}}
-editor['justinmk/vim-sneak']  = {keys = {'s'}} 
+editor['AndrewRadev/splitjoin.vim']  = {cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
+editor['justinmk/vim-sneak']  = {keys = {'s'}, config = function() vim.g['sneak#label']= 1 end} 
 editor['chaoren/vim-wordmotion']  = {keys = {'ci', 'ciw','w','W'}} 
 -- chaoren/vim-wordmotion
 return editor
