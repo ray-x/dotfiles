@@ -50,11 +50,12 @@ completion['RRethy/vim-illuminate'] = {
     vim.g.Illuminate_ftblacklist = {'nerdtree', 'nvimtree', 'vista'}
   end
 }
-completion['tzachar/compe-tabnine'] = {
-  event = 'InsertEnter',
-  run = './install.sh', 
-  opt=true,
-}
+-- enable for workstation....
+-- completion['tzachar/compe-tabnine'] = {
+--   event = 'InsertEnter',
+--   run = './install.sh', 
+--   opt=true,
+-- }
 completion['nvim-lua/lsp-status.nvim'] = {
   opt=false,
 }

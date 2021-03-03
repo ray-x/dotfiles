@@ -4,6 +4,10 @@ function config.galaxyline()
   require('modules.ui.eviline')
 end
 
+local winwidth = function ()
+  return vim.api.nvim_call_function('winwidth', {0})
+end
+
 function config.nvim_bufferline()
   require('bufferline').setup{
     options = {
@@ -71,8 +75,8 @@ end
 -- end
 
 function config.nvim_tree()
-  vim.cmd [[nmap <S-F1> :NvimTreeToggle<CR>]]
-  vim.cmd [[autocmd Filetype LuaTree set cursorline]]
+  vim.cmd([[nmap <F13> :NvimTreeToggle<CR>]])
+  vim.cmd([[autocmd Filetype LuaTree set cursorline]])
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
@@ -113,6 +117,10 @@ end
 -- end
 function config.scrollbar()
   if vim.wo.diff then
+    return
+  end
+  local w = vim.api.nvim_call_function('winwidth', {0})
+  if w < 70 then
     return
   end
   local vimcmd = vim.api.nvim_command
@@ -158,5 +166,17 @@ function config.theme()
   vim.cmd('augroup END')
   vim.cmd('hi def link MyTodo Todo')
 end
-
+function config.minimap()
+  vim.cmd([[nmap <F14> :MinimapToggle<CR>]])
+  local w = vim.api.nvim_call_function('winwidth', {0})
+  if w > 180 then
+    vim.g.minimap_width = 12
+  elseif w > 120 then
+    vim.g.minimap_width = 10
+  elseif w > 80 then
+    vim.g.minimap_width = 7
+  else
+    vim.g.minimap_width = 2
+  end
+end
 return config

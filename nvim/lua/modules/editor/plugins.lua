@@ -39,14 +39,14 @@ editor['hrsh7th/vim-eft'] = {
 --   requires = 'kana/vim-operator-user'
 -- }
 
-editor['kana/vim-niceblock']  = {
-  opt = true
-}
+-- editor['kana/vim-niceblock']  = {
+--   opt = true
+-- }
 
-editor['kana/vim-smartchr'] = {
-  ft = 'go',
-  config = conf.vim_smartchar
-}
+-- editor['kana/vim-smartchr'] = {
+--   ft = 'go',
+--   config = conf.vim_smartchar
+-- }
 
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},

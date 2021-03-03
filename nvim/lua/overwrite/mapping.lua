@@ -45,15 +45,16 @@ local keys = {
     ["n|<Leader>fd"]     = map_cu('Clap dotfiles'):with_noremap():with_silent(),
     ["n|Rn"]             = map_cr('Lspsaga rename'):with_noremap():with_silent(),
     ["n|gr"]             = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
+    ["n|<Leader>fh"]     = map_cu('Clap command_history'):with_noremap():with_silent(),
 
     -- Plugin QuickRun
     ["n|<Leader>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
     -- Plugin Vista 
     ["n|<Leader>v"]      = map_cu('Vista!!'):with_noremap():with_silent(),
     -- Plugin SplitJoin
-    ["n|<m-j>"]             = map_cr('SplitjoinJoin'),
-    ["n|<m-k>"]             = map_cr('SplitjoinSplit'),
-
+    ["n|<m-j>"]          = map_cr('SplitjoinJoin'),
+    ["n|<m-k>"]          = map_cr('SplitjoinSplit'),
+    ["n|;"]              = map_cmd("<Plug>Sneak_;"):with_silent(),
   };
 
 -- undo leader mapping
@@ -65,5 +66,10 @@ vim.cmd([[nnoremap  <M-c>  "+yg_]])
 vim.cmd([[unmap sa]])
 vim.cmd([[unmap sd]])
 vim.cmd([[unmap sr]])
+vim.cmd([[xunmap I]])
+vim.cmd([[xunmap gI]])
+vim.cmd([[xunmap A]])
+-- etf
+vim.cmd([[nmap ; <Plug>Sneak_;]])
 
 bind.nvim_load_mapping(keys)

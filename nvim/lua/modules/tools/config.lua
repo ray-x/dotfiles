@@ -114,10 +114,10 @@ vim.cmd('command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating 
 vim.cmd('command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger')
 
 vim.g.floaterm_gitcommit='split'
-vim.g.floaterm_keymap_new    = '<S-F7>'
-vim.g.floaterm_keymap_prev   = '<S-F8>'
-vim.g.floaterm_keymap_next   = '<S-F9>'
-vim.g.floaterm_keymap_toggle = '<S-F12>'
+vim.g.floaterm_keymap_new    = '<F19>'  --S-f7
+vim.g.floaterm_keymap_prev   = '<F20>'
+vim.g.floaterm_keymap_next   = '<F21>'
+vim.g.floaterm_keymap_toggle = '<F24>'
 end
 
 function config.spelunker()
