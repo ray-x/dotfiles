@@ -162,7 +162,7 @@ function config.prettier()
  vim.g['prettier#autoformat_config_present'] = 1
  vim.g['prettier#exec_cmd_async'] = 1
  vim.g['prettier#quickfix_enabled'] = 0
- vim.api.nvim_command('autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync')
+ vim.api.nvim_command('autocmd InsertLeave,BufWritePost *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync')
 end
 
 function config.vim_test( )
@@ -181,8 +181,8 @@ function config.vim_test( )
 end
 
 
+  vim.cmd('autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync')
   vim.cmd("command! Gram lua require'modules.tools.config'.grammcheck()")
-
   vim.cmd("command! Spell lua require'modules.tools.config'.spellcheck()")
 
 return config

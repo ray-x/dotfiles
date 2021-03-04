@@ -31,6 +31,7 @@ I used following plugin a lots
    If you interested in Dein version, Please refer to [Dein](https://github.com/ray-x/dotfiles/tree/nvim-comple).
    This was the last Dein/Packer dual supports version I have (init.vim has a flag to choose).
    ATM, minium support for vim. Most plugins only works under neovim 0.5.0+.
+
    I am following Raphael(a.k.a glepnir) https://github.com/glepnir/nvim  dotfiles. He provides a good wrapper for
    Packer. I have an `overwrite` folder which will override the settings. Also, lots of changes in modules/plugins.
    A.T.M. nvim-comple as a completion engine with LSP, LSP saga. vim-multi-cursor, clap/telescope. treesitter,
