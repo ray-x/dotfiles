@@ -30,7 +30,7 @@ tools['rhysd/vim-grammarous'] = {opt=true, ft={'markdown', 'txt'}, config=conf.g
 
 tools['euclio/vim-markdown-composer'] = {
   ft = 'markdown',
-  run = 'cargo build --release',
+  run = 'cargo build --release; /bin/rm -rf ~/.local/share/nvim/site/pack/packer/opt/vim-markdown-composer/target/release/deps',
   cmd = {'ComposerStart', 'ComposerOpen'},
   config = function() vim.g.markdown_composer_autostart = 0 end,
   opt = true,

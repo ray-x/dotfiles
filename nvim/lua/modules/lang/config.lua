@@ -19,8 +19,8 @@ function config.ale()
     --" vim.g.ale_lint_on_text_changed = 'never'   --" do not lint when I am typing  'normal (def)'   'never'
     vim.g.ale_sign_column_always = 1
     vim.g.ale_go_golangci_lint_package = 1
-
-    vim.g.lua_luafmt_options = "--indent-count 2"
+    vim.g.ale_lua_luafmt_executable = "luafmt"
+    vim.g.ale_lua_luafmt_options = "--indent-count 2"
     --" 'go vet' not working
     vim.g.ale_linters = {
         javascript = {"eslint", "flow-language-server"},
