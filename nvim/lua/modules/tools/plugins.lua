@@ -80,11 +80,9 @@ tools['dhruvasagar/vim-prosession'] = {
 
 tools['prettier/vim-prettier'] = {
   run = 'yarn install',
-  ft = {'html','css', 'js', 'ts', 'tsx', 'md','javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql',
-  'markdown', 'vue', 'yaml', 'html'},
-  cmd = {'Prettier', 'PrettierAsync', 'PrettierPartial'}
+  ft = {'html','css', 'js', 'ts', 'tsx', 'md','javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'},
+  cmd = {'Prettier', 'PrettierAsync', 'PrettierPartial'},
   config = conf.prettier,
-  run = 'yarn install',
   opt = true,
 }
 

@@ -9,8 +9,9 @@ vim.cmd [[packadd lspsaga.nvim]]
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
 
-
-vim.cmd [[packadd lsp-status.nvim]]
+if not packer_plugins['nvim-lua/lsp-status.nvim'] or not packer_plugins['lsp-status.nvim'].loaded then
+  vim.cmd [[packadd lsp-status.nvim]]
+end
 local lsp_status = require('lsp-status')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -403,5 +404,3 @@ for _,server in ipairs(servers) do
     on_attach = enhance_attach
   }
 end
-
-

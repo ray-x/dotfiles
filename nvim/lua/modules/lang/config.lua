@@ -20,6 +20,7 @@ function config.ale()
     vim.g.ale_sign_column_always = 1
     vim.g.ale_go_golangci_lint_package = 1
 
+    vim.g.lua_luafmt_options = "--indent-count 2"
     --" 'go vet' not working
     vim.g.ale_linters = {
         javascript = {"eslint", "flow-language-server"},
