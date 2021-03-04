@@ -1,0 +1,14 @@
+connections:
+- alias: ""
+  driver: postgresql
+  dataSourceName: "host=127.0.0.1 port=5432 user=user_db password=svcpass dbname=user_db sslmode=disable"
+  proto: tcp
+  user: user_db
+  passwd: svcpass
+  host: 127.0.0.1
+  port: 5432
+  path: ""
+  dbName: user
+  params:
+    autocommit: "true"
+    tls: skip-verify
