@@ -4,7 +4,8 @@ local conf = require('modules.tools.config')
 tools['kristijanhusak/vim-dadbod-ui'] = {
   cmd = {'DBUIToggle','DBUIAddConnection','DBUI','DBUIFindBuffer','DBUIRenameBuffer'},
   config = conf.vim_dadbod_ui,
-  requires = {{'tpope/vim-dadbod',opt = true}}
+  requires = {{'tpope/vim-dadbod',opt = true}},
+  opt = true,
 }
 
 tools['editorconfig/editorconfig-vim'] = {
@@ -14,32 +15,39 @@ tools['editorconfig/editorconfig-vim'] = {
 }
 
 tools['glepnir/prodoc.nvim'] = {
-  event = 'BufReadPre'
+  event = 'BufReadPre',
+  opt = true,
 }
 
 tools['liuchengxu/vista.vim'] = {
   cmd = 'Vista',
-  config = conf.vim_vista
+  config = conf.vim_vista,
+  opt = true,
 }
 
 tools['kamykn/spelunker.vim'] = {opt=true, config=conf.spelunker}
-tools['rhysd/vim-grammarous'] = {opt=true}
+tools['rhysd/vim-grammarous'] = {opt=true, ft={'markdown', 'txt'}, config=conf.grammarous}
 
 tools['euclio/vim-markdown-composer'] = {
   ft = 'markdown',
   run = 'cargo build --release',
   cmd = {'ComposerStart', 'ComposerOpen'},
-  config = function() vim.g.markdown_composer_autostart = 0 end
+  config = function() vim.g.markdown_composer_autostart = 0 end,
+  opt = true,
 }
+
 tools['plasticboy/vim-markdown'] = {
   ft = 'markdown',
   requires = {'godlygeek/tabular'},
+  cmd = {'Toc'},
   config = conf.markdown,
+  opt = true,
 }
 
 tools['voldikss/vim-floaterm'] = {
    cmd = {'FloatermNew','FloatermToggle'},
-   config = conf.floatterm
+   config = conf.floatterm,
+   opt = true,
 }
 
 tools['liuchengxu/vim-clap'] = {
@@ -48,9 +56,9 @@ tools['liuchengxu/vim-clap'] = {
 }
 
 
-tools['rhysd/git-messenger.vim'] = { 
-  cmd = 'GitMessenger', 
-  config=function() 
+tools['rhysd/git-messenger.vim'] = {
+  cmd = 'GitMessenger',
+  config=function()
     vim.g.git_messenger_include_diff = 'none'
     vim.g.git_messenger_always_into_popup = 1
   end,
@@ -63,17 +71,17 @@ tools['lewis6991/gitsigns.nvim'] = {
 tools['tpope/vim-fugitive'] = { cmd = {'Gvsplit','Git','Gedit','Gstatus','Gdiffsplit','Gvdiffsplit'}, opt = true}
 
 tools['dhruvasagar/vim-prosession'] = {
-  requires={'tpope/vim-obsession'},
-  config=function()
+  requires = {'tpope/vim-obsession'},
+  config = function()
     vim.g.prosession_on_startup = 1
     vim.g.prosession_dir = '~/.vim/session/'
   end
-} 
+}
 
 tools['prettier/vim-prettier'] = {
-  run = 'yarn install', 
-  ft={'html','css', 'js', 'ts', 'tsx', 'md'},
-  config=conf.prettier,
+  run = 'yarn install',
+  ft = {'html','css', 'js', 'ts', 'tsx', 'md'},
+  config = conf.prettier,
   opt = true,
 }
 

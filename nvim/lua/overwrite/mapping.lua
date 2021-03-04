@@ -17,32 +17,6 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-
--- K.mv_move = function(key)
---   if packer_plugins['mg979/vim-visual-multi'] and not packer_plugins['mg979/vim-visual-multi'].loaded then
---     vim.cmd [[packadd mg979/vim-visual-multi]]
---   end
---   if map = key == '<M-Down>' then return t('<C-Down>') end
---   if map = key == '<M-Up>' then return t('<C-Up>') end
-
--- end
-
--- _G.enhance_ft_move = function(key)
---   if not packer_plugins['vim-eft'].loaded then
---     vim.cmd [[packadd vim-eft]]
---   end
---   local map = {
---     f = '<Plug>(eft-f)',
---     F = '<Plug>(eft-F)',
---     [';'] = '<Plug>(eft-repeat)'
---   }
---   return t(map[key])
--- end
-
-
-
-
-
 local keys = {
     -- ["n|F13"]  = map_cmd("<S-F1>"),
     -- ["n|F14"]  = map_cmd("<S-F2>"),

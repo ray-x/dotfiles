@@ -61,7 +61,7 @@ function config.vim_vista()
 end
 
 function config.clap()
-  vim.g.clap_preview_size = 10 
+  vim.g.clap_preview_size = 10
   vim.g.airline_powerline_fonts = 1
   vim.g.clap_layout = { width= '43%', height = '86%', row = '7%', col = '7%' }
   vim.g.clap_popup_border = "rounded"
@@ -74,7 +74,7 @@ function config.clap()
   vim.api.nvim_command("autocmd FileType clap_input call compe#setup({ 'enabled': v:false }, 0)")
 end
 
-function config.gitsigns() 
+function config.gitsigns()
   if not packer_plugins['plenary.nvim'].loaded then
     vim.cmd [[packadd plenary.nvim]]
   end
@@ -100,6 +100,7 @@ function config.markdown()
   vim.g.vim_markdown_new_list_item_indent = 0
   vim.g.vim_markdown_toc_autofit = 0
   vim.g.vim_markdown_edit_url_in = 'vsplit'
+  vim.g.vim_markdown_strikethrough = 1
   vim.g.vim_markdown_fenced_languages = {'c++=javascript',  'js=javascript', 'json=javascript', 'jsx=javascript',  'tsx=javascript'}
 end
 
@@ -113,7 +114,7 @@ vim.cmd('command! NNN FloatermNew nnn')
 vim.cmd('command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit')
 vim.cmd('command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger')
 
-vim.g.floaterm_gitcommit='split'
+vim.g.floaterm_gitcommit = 'split'
 vim.g.floaterm_keymap_new    = '<F19>'  --S-f7
 vim.g.floaterm_keymap_prev   = '<F20>'
 vim.g.floaterm_keymap_next   = '<F21>'
@@ -127,10 +128,32 @@ function config.spelunker()
   vim.g.spelunker_disable_uri_checking = 1
   vim.g.spelunker_disable_account_name_checking = 1
   vim.g.spelunker_disable_email_checking = 1
-  vim.cmd("highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#aea03e") 
+  vim.cmd("highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#53206e")
   vim.cmd("highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE")
-
 end
+
+function config.grammarous()
+  vim.cmd ([[ let g:grammarous#disabled_categories = {
+            \ '*' : ['PUNCTUATION'],
+            \ 'help' : ['PUNCTUATION', 'TYPOGRAPHY'],
+            \ }]])
+end
+
+
+function config.spellcheck()
+  if not packer_plugins['kamykn/spelunker.vim'] or not packer_plugins['kamykn/spelunker.vim'].loaded then
+    vim.cmd [[packadd spelunker.vim]]
+  end
+  vim.fn['spelunker#check']()
+end
+
+function config.grammcheck()
+  if not packer_plugins['rhysd/vim-grammarous'] or not packer_plugins['rhysd/vim-grammarous'].loaded then
+    vim.cmd [[packadd vim-grammarous]]
+  end
+  vim.cmd([[GrammarousCheck]])
+end
+
 
 
 function config.prettier()
@@ -156,4 +179,10 @@ function config.vim_test( )
   -- nmap <silent> t<C-l> :TestLast<CR>
   -- nmap <silent> t<C-g> :TestVisit<CR>
 end
+
+
+  vim.cmd("command! Gram lua require'modules.tools.config'.grammcheck()")
+
+  vim.cmd("command! Spell lua require'modules.tools.config'.spellcheck()")
+
 return config

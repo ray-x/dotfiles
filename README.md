@@ -25,6 +25,20 @@ The `Plug` config is located in branch [Plug branch](https://github.com/ray-x/do
 There are lots of amazing plugins,
 I used following plugin a lots
 
+* `Dein` -> `Lua-Packer`
+   Dein is a great tool. Very fast and very well support for vim/neovim lazy loading. Change to Lua-Packer does not
+   bring as great improvements as Plug -> Dein. But still about 80ms faster (~20%) for Golang codes loading.
+   If you interested in Dein version, Please refer to [Dein](https://github.com/ray-x/dotfiles/tree/nvim-comple).
+   This was the last Dein/Packer dual supports version I have (init.vim has a flag to choose).
+   ATM, minium support for vim. Most plugins only works under neovim 0.5.0+.
+   I am following Raphael(a.k.a glepnir) https://github.com/glepnir/nvim  dotfiles. He provides a good wrapper for
+   Packer. I have an `overwrite` folder which will override the settings. Also, lots of changes in modules/plugins.
+   A.T.M. nvim-comple as a completion engine with LSP, LSP saga. vim-multi-cursor, clap/telescope. treesitter,
+   lazy load vim-go. So, other than module folder, I could copy/paste everything else from glepnir's configure file,
+   which make my life easier.
+
+
+
 * `Plug` -> `Dein`
    Plugin management tool.
    Plug is userfriendly. But the lazy is not as powerful as Dein. Also by default the cache system from Dein make it
@@ -36,11 +50,11 @@ I used following plugin a lots
 
 * vim-clap
 
-   One of the best plugin for search anything. I used it to replace fzf, leaderF, leaderP, defx, Ag/Ack/Rg, yank(ring), project management. undolist and many more. 
+   One of the best plugin for search anything. I used it to replace fzf, leaderF, leaderP, defx, Ag/Ack/Rg, yank(ring), project management. undolist and many more.
 
 * coc.nvim -> nvim-lsp
 
-   I disabled vim-go auto-complete/LSP and turn to nvim-lsp. It add around 200ms bootup time and some of the extensions
+   I disabled vim-go auto-complete/LSP and turn to nvim-lsp. It adds around 200ms bootup time and some of the extensions
    might crash when I using coc (but it hard to check which becuase ~4 node.js services coc forked)
    Some useful script from TJ, and [glepnir](https://github.com/glepnir)
 
