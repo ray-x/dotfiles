@@ -30,17 +30,17 @@ local keys = {
     -- ["n|F22"]  = map_cmd("<S-F10>"),
     -- ["n|F23"]  = map_cmd("<S-F11>"),
     -- ["n|F24"]  = map_cmd("<S-F12>"),
-
-
+--
+--
     -- pack?
-    ["n|<Leader>tr"]     = map_cr("call dein#recache_runtimepath()"):with_noremap():with_silent(),
-    ["n|<Leader>tf"]     = map_cu('DashboardNewFile'):with_noremap():with_silent(),
-    -- mhinz/gitgutter?
-    ["n|[g"]             = map_cmd("<plug>(signify-next-hunk)"),
-    ["n|]g"]             = map_cmd("<plug>(signify-prev-hunk)"),
-
+    -- ["n|<Leader>tr"]     = map_cr("call dein#recache_runtimepath()"):with_noremap():with_silent(),
+    -- ["n|<Leader>tf"]     = map_cu('DashboardNewFile'):with_noremap():with_silent(),
+    -- gitsign?
+    ["n|[g"]             = map_cr("<cmd> lua require\"gitsigns\".prev_hunk()"):with_noremap():with_silent(),
+    ["n|]g"]             = map_cr("<cmd> lua require\"gitsigns\".next_hunk()"):with_noremap():with_silent(),
+--
     -- Lsp mapp work when insertenter and lsp start
-
+--
     ["n|<Leader>tc"]     = map_cu('Clap colors'):with_noremap():with_silent(),
     ["n|<Leader>bb"]     = map_cu('Clap buffers'):with_noremap():with_silent(),
     ["n|<Leader>fa"]     = map_cu('Clap grep'):with_noremap():with_silent(),
@@ -58,7 +58,7 @@ local keys = {
     ["n|Rn"]             = map_cr('Lspsaga rename'):with_noremap():with_silent(),
     ["n|gr"]             = map_cr('Lspsaga lsp_finder'):with_noremap():with_silent(),
     ["n|<Leader>fh"]     = map_cu('Clap command_history'):with_noremap():with_silent(),
-
+--
     -- Plugin QuickRun
     -- ["n|<Leader>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
     -- Plugin Vista
@@ -68,7 +68,7 @@ local keys = {
     ["n|<m-k>"]          = map_cr('SplitjoinSplit'),
     ["n|;"]              = map_cmd("<Plug>Sneak_;"):with_silent(),
   };
-
+--
 -- undo leader mapping
 vim.g.mapleader = "\\"
 vim.cmd([[vnoremap  <leader>y  "+y]])
@@ -83,10 +83,10 @@ vim.cmd([[unmap sr]])
 vim.cmd([[xunmap I]])
 vim.cmd([[xunmap gI]])
 vim.cmd([[xunmap A]])
-
+--
 vim.cmd([[nmap ; <Plug>Sneak_;]])
-
-
+--
+--
 bind.nvim_load_mapping(keys)
-
+--
 return K

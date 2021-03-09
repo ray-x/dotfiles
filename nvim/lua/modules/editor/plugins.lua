@@ -56,7 +56,7 @@ editor['mg979/vim-visual-multi']  = {
 
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
-  keys = {'<Leader>c<space>', '\\', '/', '<M-/>'},
+  keys = {'<Leader>c<space>', '<Leader>cc', '//', '<M-/>'},
   config = conf.nerdcommenter,
   opt = true,
 }

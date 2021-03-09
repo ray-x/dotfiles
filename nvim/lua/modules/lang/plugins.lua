@@ -29,19 +29,18 @@ lang["nanotee/sqls.nvim"] = {
     opt = true
 }
 
-lang["fatih/vim-go"] = {
-    -- ft = 'go',
-    event = "InsertEnter",
-    cmd = {"GoImport", "GoImports", "GoTest", "GoBuild", "GoFmt", "G"},
-    run = ":GoInstallBinaries",
-    config = conf.go,
-    opt = true
-}
+-- lang["fatih/vim-go"] = {
+--     -- ft = 'go',
+--     event = "InsertEnter",
+--     cmd = {"GoImport", "GoImports", "GoTest", "GoBuild", "GoFmt", "G"},
+--     run = ":GoInstallBinaries",
+--     config = conf.go,
+--     opt = true
+-- }
 
 lang['/Users/ray.xu/github/go.nvim'] = {
   ft = 'go',
   opt = false,
-  rocks = {'busted'},
 }
 
 -- lang["arp242/gopher.vim"] = {

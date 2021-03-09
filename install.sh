@@ -13,3 +13,12 @@ git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger
 git clone https://github.com/cdump/ranger-devicons2 ~/.config/ranger/plugins/devicons2
 ln -s ~/github/dotfiles/kitty ~/.config/kitty
 ln -s ~/github/dotfiles/nvim/vimrc ~/.vimrc
+mkdir -p ~/.cache/nvim/backup/
+# https://github.com/wfxr/forgit
+#bat
+#z
+#rg
+#fzf
+#lazygit
+#zimrc
+#powerlevel10k

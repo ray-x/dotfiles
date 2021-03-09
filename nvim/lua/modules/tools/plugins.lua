@@ -44,12 +44,12 @@ tools["iamcco/markdown-preview.nvim"] = {
   opt = true,
 }
 
-tools["voldikss/vim-floaterm"] = {
-  cmd = {"FloatermNew", "FloatermToggle"},
-  config = conf.floatterm,
-  opt = true
-}
-
+-- tools["voldikss/vim-floaterm"] = {
+--   cmd = {"FloatermNew", "FloatermToggle"},
+--   config = conf.floatterm,
+--   opt = true
+-- }
+--
 tools["liuchengxu/vim-clap"] = {
   cmd = {"Clap"},
   run = function()

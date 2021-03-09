@@ -53,7 +53,7 @@ completion['RRethy/vim-illuminate'] = {
 -- enable for workstation....
 -- completion['tzachar/compe-tabnine'] = {
 --   event = 'InsertEnter',
---   run = './install.sh', 
+--   run = './install.sh',
 --   opt=true,
 -- }
 completion['nvim-lua/lsp-status.nvim'] = {

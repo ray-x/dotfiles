@@ -50,7 +50,7 @@ function auto_group()
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ imap <silent> <m-k>   <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gs      <cmd>lua vim.lsp.buf.signature_help()<CR>]])
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> g0      <cmd>lua vim.lsp.buf.document_symbol()<CR>]])
-    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <leader> g0      <cmd>Vista finder clap<CR>]])  --use clap
+    vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <leader>g0      <cmd>Vista finder clap<CR>]])  --use clap
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gW      <cmd>lua vim.lsp.buf.workspace_symbol()<CR>]]) --lsputil or telescope
 
     vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> <c-]>   <cmd>lua vim.lsp.buf.definition()<CR>]])

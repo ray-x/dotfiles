@@ -48,6 +48,8 @@ function options:load_options()
       splitbelow = true, -- Horizontal windows should split to bottom
       splitright = true, --Vertical windows should be split to right
       backspace = "indent,eol,start", --Makes backspace key more powerful.
+      backup = true,
+      writebackup = true,
       diffopt = "filler,iwhite,internal,algorithm:patience",
       completeopt = "menuone,noselect,noinsert", -- Show popup menu, even if there is one entry  menuone?
       pumheight = 15, -- Completion window max size
@@ -72,7 +74,8 @@ function options:load_options()
   local bw_local = {
     synmaxcol = 500,
     textwidth = 120,
-    colorcolumn = "110"
+    colorcolumn = "110",
+    wrap = true,
   }
   bind_option(bw_local)
   for name, value in pairs(self.global_local) do
