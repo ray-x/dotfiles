@@ -56,7 +56,7 @@ editor['mg979/vim-visual-multi']  = {
 
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
-  keys = {'<Leader>c<space>', '\\', '/', '<M-/>', '<Leader>'},
+  keys = {'<Leader>c<space>', '\\', '/', '<M-/>'},
   config = conf.nerdcommenter,
   opt = true,
 }
@@ -73,7 +73,7 @@ editor['bfredl/nvim-miniyank']  = {
 editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'GundoToggle', 'GundoShow'}}
 editor['mbbill/undotree']  = {opt = true}
 editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
-editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end} 
-editor['chaoren/vim-wordmotion']  = {opt = true, keys = {'ci', 'ciw','w','W'}} 
+editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
+editor['chaoren/vim-wordmotion']  = {opt = true, keys = {'ci', 'ciw','w','W'}}
 -- chaoren/vim-wordmotion
 return editor

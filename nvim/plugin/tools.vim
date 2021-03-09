@@ -166,21 +166,6 @@ function! WordCount()
     endif
 endfunction
 
-" function! WordCount()
-"     let position = getpos(".")
-"     exe ":silent normal g\<c-g>"
-"     let stat = v:statusmsg
-"     let s:word_count = 0
-"     if stat != '--No lines in buffer--'
-"         if mode() == "V"
-"             let s:word_count = str2nr(split(stat)[5])
-"         else
-"             let s:word_count = str2nr(split(stat)[11])
-"         endif
-"     endif
-"     call setpos('.', position)
-"     return s:word_count
-" endfunction
 
 "here is a more exotic version of my original Kwbd script
 "delete the buffer; keep windows; create a scratch buffer if no buffers left
@@ -332,7 +317,7 @@ command! -bang -nargs=0 -range MaximizerToggle :call s:toggle(<bang>0)
 " xnoremap <Leader>s "sy:%s/<C-r>s//<Left>
 
 " https://bluz71.github.io/2019/03/11/find-replace-helpers-for-vim.html
-" search and replace 
+" search and replace
 " args `grep Neovim -l -r .` or args `rg Neovim -l`
 
 " argdo %s/Neovim/Nvim/ge | update"
@@ -347,4 +332,3 @@ command! -bang -nargs=0 -range MaximizerToggle :call s:toggle(<bang>0)
 "   \ :GrepperRg <C-r>s<CR>
 "   \ :cfdo %s/<C-r>s// \| update
 "   \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-

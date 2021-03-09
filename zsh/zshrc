@@ -204,4 +204,4 @@ alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
 # To customize prompt, run `p10k configure` or edit ~/github/dotfiles/.p10k.zsh.
 [[ ! -f ~/github/dotfiles/.p10k.zsh ]] || source ~/github/dotfiles/.p10k.zsh
 
-source ~/.fzffun.zsh
+# source ~/.fzffun.zsh

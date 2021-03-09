@@ -63,7 +63,7 @@ local function load_options()
     switchbuf      = "useopen";
     backspace      = "indent,eol,start";
     diffopt        = "filler,iwhite,internal,algorithm:patience";
-    completeopt    = "menu,menuone,noselect";
+    completeopt    = "menuone,noselect";
     jumpoptions    = "stack";
     showmode       = false;
     shortmess      = "aoOTIcF";
@@ -109,7 +109,7 @@ local function load_options()
     conceallevel   = 2;
     concealcursor  = "niv";
   }
-  
+
   if global.is_mac then
     vim.g.clipboard = {
       name = "macOS-clipboard",
@@ -129,6 +129,7 @@ local function load_options()
   for name, value in pairs(global_local) do
     vim.o[name] = value
   end
-
+  bind_option(bw_local)
 end
+
 load_options()

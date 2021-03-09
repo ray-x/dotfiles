@@ -29,7 +29,6 @@ function config.nvim_bufferline()
         local icon = level:match("error") and "" or ""  -- "" or ""
         return "" .. icon .. count
       end,
-      show_buffer_close_icons = false,
       -- can also be a table containing 2 custom separators
       -- [focused and unfocused]. eg: { '|', '|' }
       separator_style = "thin",
@@ -155,6 +154,7 @@ function config.indentline()
   vim.g.indentLine_char_list = {'|', '¦', '┆', '┊', ''}
   vim.g.indentLine_enabled = 1
 end
+
 function config.theme()
   vim.cmd('colorscheme aurora')
   vim.cmd('hi Normal guibg=NONE ctermbg=NONE') -- remove background

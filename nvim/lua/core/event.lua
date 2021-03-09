@@ -16,7 +16,7 @@ end
 function autocmd.load_autocmds()
   local definitions = {
     packer = {
-      {"BufWritePre","*.lua","lua require('core.pack').auto_compile()"};
+      {"BufWritePost","*.lua","lua require('core.pack').auto_compile()"};
     },
     bufs = {
       -- Reload vim config automatically
@@ -34,8 +34,8 @@ function autocmd.load_autocmds()
 
     wins = {
       -- Highlight current line only on focused window
-      -- {"WinEnter,BufEnter,InsertLeave", "*", [[if ! &cursorline && &filetype !~# '^\(dashboard\|clap_\)' && ! &pvw | setlocal cursorline | endif]]};
-      -- {"WinLeave,BufLeave,InsertEnter", "*", [[if &cursorline && &filetype !~# '^\(dashboard\|clap_\)' && ! &pvw | setlocal nocursorline | endif]]};
+      {"WinEnter,BufEnter,InsertLeave", "*", [[if ! &cursorline && &filetype !~# '^\(dashboard\|clap_\)' && ! &pvw | setlocal cursorline | endif]]};
+      {"WinLeave,BufLeave,InsertEnter", "*", [[if &cursorline && &filetype !~# '^\(dashboard\|clap_\)' && ! &pvw | setlocal nocursorline | endif]]};
       -- Equalize window dimensions when resizing vim window
       {"VimResized", "*", [[tabdo wincmd =]]};
       -- Force write shada on leaving nvim

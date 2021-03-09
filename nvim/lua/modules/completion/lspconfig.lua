@@ -1,7 +1,7 @@
 local api = vim.api
 local lspconfig = require 'lspconfig'
 local global = require 'core.global'
-local format = require('modules.completion.format')
+--local format = require('modules.completion.format')
 local lsp_status = require('lsp-status')
 
 
@@ -81,9 +81,9 @@ local on_attach = function(client, bufnr)
   -- lspsaga
   require 'utils.highlight'.add_highlight()
 
-  if client.resolved_capabilities.document_formatting then
-    format.lsp_before_save()
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  --   format.lsp_before_save()
+  -- end
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 
@@ -196,9 +196,9 @@ end
 auto_group()
 
 local mini_attach = function(client,bufnr)
-  if client.resolved_capabilities.document_formatting then
-    format.lsp_before_save()
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  --   format.lsp_before_save()
+  -- end
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 

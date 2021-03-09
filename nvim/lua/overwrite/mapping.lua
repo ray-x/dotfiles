@@ -60,8 +60,8 @@ local keys = {
     ["n|<Leader>fh"]     = map_cu('Clap command_history'):with_noremap():with_silent(),
 
     -- Plugin QuickRun
-    ["n|<Leader>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
-    -- Plugin Vista 
+    -- ["n|<Leader>r"]     = map_cr("<cmd> lua require'selfunc'.run_command()"):with_noremap():with_silent(),
+    -- Plugin Vista
     ["n|<Leader>v"]      = map_cu('Vista!!'):with_noremap():with_silent(),
     -- Plugin SplitJoin
     ["n|<m-j>"]          = map_cr('SplitjoinJoin'),
@@ -78,12 +78,12 @@ vim.cmd([[nnoremap  <M-c>  "+yg_]])
 vim.cmd([[unmap sa]])
 vim.cmd([[unmap sd]])
 vim.cmd([[unmap sr]])
+-- vim.cmd([[unmap <Leader>ss]])
+-- vim.cmd([[unmap <Leader>sl]])
 vim.cmd([[xunmap I]])
 vim.cmd([[xunmap gI]])
 vim.cmd([[xunmap A]])
--- vim.cmd([[nunmap <A-d>]])
--- vim.cmd([[tunmap <A-d>]])
--- etf
+
 vim.cmd([[nmap ; <Plug>Sneak_;]])
 
 

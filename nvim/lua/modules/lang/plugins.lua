@@ -38,6 +38,36 @@ lang["fatih/vim-go"] = {
     opt = true
 }
 
+lang['/Users/ray.xu/github/go.nvim'] = {
+  ft = 'go',
+  opt = false,
+  rocks = {'busted'},
+}
+
+-- lang["arp242/gopher.vim"] = {
+--     -- ft = 'go',
+--     event = "InsertEnter",
+--     cmd = {"GoTags", "GoFrob", "GoCoverage"},
+--     config = conf.gopher,
+--     opt = true
+-- }
+
+lang["nvim-treesitter/playground"] = {
+    after = "nvim-treesitter",
+    opt = true;
+    cmd = "TSPlaygroundToggle",
+    config = conf.playground
+}
+
+lang["bfredl/nvim-luadev"] = {
+    opt = true;
+    cmd = "Luadev",
+    config = conf.luadev
+}
+
+
+
+
 lang["mtdl9/vim-log-highlighting"] = {ft = {"text", "log"}}
 
 return lang
