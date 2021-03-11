@@ -221,8 +221,8 @@ gls.left[3] = {
 
 gls.left[4] = {
   FolderName = {
-    --provider = function() return TrimmedDirectory(vim.api.nvim_call_function('getcwd', {}))  end,
-    provider = function() return TrimmedDirectory(vim.fn.expand('#2:p'))  end,
+    provider = function() return TrimmedDirectory(vim.api.nvim_call_function('getcwd', {}) .. '/' .. vim.fn.expand('%p'))  end,
+    --provider = function() return TrimmedDirectory(vim.fn.expand('#2:p'))  end,
     condition = buffer_not_empty,
     highlight = {'#F38A98',colors.bg,'bold'}
   }

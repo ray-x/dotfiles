@@ -206,3 +206,4 @@ alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
 [[ ! -f ~/github/dotfiles/.p10k.zsh ]] || source ~/github/dotfiles/.p10k.zsh
 
 # source ~/.fzffun.zsh
+# eval "$(starship init zsh)"

@@ -41,15 +41,14 @@ lang["nanotee/sqls.nvim"] = {
 lang['/Users/ray.xu/github/go.nvim'] = {
   ft = 'go',
   opt = false,
+  config = conf.go,
 }
 
 -- lang["arp242/gopher.vim"] = {
---     -- ft = 'go',
---     event = "InsertEnter",
---     cmd = {"GoTags", "GoFrob", "GoCoverage"},
---     config = conf.gopher,
---     opt = true
--- }
+lang["Users/ray.xu/github/arp242/gopher.vim"] = {
+    -- ft = 'go',
+    config = conf.gopher,
+}
 
 lang["nvim-treesitter/playground"] = {
     after = "nvim-treesitter",
