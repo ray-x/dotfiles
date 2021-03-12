@@ -59,7 +59,8 @@ function auto_group()
    --
   -- vim.api.nvim_command([[autocmd FileType ]] .. file_types .. [[ autocmd nvim_lsp_autos BufWinEnter <buffer> lua redraw_diagnostic()]])
 
-  --[[ mappings that are shared across all supported langs ]] vim.api.nvim_command(
+  --[[ mappings that are shared across all supported langs ]]
+  vim.api.nvim_command(
     [[autocmd FileType ]] .. file_types .. [[ nnoremap <silent> gR      <cmd>lua vim.lsp.buf.references()<CR>]]
   )
   vim.api.nvim_command(
