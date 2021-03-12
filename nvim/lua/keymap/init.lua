@@ -31,13 +31,11 @@ local plug_map = {
     ["n|gt"]             = map_cmd("<cmd>lua vim.lsp.buf.type_definition()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>cw"]     = map_cmd("<cmd>lua vim.lsp.buf.workspace_symbol()<CR>"):with_noremap():with_silent(),
     ["n|<Leader>ce"]     = map_cr('Lspsaga show_line_diagnostics'):with_noremap():with_silent(),
-
-
-    -- ["n|<Leader>ct"]      = map_args("Template"),
-    -- ["n|<Leader>tf"]     = map_cu('DashboardNewFile'):with_noremap():with_silent(),
+    ["n|<Leader>ct"]      = map_args("Template"),
+    ["n|<Leader>tf"]     = map_cu('DashboardNewFile'):with_noremap():with_silent(),
     -- mhinz/vim-signify
-    -- ["n|[g"]             = map_cmd("<plug>(signify-next-hunk)"),
-    -- ["n|]g"]             = map_cmd("<plug>(signify-prev-hunk)"),
+    ["n|[g"]             = map_cmd("<plug>(signify-next-hunk)"),
+    ["n|]g"]             = map_cmd("<plug>(signify-prev-hunk)"),
     -- Plugin nvim-tree
     ["n|<Leader>e"]      = map_cr('NvimTreeToggle'):with_noremap():with_silent(),
     ["n|<Leader>F"]      = map_cr('NvimTreeFindFile'):with_noremap():with_silent(),

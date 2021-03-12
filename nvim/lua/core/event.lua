@@ -29,8 +29,7 @@ function autocmd.load_autocmds()
       {"BufWritePre","*.tmp","setlocal noundofile"};
       {"BufWritePre","*.bak","setlocal noundofile"};
       {"BufWritePre","*.tsx","lua vim.api.nvim_command('Format')"};
-      {"BufWritePre","*.go","lua require('go.format').goimport(true)"};
-      {"BufWritePre","*.go","lua vim.lsp.buf.formatting_sync(nil,1000)"};
+      {"BufWritePre","*.go","lua require('internal.golines').golines_format()"};
     };
 
     wins = {
