@@ -62,7 +62,7 @@ function config.playground()
 end
 
 function config.luadev()
-  vim.cmd([[vmap <leader><leader>r execute "normal \<Plug>(Luadev-Run)"]])
+  vim.cmd([[vmap <leader><leader>r <Plug>(Luadev-Run)]])
 end
 
 function config.go()

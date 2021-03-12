@@ -60,7 +60,8 @@ lang["nvim-treesitter/playground"] = {
 lang["bfredl/nvim-luadev"] = {
     opt = true;
     cmd = "Luadev",
-    config = conf.luadev
+    config = conf.luadev,
+    opt = true,
 }
 
 
