@@ -34,6 +34,12 @@ ui['Akin909/nvim-bufferline.lua'] = {
   config = conf.nvim_bufferline,
   requires = {'kyazdani42/nvim-web-devicons'}
 }
+-- 'luaromgrk/barbar.nvim'
+-- ui['romgrk/barbar.nvim'] = {
+--   config = conf.barbar,
+--   requires = {'kyazdani42/nvim-web-devicons'}
+-- }
+--
 
 ui['wfxr/minimap.vim'] = {
   run = ':!cargo install --locked code-minimap',

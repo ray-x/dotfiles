@@ -3,6 +3,7 @@ local lspconfig = require "lspconfig"
 local global = require "core.global"
 --local format = require('modules.completion.format')
 local lsp_status = require("lsp-status")
+local lsp = require("vim.lsp")
 
 vim.cmd [[packadd lspsaga.nvim]]
 local saga = require "lspsaga"
@@ -32,8 +33,8 @@ vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 
 function auto_group()
   -- use with care. some project does not like the idea of auto-format, esp c/c++, js....
-  local file_types = "c,cpp,go,python,vim,sh,javascript,html,css,lua,typescript"
-  local format_files = "c,cpp,go,python,vim,javascript,typescript" --html,css,
+  local file_types = "c,cpp,h,go,python,vim,sh,javascript,html,css,lua,typescript"
+  local format_files = "c,cpp,h,go,python,vim,javascript,typescript" --html,css,
   vim.api.nvim_command [[augroup nvim_lsp_autos]]
   vim.api.nvim_command [[autocmd!]]
 
@@ -110,7 +111,7 @@ function auto_group()
   )
   vim.api.nvim_command(
     [[autocmd FileType ]] ..
-      file_types .. [[ nnoremap <silent> aD      <cmd>lua require('modules.completion.lspconfig').show_diagnostic()<CR>]]
+      file_types .. [[ nnoremap <silent> gG      <cmd>lua require('modules.completion.lspconfig').show_diagnostic()<CR>]]
   )
 
   vim.api.nvim_command(
@@ -137,6 +138,8 @@ local diagnostic_map = function(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]O", ":lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 end
 
+local diagnostic_list = {}
+diagnostic_list [vim.bo.filetype] = {}
 local on_attach = function(client, bufnr)
   lsp_status.on_attach(client, bufnr)
   require "lsp_signature".on_attach()
@@ -181,10 +184,9 @@ local on_attach = function(client, bufnr)
 
   -- hdlr alternatively, use lua vim.lsp.diagnostic.set_loclist({open_loclist = false})  -- true to open loclist
 
-  local diagnostic_list = {}
-  local diag_hdlr = function(err, method, result, client_id, bufnr, config)
+  local diag_hdlr = function(err, method, result, client_id, br, config)
     -- vim.lsp.diagnostic.clear(vim.fn.bufnr(), client.id, nil, nil)
-    vim.lsp.diagnostic.on_publish_diagnostics(err, method, result, client_id, bufnr, config)
+    vim.lsp.diagnostic.on_publish_diagnostics(err, method, result, client_id, br, config)
     local ft = vim.bo.filetype
     if result and result.diagnostics then
       local item_list = {}
@@ -203,7 +205,7 @@ local on_attach = function(client, bufnr)
       -- local old_items = vim.fn.getqflist()
       local old_items = diagnostic_list[ft] == nil and {} or diagnostic_list[ft]
       for _, old_item in ipairs(old_items) do
-        local bufnr = vim.uri_to_bufnr(result.uri)
+        bufnr = bufnr or vim.uri_to_bufnr(result.uri)
         if vim.uri_from_bufnr(old_item.bufnr) ~= result.uri then
           table.insert(item_list, old_item)
         end
@@ -213,10 +215,6 @@ local on_attach = function(client, bufnr)
     end
   end
 
-  M.show_diagnostic = function ()
-    if diagnostic_list[ft] ~= nil  then
-      vim.fn.setqflist({}, " ", {title = "LSP", items = diagnostic_list['ft']})
-  end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(
@@ -250,10 +248,10 @@ local on_attach = function(client, bufnr)
           return
         end
 
-        bufnr, contents_winid, _, border_winid = window.fancy_floating_markdown(markdown_lines)
+        local bnr, contents_winid, _, border_winid = vim.lsp.util.fancy_floating_markdown(markdown_lines)
         lsp.util.close_preview_autocmd({"CursorMoved", "BufHidden", "InsertCharPre"}, contents_winid)
         lsp.util.close_preview_autocmd({"CursorMoved", "BufHidden", "InsertCharPre"}, border_winid)
-        return bufnr, contents_winid
+        return bnr, contents_winid
       end
     )
   end
@@ -261,9 +259,6 @@ local on_attach = function(client, bufnr)
   vim.cmd [[packadd vim-illuminate]]
   require "illuminate".on_attach(client)
   require "utils.lspkind".init()
-
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   require "utils.lspkind".init()
 
@@ -273,11 +268,10 @@ end
 
 auto_group()
 
-local mini_attach = function(client, bufnr)
-  -- if client.resolved_capabilities.document_formatting then
-  --   format.lsp_before_save()
-  -- end
-  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+M.show_diagnostic = function ()
+  if diagnostic_list[vim.bo.filetype] ~= nil  then
+    vim.fn.setqflist({}, " ", {title = "LSP", items = diagnostic_list[vim.bo.filetype]})
+  end
 end
 
 local enhance_attach = on_attach
@@ -298,7 +292,7 @@ local servers = {
   "clangd",
   "sqls"
 }
-for _, lsp in ipairs(servers) do
+for _, lspclient in ipairs(servers) do
   lsp_status.register_progress()
 
   lsp_status.config(
@@ -334,8 +328,8 @@ for _, lsp in ipairs(servers) do
   require "utils.highlight".add_highlight()
 end
 
-for _, lsp in ipairs({"tsserver", "bashls", "flow", "dockerls", "vimls", "html", "jsonls", "cssls", "yamlls"}) do
-  lspconfig[lsp].setup {
+for _, lspclient in ipairs({"tsserver", "bashls", "flow", "dockerls", "vimls", "html", "jsonls", "cssls", "yamlls"}) do
+  lspconfig[lspclient].setup {
     message_level = vim.lsp.protocol.MessageType.Error,
     log_level = vim.lsp.protocol.MessageType.Error,
     on_attach = on_attach,
@@ -485,7 +479,11 @@ lspconfig.clangd.setup {
     "--suggest-missing-includes",
     "--clang-tidy",
     "--header-insertion=iwyu"
-  }
+  },
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = true
+    enhance_attach(client)
+  end
 }
 
 servers = {

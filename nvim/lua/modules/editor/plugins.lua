@@ -19,12 +19,12 @@ editor['Raimondi/delimitMate'] = {
   event = {'InsertEnter'},
 }
 
-editor['hrsh7th/vim-eft'] = {
-  opt = true,
-  config = function()
-    vim.g.eft_ignorecase = true
-  end
-}
+-- editor['hrsh7th/vim-eft'] = {
+--   opt = true,
+--   config = function()
+--     vim.g.eft_ignorecase = true
+--   end
+-- }
 
 -- editor['kana/vim-operator-replace'] = {
 --   keys = {{'x','p'}},

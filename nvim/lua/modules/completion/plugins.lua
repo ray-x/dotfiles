@@ -31,11 +31,15 @@ completion['nvim-telescope/telescope.nvim'] = {
   opt=true,
 }
 
-completion['mattn/vim-sonictemplate'] = {
-  cmd = 'Template',
-  ft = {'go','typescript','lua','javascript','vim','rust','markdown'},
-  config = conf.vim_sonictemplate,
+completion['/Users/ray.xu/github/codeagent.lsp'] = {
+  rocks = {'fzy'}
 }
+
+-- completion['mattn/vim-sonictemplate'] = {
+--   cmd = 'Template',
+--   ft = {'go','typescript','lua','javascript','vim','rust','markdown'},
+--   config = conf.vim_sonictemplate,
+-- }
 
 completion['mattn/emmet-vim'] = {
   event = 'InsertEnter',

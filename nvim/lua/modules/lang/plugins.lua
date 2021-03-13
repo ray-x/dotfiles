@@ -45,10 +45,10 @@ lang['/Users/ray.xu/github/go.nvim'] = {
 }
 
 -- lang["arp242/gopher.vim"] = {
-lang["Users/ray.xu/github/arp242/gopher.vim"] = {
-    -- ft = 'go',
-    config = conf.gopher,
-}
+ -- lang["Users/ray.xu/github/arp242/gopher.vim"] = {
+ --     -- ft = 'go',
+ --     config = conf.gopher,
+ -- }
 
 lang["nvim-treesitter/playground"] = {
     after = "nvim-treesitter",
@@ -61,7 +61,6 @@ lang["bfredl/nvim-luadev"] = {
     opt = true;
     cmd = "Luadev",
     config = conf.luadev,
-    opt = true,
 }
 
 

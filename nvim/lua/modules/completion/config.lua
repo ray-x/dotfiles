@@ -100,12 +100,6 @@ function config.telescope()
   require'telescope'.load_extension('gosource')
 end
 
-function config.vim_sonictemplate()
-  vim.g.sonictemplate_postfix_key = '<C-,>'
-  vim.g.sonictemplate_vim_template_dir = os.getenv("HOME").. '/.config/nvim/template'
-end
-
-
 function config.emmet()
   vim.g.user_emmet_complete_tag = 0
   vim.g.user_emmet_install_global = 0

@@ -58,6 +58,22 @@ tools["liuchengxu/vim-clap"] = {
   config = conf.clap
 }
 
+tools["RishabhRD/nvim-finder"] = {
+  cmd={"Finder"},
+  requires = {{"RishabhRD/popfix"}},
+  config = function() vim.g.enable_finder_native_sorter = false end
+}
+
+tools["amirrezaask/fuzzy.nvim"] =
+{
+  config = function()
+      vim.g.fuzzy_options = {
+    width = 50,
+    height = 50
+  }
+  end
+}
+
 tools["rhysd/git-messenger.vim"] = {
   cmd = "GitMessenger",
   config = function()
