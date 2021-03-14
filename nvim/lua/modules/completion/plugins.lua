@@ -2,7 +2,9 @@ local completion = {}
 local conf = require('modules.completion.config')
 
 completion['neovim/nvim-lspconfig'] = {
-  event = 'BufRead',
+  -- event = 'BufRead',
+  ft = {'html','css','javascript','javascriptreact','vue','typescript','typescriptreact', 'go', 'lua', 'cpp', 'c',
+  'markdown', 'makefile','python'},
   config = conf.nvim_lsp,
 }
 
@@ -31,10 +33,10 @@ completion['nvim-telescope/telescope.nvim'] = {
   opt=true,
 }
 
-completion['/Users/ray.xu/github/codeagent.lsp'] = {
-  rocks = {'fzy'}
-}
-
+-- completion['/Users/ray.xu/github/codeagent.lsp'] = {
+--   rocks = {'fzy'}
+-- }
+--
 -- completion['mattn/vim-sonictemplate'] = {
 --   cmd = 'Template',
 --   ft = {'go','typescript','lua','javascript','vim','rust','markdown'},
