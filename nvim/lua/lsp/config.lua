@@ -1,7 +1,3 @@
-local api = vim.api
-local lspconfig = require "lspconfig"
-local global = require "core.global"
---local format = require('modules.completion.format')
 
 local lsp = require("vim.lsp")
 
@@ -10,10 +6,6 @@ local saga = require "lspsaga"
 saga.init_lsp_saga()
 M={}
 
-if not packer_plugins["nvim-lua/lsp-status.nvim"] or not packer_plugins["lsp-status.nvim"].loaded then
-  vim.cmd [[packadd lsp-status.nvim]]
-end
-local lsp_status = require("lsp-status")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -33,6 +25,6 @@ vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 
 print("loading lsp client")
 local cfg = {}
-require('modules.completion.clients').setup(cfg)
-require('modules.completion.mappings').setup(cfg)
+require('lsp.clients').setup(cfg)
+require('lsp.mappings').setup(cfg)
 return M

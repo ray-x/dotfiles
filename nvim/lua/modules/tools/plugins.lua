@@ -63,16 +63,19 @@ tools["RishabhRD/nvim-finder"] = {
   requires = {{"RishabhRD/popfix"}},
   config = function() vim.g.enable_finder_native_sorter = false end
 }
-
-tools["amirrezaask/fuzzy.nvim"] =
-{
-  config = function()
-      vim.g.fuzzy_options = {
-    width = 50,
-    height = 50
-  }
-  end
-}
+-- tools["rafcamlet/nvim-whid"] =
+-- {
+-- }
+-- tools["amirrezaask/fuzzy.nvim"] =
+-- {
+--   config = function()
+--     vim.g.fuzzy_options = {
+--     -- location = "center",
+--     width = 50,
+--     height = 50
+--   }
+--   end
+-- }
 
 tools["rhysd/git-messenger.vim"] = {
   cmd = "GitMessenger",
@@ -122,12 +125,12 @@ tools["prettier/vim-prettier"] = {
   opt = true
 }
 
-tools["buoto/gotests-vim"] = {
-  ft = {"go"},
-  cmd = {"GoTests", "GoTestsAll"},
-  opt = true
-}
-
+-- tools["buoto/gotests-vim"] = {
+--   ft = {"go"},
+--   cmd = {"GoTests", "GoTestsAll"},
+--   opt = true
+-- }
+--
 tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite"}, config = conf.vim_test, opt = true}
 
 return tools

@@ -1,6 +1,5 @@
 -- todo allow config passed in
 
-local api = vim.api
 local lspconfig = nil
 local lsp_status = nil
 if not packer_plugins["nvim-lua/lsp-status.nvim"] or not packer_plugins["lsp-status.nvim"].loaded then
@@ -19,7 +18,7 @@ local function setup(user_opts)
   if user_opts ~= nil and user_opts.clients ~= nil then
     return
   end
-  local on_attach = require("modules.completion.handler").on_attach
+  local on_attach = require("lsp.handler").on_attach
   local servers = {
     "gopls",
     "tsserver",

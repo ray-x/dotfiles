@@ -65,7 +65,7 @@ local keys = {
     ["n|<Leader>v"]      = map_cu('Vista!!'):with_noremap():with_silent(),
     -- Plugin SplitJoin
     ["n|<m-j>"]          = map_cr('SplitjoinJoin'),
-    ["n|<m-k>"]          = map_cr('SplitjoinSplit'),
+    ["n|<m-s>"]          = map_cr('SplitjoinSplit'),
     ["n|;"]              = map_cmd("<Plug>Sneak_;"):with_silent(),
   };
 --
