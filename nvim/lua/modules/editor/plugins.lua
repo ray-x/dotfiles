@@ -74,6 +74,6 @@ editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'GundoTog
 editor['mbbill/undotree']  = {opt = true}
 editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
 editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
-editor['chaoren/vim-wordmotion']  = {opt = true, keys = {'ci', 'ciw','w','W'}}
+-- editor['chaoren/vim-wordmotion']  = {opt = true, keys = {'ci', 'ciw','w','W'}}
 -- chaoren/vim-wordmotion
 return editor

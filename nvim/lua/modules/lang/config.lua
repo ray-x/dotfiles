@@ -28,6 +28,7 @@ function config.ale()
     go = {"govet", "golangci-lint", "revive"},
     markdown = {"mdl", "write-good"},
     sql = {"sqlint"},
+    lua = {"luacheck"},
     python = {"flake8", "pylint"}
   }
 

@@ -57,3 +57,5 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[secrets]
+	patterns = [A-Z0-9]{20}

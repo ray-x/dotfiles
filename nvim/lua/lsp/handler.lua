@@ -6,7 +6,6 @@ local source = require("fuzzy.lib.source")
 local sorter = require("fuzzy.lib.sorter")
 local drawer = require("fuzzy.lib.drawer")
 local location = require("fuzzy.lib.location")
-local projects = require "fuzzy.lib.projects"
 
 if not packer_plugins["nvim-lua/lsp-status.nvim"] or not packer_plugins["lsp-status.nvim"].loaded then
   vim.cmd [[packadd lsp-status.nvim]]

@@ -88,9 +88,9 @@ local plug_map = {
     -- ["x|F"]              = map_cmd("v:lua.enhance_ft_move('F')"):with_expr(),
     -- ["o|F"]              = map_cmd("v:lua.enhance_ft_move('F')"):with_expr(),
     -- Plugin vim_niceblock
-    ["x|I"]              = map_cmd("v:lua.enhance_nice_block('I')"):with_expr(),
-    ["x|gI"]             = map_cmd("v:lua.enhance_nice_block('gI')"):with_expr(),
-    ["x|A"]              = map_cmd("v:lua.enhance_nice_block('A')"):with_expr(),
+    -- ["x|I"]              = map_cmd("v:lua.enhance_nice_block('I')"):with_expr(),
+    -- ["x|gI"]             = map_cmd("v:lua.enhance_nice_block('gI')"):with_expr(),
+    -- ["x|A"]              = map_cmd("v:lua.enhance_nice_block('A')"):with_expr(),
 };
 
 bind.nvim_load_mapping(plug_map)
