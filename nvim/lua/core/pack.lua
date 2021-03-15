@@ -10,6 +10,7 @@ Packer.__index = Packer
 
 function Packer:load_plugins()
   self.repos = {}
+  self.rocks = {}
 
   local get_plugins_list = function ()
     local list = {}
@@ -19,7 +20,9 @@ function Packer:load_plugins()
     end
     return list
   end
-
+  local get_rock_file = function()
+    local tmp = modules_dir .. '/rocks.lua'
+  end
   local plugins_file = get_plugins_list()
   for _,m in ipairs(plugins_file) do
     local repos = require(m:sub(0,#m-4))
@@ -27,7 +30,10 @@ function Packer:load_plugins()
       self.repos[#self.repos+1] = vim.tbl_extend('force',{repo},conf)
     end
   end
+  self.rocks = require('modules.rocks')
 end
+
+Packer:load_plugins()
 
 function Packer:load_packer()
   if not packer then
@@ -41,10 +47,14 @@ function Packer:load_packer()
   })
   packer.reset()
   local use = packer.use
+  local use_rocks = packer.use_rocks
   self:load_plugins()
   use {"wbthomason/packer.nvim", opt = true }
   for _,repo in ipairs(self.repos) do
     use(repo)
+  end
+  for _,rock in ipairs(self.rocks) do
+    use_rocks(rock)
   end
 end
 
