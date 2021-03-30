@@ -47,6 +47,8 @@
     file-decoration-style = none
 
 
+[difftool "nvim-qt"]
+    cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
 [difftool "vimdiff"]
     cmd = "gvimdiff -d $LOCAL -c \"set noreadonly\" $REMOTE"
 [difftool "nvimdiff"]
@@ -59,3 +61,22 @@
 	insteadOf = https://github.com/
 [secrets]
 	patterns = [A-Z0-9]{20}
+	patterns = password\\s*=\\s*.+
+	patterns = password\\s*:\\s*.+
+	patterns = key\\s*:\\s*.+
+	patterns = secret\\s*:\\s*.+
+	patterns = secret\\s*=\\s*.+
+	patterns = key\\s*=\\s*.+
+	providers = git secrets --aws-provider
+	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+	allowed = AKIAIOSFODNN7EXAMPLE
+	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+	patterns = token\\s*=\\s*.+
+	patterns = token\\s*L\\s*.+
+	patterns = token\\s*:\\s*.+
+	patterns = token.*\\s*:\\s*.+
+	patterns = key.*\\s*:\\s*.+
+	patterns = key.*\\s*=\\s*.+
+	patterns = key*\\s*=\\s*.+

@@ -17,6 +17,7 @@ editor['norcalli/nvim-colorizer.lua'] = {
 
 editor['Raimondi/delimitMate'] = {
   event = {'InsertEnter'},
+  config = conf.delimitmate
 }
 
 -- editor['hrsh7th/vim-eft'] = {
@@ -70,10 +71,15 @@ editor['bfredl/nvim-miniyank']  = {
   end
 }
 
+-- fix terminal color
+editor['norcalli/nvim-terminal.lua']  = { opt = true, ft={'log', 'terminal'}, config=function ()
+  require'terminal'.setup()
+end}
+
 editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'GundoToggle', 'GundoShow'}}
 editor['mbbill/undotree']  = {opt = true}
 editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
 editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
--- editor['chaoren/vim-wordmotion']  = {opt = true, keys = {'ci', 'ciw','w','W'}}
+editor['chaoren/vim-wordmotion'] = {} -- = {opt = true, keys = {'c', 'ci', 'ciw', 'w','W'}}
 -- chaoren/vim-wordmotion
 return editor

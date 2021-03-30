@@ -2,9 +2,8 @@ local vim, fn, api, g = vim, vim.fn, vim.api, vim.g
 local lsp = require("vim.lsp")
 local fuzzy = require("fuzzy.lib")
 local helpers = require("fuzzy.lib.helpers")
-local source = require("fuzzy.lib.source")
 local sorter = require("fuzzy.lib.sorter")
-local drawer = require("fuzzy.lib.drawer")
+local listview = require("fuzzy.lib.listview")
 local location = require("fuzzy.lib.location")
 
 if not packer_plugins["nvim-lua/lsp-status.nvim"] or not packer_plugins["lsp-status.nvim"].loaded then
@@ -287,7 +286,7 @@ end
 local options = vim.g.fuzzy_options or {width = 60, height = 40, location = location.center}
 
 local FUZZY_DEFAULT_SORTER = options.sorter or sorter.string_distance
-local FUZZY_DEFAULT_DRAWER = options.drawer or drawer.new
+local FUZZY_DEFAULT_DRAWER = options.drawer or listview.new
 
 M.show_diagnostic = function()
   if diagnostic_list[vim.bo.filetype] ~= nil then
@@ -298,7 +297,7 @@ M.show_diagnostic = function()
       fuzzy.new {
         source = results,
         sorter = FUZZY_DEFAULT_SORTER,
-        drawer = drawer.new({height=#results+5}),
+        drawer = listview.new({height=#results+5}),
         handler = function(line)
           local segments = split(line, ":")
           helpers.open_file_at(segments[1], segments[2])
@@ -317,7 +316,7 @@ local function implementation_handler(bang, err, method, result, client_id, bufn
       source = results,
        --lines,
       sorter = FUZZY_DEFAULT_SORTER,
-      drawer = drawer.new({height=#results+5}),
+      drawer = listview.new({height=#results+5}),
       handler = function(line)
         local segments = split(line, ":")
         helpers.open_file_at(segments[1], segments[2])
@@ -332,7 +331,7 @@ local function incoming_calls_handler(bang, err, method, result, client_id, bufn
     fuzzy.new {
       source = results,
       sorter = FUZZY_DEFAULT_SORTER,
-      drawer = drawer.new({height=#results+5}),
+      drawer = listview.new({height=#results+5}),
       handler = function(line)
         local segments = split(line, ":")
         helpers.open_file_at(segments[1], segments[2])
@@ -347,7 +346,7 @@ local function outgoing_calls_handler(bang, err, method, result, client_id, bufn
     fuzzy.new {
       source = results,
       sorter = FUZZY_DEFAULT_SORTER,
-      drawer = drawer.new({height=#results+5}),
+      drawer = listview.new({height=#results+5}),
       handler = function(line)
         local segments = split(line, ":")
         helpers.open_file_at(segments[1], segments[2])
@@ -380,7 +379,7 @@ function M.document_symbols(opts)
   fuzzy.new {
     source = lines,
     sorter = FUZZY_DEFAULT_SORTER,
-    drawer = drawer.new({height=#lines+5}),
+    drawer = listview.new({height=#lines+5}),
     handler = function(line)
       local segments = split(line, ":")
       helpers.open_file_at(segments[1], segments[2])
@@ -413,7 +412,7 @@ function M.workspace_symbols(opts)
       helpers.open_file_at(segments[1], segments[2])
     end,
     sorter = FUZZY_DEFAULT_SORTER,
-    drawer = drawer.new({height=#lines+5})
+    drawer = listview.new({height=#lines+5})
   }
 end
 
@@ -446,7 +445,7 @@ function M.references(opts)
       helpers.open_file_at(segments[1], segments[2])
     end,
     sorter = FUZZY_DEFAULT_SORTER,
-    drawer = drawer.new({height=#lines+5})
+    drawer = listview.new({height=#lines+5})
   }
 end
 

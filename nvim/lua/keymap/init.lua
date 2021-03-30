@@ -11,8 +11,8 @@ local plug_map = {
     ["i|<CR>"]       = map_cmd([[compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })]]):with_noremap():with_expr():with_nowait(),
     -- person keymap
     ["n|mf"]             = map_cr("<cmd>lua require('internal.fsevent').file_event()<CR>"):with_silent():with_nowait():with_noremap();
-    ["n|gb"]             = map_cr("BufferLinePick"):with_noremap():with_silent(),
     -- Lsp mapp work when insertenter and lsp start
+    ["n|gb"]             = map_cr("BufferLinePick"):with_noremap():with_silent(),
     ["n|<leader>li"]     = map_cr("LspInfo"):with_noremap():with_silent():with_nowait(),
     ["n|<leader>ll"]     = map_cr("LspLog"):with_noremap():with_silent():with_nowait(),
     ["n|<leader>lr"]     = map_cr("LspRestart"):with_noremap():with_silent():with_nowait(),

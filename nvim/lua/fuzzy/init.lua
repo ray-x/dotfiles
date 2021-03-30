@@ -2,7 +2,7 @@ local fuzzy = require('fuzzy.lib')
 local helpers = require('fuzzy.lib.helpers')
 local source = require('fuzzy.lib.source')
 local sorter = require('fuzzy.lib.sorter')
-local drawer = require('fuzzy.lib.drawer')
+local listview = require('fuzzy.lib.listview')
 local projects = require'fuzzy.lib.projects'
 
 -- Register execute commands
@@ -25,7 +25,7 @@ vim.cmd [[ command! LspWorkspaceSymbols lua require('fuzzy').lsp_workspace_symbo
 local options = vim.g.fuzzy_options or {height=40, width=60}
 -- Defaults
 local FUZZY_DEFAULT_SORTER = options.sorter or sorter.string_distance
-local FUZZY_DEFAULT_DRAWER = options.drawer or drawer.new
+local FUZZY_DEFAULT_DRAWER = options.drawer or listview.new
 
 local M = {}
 
@@ -49,7 +49,7 @@ function M.lsp_document_symbols(opts)
   fuzzy.new {
     source = lines,
     sorter = FUZZY_DEFAULT_SORTER,
-    drawer = drawer.new({height=#lines+3}),
+    drawer = listview.new({height=#lines+3}),
     handler = function(line)
       local segments = split(line, ":")
       helpers.open_file_at(segments[1], segments[2])
@@ -80,7 +80,7 @@ function M.lsp_workspace_symbols(opts)
       helpers.open_file_at(segments[1], segments[2])
     end,
     sorter = FUZZY_DEFAULT_SORTER,
-    drawer = drawer.new({height=#lines+3}),
+    drawer = listview.new({height=#lines+3}),
   }
 end
 
@@ -111,7 +111,7 @@ function M.lsp_references(opts)
       helpers.open_file_at(segments[1], segments[2])
     end,
     sorter = FUZZY_DEFAULT_SORTER,
-    drawer = drawer.new({height=#lines+3}),
+    drawer = listview.new({height=#lines+3}),
   }
 end
 

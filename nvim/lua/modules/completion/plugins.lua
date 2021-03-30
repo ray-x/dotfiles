@@ -3,8 +3,8 @@ local conf = require('modules.completion.config')
 
 completion['neovim/nvim-lspconfig'] = {
   -- event = 'BufRead',
-  ft = {'html','css','javascript','javascriptreact','vue','typescript','typescriptreact', 'go', 'lua', 'cpp', 'c',
-  'markdown', 'makefile','python'},
+  ft = {'html','css','javascript','java', 'javascriptreact','vue','typescript','typescriptreact', 'go', 'lua', 'cpp', 'c',
+  'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
   config = conf.nvim_lsp,
 }
 
@@ -19,7 +19,8 @@ completion['hrsh7th/nvim-compe'] = {
 
 completion['hrsh7th/vim-vsnip'] = {
   event = 'InsertCharPre',
-  config = conf.vim_vsnip
+  config = conf.vim_vsnip,
+  opt = true
 }
 
 completion['nvim-telescope/telescope.nvim'] = {

@@ -58,17 +58,20 @@ local current_lsp_function = function()
     end
     return string.format(' %s()', fun_name)
   end
-  return ''
+  return ' '
 end
 
 local current_treesitter_function = function()
+  if not packer_plugins['nvim-treesitter'] or not packer_plugins['nvim-treesitter'].loaded then
+    return ' '
+  end
   local f = vim.fn['nvim_treesitter#statusline'](70)
   local fun_name = string.format('%s', f)
   -- print(string.find(fun_name, "vim.NIL"))
   if fun_name == 'vim.NIL' then
-   return ''
+   return ' '
   end
-  return string.format(' %s()', fun_name)
+  return string.format(' %s()', fun_name)
 end
 
 local current_function = function()
@@ -77,18 +80,13 @@ local current_function = function()
   end
   local lsp = current_lsp_function()
   local ts = current_treesitter_function()
-  local ret = ''
-  if string.len(lsp) < 3 then
-    ret = ret .. ' '
-  end
-  if winwidth() < 120 then
+  if winwidth() < 120 and string.len(lsp) > 4 then
     return lsp
   end
   if string.len(ts) < 3 then
-    ret = ret .. ' '
-    return
+    return lsp .. ' '
   end
-  return ' ' .. ts
+  return string.sub(string.sub(lsp, 1, 3) .. ' ' .. ts, 1, winwidth()/2)
 end
 
 local current_function_buf = function(_, buffer)
@@ -204,7 +202,6 @@ gls.left[2] = {
       elseif mod == 'r' or mod == 'rm' or mod == 'r?' or mod == 'R' or mod == 'Rv' then
         return ' '
       end
-
       return ' '
     end,
     highlight = {colors.red,colors.bg,'bold'},

@@ -89,6 +89,15 @@ tools["rhysd/git-messenger.vim"] = {
 tools["lewis6991/gitsigns.nvim"] = {
   config = conf.gitsigns
 }
+
+tools["f-person/git-blame.nvim"] = {
+  config = function ()
+    vim.g.gitblame_enabled = 0
+  end,
+  opt = true,
+  cmd = 'GitBlameToggle'
+
+}
 tools["tpope/vim-fugitive"] = {cmd = {"Gvsplit", "Git", "Gedit", "Gstatus", "Gdiffsplit", "Gvdiffsplit"}, opt = true}
 
 tools["dhruvasagar/vim-prosession"] = {

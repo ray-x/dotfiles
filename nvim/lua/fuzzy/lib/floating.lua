@@ -2,8 +2,12 @@ local api = vim.api
 local location = require'fuzzy.lib.location'
 
 -- Create a floating buffer with given win_width and win_height in given row and col.
-local function floating_buffer(win_width, win_height, loc)
-  local row, col = loc(win_height, win_width)
+local function floating_buffer(win_width, win_height, loc, readonly, ft, x, y)
+  readonly = readonly or false
+  ft = ft or 'javascript'
+  x = x or 10
+  y = y or 10
+  local row, col = loc(win_height, win_width, x, y)
   local opts = {
     style = "minimal",
     relative = "editor",
@@ -14,7 +18,14 @@ local function floating_buffer(win_width, win_height, loc)
   }
   local buf = api.nvim_create_buf(true, true)
   api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-  api.nvim_buf_set_option(buf, 'buftype','prompt')
+  print("ft:"..ft)
+  if readonly then
+    api.nvim_buf_set_option(buf, 'readonly', true)
+    api.nvim_buf_set_option(buf, 'filetype', ft)
+  else
+    api.nvim_buf_set_option(buf, 'buftype', 'prompt')
+  end
+
   -- local border_opts = {
   --   style = "minimal",
   --   relative = "editor",
@@ -53,30 +64,6 @@ local function floating_buffer(win_width, win_height, loc)
     vim.api.nvim_win_close(win, true)
   end
 end
-
--- Create a simple floating terminal.
-local function floating_terminal(cmd, callback, win_width, win_height, loc)
-  local current_window = vim.api.nvim_get_current_win()
-
-  local buf, win, closer = floating_buffer(win_width, win_height, loc)
-  if cmd == "" or cmd == nil then
-    cmd = vim.api.nvim_get_option('shell')
-  end
-  vim.cmd [[ autocmd TermOpen * startinsert ]]
-  vim.fn.termopen(cmd, {
-    on_exit = function(_, _, _)
-      local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-      vim.api.nvim_set_current_win(current_window)
-      closer()
-      if callback then
-        callback(lines)
-      end
-    end
-  })
-  return buf, win, closer
-end
-
 return {
-  floating_terminal = floating_terminal,
   floating_buffer = floating_buffer
-} 
+}

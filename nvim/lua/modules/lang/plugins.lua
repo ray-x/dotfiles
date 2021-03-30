@@ -2,20 +2,20 @@ local lang = {}
 local conf = require("modules.lang.config")
 
 lang["nvim-treesitter/nvim-treesitter"] = {
-    config = conf.nvim_treesitter
+    -- config = conf.nvim_treesitter,
+    opt = true,
 }
 
 lang["nvim-treesitter/nvim-treesitter-textobjects"] = {
-    after = "nvim-treesitter",
-    opt = false
+    -- after = "nvim-treesitter",
+    opt = true,
 }
 
 lang["w0rp/ale"] = {
-    event = "BufWritePre",
+    event = "BufEnter", --BufWritePre
     cmd = {"ALEEnable", "ALEFix"},
     -- after = 'telescope.nvim',
     config = conf.ale,
-     --'vim.cmd[[ALEEnable]]',
     opt = true
 }
 
@@ -43,19 +43,21 @@ lang['/Users/ray.xu/github/go.nvim'] = {
   opt = false,
   config = conf.go,
 }
-
+lang['/Users/ray.xu/github/navigator.lua'] = {
+  requires = {'/Users/ray.xu/github/guihua.lua'}
+}
 -- lang["arp242/gopher.vim"] = {
  -- lang["Users/ray.xu/github/arp242/gopher.vim"] = {
  --     -- ft = 'go',
  --     config = conf.gopher,
  -- }
 
-lang["nvim-treesitter/playground"] = {
-    after = "nvim-treesitter",
-    opt = true;
-    cmd = "TSPlaygroundToggle",
-    config = conf.playground
-}
+-- lang["nvim-treesitter/playground"] = {
+--     after = "nvim-treesitter",
+--     opt = true;
+--     cmd = "TSPlaygroundToggle",
+--     config = conf.playground
+-- }
 
 lang["bfredl/nvim-luadev"] = {
     opt = true;

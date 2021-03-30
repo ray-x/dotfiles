@@ -15,16 +15,18 @@ function autocmd.nvim_create_augroups(definitions)
   end
 end
 
+-- "*.v, *.go, *.json, *.js, *.jsx, *.php, *.c, *.h, *.cpp, *.cxx, *.java, *.tml, *.tsx, *.lua, *.ts, *.py, *.sh, *.zsh, *.css, *.html. *.dart"
 function autocmd.load_autocmds()
   local definitions = {
     bufs = {
       {"BufWritePost","*.sum, *.mod",":silent :GoModTidy"};
       {"TextYankPost", "*", ":silent! :lua vim.highlight.on_yank {higroup='IncSearch', timeout=1500, on_visual=false}"};
       {"FileType","css,scss","let b:prettier_exec_cmd = 'prettier-stylelint'"};
-      {"FileType","lua","nmap <leader><leader>t <Plug>PlenaryTestFile"};
+      -- {"FileType","lua","nmap <leader><leader>t <Plug>PlenaryTestFile"};
       {"FileType", "markdown", "let b:prettier_exec_cmd = 'prettier' | let g:prettier#exec_cmd_path = '/usr/local/bin/prettier' | let g:spelunker_check_type = 1"};
       {"BufReadPre", "*", 'if getfsize(expand("%")) > 1000000 | syntax off | endif'};
       {"BufWritePost",  "plugins.lua", "PackerCompile"};
+      {"BufEnter",  "*", ":silent! :lua require('modules.lang.treesitter')"};
     };
   }
 

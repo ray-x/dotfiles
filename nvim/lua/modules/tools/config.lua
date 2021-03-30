@@ -80,12 +80,33 @@ function config.gitsigns()
   end
   require("gitsigns").setup {
     signs = {
-      add = {hl = "GitGutterAdd", text = "│", numhl = "GitGutterAdd"},
-      change = {hl = "GitGutterChange", text = "│", numhl = "GitGutterChange"},
-      delete = {hl = "GitGutterDelete", text = "ﬠ", numhl = "GitGutterDelete"},
-      topdelete = {hl = "GitGutterDelete", text = "ﬢ", numhl = "GitGutterDelete"},
-      changedelete = {hl = "GitGutterChange", text = "┊", numhl = "GitGutterChange"}
-    }
+      add = {hl = "GitGutterAdd", text = "│", numhl = "GitSignsAddNr"},
+      change = {hl = "GitGutterChange", text = "│", numhl = "GitSignsChangeNr"},
+      delete = {hl = "GitGutterDelete", text = "ﬠ", numhl = "GitSignsDeleteNr"},
+      topdelete = {hl = "GitGutterDelete", text = "ﬢ", numhl = "GitSignsDeleteNr"},
+      changedelete = {hl = "GitGutterChangeDelete", text = "┊", numhl = "GitSignsChangeNr"}
+    },
+    numhl = false,
+    keymaps = {
+      -- Default keymap options
+      noremap = true,
+      buffer = true,
+      ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
+      ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
+      ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+      ["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+      ["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+      ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+      ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+      -- Text objects
+      ["o ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>',
+      ["x ih"] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+    },
+    watch_index = {
+      interval = 1000
+    },
+    sign_priority = 6,
+    status_formatter = nil -- Use default
   }
 end
 
@@ -111,22 +132,22 @@ function config.markdown()
 end
 
 -- function config.floatterm()
-  -- -- Set floaterm window's background to black
-  -- -- Set floating window border line color to cyan, and background to orange
-  -- vim.cmd("hi Floaterm guibg=black")
-  -- -- vim.cmd('hi FloatermBorder guibg=orange guifg=cyan')
-  -- vim.cmd("command! FZF FloatermNew fzf")
-  -- vim.cmd("command! NNN FloatermNew nnn")
-  -- vim.cmd("command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit")
-  -- vim.cmd(
-  --   "command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger"
-  -- )
-  --
-  -- vim.g.floaterm_gitcommit = "split"
-  -- vim.g.floaterm_keymap_new = "<F19>" --S-f7
-  -- vim.g.floaterm_keymap_prev = "<F20>"
-  -- vim.g.floaterm_keymap_next = "<F21>"
-  -- vim.g.floaterm_keymap_toggle = "<F24>"
+-- -- Set floaterm window's background to black
+-- -- Set floating window border line color to cyan, and background to orange
+-- vim.cmd("hi Floaterm guibg=black")
+-- -- vim.cmd('hi FloatermBorder guibg=orange guifg=cyan')
+-- vim.cmd("command! FZF FloatermNew fzf")
+-- vim.cmd("command! NNN FloatermNew nnn")
+-- vim.cmd("command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit")
+-- vim.cmd(
+--   "command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger"
+-- )
+--
+-- vim.g.floaterm_gitcommit = "split"
+-- vim.g.floaterm_keymap_new = "<F19>" --S-f7
+-- vim.g.floaterm_keymap_prev = "<F20>"
+-- vim.g.floaterm_keymap_next = "<F21>"
+-- vim.g.floaterm_keymap_toggle = "<F24>"
 -- end
 
 function config.spelunker()
@@ -176,10 +197,14 @@ end
 function config.mkdp()
   print("mkdp")
   vim.g.mkdp_command_for_global = 1
-  vim.cmd( [[let g:mkdp_preview_options = { 'mkit': {}, 'katex': {}, 'uml': {}, 'maid': {}, 'disable_sync_scroll': 0, 'sync_scroll_type': 'middle', 'hide_yaml_meta': 1, 'sequence_diagrams': {}, 'flowchart_diagrams': {}, 'content_editable': v:true, 'disable_filename': 0 }]])
+  vim.cmd(
+    [[let g:mkdp_preview_options = { 'mkit': {}, 'katex': {}, 'uml': {}, 'maid': {}, 'disable_sync_scroll': 0, 'sync_scroll_type': 'middle', 'hide_yaml_meta': 1, 'sequence_diagrams': {}, 'flowchart_diagrams': {}, 'content_editable': v:true, 'disable_filename': 0 }]]
+  )
 end
 
-vim.cmd([["autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync"]])
+vim.cmd(
+  [["autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync"]]
+)
 
 vim.cmd("command! Gram lua require'modules.tools.config'.grammcheck()")
 vim.cmd("command! Spell lua require'modules.tools.config'.spellcheck()")

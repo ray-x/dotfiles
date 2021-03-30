@@ -22,11 +22,14 @@ if has('gui_macvim')
     let g:macvim_skip_colorscheme=1
 endif
 
-if  g:gonvim_running
-    set guifont=Victor\ Mono\ SemiBold:h18
+if g:gonvim_running
+    set guifont=JetBrainsMono\ Nerd\ Font:h18
 endif
 
 " mouse copy paste
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
+
+
+echo "gui loading"

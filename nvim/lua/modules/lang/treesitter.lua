@@ -1,4 +1,16 @@
 local treesitter = function()
+  if vim.fn.line('$') > 10000 then 
+    vim.cmd[[syntax on]]
+    print('skip treesitter')
+    return 
+  end
+  print('load treesitter', vim.fn.line('$'))
+  if packer_plugins['nvim-treesitter'] and not packer_plugins['nvim-treesitter'].loaded then
+    vim.cmd [[packadd nvim-treesitter]]
+  end
+  if packer_plugins['nvim-treesitter-textobjects'] and not packer_plugins['nvim-treesitter-textobjects'].loaded then
+    vim.cmd [[packadd nvim-treesitter-textobjects]]
+  end
   require "nvim-treesitter.configs".setup {
     highlight = {
       enable = true, -- false will disable the whole extension
@@ -121,7 +133,8 @@ local treesitter = function()
         }
       }
     },
-    ensure_installed = "all"
+    ensure_installed = "maintained"
+    --{ "go", "css", "html", "javascript", "typescript", "jsdoc", "json", "c", "java", "toml", "tsx", "lua", "cpp", "python", "rust", "jsonc", "dart", "css", "yaml", "vue"}
   }
 end
 

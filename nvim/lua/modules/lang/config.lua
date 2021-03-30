@@ -21,6 +21,9 @@ function config.ale()
   vim.g.ale_go_golangci_lint_package = 1
   vim.g.ale_lua_luafmt_executable = "luafmt"
   vim.g.ale_lua_luafmt_options = "--indent-count 2"
+  vim.g.ale_python_flake8_args = '--ignore=E501'
+  vim.g.ale_python_flake8_executable = 'flake8'
+  vim.g.ale_python_flake8_options = '--ignore=E501'
   --" 'go vet' not working
   vim.g.ale_linters = {
     javascript = {"eslint", "flow-language-server"},
@@ -63,7 +66,7 @@ function config.playground()
 end
 
 function config.luadev()
-  vim.cmd([[vmap <leader><leader>r <Plug>(Luadev-Run)]])
+  -- vim.cmd([[vmap <leader><leader>r <Plug>(Luadev-Run)]])
 end
 
 function config.go()

@@ -151,14 +151,7 @@ local lua_cfg = {
   }
 }
 
-local function setup(user_opts)
-  if lspconfig == nil then
-    print("lsp-config need installed and enabled")
-    return
-  end
-  if user_opts ~= nil and user_opts.clients ~= nil then
-    return
-  end
+local function lsp_status_setup()
   local servers = {
     "gopls",
     "tsserver",
@@ -185,8 +178,17 @@ local function setup(user_opts)
     require "utils.highlight".diagnositc_config_sign()
     require "utils.highlight".add_highlight()
   end
+end
 
-  for _, lspclient in ipairs({"tsserver", "bashls", "flow", "dockerls", "vimls", "html", "jsonls", "cssls", "yamlls"}) do
+local function setup(user_opts)
+  if lspconfig == nil then
+    print("lsp-config need installed and enabled")
+    return
+  end
+
+  lsp_status_setup()
+
+  for _, lspclient in ipairs({"tsserver", "bashls", "flow", "dockerls", "vimls", "html", "jsonls", "cssls", "yamlls", 'intelephense'}) do
     lspconfig[lspclient].setup {
       message_level = vim.lsp.protocol.MessageType.error,
       log_level = vim.lsp.protocol.MessageType.error,
@@ -197,17 +199,6 @@ local function setup(user_opts)
 
   lspconfig.gopls.setup(golang_setup)
   lspconfig.sqls.setup(sqls_cfg)
-
-  local system_name
-  if vim.fn.has("mac") == 1 then
-    system_name = "macos"
-  elseif vim.fn.has("unix") == 1 then
-    system_name = "linux"
-  elseif vim.fn.has("win32") == 1 then
-    system_name = "windows"
-  else
-    print("unsupported system for sumneko" .. system_name)
-  end
 
   require "lspconfig".sumneko_lua.setup(lua_cfg)
 
@@ -225,4 +216,7 @@ local function setup(user_opts)
     }
   end
 end
+
+
+
 return {setup = setup}
