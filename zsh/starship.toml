@@ -1,0 +1,57 @@
+# Inserts a blank line between shell prompts
+# add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[❯](bold red)[❯](bold yellow)[❯](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[💀](bold red) "
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold blue"
+symbol = " "
+[aws.region_aliases]
+ap-southeast-2 = "au-aps2"
+us-east-1 = "va"
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
+
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = "🔖 "
+
+[git_branch]
+symbol = "[ ](bold green) "
+truncation_length = 32
+truncation_symbol = ""
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🤷‍"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+
+[golang]
+format = "[ $version](bold cyan) "
+
+[helm]
+format = "via [⎈ $version](bold white) "
