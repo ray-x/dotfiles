@@ -54,6 +54,10 @@ end
 function config.sqls()
 end
 
+function config.navigator()
+  require'navigator'.setup()
+end
+
 
 function config.playground()
   require "nvim-treesitter.configs".setup {
@@ -99,6 +103,10 @@ function config.go()
   --     call go#cmd#Build(0)
   --   endif
   -- endfunction
+end
+
+function config.dap()
+  require('modules.lang.dap.dap')
 end
 
 

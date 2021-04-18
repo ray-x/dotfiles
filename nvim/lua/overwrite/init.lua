@@ -8,6 +8,6 @@ local overwrite =function()
   end
 end
 
-vim.g.debug_output=true
+-- vim.g.debug_output=true
 vim.g.navigator_verbose=true
 overwrite()

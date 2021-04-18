@@ -10,9 +10,15 @@ editor['rhysd/accelerated-jk'] = {
   opt = true
 }
 
-editor['norcalli/nvim-colorizer.lua'] = {
+-- editor['norcalli/nvim-colorizer.lua'] = {
+--   -- ft = { 'html','css','sass','vim','typescript','typescriptreact'},
+--   config = conf.nvim_colorizer
+-- }
+-- nvim-colorizer replacement
+editor['rrethy/vim-hexokinase'] = {
   -- ft = { 'html','css','sass','vim','typescript','typescriptreact'},
-  config = conf.nvim_colorizer
+  config = conf.hexokinase,
+  run = 'make hexokinase',
 }
 
 editor['Raimondi/delimitMate'] = {
@@ -57,7 +63,7 @@ editor['mg979/vim-visual-multi']  = {
 
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
-  keys = {'<Leader>c<space>', '<Leader>cc', '//', '<M-/>'},
+  keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
   config = conf.nerdcommenter,
   opt = true,
 }

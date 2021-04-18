@@ -27,7 +27,7 @@ zmodule git-info
 # zmodule sorin
 
 # zmodule steeef
-zmodule romkatv/powerlevel10k
+# zmodule romkatv/powerlevel10k
 # Additional completion definitions for Zsh.
 # zmodule zsh-users/zsh-completions
 # Enables and configures smart and extensive tab completion.

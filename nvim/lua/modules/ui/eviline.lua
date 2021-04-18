@@ -1,6 +1,6 @@
 local gl = require('galaxyline')
 local gls = gl.section
-gl.short_line_list = {'NvimTree','vista','dbui'}
+gl.short_line_list = {'NvimTree','vista','dbui', 'packer'}
 
 local colors = {
   bg = '#202328',
@@ -306,6 +306,22 @@ gls.left[14] = {
     highlight = {colors.blue,colors.bg},
   }
 }
+
+gls.mid[1] = {
+  ShowLspClient = {
+    provider = 'GetLspClient',
+    condition = function ()
+      local tbl = {['dashboard'] = true,['']=true}
+      if tbl[vim.bo.filetype] then
+        return false
+      end
+      return true
+    end,
+    icon = ' LSP:',
+    highlight = {colors.yellow,colors.bg,'bold'}
+  }
+}
+
 
 gls.right[1] = {
   FileEncode = {

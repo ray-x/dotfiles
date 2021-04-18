@@ -81,7 +81,7 @@ function M.setup(user_opts)
   set_mapping(user_opts)
   set_event_handler(user_opts)
   -- vim.lsp.handlers["textDocument/codeAction"] = require "codeagent.codeAction".code_action_handler
-  -- vim.lsp.handlers["textDocument/references"] = require "codeagent.locations".references_handler
+  vim.lsp.handlers["textDocument/references"] = require "navigator.locations".references_handler
   -- vim.lsp.handlers["textDocument/definition"] = require "codeagent.locations".definition_handler
   -- vim.lsp.handlers["textDocument/declaration"] = require "codeagent.locations".declaration_handler
   -- vim.lsp.handlers["textDocument/typeDefinition"] = require "codeagent.locations".typeDefinition_handler

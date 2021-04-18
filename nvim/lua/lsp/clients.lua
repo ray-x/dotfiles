@@ -2,6 +2,11 @@
 
 local lspconfig = nil
 local lsp_status = nil
+
+if vim.fn.line('$') > 100000 then  -- skip for large file
+  print('file too large')
+  return {}
+end
 if not packer_plugins["nvim-lua/lsp-status.nvim"] or not packer_plugins["lsp-status.nvim"].loaded then
   vim.cmd [[packadd lsp-status.nvim]]
   lsp_status = require("lsp-status")
@@ -11,6 +16,24 @@ if not packer_plugins["nvim-lua/lsp-status.nvim"] or not packer_plugins["lsp-sta
 end
 
 local cap = vim.lsp.protocol.make_client_capabilities()
+-- Code actions
+cap.textDocument.codeAction = {
+  dynamicRegistration = false,
+  codeActionLiteralSupport = {
+    codeActionKind = {
+      valueSet = {
+        "",
+        "quickfix",
+        "refactor",
+        "refactor.extract",
+        "refactor.inline",
+        "refactor.rewrite",
+        "source",
+        "source.organizeImports"
+      }
+    }
+  }
+}
 local on_attach = require("lsp.handler").on_attach
 local lsp_status_cfg = {
   status_symbol = "",
@@ -39,7 +62,6 @@ local lsp_status_cfg = {
     end
   end
 }
-
 
 -- local gopls = {}
 -- gopls["ui.completion.usePlaceholders"] = true
@@ -143,7 +165,7 @@ local lua_cfg = {
         library = {
           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
           [vim.fn.expand("$VIMRUNTIME/lua/vim")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
           -- [vim.fn.expand("~/repos/nvim/lua")] = true
         }
       }
@@ -166,6 +188,7 @@ local function lsp_status_setup()
     "cssls",
     "yamlls",
     "clangd",
+    'jdtls',
     "sqls"
   }
 
@@ -187,8 +210,10 @@ local function setup(user_opts)
   end
 
   lsp_status_setup()
-
-  for _, lspclient in ipairs({"tsserver", "bashls", "flow", "dockerls", "vimls", "html", "jsonls", "cssls", "yamlls", 'intelephense'}) do
+-- "tsserver", 
+  for _, lspclient in ipairs(
+    {"tsserver", "bashls", "flow", "dockerls", "vimls", "html", "jsonls", "cssls", "yamlls", "intelephense", "jdtls"}
+  ) do
     lspconfig[lspclient].setup {
       message_level = vim.lsp.protocol.MessageType.error,
       log_level = vim.lsp.protocol.MessageType.error,
@@ -216,7 +241,5 @@ local function setup(user_opts)
     }
   end
 end
-
-
 
 return {setup = setup}

@@ -1,9 +1,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # Start configuration added by Zim install {{{
 #
@@ -190,6 +190,16 @@ alias fzf='fzf --preview="bat {} --color=always"'
 alias sk='sk --preview="bat {} --color=always"'
 alias seperator='viu `echo ~/photos/$(ls ~/photos |sort -R |tail -1)`'
 alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
+
+export JAR=$HOME/lsp-test/jdt-language-server-0.70.0-202103051608/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
+export GRADLE_HOME=$HOME/gradle
+export JAVA_HOME=/usr/local/Cellar/openjdk/15.0.2/
+export JDTLS_CONFIG=$HOME/lsp-test/jdt-language-server-0.70.0-202103051608/config_mac
+export WORKSPACE=$HOME/workspace
+
+export PATH=$PATH:JAVA_HOME/bin
+
+
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 {eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_ed25519_github_deltatre}  2>/dev/null 1>/dev/null
 
@@ -200,10 +210,10 @@ alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
 [ -f ~/.forgit.plugin.zsh ] && source ~/.forgit.plugin.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/github/dotfiles/.p10k.zsh.
-[[ ! -f ~/github/dotfiles/.p10k.zsh ]] || source ~/github/dotfiles/.p10k.zsh
+# [[ ! -f ~/github/dotfiles/.p10k.zsh ]] || source ~/github/dotfiles/.p10k.zsh
 
 # source ~/.fzffun.zsh
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"

@@ -69,12 +69,14 @@ ui['kyazdani42/nvim-tree.lua'] = {
 -- 	event = {'BufReadPre','BufNewFile'},
 -- 	config=function () vim.g.rainbow_active = 1 end
 -- }
-ui['Yggdroot/indentLine'] = {config=conf.indentline, opt = false}
+-- ui['Yggdroot/indentLine'] = {config=conf.indentline}
+ui['lukas-reineke/indent-blankline.nvim'] = {config=conf.blankline, branch = 'lua', opt = true}
+-- ui['glepnir/indent-guides.nvim'] = {config = conf.indentguides}
 
 ui['ray-x/vim-interestingwords'] = { keys =  {'<Leader>u'}, config = conf.interestingwords, opt = true}
 
 ui['ray-x/aurora'] = {config = conf.theme}
 
-ui['Xuyuanp/scrollbar.nvim'] = {config=conf.scrollbar}
+ui['Xuyuanp/scrollbar.nvim'] = {config = conf.scrollbar}
 
 return ui

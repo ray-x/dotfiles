@@ -3,7 +3,7 @@ local conf = require('modules.completion.config')
 
 completion['neovim/nvim-lspconfig'] = {
   -- event = 'BufRead',
-  ft = {'html','css','javascript','java', 'javascriptreact','vue','typescript','typescriptreact', 'go', 'lua', 'cpp', 'c',
+  ft = {'html','css', 'javascript', 'java', 'javascriptreact', 'vue','typescript', 'typescriptreact', 'go', 'lua', 'cpp', 'c',
   'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
   config = conf.nvim_lsp,
 }
@@ -55,6 +55,8 @@ completion['RRethy/vim-illuminate'] = {
   config = function()
     vim.g.Illuminate_delay = 200
     vim.g.Illuminate_ftblacklist = {'nerdtree', 'nvimtree', 'vista'}
+    vim.api.nvim_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
+    vim.api.nvim_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
   end
 }
 -- enable for workstation....

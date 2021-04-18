@@ -8,15 +8,35 @@ function config.delimimate()
   vim.api.nvim_command('au FileType markdown let b:delimitMate_nesting_quotes = ["`"]')
 end
 
-function config.nvim_colorizer()
-  require 'colorizer'.setup {
-    '*';
-    css = { rgb_fn = true; };
-    scss = { rgb_fn = true; };
-    sass = { rgb_fn = true; };
-    stylus = { rgb_fn = true; };
-    vim = { names = true; };
-    tmux = { names = false; };
+-- function config.nvim_colorizer()
+--   require 'colorizer'.setup {
+--     '*';
+--     css = { rgb_fn = true; };
+--     scss = { rgb_fn = true; };
+--     sass = { rgb_fn = true; };
+--     stylus = { rgb_fn = true; };
+--     vim = { names = true; };
+--     tmux = { names = false; };
+--   }
+-- end
+
+function config.hexokinase()
+  vim.g.Hexokinase_optInPatterns = {
+      'full_hex',
+      'triple_hex',
+      'rgb',
+      'rgba',
+      'hsl',
+      'hsla',
+      'colour_names'
+  }
+  vim.g.Hexokinase_highlighters = {
+    'virtual',
+    'sign_column',
+    -- 'background',
+    'backgroundfull',
+    -- 'foreground',
+    -- 'foregroundfull'
   }
 end
 
@@ -36,7 +56,8 @@ end
 
 
 function  config.nerdcommenter()
-    -- Add spaces after comment delimiters by default
+  vim.g.NERDCreateDefaultMappings = 1
+  -- Add spaces after comment delimiters by default
   vim.g.NERDSpaceDelims = 1
 
   -- Use compact syntax for prettified multi-line comments

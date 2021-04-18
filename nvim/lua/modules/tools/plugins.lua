@@ -141,5 +141,11 @@ tools["prettier/vim-prettier"] = {
 -- }
 --
 tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite"}, config = conf.vim_test, opt = true}
+tools["rcarriga/vim-ultest"] ={
+  run = ":UpdateRemotePlugins", 
+  require = {"vim-test/vim-test"}, 
+  cmd = {"Ultest", "UltestNearest", "UltestSummary", "UltestDebugNearest"}, 
+  opt = true
+}  --, requires = {"janko/vim-test"},
 
 return tools

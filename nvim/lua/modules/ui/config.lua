@@ -103,7 +103,7 @@ end
 
 function config.nvim_tree()
   vim.cmd([[nmap <F13> :NvimTreeToggle<CR>]])
-  vim.cmd([[autocmd Filetype LuaTree set cursorline]])
+  vim.cmd([[autocmd Filetype NvimTree set cursorline]])
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
@@ -162,6 +162,14 @@ function config.scrollbar()
   vim.g.sb_bar_style = "solid"
 end
 
+function config.indentline()
+  -- body
+  vim.g.indentLine_color_gui = '#34453E'
+  vim.g.indentLine_color_dark = 1 -- (default: 2)
+  vim.g.indentLine_char_list = {'', '┊', '┆', '¦', '|', '¦', '┆', '┊', ''}
+  vim.g.indentLine_enabled = 1
+end
+
 function config.interestingwords()
   vim.g.interestingWordsDefaultMappingsK=0
   vim.g.interestingWordsDefaultMappingsN=0
@@ -175,14 +183,6 @@ function config.interestingwords()
   vim.cmd([[let s:interestingWordsGUIColors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b', '#F92772', '#A6E22D', '#66d9ef','#E6DB74', '#FD9720', '#ae81ff', '#e73c50', '#ff0000', '#5f0000']])
 end
 
-function config.indentline()
-  -- body
-  vim.g.indentLine_color_gui = '#34453E'
-  vim.g.indentLine_color_dark = 1 -- (default: 2)
-  vim.g.indentLine_char_list = {'|', '¦', '┆', '┊', ''}
-  vim.g.indentLine_enabled = 1
-end
-
 function config.theme()
   vim.cmd('colorscheme aurora')
   vim.cmd('hi Normal guibg=NONE ctermbg=NONE') -- remove background
@@ -194,6 +194,37 @@ function config.theme()
   vim.cmd('augroup END')
   vim.cmd('hi def link MyTodo Todo')
 end
+
+function config.blankline()
+  vim.g.indent_blankline_buftype_exclude = {"terminal"}
+  vim.g.indent_blankline_filetype_exclude = {'help', 'startify', 'dashboard', 'packer', 'guihua', 'NvimTree'}
+  vim.g.indent_blankline_buftype_exclude = {'terminal'}
+  vim.g.indent_blankline_char = '| '
+  vim.g.indent_blankline_char_list = {'', '┊', '┆', '¦', '|', '¦', '┆', '┊', ''}
+  vim.g.indent_blankline_show_trailing_blankline_indent = false
+  -- useing treesitter instead of char highlight
+  -- vim.g.indent_blankline_char_highlight_list =
+  -- {"WarningMsg", "Identifier", "Delimiter", "Type", "String", "Boolean"}
+  vim.g.indent_blankline_show_first_indent_level = false
+  vim.g.indent_blankline_bufname_exclude = {'README.md'}
+  -- vim.g.indentLine_faster = 1
+  vim.g.indent_blankline_context_patterns = {
+    'class', 'return', 'function', 'method', '^if', 'if', '^while', 'jsx_element', '^for', 'for', '^object', '^table', 'block',
+    'arguments', 'if_statement', 'else_clause', 'jsx_element', 'jsx_self_closing_element', 'try_statement',
+    'catch_clause', 'import_statement', 'operation_type'
+  }
+  vim.g.indent_blankline_use_treesitter = true
+  vim.g.indent_blankline_show_current_context = true
+  -- vim.g.indent_blankline_enabled = false
+end
+
+function config.indentguides()
+  require('indent_guides').setup({
+  -- put your options in here
+  indent_soft_pattern = '\\s'
+})
+end
+
 function config.minimap()
   vim.cmd([[nmap <F14> :MinimapToggle<CR>]])
   local w = vim.api.nvim_call_function('winwidth', {0})
@@ -208,3 +239,5 @@ function config.minimap()
   end
 end
 return config
+
+

@@ -1,5 +1,5 @@
 local treesitter = function()
-  if vim.fn.line('$') > 10000 then 
+  if vim.fn.line('$') > 20000 then  -- skip for large file
     vim.cmd[[syntax on]]
     print('skip treesitter')
     return 
@@ -11,11 +11,14 @@ local treesitter = function()
   if packer_plugins['nvim-treesitter-textobjects'] and not packer_plugins['nvim-treesitter-textobjects'].loaded then
     vim.cmd [[packadd nvim-treesitter-textobjects]]
   end
+
+
   require "nvim-treesitter.configs".setup {
     highlight = {
       enable = true, -- false will disable the whole extension
       disable = {"elm"}, -- list of language that will be disabled
-      custom_captures = {}
+      custom_captures = {},
+      use_languagetree = true
     },
     incremental_selection = {
       enable = true,
@@ -136,6 +139,31 @@ local treesitter = function()
     ensure_installed = "maintained"
     --{ "go", "css", "html", "javascript", "typescript", "jsdoc", "json", "c", "java", "toml", "tsx", "lua", "cpp", "python", "rust", "jsonc", "dart", "css", "yaml", "vue"}
   }
+
+  if packer_plugins['nvim-ts-autotag'] and not packer_plugins['nvim-ts-autotag'].loaded then
+    require'nvim-treesitter.configs'.setup {
+      autotag = {
+        enable = true,
+      }
+    }
+    vim.cmd [[packadd nvim-ts-autotag]]
+  end
+  if packer_plugins['nvim-ts-rainbow'] and not packer_plugins['nvim-ts-rainbow'].loaded then
+    require'nvim-treesitter.configs'.setup {
+      rainbow = {
+        enable = false,
+        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+      }
+    }
+    vim.cmd [[packadd nvim-ts-rainbow]]
+  end
+
+
+  if packer_plugins['indent-blankline.nvim'] and not packer_plugins['indent-blankline.nvim'].loaded then
+    require('modules.ui.config').blankline()
+    vim.cmd [[packadd indent-blankline.nvim]]
+  end
+  vim.api.nvim_command('IndentBlanklineEnableAll')
 end
 
 treesitter()
