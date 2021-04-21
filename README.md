@@ -25,7 +25,7 @@ The `Plug` config is located in branch [Plug branch](https://github.com/ray-x/do
 There are lots of amazing plugins,
 I used following plugin a lots
 
-- `Dein` -> `Lua-Packer`
+- `Plug` -> `Dein` -> `Lua-Packer`
   Dein is a great tool. Very fast and very well support for vim/neovim lazy loading. Change to Lua-Packer does not
   bring as great improvements as Plug -> Dein. But still about 80ms faster (~20%) for Golang codes loading.
   If you interested in Dein version, Please refer to [Dein](https://github.com/ray-x/dotfiles/tree/nvim-comple).
@@ -39,61 +39,34 @@ I used following plugin a lots
   lazy load vim-go. So, other than module folder, I could copy/paste everything else from glepnir's configure file,
   which make my life easier.
 
-- `Plug` -> `Dein`
-  Plugin management tool.
-  Plug is userfriendly. But the lazy is not as powerful as Dein. Also by default the cache system from Dein make it
-  faster compared to Plug
-  The configuration was optimized and lots of plugins are loaded lazily. Normally the startup time
-  is around 150ms with 80% of plugins lazily loaded.
-  Also tried packer.nvim. It is good, but is less popular and kind of buggy :(. Spended hours on it and
-  still could not beat the performance of Dein. You could refer to my lua/plugins.lua for the packer setup.
-
 - vim-clap
 
   One of the best plugin for search anything. I used it to replace fzf, leaderF, leaderP, defx, Ag/Ack/Rg, yank(ring), project management. undolist and many more.
 
-- coc.nvim -> nvim-lsp
+- nvim-lsp with [navigator.lua](https://github.com/ray-x/navigator.lua)
 
   I turn off vim-go auto-complete/LSP and turn to nvim-lsp. It adds around 200ms bootup time and some of the extensions
   might crash when I using coc (but it hard to check which becuase ~4 node.js services coc forked)
   Some useful script from TJ, and [glepnir](https://github.com/glepnir)
 
   nvim-tree: file-explorer (lightweight and fast)
-  nvim-lua/completion-nvim: auto-complete
+  hrsh7th/nvim-compe: auto-complete
   vsnip: code snipts(Load snippet from VSCode extension). It is a full featured IDE.
-
-  I put coc in graveyard. It works fine, but from time to time, there will be some dead node.js need to clean up manually.
-  Also it is growing bigger and slower.......
-
-  If you would like to enable coc, would be
-
-  ```vim
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'vn-ki/coc-clap'
-  ```
-
-  The coc.vim and coc-settings.yml in graveyard folder is a good reference how to configure it.
-  Replace defx with coc-explorer, use coc-spell(remove spelunker) for spell check
-  coc-snippet replaced my ultisnips. Also, there are coc for yml, json, prettier, python, rust, PHP (any language vs code
-  supported)......
-  With Clap+coc and colorscheme(ray-x/paleaurora) setup.
 
 - ALE
 
   Well, I am still using ALE and configure lint tools with it. It is good to find something compiler missed.
 
 - Programming support:
-
-  YCM (used to be my favourite, only for C++ and python now), but I am using lsp more offen now, primary using nvim-lsp for autocomplete and syntax check.
-  vim-go(for go testing, highlight, gopls disabled), vsnipt, emmet-vim, Vista(function list with lsp), and some language specific plugins (e.g html, js/ts, swift), treesitter with some cool AST highlight.
+  Treesitter, nvim-lsp and [navigator.lua](https://github.com/ray-x/navigator.lua), for golang, use [go.nvim]((https://github.com/ray-x/go.nvim)
 
 - Debug:
 
-  vimspector, dlv
+  vimspector, dlv, nvim-dap
 
 - Theme, look&feel:
 
-  home cooked paleaurora, express-line (lua), devicons(lua), startify, indentLine(with nerdfont),
+  home cooked Aurora, galaxyline (lua), devicons(lua), blankline(indent),
 
 - Color:
 
@@ -102,7 +75,7 @@ I used following plugin a lots
 
 - Git:
 
-  fugitive, gv, nvimtree
+  fugitive, gv, nvimtree, gitsigns.nvim, git-blame.nvim
 
 - Format:
 
@@ -110,9 +83,8 @@ I used following plugin a lots
 
 - Menu and tab:
   quickui(created a menu for the function/keybind I used less often. I can not remember all the commands and keybinds....)
-  But Damn it, I spend lots of time to configure it, however, I rarely use it. So I end up delete the plugin. Check
-  quickui in graveyard of how to use it.
-  vim-buffet: wintab was one of the best buffer management tool. But vim-buffet is faster and just do the job.
+  But Damn it, I spend lots of time to configure it, however, I rarely use it. So I end up delete the plugin.
+  nvim-bufferline.lua: Yes, with lua and neovim only
 
 - Tools: floatterm
 

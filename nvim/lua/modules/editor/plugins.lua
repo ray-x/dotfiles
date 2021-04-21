@@ -21,11 +21,6 @@ editor['rrethy/vim-hexokinase'] = {
   run = 'make hexokinase',
 }
 
-editor['Raimondi/delimitMate'] = {
-  event = {'InsertEnter'},
-  config = conf.delimitmate
-}
-
 -- editor['hrsh7th/vim-eft'] = {
 --   opt = true,
 --   config = function()
