@@ -1,3 +1,4 @@
+# This version is lsp with lspsaga as primary configure
 # vim as a programming IDE
 
 I used to use slickedit, qt-creator, idea (webstorm, goland), vscode, but I am back to vi now. Thanks for `Dein.vim` I do
