@@ -1,5 +1,12 @@
 # vim as a programming IDE
 
+## Please check branches of this repo
+
+- plug branch (plug, coc)
+- lspsaga branch (lspsaga, packer, lspconfig)
+- nvim-comple branch (dein, nvim-complete)
+- master latest
+
 I used to use slickedit, qt-creator, idea (webstorm, goland), vscode, but I am back to vi now. Thanks for `Dein.vim` I do
 not need to configure my setup everytime....... I am still using sublime edit(as a notepad)
 
@@ -10,15 +17,16 @@ The `Plug` config is located in branch [Plug branch](https://github.com/ray-x/do
 
 - nvim+kitty configured with pop menu:
 
-  ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/menu.jpg)
+  ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/menu.jpg?raw=true)
 
 - nvim clap preview:
 
-  ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/clap.jpg)
+  ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/clap.jpg?raw=true)
 
-- nvim+kitty coc+ale:
+- nvim+kitty + compe :
 
-  ![vim_ide with nvim+kitty](https://github.com/ray-x/dotfiles/blob/master/img/coc_float_errorcheck.jpg)
+  ![vim_ide with
+nvim+kitty](https://user-images.githubusercontent.com/1681295/109258178-db2e6d80-784d-11eb-9cef-8b1cc6435e01.png?raw=true)
 
 ## Neovim Plugins
 
