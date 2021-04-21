@@ -14,10 +14,10 @@ tools["editorconfig/editorconfig-vim"] = {
   -- ft = { 'go','typescript','javascript','vim','rust','zig','c','cpp' }
 }
 
-tools["glepnir/prodoc.nvim"] = {
-  event = "BufReadPre",
-  opt = true
-}
+-- tools["glepnir/prodoc.nvim"] = {
+--   event = "BufReadPre",
+--   opt = true
+-- }
 
 tools["liuchengxu/vista.vim"] = {
   cmd = "Vista",
@@ -44,11 +44,12 @@ tools["iamcco/markdown-preview.nvim"] = {
   opt = true,
 }
 
--- tools["voldikss/vim-floaterm"] = {
---   cmd = {"FloatermNew", "FloatermToggle"},
---   config = conf.floatterm,
---   opt = true
--- }
+-- nvim-toggleterm.lua ?
+tools["voldikss/vim-floaterm"] = {
+  cmd = {"FloatermNew", "FloatermToggle"},
+  config = conf.floatterm,
+  opt = true
+}
 --
 tools["liuchengxu/vim-clap"] = {
   cmd = {"Clap"},
@@ -58,11 +59,7 @@ tools["liuchengxu/vim-clap"] = {
   config = conf.clap
 }
 
-tools["RishabhRD/nvim-finder"] = {
-  cmd={"Finder"},
-  requires = {{"RishabhRD/popfix"}},
-  config = function() vim.g.enable_finder_native_sorter = false end
-}
+
 -- tools["rafcamlet/nvim-whid"] =
 -- {
 -- }

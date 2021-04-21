@@ -43,10 +43,10 @@ lang['/Users/ray.xu/github/go.nvim'] = {
   opt = false,
   config = conf.go,
 }
--- lang['/Users/ray.xu/github/navigator.lua'] = {
---   requires = {'/Users/ray.xu/github/guihua.lua'},
---   config = conf.navigator
--- }
+lang['/Users/ray.xu/github/navigator.lua'] = {
+  requires = {'/Users/ray.xu/github/guihua.lua'},
+  config = conf.navigator
+}
 -- lang["arp242/gopher.vim"] = {
  -- lang["Users/ray.xu/github/arp242/gopher.vim"] = {
  --     -- ft = 'go',

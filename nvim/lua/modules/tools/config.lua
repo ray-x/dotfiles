@@ -63,11 +63,12 @@ end
 function config.clap()
   vim.g.clap_preview_size = 10
   vim.g.airline_powerline_fonts = 1
-  vim.g.clap_layout = {width = "43%", height = "86%", row = "7%", col = "7%"}
+  vim.g.clap_layout = {relative = 'editor', width = "83%", row = '20%', col = "10%"} --height = "40%", row = "17%",
   vim.g.clap_popup_border = "rounded"
   vim.g.clap_selected_sign = {text = "", texthl = "ClapSelectedSign", linehl = "ClapSelected"}
   vim.g.clap_current_selection_sign = {text = "", texthl = "ClapCurrentSelectionSign", linehl = "ClapCurrentSelection"}
   vim.g.clap_always_open_preview = true
+  vim.g.clap_preview_direction = 'UD'
   if not packer_plugins["nvim-compe"].loaded then
     vim.cmd [[packadd nvim-compe]]
   end
@@ -131,24 +132,24 @@ function config.markdown()
   }
 end
 
--- function config.floatterm()
--- -- Set floaterm window's background to black
--- -- Set floating window border line color to cyan, and background to orange
--- vim.cmd("hi Floaterm guibg=black")
--- -- vim.cmd('hi FloatermBorder guibg=orange guifg=cyan')
--- vim.cmd("command! FZF FloatermNew fzf")
--- vim.cmd("command! NNN FloatermNew nnn")
--- vim.cmd("command! LG FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2 lazygit")
--- vim.cmd(
---   "command! Ranger FloatermNew --height=0.96 --width=0.96  --wintype=floating --name=lazygit --autoclose=2  ranger"
--- )
---
--- vim.g.floaterm_gitcommit = "split"
--- vim.g.floaterm_keymap_new = "<F19>" --S-f7
--- vim.g.floaterm_keymap_prev = "<F20>"
--- vim.g.floaterm_keymap_next = "<F21>"
--- vim.g.floaterm_keymap_toggle = "<F24>"
--- end
+function config.floatterm()
+-- Set floaterm window's background to black
+-- Set floating window border line color to cyan, and background to orange
+vim.cmd("hi Floaterm guibg=black")
+-- vim.cmd('hi FloatermBorder guibg=orange guifg=cyan')
+vim.cmd("command! FZF FloatermNew fzf")
+vim.cmd("command! NNN FloatermNew --height=0.96 --width=0.96 nnn")
+vim.cmd("command! LG FloatermNew --height=0.96 --width=0.96 lazygit" )
+vim.cmd(
+  "command! Ranger FloatermNew --height=0.96 --width=0.96 ranger"
+)
+
+vim.g.floaterm_gitcommit = "split"
+vim.g.floaterm_keymap_new = "<F19>" --S-f7
+vim.g.floaterm_keymap_prev = "<F20>"
+vim.g.floaterm_keymap_next = "<F21>"
+vim.g.floaterm_keymap_toggle = "<F24>"
+end
 
 function config.spelunker()
   vim.g.enable_spelunker_vim_on_readonly = 0
