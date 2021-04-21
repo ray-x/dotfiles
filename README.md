@@ -53,12 +53,14 @@ I used following plugin a lots
   hrsh7th/nvim-compe: auto-complete
   vsnip: code snipts(Load snippet from VSCode extension). It is a full featured IDE.
 
+  ![document symbol](https://github.com/ray-x/files/blob/master/img/navigator/doc_symbol.gif?raw=true)
+
 - ALE
 
   Well, I am still using ALE and configure lint tools with it. It is good to find something compiler missed.
 
 - Programming support:
-  Treesitter, nvim-lsp and [navigator.lua](https://github.com/ray-x/navigator.lua), for golang, use [go.nvim]((https://github.com/ray-x/go.nvim)
+  Treesitter, nvim-lsp and [navigator.lua](https://github.com/ray-x/navigator.lua), for golang, use [go.nvim](https://github.com/ray-x/go.nvim)
 
 - Debug:
 
@@ -114,4 +116,5 @@ These tools are good, but due to confliction, less use, or, not suite to my work
 - zpreztor
 - rainbow
 - defx
+-
 -
