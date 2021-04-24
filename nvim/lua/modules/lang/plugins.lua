@@ -43,8 +43,12 @@ lang['/Users/ray.xu/github/go.nvim'] = {
   opt = false,
   config = conf.go,
 }
-lang['/Users/ray.xu/github/navigator.lua'] = {
-  requires = {'/Users/ray.xu/github/guihua.lua'},
+-- lang['/Users/ray.xu/github/navigator.lua'] = {
+--   requires = {'/Users/ray.xu/github/guihua.lua'},
+--   config = conf.navigator
+-- }
+lang['ray-x/navigator.lua'] = {
+  requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
   config = conf.navigator
 }
 -- lang["arp242/gopher.vim"] = {
@@ -91,6 +95,8 @@ lang["michaelb/sniprun"] = {
 end }
 
 lang['gennaro-tedesco/nvim-jqx'] = {opt = true, cmd = {'JqxList', 'JqxQuery'},}
-lang['windwp/nvim-ts-autotag'] = { opt = true }
+lang['windwp/nvim-ts-autotag'] = { opt = true, 
+  config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end 
+}
 lang['p00f/nvim-ts-rainbow'] = { opt = true }
 return lang

@@ -56,6 +56,14 @@ editor['mg979/vim-visual-multi']  = {
   config = conf.vmulti,
 }
 
+editor['phaazon/hop.nvim']  = {
+  as = 'hop',
+  config = function()
+    -- you can configure Hop the way you like here; see :h hop-config
+    require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+  end
+}
+
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
   keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},

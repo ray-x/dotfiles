@@ -39,6 +39,17 @@ function config.vim_dadbod_ui()
   vim.g.dbs = load_dbs()
 end
 
+function config.spectre()
+  -- body
+  vim.cmd([[nnoremap <leader>S :lua require('spectre').open()<CR>]])
+
+  -- "search current word
+  vim.cmd([[nnoremap <leader>sw viw:lua require('spectre').open_visual()<CR>]])
+  vim.cmd([[vnoremap <leader>s :lua require('spectre').open_visual()<CR>]])
+   -- "  search in current file
+  vim.cmd([[nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>]])
+end
+
 function config.vim_vista()
   vim.g["vista#renderer#enable_icon"] = 1
   vim.g.vista_disable_statusline = 1
@@ -164,6 +175,7 @@ end
 
 function config.spellcheck()
   if not packer_plugins["kamykn/spelunker.vim"] or not packer_plugins["kamykn/spelunker.vim"].loaded then
+    config.spelunker()
     vim.cmd [[packadd spelunker.vim]]
   end
   vim.fn["spelunker#check"]()
@@ -180,6 +192,13 @@ function config.prettier()
   )
 end
 
+function config.grammcheck()
+  -- body
+  if not packer_plugins["rhysd/vim-grammarous"] or not packer_plugins["rhysd/vim-grammarous"].loaded then
+    vim.cmd [[packadd vim-grammarous]]
+  end
+  vim.cmd [[GrammarousCheck]]
+end
 function config.vim_test()
   vim.g["test#strategy"] = {
     nearest = "neovim",

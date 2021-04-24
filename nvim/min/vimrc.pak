@@ -71,18 +71,21 @@ set mouse=a
 lua <<EOF
 vim.cmd [[packadd packer.nvim]]
 require('packer').startup(function()
-use {
-"wbthomason/packer.nvim",
-"neovim/nvim-lspconfig",
--- "hrsh7th/nvim-compe",
-"/Users/ray.xu/github/lsp_signature.nvim",
-"nvim-lua/completion-nvim",
--- "ray-x/lsp_signature.nvim",
-}
+use "wbthomason/packer.nvim"
+use "neovim/nvim-lspconfig"
+use {"ray-x/navigator.lua", requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}}
 end)
 
-local lspconfig = require('lspconfig')
 
+-- "hrsh7th/nvim-compe",
+-- "/Users/ray.xu/github/lsp_signature.nvim",
+-- "nvim-lua/completion-nvim",
+-- "ray-x/lsp_signature.nvim",
+--  'ray-x/navigator.lua', requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
+-- "/Users/ray.xu/github/navigator.lua",requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
+
+local lspconfig = require('lspconfig')
+require('navigator').setup()
 -- require'compe'.setup {
 --   enabled = true;
 --   autocomplete = true;
@@ -104,41 +107,41 @@ local lspconfig = require('lspconfig')
 -- }
 --   require "completion".on_attach(client)
 
-require "lsp_signature".on_attach(client)
-
-local on_attach = function(client, bufnr)
-  print(vim.inspect(client.resolved_capabilities))
-  -- vim.lsp.utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  local lsp_keymappings = {
-    {"n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
-    {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
-    {"n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
-    {"n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>"},
-    {"n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
-    {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
-    {"n", "<leader>ll", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"},
-    -- Use <Tab> and <S-Tab> to navigate through popup menu
-    {"i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true}},
-    {"i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true}}
-  }
-
-  for _, map in ipairs(lsp_keymappings) do
-    local mode, lhs, rhs, opts = unpack(map)
-    -- utils.map(mode, lhs, rhs, opts)
-  end
-
-  -- Format on save
-  if client.resolved_capabilities.document_formatting then
-    vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting()]]
-  end
-
-
-end
-
-lspconfig.pyls.setup {
-  on_attach = on_attach
-}
+-- require "lsp_signature".on_attach(client)
+-- 
+-- local on_attach = function(client, bufnr)
+--   print(vim.inspect(client.resolved_capabilities))
+--   -- vim.lsp.utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
+-- 
+--   local lsp_keymappings = {
+--     {"n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
+--     {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
+--     {"n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
+--     {"n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>"},
+--     {"n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
+--     {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
+--     {"n", "<leader>ll", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"},
+--     -- Use <Tab> and <S-Tab> to navigate through popup menu
+--     {"i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true}},
+--     {"i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true}}
+--   }
+-- 
+--   for _, map in ipairs(lsp_keymappings) do
+--     local mode, lhs, rhs, opts = unpack(map)
+--     -- utils.map(mode, lhs, rhs, opts)
+--   end
+-- 
+--   -- Format on save
+--   if client.resolved_capabilities.document_formatting then
+--     vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting()]]
+--   end
+-- 
+-- 
+-- end
+-- 
+-- lspconfig.pyls.setup {
+--   on_attach = on_attach
+-- }
 
 -- require('lspconfig').intelephense.setup{
 -- 	--on_attach = on_attach

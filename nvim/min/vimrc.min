@@ -1,23 +1,27 @@
 " Note: run PlugUpdate/Install first
 call plug#begin('~/.vim/plugged')
 
-" Group dependencies, vim-snippets depends on ultisnips
 Plug 'neovim/nvim-lspconfig'
-Plug 'ray-x/lsp_signature.nvim'
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'ray-x/navigator.lua'
 
 call plug#end()
 
 lua <<EOF
 local nvim_lsp = require('lspconfig')
+require'navigator'.setup()
+EOF
 
+lua <<EOF
 require'lspconfig'.tsserver.setup{
   on_attach = function(client)
     require'lsp_signature'.on_attach()
   end
 }
-
 EOF
 
+
+" Plug 'ray-x/lsp_signature.nvim'
 
 " -- require('lsp_config')  -- you may need my lsp_config.lua
 " require('lsp_signature').on_attach()
@@ -50,30 +54,30 @@ EOF
 
 " lua require('treesitter')
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+" set completeopt=menuone,noinsert,noselect
 
 
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" nnoremap <buffer> <silent> <C-LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <buffer> <silent> g<LeftMouse> <LeftMouse> <cmd>lua vim.lsp.buf.implementation()<CR>
 
 
-let g:vsnip_filetypes = {}
-let g:vsnip_filetypes.javascriptreact = ['javascript']
-let g:vsnip_filetypes.typescriptreact = ['typescript']
-let g:completion_trigger_character = ['.']
-let g:vsnip_snippet_dir = '/Users/ray.xu/github/dotfiles/snips'
-
-let g:min_load = 1
+" let g:vsnip_filetypes = {}
+" let g:vsnip_filetypes.javascriptreact = ['javascript']
+" let g:vsnip_filetypes.typescriptreact = ['typescript']
+" let g:completion_trigger_character = ['.']
+" let g:vsnip_snippet_dir = '/Users/ray.xu/github/dotfiles/snips'
+" 
+" let g:min_load = 1" 

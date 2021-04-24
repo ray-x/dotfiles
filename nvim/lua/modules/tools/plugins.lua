@@ -26,7 +26,7 @@ tools["liuchengxu/vista.vim"] = {
 }
 
 tools["kamykn/spelunker.vim"] = {opt = true, config = conf.spelunker}
--- tools["rhysd/vim-grammarous"] = {opt = true, ft = {"markdown", "txt"}, config = conf.grammarous}
+tools["rhysd/vim-grammarous"] = {opt = true, cmd = {"GrammarousCheck"}, ft = {"markdown", "txt"}, config = conf.grammarous}
 
 tools["plasticboy/vim-markdown"] = {
   ft = "markdown",
@@ -58,21 +58,6 @@ tools["liuchengxu/vim-clap"] = {
   end,
   config = conf.clap
 }
-
-
--- tools["rafcamlet/nvim-whid"] =
--- {
--- }
--- tools["amirrezaask/fuzzy.nvim"] =
--- {
---   config = function()
---     vim.g.fuzzy_options = {
---     -- location = "center",
---     width = 50,
---     height = 50
---   }
---   end
--- }
 
 tools["rhysd/git-messenger.vim"] = {
   cmd = "GitMessenger",
@@ -138,6 +123,8 @@ tools["prettier/vim-prettier"] = {
 -- }
 --
 tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite"}, config = conf.vim_test, opt = true}
+tools["windwp/nvim-spectre"] = {config = conf.spectre, opt=true, keys = {'<Leader>S','<Leader>s'}}
+
 tools["rcarriga/vim-ultest"] ={
   run = ":UpdateRemotePlugins", 
   require = {"vim-test/vim-test"}, 
