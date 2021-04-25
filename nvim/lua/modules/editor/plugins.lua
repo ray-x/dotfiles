@@ -49,6 +49,11 @@ editor['rrethy/vim-hexokinase'] = {
 --   ft = 'go',
 --   config = conf.vim_smartchar
 -- }
+editor['kevinhwang91/nvim-hlslens'] = {
+  keys = {'/', '?', 'n', 'N', '*', '#', 'g'},
+  opt = true,
+  config = conf.hlslens
+}
 
 editor['mg979/vim-visual-multi']  = {
   keys = {'<C-n>','<M-n>','<S-Down>','<S-Up>','<M-Left>','<M-Right>','<M-D>','<M-Down>', '<C-d>', '<C-Down>', '<S-Right>', '<C-LeftMouse>', '<M-C-RightMouse>','<Leader>'},

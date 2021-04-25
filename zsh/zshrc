@@ -218,3 +218,5 @@ export PATH=$PATH:JAVA_HOME/bin
 
 # source ~/.fzffun.zsh
 eval "$(starship init zsh)"
+
+alias luamake=/Users/ray.xu/github/sumneko/lua-language-server/3rd/luamake/luamake

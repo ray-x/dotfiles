@@ -69,8 +69,11 @@ completion['nvim-lua/lsp-status.nvim'] = {
   opt=false,
 }
 
-completion['ray-x/lsp_signature.nvim'] = {
+completion['/Users/ray.xu/github/lsp_signature.nvim'] = {
   config = function() require "lsp_signature".on_attach() end
 }
+-- completion['ray-x/lsp_signature.nvim'] = {
+--   config = function() require "lsp_signature".on_attach() end
+-- }
 
 return completion

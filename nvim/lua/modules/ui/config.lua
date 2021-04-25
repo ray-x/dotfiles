@@ -110,6 +110,8 @@ function config.nvim_tree()
   vim.g.nvim_tree_width = 28
   vim.g.nvim_tree_auto_close = 1
   vim.g.nvim_tree_git_hl = 1
+  nvim_tree_auto_open = 1
+  nvim_tree_lsp_diagnostics = 1
   vim.g.nvim_tree_width_allow_resize  = 1
   vim.g.nvim_tree_tab_open = 1
   vim.g.nvim_tree_bindings = {
@@ -125,14 +127,25 @@ function config.nvim_tree()
       staged = "✓",
       unmerged = "",
       renamed = "➜",
-      untracked = "★"
+      untracked = "★",
+      deleted = "",
+      ignored = "◌"
       },
     folder = {
       default = "",
       open = "",
       symlink = "",
-      }
+      empty = "",
+      empty_open = "",
+      symlink_open = "",
+      },
+    lsp = {
+      hint = "👨‍⚕️",
+      info = "👩",
+      warning = "☣️",
+      error = "🈲",
     }
+  }
 end
 
 -- function config.vim_signify()
