@@ -95,8 +95,8 @@ lang["michaelb/sniprun"] = {
 end }
 
 lang['gennaro-tedesco/nvim-jqx'] = {opt = true, cmd = {'JqxList', 'JqxQuery'},}
-lang['windwp/nvim-ts-autotag'] = { opt = true, 
-  config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end 
+lang['windwp/nvim-ts-autotag'] = { opt = true,
+  config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end
 }
 lang['p00f/nvim-ts-rainbow'] = { opt = true }
 return lang
