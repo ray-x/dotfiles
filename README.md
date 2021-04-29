@@ -65,7 +65,8 @@ I used following plugin a lots
 
 - ALE
 
-  Well, I am still using ALE and configure lint tools with it. It is good to find something compiler missed.
+  Well, I am still using ALE and configure lint tools with it. It is good to find something compiler missed. But more
+  and more task will move to efm-server
 
 - Programming support:
   Treesitter, nvim-lsp and [navigator.lua](https://github.com/ray-x/navigator.lua), for golang, use [go.nvim](https://github.com/ray-x/go.nvim)
@@ -80,8 +81,8 @@ I used following plugin a lots
 
 - Color:
 
-  Primary with treesitter from nvim nightly (nvim-lsp and this make it hard for me to turn back to vim)
-  nvim-colorizer.lua (display hex and color in highlight), log-highlight, limelight, interestingwords
+  Primary with treesitter from nvim nightly (nvim-lsp and this make it hard for me to turn back to vim), log-highlight, limelight, interestingwords,
+  hexokinase as a replacement for colorizer (display hex and color in highlight)
 
 - Git:
 
@@ -96,12 +97,11 @@ I used following plugin a lots
   But Damn it, I spend lots of time to configure it, however, I rarely use it. So I end up delete the plugin.
   nvim-bufferline.lua: Yes, with lua and neovim only
 
-- Tools: floatterm
+- Tools: floatterm, scrollview
 
 - Move and Edit:
 
-  easymotion, vim-multi-cursor
-  , vim-anyfold (better folding)
+  easymotion -> hop, hlslens + vim-multi-cursor , vim-anyfold (better folding), Far for complex find and replace
 
 ## Shell
 
