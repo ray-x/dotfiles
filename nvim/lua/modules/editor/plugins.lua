@@ -1,24 +1,50 @@
 local editor = {}
 local conf = require('modules.editor.config')
 
-editor['Raimondi/delimitMate'] = {
-  event = 'InsertEnter',
-  config = conf.delimimate,
-}
+-- editor['Raimondi/delimitMate'] = {
+--   event = 'InsertEnter',
+--   config = conf.delimimate,
+-- }
 
-editor['rhysd/accelerated-jk'] = {
+-- alternatives: steelsojka/pears.nvim
+-- windwp/nvim-ts-autotag  'html', 'javascript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue'
+-- windwp/nvim-autopairs
+
+editor['windwp/nvim-autopairs'] = {
+  -- event = 'InsertEnter',
+  config = conf.autopairs,
   opt = true
 }
 
--- editor['norcalli/nvim-colorizer.lua'] = {
---   -- ft = { 'html','css','sass','vim','typescript','typescriptreact'},
---   config = conf.nvim_colorizer
+editor['rhysd/accelerated-jk'] = {
+  opt=true
+}
+editor['tpope/vim-surround'] ={
+  opt=true,
+  event = 'InsertEnter',
+  --keys={'c', 'd'}
+}
+
+editor['steelsojka/pears.nvim'] = {
+  -- keys = {{'(','[', '<', '{'}},
+  -- event = 'InsertEnter',
+  config =  conf.pears_setup(),
+  opt=true
+}
+-- editor['/Users/ray.xu/github/pears.nvim'] = {
+--   -- keys = {{'(','[', '<', '{'}},
+--   -- event = 'InsertEnter',
+--   config =  conf.pears_setup(),
+--   -- opt=true
 -- }
+
 -- nvim-colorizer replacement
 editor['rrethy/vim-hexokinase'] = {
   -- ft = { 'html','css','sass','vim','typescript','typescriptreact'},
   config = conf.hexokinase,
   run = 'make hexokinase',
+  opt = true,
+  cmd = {'HexokinaseTurnOn', 'HexokinaseToggle'}
 }
 
 -- editor['hrsh7th/vim-eft'] = {
@@ -36,19 +62,6 @@ editor['rrethy/vim-hexokinase'] = {
 --   requires = 'kana/vim-operator-user'
 -- }
 
--- editor['rhysd/vim-operator-surround'] = {
---   event = 'BufRead',
---   requires = 'kana/vim-operator-user'
--- }
-
--- editor['kana/vim-niceblock']  = {
---   opt = true
--- }
-
--- editor['kana/vim-smartchr'] = {
---   ft = 'go',
---   config = conf.vim_smartchar
--- }
 editor['kevinhwang91/nvim-hlslens'] = {
   keys = {'/', '?', 'n', 'N', '*', '#', 'g'},
   opt = true,
@@ -94,6 +107,6 @@ editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'GundoTog
 editor['mbbill/undotree']  = {opt = true}
 editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
 editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
-editor['chaoren/vim-wordmotion'] = {} -- = {opt = true, keys = {'c', 'ci', 'ciw', 'w','W'}}
+editor['chaoren/vim-wordmotion'] = {opt = true, keys = {'w','W', 'gE', 'aW'}}
 -- chaoren/vim-wordmotion
 return editor

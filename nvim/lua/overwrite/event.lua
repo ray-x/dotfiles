@@ -27,6 +27,7 @@ function autocmd.load_autocmds()
       {"BufReadPre", "*", 'if getfsize(expand("%")) > 1000000 | syntax off | endif'};
       {"BufWritePost",  "plugins.lua", "PackerCompile"};
       {"BufEnter",  "*", ":silent! :lua require('modules.lang.treesitter')"};
+      -- {"InsertEnter", "*", ":silent! :lua require('modules.editor.config').pears_setup()"}
     };
   }
 

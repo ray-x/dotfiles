@@ -55,8 +55,11 @@ local keys = {
   ["n|<Leader>fu"] = map_cu("Clap git_diff_files"):with_noremap():with_silent(),
   ["n|<Leader>fv"] = map_cu("Clap grep ++query=@visual"):with_noremap():with_silent(),
   ["n|<Leader>fd"] = map_cu("Clap dotfiles"):with_noremap():with_silent(),
-  ["n|Rn"] = map_cr("Lspsaga rename"):with_noremap():with_silent(),
-  ["n|gr"] = map_cr("Lspsaga lsp_finder"):with_noremap():with_silent(),
+
+  ["n|<Leader>bp"] = map_cu("BufferLinePick"):with_noremap():with_silent(),
+  
+  -- ["n|Rn"] = map_cr("Lspsaga rename"):with_noremap():with_silent(),
+  -- ["n|gr"] = map_cr("Lspsaga lsp_finder"):with_noremap():with_silent(),
   ["n|<Leader>fh"] = map_cu("Clap command_history"):with_noremap():with_silent(),
   ["n|<Leader><Leader>r"] = map_cmd("v:lua.run_or_test()"):with_expr(),
   ["v|<Leader><Leader>r"] = map_cmd("v:lua.run_or_test()"):with_expr(),
@@ -73,7 +76,9 @@ local keys = {
   ["n|<leader>dsbm"] = map_cr('<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))'):with_noremap():with_silent(), 
   ["n|<leader>dro"] = map_cr('<cmd>lua require"dap".repl.open()'):with_noremap():with_silent(),
   ["n|<leader>drl"] = map_cr('<cmd>lua require"dap".repl.run_last()'):with_noremap():with_silent(),
-  
+
+  ["n|[t"] = map_cr("lua require'nvim-treesitter-refactor.navigation'.goto_previous_usage(0)"):with_noremap():with_silent(),
+  ["n|]t"] = map_cr("lua require'nvim-treesitter-refactor.navigation'.goto_next_usage(0)"):with_noremap():with_silent(),  
   ['n|<leader>dcc'] = map_cr('<cmd>lua require"telescope".extensions.dap.commands{}'):with_noremap():with_silent(),
   ['n|<leader>dco'] = map_cr('<cmd>lua require"telescope".extensions.dap.configurations{}'):with_noremap():with_silent(),
   ['n|<leader>dlb'] = map_cr('<cmd>lua require"telescope".extensions.dap.list_breakpoints{}'):with_noremap():with_silent(),

@@ -40,6 +40,13 @@ function config.vim_dadbod_ui()
 end
 
 function config.spectre()
+  -- lua require 'modules.tools.config'.spectre()
+  if not packer_plugins['spectre'] then
+    vim.cmd [[packadd plenary.nvim]]
+    vim.cmd [[packadd popup.nvim]]
+    vim.cmd [[packadd nvim-spectre]]
+  end
+
   -- body
   vim.cmd([[nnoremap <leader>S :lua require('spectre').open()<CR>]])
 
@@ -48,6 +55,7 @@ function config.spectre()
   vim.cmd([[vnoremap <leader>s :lua require('spectre').open_visual()<CR>]])
    -- "  search in current file
   vim.cmd([[nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>]])
+  require'spectre'.setup()
 end
 
 function config.vim_vista()
@@ -69,6 +77,13 @@ function config.vim_vista()
   --   function = "",
   --   variable = "כֿ",
   -- }
+end
+
+
+function config.far()
+  -- body
+  vim.g['far#source']='rgnvim'
+  vim.g['far#cmdparse_mode'] ='shell'
 end
 
 function config.clap()
@@ -118,7 +133,8 @@ function config.gitsigns()
       interval = 1000
     },
     sign_priority = 6,
-    status_formatter = nil -- Use default
+    status_formatter = nil, -- Use default
+    debug_mode=true,
   }
 end
 
@@ -143,13 +159,17 @@ function config.markdown()
   }
 end
 
-function config.floatterm()
+function config.floaterm()
 -- Set floaterm window's background to black
 -- Set floating window border line color to cyan, and background to orange
+vim.g.floaterm_wintype = 'float'
+vim.g.floaterm_width = 0.9
+vim.g.floaterm_height =0.9
 vim.cmd("hi Floaterm guibg=black")
 -- vim.cmd('hi FloatermBorder guibg=orange guifg=cyan')
 vim.cmd("command! FZF FloatermNew fzf")
 vim.cmd("command! NNN FloatermNew --height=0.96 --width=0.96 nnn")
+vim.cmd("command! FN FloatermNew --height=0.96 --width=0.96")
 vim.cmd("command! LG FloatermNew --height=0.96 --width=0.96 lazygit" )
 vim.cmd(
   "command! Ranger FloatermNew --height=0.96 --width=0.96 ranger"

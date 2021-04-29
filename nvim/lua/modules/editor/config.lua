@@ -8,17 +8,135 @@ function config.delimimate()
   vim.api.nvim_command('au FileType markdown let b:delimitMate_nesting_quotes = ["`"]')
 end
 
--- function config.nvim_colorizer()
---   require 'colorizer'.setup {
---     '*';
---     css = { rgb_fn = true; };
---     scss = { rgb_fn = true; };
---     sass = { rgb_fn = true; };
---     stylus = { rgb_fn = true; };
---     vim = { names = true; };
---     tmux = { names = false; };
---   }
--- end
+function config.autopairs()
+  -- body
+  local remap = vim.api.nvim_set_keymap
+  local npairs = require('nvim-autopairs')
+  local Rule = require('nvim-autopairs.rule')
+  local ts_conds = require('nvim-autopairs.ts-conds')
+  require('nvim-autopairs').setup({
+    disable_filetype = { "TelescopePrompt" , "guihua", "clap_input" },
+  })
+
+  -- skip it, if you use another global object
+  _G.MUtils= {}
+
+  vim.g.completion_confirm_key = ""
+  MUtils.completion_confirm=function()
+    if vim.fn.pumvisible() ~= 0  then
+      if vim.fn.complete_info()["selected"] ~= -1 then
+        return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+      else
+        return npairs.esc("<cr>")
+      end
+    else
+      return npairs.autopairs_cr()
+    end
+
+  end
+
+
+  remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+
+  npairs.setup({
+      check_ts = true,
+      ts_config = {
+          lua = {'string'},-- it will not add pair on that treesitter node
+          -- go = {'string'},
+          javascript = {'template_string'},
+          java = false,-- don't check treesitter on java
+      }
+  })
+
+  require('nvim-treesitter.configs').setup {
+      autopairs = {enable = true}
+  }
+
+  -- press % => %% is only inside comment or string
+  -- npairs.add_rules({Rule("(", ")", {'go'}):with_pair(cond.not_before_regex_check("[a-zA-Z]"))})
+  -- npairs.add_rules({
+  --   Rule("\"", "\"")
+  --     -- don't add a pair if  the previous character is xxx
+  --     :with_pair(cond.not_before_regex_check("[a-zA-Z]"))
+  --   },
+  -- )
+
+end
+
+local esc = function(cmd)
+    return vim.api.nvim_replace_termcodes(cmd, true, false, true)
+end
+function config.pears()
+  -- print("pear")
+  -- vim.cmd([[augroup pears | exe "au! InsertEnter * ++once lua require('modules.editor.config').pears_setup()" | augroup END]])
+  -- body
+
+end
+
+-- still not working with compe ATM
+function config.pears_setup()
+  -- body  
+  -- if not packer_plugins['pears'] or not packer_plugins['pears'].loaded then
+  --   vim.cmd [[packadd pears.nvim]]
+  -- end
+  -- vim.cmd [[packadd pears.nvim]]  
+  vim.g.completion_confirm_key = ""
+
+  local has_pears,pears = pcall(require,'pears')
+  if not has_pears then return end
+  pears.setup(function(conf)
+    print('pear setup')
+    local fts ={'NvimTree', 'clap_input', 'guihua'}
+    conf.disabled_filetypes({'NvimTree', 'clap_input', 'guihua'})
+    conf.on_enter(function(pears_handle)
+      -- for i = 1, #fts do
+      --   print(vim.bo.filetype, fts[i])
+      --   if vim.bo.filetype == fts[i] then
+      --     return esc("<CR>")
+      --   end
+      -- end
+
+      -- if vim.fn.pumvisible() ~= 0 then
+      --   if vim.fn.complete_info().selected ~= -1 then
+      --     return vim.fn["compe#confirm"](esc("<CR>"))
+      --   else
+      --     return esc("<CR>")
+      --   end
+      -- else
+      --   pears_handle()
+      -- end
+      require "pears".setup(function(conf)
+        conf.on_enter(function(pears_handle)
+          if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
+            return vim.fn["compe#confirm"]("<CR>")
+          else
+            pears_handle()
+          end
+        end)
+      end)
+    end) -- on-enter
+  end)
+  local R = require "pears.rule"
+  pears.setup(function(conf)
+    conf.pair("'", {
+      close = "'",
+      should_expand = R.not_(R.start_of_context "[a-zA-Z0-9]")       -- Don't expand a quote if it comes after an alpha character
+    })
+    conf.pair("\"", {
+      close = "\"",
+      should_expand = R.not_(R.start_of_context "[a-zA-Z0-9]")
+    })
+    conf.pair("(", {
+      close = ")",
+      should_expand = R.not_(R.start_of_context "[a-zA-Z0-9]")
+    })
+    conf.pair("{", {
+      close = "}",
+      should_expand = R.not_(R.start_of_context "[a-zA-Z0-9]")
+    })
+  end)
+  -- require "pears".setup(function(conf) conf.pair("'", {close = "'",should_expand = require "pears.rule".not_(require "pears.rule".start_of_context "[a-zA-Z0-9]")})end)
+end
 
 function config.hexokinase()
   vim.g.Hexokinase_optInPatterns = {

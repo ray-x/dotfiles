@@ -47,7 +47,7 @@ tools["iamcco/markdown-preview.nvim"] = {
 -- nvim-toggleterm.lua ?
 tools["voldikss/vim-floaterm"] = {
   cmd = {"FloatermNew", "FloatermToggle"},
-  config = conf.floatterm,
+  config = conf.floaterm,
   opt = true
 }
 --
@@ -69,7 +69,9 @@ tools["rhysd/git-messenger.vim"] = {
 }
 
 tools["lewis6991/gitsigns.nvim"] = {
-  config = conf.gitsigns
+  config = conf.gitsigns,
+  -- keys = {']c', '[c'},
+  -- opt = true,
 }
 
 tools["f-person/git-blame.nvim"] = {
@@ -116,18 +118,15 @@ tools["prettier/vim-prettier"] = {
   opt = true
 }
 
--- tools["buoto/gotests-vim"] = {
---   ft = {"go"},
---   cmd = {"GoTests", "GoTestsAll"},
---   opt = true
--- }
 --
-tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite"}, config = conf.vim_test, opt = true}
-tools["windwp/nvim-spectre"] = {config = conf.spectre, opt=true, keys = {'<Leader>S','<Leader>s'}}
+tools["brooth/far.vim"] = {cmd = {"Farr", "Farf"}, config = conf.far, opt = true} --brooth/far.vim
+-- tools["windwp/nvim-spectre"] = {opt = true, config=conf.spectre, keys = {'<Leader>S', '<Leader>s'},requires = {{'nvim-lua/plenary.nvim'} , {'nvim-lua/popup.nvim'}}}
+tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite", "Ultest", "UltestNearest", "UltestSummary", "UltestDebugNearest"}, config = conf.vim_test, opt = true}
+
 
 tools["rcarriga/vim-ultest"] ={
   run = ":UpdateRemotePlugins", 
-  require = {"vim-test/vim-test"}, 
+  -- requires = {"vim-test/vim-test"}, 
   cmd = {"Ultest", "UltestNearest", "UltestSummary", "UltestDebugNearest"}, 
   opt = true
 }  --, requires = {"janko/vim-test"},

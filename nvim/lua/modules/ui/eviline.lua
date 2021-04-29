@@ -48,6 +48,7 @@ local current_lsp_function = function()
   local status, lspstatus = pcall(require, "lsp-status")
   if(status) then
     local current_func = lspstatus.status()
+    --print(current_func)
     local s, _ = string.find(current_func, '%(')
     if s == nil then return ' ' end
     local e, _ = string.find(current_func, '%)[^%)]*$')
@@ -62,31 +63,51 @@ local current_lsp_function = function()
 end
 
 local current_treesitter_function = function()
-  if not packer_plugins['nvim-treesitter'] or not packer_plugins['nvim-treesitter'].loaded then
+  if not packer_plugins['nvim-treesitter'] or vim.fn['nvim_treesitter#statusline'] == nil then
     return ' '
   end
-  local f = vim.fn['nvim_treesitter#statusline'](70)
-  local fun_name = string.format('%s', f)
+
+  local f = vim.fn['nvim_treesitter#statusline'](200)
+  local fun_name = string.format('%s', f)  -- convert to string, it may be a empty ts node
+
   -- print(string.find(fun_name, "vim.NIL"))
   if fun_name == 'vim.NIL' then
    return ' '
   end
-  return string.format(' %s()', fun_name)
+  if #fun_name > 70 then
+    fun_name = string.format('%-70s', fun_name)
+  end
+  return  ' ' .. fun_name
 end
+
+-- local current_function = function()
+--   if winwidth() < 40 then
+--     return ''
+--   end
+
+--   local ts = current_treesitter_function()
+
+--   if winwidth() < 120 and string.len(lsp) > 4 then
+--     local lsp = current_lsp_function()
+--     return lsp
+--   end
+--   if string.len(ts) < 3 then
+--     return lsp .. ' '
+--   end
+--   return string.sub(string.sub(lsp, 1, 3) .. ' ' .. ts, 1, winwidth()/2)
+-- end
 
 local current_function = function()
   if winwidth() < 40 then
     return ''
   end
-  local lsp = current_lsp_function()
+
   local ts = current_treesitter_function()
-  if winwidth() < 120 and string.len(lsp) > 4 then
-    return lsp
-  end
+
   if string.len(ts) < 3 then
-    return lsp .. ' '
+    return ' '
   end
-  return string.sub(string.sub(lsp, 1, 3) .. ' ' .. ts, 1, winwidth()/2)
+  return string.sub(' ' .. ts, 1, winwidth()/2)
 end
 
 local current_function_buf = function(_, buffer)

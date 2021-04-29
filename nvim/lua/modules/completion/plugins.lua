@@ -50,27 +50,33 @@ completion['mattn/emmet-vim'] = {
   config = conf.emmet,
 }
 
-completion['RRethy/vim-illuminate'] = {
-  event = 'InsertEnter',
-  config = function()
-    vim.g.Illuminate_delay = 200
-    vim.g.Illuminate_ftblacklist = {'nerdtree', 'nvimtree', 'vista'}
-    vim.api.nvim_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
-    vim.api.nvim_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
-  end
-}
+-- completion['RRethy/vim-illuminate'] = {
+--   event = 'InsertEnter',
+--   config = function()
+--     vim.g.Illuminate_delay = 200
+--     vim.g.Illuminate_ftblacklist = {'nerdtree', 'nvimtree', 'vista'}
+--     vim.api.nvim_set_keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', {noremap=true})
+--     vim.api.nvim_set_keymap('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', {noremap=true})
+--   end
+-- }
 -- enable for workstation....
 -- completion['tzachar/compe-tabnine'] = {
 --   event = 'InsertEnter',
 --   run = './install.sh',
 --   opt=true,
 -- }
-completion['nvim-lua/lsp-status.nvim'] = {
-  opt=false,
-}
+-- completion['nvim-lua/lsp-status.nvim'] = {
+--   opt=true,
+-- }
 
 completion['/Users/ray.xu/github/lsp_signature.nvim'] = {
-  config = function() require "lsp_signature".on_attach() end
+  config = function() require "lsp_signature".on_attach({
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      handler_opts = {
+        border = "single"
+      }
+    })
+ end
 }
 -- completion['ray-x/lsp_signature.nvim'] = {
 --   config = function() require "lsp_signature".on_attach() end

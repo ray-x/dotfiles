@@ -8,7 +8,7 @@ require('keymap.config')
 local plug_map = {
     ["i|<TAB>"]      = map_cmd('v:lua.tab_complete()'):with_expr():with_silent(),
     ["i|<S-TAB>"]    = map_cmd('v:lua.s_tab_complete()'):with_silent():with_expr(),
-    ["i|<CR>"]       = map_cmd([[compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })]]):with_noremap():with_expr():with_nowait(),
+    --["i|<CR>"]       = map_cmd([[compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })]]):with_noremap():with_expr():with_nowait(),
     -- person keymap
     ["n|mf"]             = map_cr("<cmd>lua require('internal.fsevent').file_event()<CR>"):with_silent():with_nowait():with_noremap();
     -- Lsp mapp work when insertenter and lsp start
@@ -64,9 +64,9 @@ local plug_map = {
     ["n|<Leader>fd"]     = map_cu('Telescope dotfiles path='..os.getenv("HOME")..'/.dotfiles'):with_noremap():with_silent(),
     ["n|<Leader>fs"]     = map_cu('Telescope gosource'):with_noremap():with_silent(),
     -- prodoc
-    ["n|gcc"]            = map_cu('ProComment'):with_noremap():with_silent(),
-    ["x|gcc"]            = map_cr('ProComment'),
-    ["n|gcj"]            = map_cu('ProDoc'):with_silent():with_silent(),
+    -- ["n|gcc"]            = map_cu('ProComment'):with_noremap():with_silent(),
+    -- ["x|gcc"]            = map_cr('ProComment'),
+    -- ["n|gcj"]            = map_cu('ProDoc'):with_silent():with_silent(),
     -- Plugin acceleratedjk
     ["n|j"]              = map_cmd('v:lua.enhance_jk_move("j")'):with_silent():with_expr(),
     ["n|k"]              = map_cmd('v:lua.enhance_jk_move("k")'):with_silent():with_expr(),

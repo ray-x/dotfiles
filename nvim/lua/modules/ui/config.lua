@@ -110,8 +110,8 @@ function config.nvim_tree()
   vim.g.nvim_tree_width = 28
   vim.g.nvim_tree_auto_close = 1
   vim.g.nvim_tree_git_hl = 1
-  nvim_tree_auto_open = 1
-  nvim_tree_lsp_diagnostics = 1
+  vim.g.nvim_tree_auto_open = 1
+  vim.g.nvim_tree_lsp_diagnostics = 1
   vim.g.nvim_tree_width_allow_resize  = 1
   vim.g.nvim_tree_tab_open = 1
   vim.g.nvim_tree_bindings = {
@@ -140,8 +140,8 @@ function config.nvim_tree()
       symlink_open = "",
       },
     lsp = {
-      hint = "👨‍⚕️",
-      info = "👩",
+      hint = "",
+      info = "",
       warning = "☣️",
       error = "🈲",
     }
@@ -175,13 +175,18 @@ function config.scrollbar()
   vim.g.sb_bar_style = "solid"
 end
 
-function config.indentline()
-  -- body
-  vim.g.indentLine_color_gui = '#34453E'
-  vim.g.indentLine_color_dark = 1 -- (default: 2)
-  vim.g.indentLine_char_list = {'', '┊', '┆', '¦', '|', '¦', '┆', '┊', ''}
-  vim.g.indentLine_enabled = 1
+function config.scrollview()
+  if vim.wo.diff then
+    return
+  end
+  local w = vim.api.nvim_call_function('winwidth', {0})
+  if w < 70 then
+    return
+  end
+
+  vim.g.scrollview_column=1
 end
+
 
 function config.interestingwords()
   vim.g.interestingWordsDefaultMappingsK=0
@@ -252,5 +257,3 @@ function config.minimap()
   end
 end
 return config
-
-
