@@ -84,12 +84,16 @@ tools["f-person/git-blame.nvim"] = {
 }
 tools["tpope/vim-fugitive"] = {cmd = {"Gvsplit", "Git", "Gedit", "Gstatus", "Gdiffsplit", "Gvdiffsplit"}, opt = true}
 
+-- tools["tpope/vim-obsession"] ={} -- for prosession
 tools["dhruvasagar/vim-prosession"] = {
-  requires = {"tpope/vim-obsession"},
-  setup = function()
+  -- event = "BufReadPre",
+  requires = {"tpope/vim-obsession", opt=false},
+  -- after = 'vim-obsession',
+  config = function()
     vim.g.prosession_on_startup = 1
     vim.g.prosession_dir = "~/.vim/session/"
-  end
+  end,
+  opt = false,
 }
 
 tools["prettier/vim-prettier"] = {

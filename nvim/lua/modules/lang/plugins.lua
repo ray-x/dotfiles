@@ -2,16 +2,17 @@ local lang = {}
 local conf = require("modules.lang.config")
 
 lang["nvim-treesitter/nvim-treesitter"] = {
-    -- config = conf.nvim_treesitter,
+    event = "BufEnter",
+    config = conf.nvim_treesitter,
     opt = true,
 }
 
 lang["nvim-treesitter/nvim-treesitter-textobjects"] = {
-    -- after = "nvim-treesitter",
+    after = "nvim-treesitter",
     opt = true,
 }
 lang["nvim-treesitter/nvim-treesitter-refactor"] = {
-    -- after = "nvim-treesitter",
+    after = "nvim-treesitter",
     opt = true,
 }
 
@@ -50,7 +51,7 @@ lang['/Users/ray.xu/github/go.nvim'] = {
 
 lang['/Users/ray.xu/github/navigator.lua'] = {
   requires = {'/Users/ray.xu/github/guihua.lua'},
-  setup = conf.navigator
+  config = conf.navigator
 }
 -- lang['ray-x/navigator.lua'] = {
 --   requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
@@ -104,8 +105,14 @@ lang["michaelb/sniprun"] = {
 }
 
 lang['gennaro-tedesco/nvim-jqx'] = {opt = true, cmd = {'JqxList', 'JqxQuery'},}
-lang['windwp/nvim-ts-autotag'] = { opt = true,
-  -- config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end
+lang['windwp/nvim-ts-autotag'] = { opt = true, after = "nvim-treesitter",
+  config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end
 }
-lang['p00f/nvim-ts-rainbow'] = { opt = true }
+lang['p00f/nvim-ts-rainbow'] = { opt = true, 
+  after = "nvim-treesitter",
+  -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+  config = function() 
+    require'nvim-treesitter.configs'.setup {rainbow = {enable = true, extended_mode = true}}
+  end
+}
 return lang

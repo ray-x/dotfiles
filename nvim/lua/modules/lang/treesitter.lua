@@ -1,21 +1,11 @@
 local treesitter = function()
-  print("loading ts")
+  -- print("loading ts")
   if vim.fn.line('$') > 20000 then  -- skip for large file
     vim.cmd[[syntax on]]
     print('skip treesitter')
     return 
   end
-  print('load treesitter', vim.fn.line('$'))
-  if not packer_plugins['nvim-treesitter'] or not packer_plugins['nvim-treesitter'].loaded then
-    vim.cmd [[packadd nvim-treesitter]]
-  end
-  if not packer_plugins['nvim-treesitter-textobjects'] or not packer_plugins['nvim-treesitter-textobjects'].loaded then
-    vim.cmd [[packadd nvim-treesitter-textobjects]]
-  end
-  if not packer_plugins['nvim-treesitter-refactor'] or not packer_plugins['nvim-treesitter-refactor'].loaded then
-    vim.cmd [[packadd nvim-treesitter-refactor]]
-  end
-
+  -- print('load treesitter', vim.fn.line('$'))
 
   require "nvim-treesitter.configs".setup {
     highlight = {
@@ -147,42 +137,7 @@ local treesitter = function()
     --{ "go", "css", "html", "javascript", "typescript", "jsdoc", "json", "c", "java", "toml", "tsx", "lua", "cpp", "python", "rust", "jsonc", "dart", "css", "yaml", "vue"}
   }
 
-  if packer_plugins['nvim-ts-autotag'] and not packer_plugins['nvim-ts-autotag'].loaded then
-    require'nvim-treesitter.configs'.setup {
-      autotag = {
-        enable = true,
-      }
-    }
-    vim.cmd [[packadd nvim-ts-autotag]]
-    packer_plugins['nvim-ts-autotag'] = {loaded=true}
-  end
-  if packer_plugins['nvim-ts-rainbow'] and not packer_plugins['nvim-ts-rainbow'].loaded then
-    require'nvim-treesitter.configs'.setup {
-      rainbow = {
-        enable = false,
-        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-      }
-    }
-    vim.cmd [[packadd nvim-ts-rainbow]]
-    packer_plugins['nvim-ts-rainbow'] = {loaded=true}
-  end
-
-  require('modules.ui.config').blankline()
-  if not packer_plugins['indent-blankline.nvim'] or not packer_plugins['indent-blankline.nvim'].loaded then
-    vim.cmd [[packadd indent-blankline.nvim]]
-    packer_plugins['indent-blankline.nvim'] = {loaded=true}
-  end
-  vim.api.nvim_command('IndentBlanklineEnableAll')
-
-  -- if packer_plugins['windwp/nvim-autopairs'] == nil or not packer_plugins['windwp/nvim-autopairs'].loaded then
-  --   vim.cmd [[packadd nvim-autopairs]]
-  --   packer_plugins['windwp/nvim-autopairs'] = {loaded=true}
-  -- end
-  -- require('modules.editor.config').autopairs()
-
-  -- vim.cmd [[packadd pears.nvim]]
-  -- require('modules.editor.config').pears_setup()
 end
 
-treesitter()
+-- treesitter()
 return {treesitter = treesitter}

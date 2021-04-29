@@ -76,7 +76,8 @@ editor['mg979/vim-visual-multi']  = {
 
 editor['phaazon/hop.nvim']  = {
   as = 'hop',
-  setup = function()
+  keys = {'e', '?', 'n', '$'},
+  config = function()
     -- you can configure Hop the way you like here; see :h hop-config
     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
   end
