@@ -3,22 +3,24 @@ local conf = require("modules.lang.config")
 
 lang["nvim-treesitter/nvim-treesitter"] = {
     event = "BufEnter",
-    config = conf.nvim_treesitter,
     opt = true,
 }
 
 lang["nvim-treesitter/nvim-treesitter-textobjects"] = {
     after = "nvim-treesitter",
+    --config = conf.nvim_treesitter,
     opt = true,
 }
 lang["nvim-treesitter/nvim-treesitter-refactor"] = {
-    after = "nvim-treesitter",
+    after = "nvim-treesitter-textobjects",
+    config = conf.nvim_treesitter,   -- let the last loaded config treesitter
     opt = true,
 }
 
 lang["w0rp/ale"] = {
-    event = "BufEnter", --BufWritePre
+    -- event = "BufEnter", --BufWritePre
     cmd = {"ALEEnable", "ALEFix"},
+    ft = {"sql", "pgsql", "markdown"},
     -- after = 'telescope.nvim',
     setup = conf.ale,
     opt = true
@@ -49,10 +51,10 @@ lang['/Users/ray.xu/github/go.nvim'] = {
   config = conf.go,
 }
 
-lang['/Users/ray.xu/github/navigator.lua'] = {
-  requires = {'/Users/ray.xu/github/guihua.lua'},
-  config = conf.navigator
-}
+-- lang['/Users/ray.xu/github/navigator.lua'] = {
+--   requires = {'/Users/ray.xu/github/guihua.lua'},
+--   config = conf.navigator
+-- }
 -- lang['ray-x/navigator.lua'] = {
 --   requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
 --   setup = conf.navigator
@@ -103,11 +105,13 @@ lang["michaelb/sniprun"] = {
 -- })
 --end
 }
-
+-- JqxList and JqxQuery json browsering
 lang['gennaro-tedesco/nvim-jqx'] = {opt = true, cmd = {'JqxList', 'JqxQuery'},}
+
 lang['windwp/nvim-ts-autotag'] = { opt = true, after = "nvim-treesitter",
   config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end
 }
+
 lang['p00f/nvim-ts-rainbow'] = { opt = true,
   after = "nvim-treesitter",
   -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean

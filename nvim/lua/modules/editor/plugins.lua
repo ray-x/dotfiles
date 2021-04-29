@@ -19,9 +19,6 @@ editor['windwp/nvim-autopairs'] = {
   --opt = true
 }
 
-editor['rhysd/accelerated-jk'] = {
-  opt=true
-}
 editor['tpope/vim-surround'] ={
   opt=true,
   event = 'InsertEnter',
@@ -34,6 +31,7 @@ editor['steelsojka/pears.nvim'] = {
   config =  conf.pears_setup(),
   opt=true
 }
+
 -- editor['/Users/ray.xu/github/pears.nvim'] = {
 --   -- keys = {{'(','[', '<', '{'}},
 --   -- event = 'InsertEnter',
@@ -66,7 +64,7 @@ editor['rrethy/vim-hexokinase'] = {
 -- }
 
 editor['kevinhwang91/nvim-hlslens'] = {
-  keys = {'/', '?', 'n', 'N', '*', '#', 'g'},
+  keys = {'/', '?'}, --'n', 'N', '*', '#', 'g'
   opt = true,
   config = conf.hlslens
 }
@@ -85,13 +83,14 @@ editor['phaazon/hop.nvim']  = {
   config = function()
     -- you can configure Hop the way you like here; see :h hop-config
     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    vim.api.nvim_set_keymap('n', '$', "<cmd>lua require'hop'.hint_words()<cr>", {})
+    -- vim.api.nvim_set_keymap('n', '$', "<cmd>lua require'hop'.hint_words()<cr>", {})
   end
 }
 
 editor['preservim/nerdcommenter'] = {
-  cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
-  keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
+  cmd = {'NERDCommenterComment', 'NERDCommenterToggle', 'NERDCommenterNested', 'NERDCommenterInvert', 'NERDCommenterSexy'},
+  -- keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
+  -- keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
   setup = conf.nerdcommenter,
   opt = true,
 }
@@ -118,8 +117,12 @@ end}
 -- end
 -- }
 editor['mbbill/undotree']  = {opt = true, cmd = {'UndotreeToggle'}}
-editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
+editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'<space>S', '<space>J'}}
 -- editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
-editor['chaoren/vim-wordmotion'] = {opt = true, keys = {'w','W', 'gE', 'aW'}}
+editor['chaoren/vim-wordmotion'] = {
+  opt = true, 
+  fn = {'<Plug>WordMotion_w'}
+  -- keys = {'w','W', 'gE', 'aW'}
+}
 -- chaoren/vim-wordmotion
 return editor

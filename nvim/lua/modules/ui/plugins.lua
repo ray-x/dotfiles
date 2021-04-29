@@ -38,7 +38,6 @@ ui['wfxr/minimap.vim'] = {
 
 ui['kyazdani42/nvim-tree.lua'] = {
   cmd = {'NvimTreeToggle','NvimTreeOpen'},
-  keys = {'<F1>', '<F13>'},
   requires = {'kyazdani42/nvim-web-devicons'},
   setup = conf.nvim_tree,
 }
@@ -46,6 +45,7 @@ ui['kyazdani42/nvim-tree.lua'] = {
 
 ui['lukas-reineke/indent-blankline.nvim'] = {setup=conf.blankline, after="nvim-treesitter", branch = 'lua', opt = true}
 
+-- replaced by nl
 ui['ray-x/vim-interestingwords'] = { keys =  {'<Leader>u'}, config = conf.interestingwords, opt = true}
 
 ui['ray-x/aurora'] = {config = conf.theme}

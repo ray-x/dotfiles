@@ -33,6 +33,8 @@ M={}
 -- require('lsp.mappings').setup(cfg)
 -- return M
 
+local configs = require 'lspconfig/configs'
+local lspconfig = require 'lspconfig'
 
 local stylelint = {
   lintCommand = 'stylelint --stdin --stdin-filename ${INPUT} --formatter compact',
@@ -45,31 +47,84 @@ local stylelint = {
   formatCommand = 'stylelint --fix --stdin --stdin-filename ${INPUT}',
   formatStdin = true,
 }
-require'lspconfig'.efm.setup {
-  cmd = { 'efm-langserver' },
-  init_options = {
-    documentFormatting = true,
-    rename = false,
-    hover = false,
-    completion = false,
-  },
-  filetypes = { 'typescript', 'typescriptreact' },
-  settings = {
-    rootMarkers = { '.git', 'package.json' },
-    languages = {
-      typescript = { stylelint },
-      typescriptreact = { stylelint },
-      lua = {
-                {formatCommand = "lua-format -i", formatStdin = true}
-      }
-    },
-  },
+local prettier = {
+  formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}",
+  formatStdin = true
 }
 
-require'lspconfig'.stylelint_lsp.setup{
-  settings = {
-    stylelintplus = {
-      -- see available options in stylelint-lsp documentation
-    }
-  }
+local eslint_d = {
+    lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+    lintStdin = true,
+    lintFormats = {"%f:%l:%c: %m"},
+    lintIgnoreExitCode = true,
+    formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+    formatStdin = true
 }
+local rustfmt = {
+  formatCommand = "rustfmt",
+  formatStdin = true
+}
+---  , '-c', '/Users/ray.xu/.config/efm-langserver/config.yaml' 
+-- require'lspconfig'.efm.setup {
+--   cmd = { 'efm-langserver'},
+--   init_options = {
+--     documentFormatting = true,
+--     rename = false,
+--     hover = true,
+--     codeAction = true,
+--     completion = false,
+--   },
+--   filetypes = { "javascript", "javascriptreact", 'typescript', 'typescriptreact', 'lua', 'go' },
+--   settings = {
+--     rootMarkers = { '.git', 'package.json' },
+--     languages = {
+--       typescript = { {stylelint} , prettier },
+--       typescriptreact = { stylelint, prettier },
+--       lua = { {formatCommand = "lua-format --tab-width=2 -i", formatStdin = true}},
+--       go = { {formatCommand = "golines --max-len=120  --base-formatter=gofumpt", formatStdin = true} },
+--       javascript = {eslint_d},
+--       javascriptreact = {eslint_d},
+--      -- python = { python-flake8 },
+--     },
+--   },
+-- }
+
+-- require'lspconfig'.stylelint_lsp.setup{stylelint
+--   settings = {
+--     stylelintplus = {
+--       -- see available options in stylelint-lsp documentation
+--     }
+--   }
+-- }
+
+if not lspconfig.golangcilsp then
+  configs.golangcilsp = {
+    default_config = {
+      cmd = {'golangci-lint-langserver'},
+      root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
+      init_options = {
+          command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json" };
+      }
+    };
+  }
+end
+
+lspconfig.golangcilsp.setup {
+  filetypes = {'go'}
+}
+
+
+local rust_cfg = {
+    filetypes = { "rust" },
+    root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {importMergeBehavior = "last", importPrefix = "by_self"},
+            cargo = {loadOutDirsFromCheck = true},
+            procMacro = {enable = true}
+        }
+    }
+}
+lspconfig.rust_analyzer.setup(rust_cfg)
+
+return M

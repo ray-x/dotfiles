@@ -47,14 +47,15 @@ local keys = {
   ["n|<Leader>fb"] = map_cu("Clap marks"):with_noremap():with_silent(),
   ["n|<C-x><C-f>"] = map_cu("Clap filer"):with_noremap():with_silent(),
   ["n|<Leader>ff"] = map_cu("Clap files ++finder=rg --ignore --hidden --files"):with_noremap():with_silent(),
-  ["n|<M-g>"] = map_cu("Clap gfiles"):with_noremap():with_silent(),
+  ["n|<M-g>"]      = map_cu("Clap gfiles"):with_noremap():with_silent(),
   ["n|<Leader>fw"] = map_cu("Clap grep ++query=<Cword>"):with_noremap():with_silent(),
-  ["n|<M-h>"] = map_cu("Clap history"):with_noremap():with_silent(),
+  ["n|<M-h>"]      = map_cu("Clap history"):with_noremap():with_silent(),
   ["n|<Leader>fW"] = map_cu("Clap windows"):with_noremap():with_silent(),
   ["n|<Leader>fl"] = map_cu("Clap loclist"):with_noremap():with_silent(),
   ["n|<Leader>fu"] = map_cu("Clap git_diff_files"):with_noremap():with_silent(),
   ["n|<Leader>fv"] = map_cu("Clap grep ++query=@visual"):with_noremap():with_silent(),
   ["n|<Leader>fd"] = map_cu("Clap dotfiles"):with_noremap():with_silent(),
+
 
   ["n|<Leader>bp"] = map_cu("BufferLinePick"):with_noremap():with_silent(),
   
@@ -92,7 +93,13 @@ local keys = {
   -- Plugin SplitJoin
   ["n|<m-j>"] = map_cr("SplitjoinJoin"),
   ["n|<m-s>"] = map_cr("SplitjoinSplit"),
-  ["n|;"] = map_cmd("<Plug>Sneak_;"):with_silent()
+  ["n|<F13>"] = map_cr("NvimTreeToggle"),
+  ["n|<Leader>w"] = map_cr("HopWord"),
+  ["n|<Leader>j"] = map_cr("HopLine"),
+  ["n|<Leader>F"] = map_cr("HopChar1"),
+  ["n|<Leader>S"] = map_cr("HopChar2"),
+
+  -- ["n|;"] = map_cmd("<Plug>Sneak_;"):with_silent()
 }
 --
 -- undo leader mapping

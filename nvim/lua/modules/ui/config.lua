@@ -102,8 +102,6 @@ end
 -- end
 
 function config.nvim_tree()
-  vim.cmd([[nmap <F13> :NvimTreeToggle<CR>]])
-  vim.cmd([[autocmd Filetype NvimTree set cursorline]])
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
@@ -146,7 +144,9 @@ function config.nvim_tree()
       error = "🈲",
     }
   }
+  -- vim.cmd([[autocmd Filetype NvimTree set cursorline]])
 end
+
 
 -- function config.vim_signify()
 --   vim.g.signify_sign_add = '▋'
