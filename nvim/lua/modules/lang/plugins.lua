@@ -101,17 +101,17 @@ lang["michaelb/sniprun"] = {
 --   inline_messages = 1             --" inline_message (0/1) is a one-line way to display messages
 --                                   --" to workaround sniprun not being able to display anything
 -- })
---end 
+--end
 }
 
 lang['gennaro-tedesco/nvim-jqx'] = {opt = true, cmd = {'JqxList', 'JqxQuery'},}
 lang['windwp/nvim-ts-autotag'] = { opt = true, after = "nvim-treesitter",
   config = function() require'nvim-treesitter.configs'.setup {autotag = {enable = true}} end
 }
-lang['p00f/nvim-ts-rainbow'] = { opt = true, 
+lang['p00f/nvim-ts-rainbow'] = { opt = true,
   after = "nvim-treesitter",
   -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-  config = function() 
+  config = function()
     require'nvim-treesitter.configs'.setup {rainbow = {enable = true, extended_mode = true}}
   end
 }

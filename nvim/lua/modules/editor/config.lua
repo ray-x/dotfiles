@@ -10,14 +10,17 @@ end
 
 function config.autopairs()
   -- body
-  local remap = vim.api.nvim_set_keymap
+  -- print("autopair")
+  -- lua require'modules.editor.config'.autopairs()
+  -- vim.cmd([[packadd nvim-autopairs]]) -- trying reload
   local npairs = require('nvim-autopairs')
   local Rule = require('nvim-autopairs.rule')
-  local ts_conds = require('nvim-autopairs.ts-conds')
-  require('nvim-autopairs').setup({
+  npairs.setup({
     disable_filetype = { "TelescopePrompt" , "guihua", "clap_input" },
+    autopairs = {enable = true},
+    check_ts = false,
   })
-
+  -- npairs.setup()
   -- skip it, if you use another global object
   _G.MUtils= {}
 
@@ -35,31 +38,19 @@ function config.autopairs()
 
   end
 
-
+  local remap = vim.api.nvim_set_keymap
   remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
 
-  npairs.setup({
-      check_ts = true,
-      ts_config = {
-          lua = {'string'},-- it will not add pair on that treesitter node
-          -- go = {'string'},
-          javascript = {'template_string'},
-          java = false,-- don't check treesitter on java
-      }
-  })
+  -- npairs.setup({
+  --     check_ts = true,
+  --     ts_config = {
+  --         lua = {'string'},-- it will not add pair on that treesitter node
+  --         -- go = {'string'},
+  --         javascript = {'template_string'},
+  --         java = false,-- don't check treesitter on java
+  --     }
+  -- })
 
-  require('nvim-treesitter.configs').setup {
-      autopairs = {enable = true}
-  }
-
-  -- press % => %% is only inside comment or string
-  -- npairs.add_rules({Rule("(", ")", {'go'}):with_pair(cond.not_before_regex_check("[a-zA-Z]"))})
-  -- npairs.add_rules({
-  --   Rule("\"", "\"")
-  --     -- don't add a pair if  the previous character is xxx
-  --     :with_pair(cond.not_before_regex_check("[a-zA-Z]"))
-  --   },
-  -- )
 
 end
 

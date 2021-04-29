@@ -1,21 +1,22 @@
 local treesitter = function()
   -- print("loading ts")
+  local enable = true
   if vim.fn.line('$') > 20000 then  -- skip for large file
     vim.cmd[[syntax on]]
     print('skip treesitter')
-    return 
+    enable = false
   end
   -- print('load treesitter', vim.fn.line('$'))
 
   require "nvim-treesitter.configs".setup {
     highlight = {
-      enable = true, -- false will disable the whole extension
+      enable = enable, -- false will disable the whole extension
       disable = {"elm"}, -- list of language that will be disabled
       custom_captures = {},
       use_languagetree = true
     },
     incremental_selection = {
-      enable = true,
+      enable = enable,
       disable = {"elm"},
       keymaps = {
         -- mappings for incremental selection (visual mappings)
@@ -27,19 +28,19 @@ local treesitter = function()
     },
     refactor = {
       highlight_definitions = {
-        enable = true
+        enable = enable
       },
       highlight_current_scope = {
-        enable = true
+        enable = enable
       },
       smart_rename = {
-        enable = true,
+        enable = enable,
         keymaps = {
           smart_rename = "grr" -- mapping to rename reference under cursor
         }
       },
       navigation = {
-        enable = true,
+        enable = enable,
         keymaps = {
           goto_definition = "gnd", -- mapping to go to definition of symbol under cursor
           list_definitions = "gnD", -- mapping to list all definitions in current file
@@ -51,10 +52,10 @@ local treesitter = function()
     },
     textobjects = {
       -- syntax-aware textobjects
-      enable = true,
+      enable = enable,
       disable = {"elm"},
       lsp_interop = {
-        enable = true,
+        enable = enable,
         peek_definition_code = {
           ["df"] = "@function.outer",
           ["dF"] = "@class.outer"
@@ -87,7 +88,7 @@ local treesitter = function()
         ["im"] = "@call.inner"
       },
       move = {
-        enable = true,
+        enable = enable,
         goto_next_start = {
           ["]m"] = "@function.outer",
           ["]]"] = "@class.outer"
@@ -106,7 +107,7 @@ local treesitter = function()
         }
       },
       select = {
-        enable = true,
+        enable = enable,
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
           ["af"] = "@function.outer",
@@ -124,7 +125,7 @@ local treesitter = function()
         }
       },
       swap = {
-        enable = true,
+        enable = enable,
         swap_next = {
           ["<leader>a"] = "@parameter.inner"
         },

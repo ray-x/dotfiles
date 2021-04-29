@@ -11,9 +11,12 @@ local conf = require('modules.editor.config')
 -- windwp/nvim-autopairs
 
 editor['windwp/nvim-autopairs'] = {
-  event = 'InsertEnter',
+  -- keys = {{'i', '('}},
+  -- keys = {{'i', '('}},
+  after = "nvim-treesitter",
+  -- event = 'InsertEnter',  -- not working!
   config = conf.autopairs,
-  opt = true
+  --opt = true
 }
 
 editor['rhysd/accelerated-jk'] = {
