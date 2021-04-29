@@ -73,13 +73,16 @@ editor['mg979/vim-visual-multi']  = {
   opt = true,
   setup = conf.vmulti,
 }
-
+-- EasyMotion in lua. -- maybe replace sneak
 editor['phaazon/hop.nvim']  = {
   as = 'hop',
-  keys = {'e', '?', 'n', '$'},
+  keys = {'$'},
+  cmd = {'HopWord', 'HopLine', 'HopChar1', 'HopChar2', 'HopPattern'},
+
   config = function()
     -- you can configure Hop the way you like here; see :h hop-config
     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    vim.api.nvim_set_keymap('n', '$', "<cmd>lua require'hop'.hint_words()<cr>", {})
   end
 }
 
@@ -104,10 +107,16 @@ editor['norcalli/nvim-terminal.lua']  = { opt = true, ft={'log', 'terminal'}, co
   require'terminal'.setup()
 end}
 
-editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'GundoToggle', 'GundoShow'}}
-editor['mbbill/undotree']  = {opt = true}
+-- python3 support is flaky
+-- editor['simnalamburt/vim-mundo']  = { opt = true, cmd ={'MundoToggle', 'MundoShow', 'MundoHide'},
+-- setup = function ()
+--   -- body
+--   vim.g.mundo_prefer_python3=1
+-- end
+-- }
+editor['mbbill/undotree']  = {opt = true, cmd = {'UndotreeToggle'}}
 editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'gS', 'gJ'}}
-editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
+-- editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
 editor['chaoren/vim-wordmotion'] = {opt = true, keys = {'w','W', 'gE', 'aW'}}
 -- chaoren/vim-wordmotion
 return editor
