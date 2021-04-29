@@ -19,7 +19,7 @@ lang["w0rp/ale"] = {
     event = "BufEnter", --BufWritePre
     cmd = {"ALEEnable", "ALEFix"},
     -- after = 'telescope.nvim',
-    config = conf.ale,
+    setup = conf.ale,
     opt = true
 }
 
@@ -29,7 +29,7 @@ lang["shmup/vim-sql-syntax"] = {
 
 lang["nanotee/sqls.nvim"] = {
     ft = {"sql", "pgsql"},
-    config = conf.sqls,
+    setup = conf.sqls,
     opt = true
 }
 
@@ -50,11 +50,11 @@ lang['/Users/ray.xu/github/go.nvim'] = {
 
 lang['/Users/ray.xu/github/navigator.lua'] = {
   requires = {'/Users/ray.xu/github/guihua.lua'},
-  config = conf.navigator
+  setup = conf.navigator
 }
 -- lang['ray-x/navigator.lua'] = {
 --   requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
---   config = conf.navigator
+--   setup = conf.navigator
 -- }
 
 -- lang["nvim-treesitter/playground"] = {
@@ -67,7 +67,7 @@ lang['/Users/ray.xu/github/navigator.lua'] = {
 lang["bfredl/nvim-luadev"] = {
     opt = true,
     cmd = "Luadev",
-    config = conf.luadev,
+    setup = conf.luadev,
 }
 lang['mfussenegger/nvim-dap'] = {
   config = conf.dap,

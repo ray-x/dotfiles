@@ -30,7 +30,7 @@ ui['wfxr/minimap.vim'] = {
   run = ':!cargo install --locked code-minimap',
   keys = {'<F14>'},
   cmd = {'Minimap', 'MinimapToggle'},
-  config = conf.minimap
+  setup = conf.minimap
 }
 -- ui['glepnir/dashboard-nvim'] = {
 --   config = conf.dashboard
@@ -40,11 +40,11 @@ ui['kyazdani42/nvim-tree.lua'] = {
   cmd = {'NvimTreeToggle','NvimTreeOpen'},
   keys = {'<F1>', '<F13>'},
   requires = {'kyazdani42/nvim-web-devicons'},
-  config = conf.nvim_tree,
+  setup = conf.nvim_tree,
 }
 
 
-ui['lukas-reineke/indent-blankline.nvim'] = {config=conf.blankline, branch = 'lua', opt = true}
+ui['lukas-reineke/indent-blankline.nvim'] = {setup=conf.blankline, branch = 'lua', opt = true}
 
 ui['ray-x/vim-interestingwords'] = { keys =  {'<Leader>u'}, config = conf.interestingwords, opt = true}
 

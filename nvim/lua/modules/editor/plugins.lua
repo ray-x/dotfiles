@@ -11,7 +11,7 @@ local conf = require('modules.editor.config')
 -- windwp/nvim-autopairs
 
 editor['windwp/nvim-autopairs'] = {
-  -- event = 'InsertEnter',
+  event = 'InsertEnter',
   config = conf.autopairs,
   opt = true
 }
@@ -71,12 +71,12 @@ editor['kevinhwang91/nvim-hlslens'] = {
 editor['mg979/vim-visual-multi']  = {
   keys = {'<C-n>','<M-n>','<S-Down>','<S-Up>','<M-Left>','<M-Right>','<M-D>','<M-Down>', '<C-d>', '<C-Down>', '<S-Right>', '<C-LeftMouse>', '<M-C-RightMouse>','<Leader>'},
   opt = true,
-  config = conf.vmulti,
+  setup = conf.vmulti,
 }
 
 editor['phaazon/hop.nvim']  = {
   as = 'hop',
-  config = function()
+  setup = function()
     -- you can configure Hop the way you like here; see :h hop-config
     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
   end
@@ -85,14 +85,14 @@ editor['phaazon/hop.nvim']  = {
 editor['preservim/nerdcommenter'] = {
   cmd = {'NERDCommenterComment', 'NERDCommenterToggle'},
   keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
-  config = conf.nerdcommenter,
+  setup = conf.nerdcommenter,
   opt = true,
 }
 -- copy paste failed in block mode when clipboard = unnameplus"
 editor['bfredl/nvim-miniyank']  = {
   keys = {'p','y', '<C-v>'},
   opt = true,
-  config = function ()
+  setup = function ()
     vim.api.nvim_command('map p <Plug>(miniyank-autoput)')
     vim.api.nvim_command('map P <Plug>(miniyank-autoPut)')
   end

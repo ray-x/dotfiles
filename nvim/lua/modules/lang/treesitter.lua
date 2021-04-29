@@ -174,11 +174,11 @@ local treesitter = function()
   end
   vim.api.nvim_command('IndentBlanklineEnableAll')
 
-  if packer_plugins['windwp/nvim-autopairs'] == nil or not packer_plugins['windwp/nvim-autopairs'].loaded then
-    vim.cmd [[packadd nvim-autopairs]]
-    packer_plugins['windwp/nvim-autopairs'] = {loaded=true}
-  end
-  require('modules.editor.config').autopairs()
+  -- if packer_plugins['windwp/nvim-autopairs'] == nil or not packer_plugins['windwp/nvim-autopairs'].loaded then
+  --   vim.cmd [[packadd nvim-autopairs]]
+  --   packer_plugins['windwp/nvim-autopairs'] = {loaded=true}
+  -- end
+  -- require('modules.editor.config').autopairs()
 
   -- vim.cmd [[packadd pears.nvim]]
   -- require('modules.editor.config').pears_setup()

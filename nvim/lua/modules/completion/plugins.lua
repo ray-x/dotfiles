@@ -5,7 +5,7 @@ completion['neovim/nvim-lspconfig'] = {
   -- event = 'BufRead',
   ft = {'html','css', 'javascript', 'java', 'javascriptreact', 'vue','typescript', 'typescriptreact', 'go', 'lua', 'cpp', 'c',
   'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
-  config = conf.nvim_lsp,
+  setup = conf.nvim_lsp,
 }
 
 completion['glepnir/lspsaga.nvim'] = {
@@ -19,7 +19,7 @@ completion['hrsh7th/nvim-compe'] = {
 
 completion['hrsh7th/vim-vsnip'] = {
   event = 'InsertCharPre',
-  config = conf.vim_vsnip,
+  setup = conf.vim_vsnip,
   opt = true
 }
 
@@ -47,7 +47,7 @@ completion['nvim-telescope/telescope.nvim'] = {
 completion['mattn/emmet-vim'] = {
   event = 'InsertEnter',
   ft = {'html','css','javascript','javascriptreact','vue','typescript','typescriptreact'},
-  config = conf.emmet,
+  setup = conf.emmet,
 }
 
 -- completion['RRethy/vim-illuminate'] = {

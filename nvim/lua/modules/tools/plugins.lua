@@ -21,25 +21,25 @@ tools["editorconfig/editorconfig-vim"] = {
 
 tools["liuchengxu/vista.vim"] = {
   cmd = "Vista",
-  config = conf.vim_vista,
+  setup = conf.vim_vista,
   opt = true
 }
 
-tools["kamykn/spelunker.vim"] = {opt = true, config = conf.spelunker}
-tools["rhysd/vim-grammarous"] = {opt = true, cmd = {"GrammarousCheck"}, ft = {"markdown", "txt"}, config = conf.grammarous}
+tools["kamykn/spelunker.vim"] = {opt = true, setup = conf.spelunker}
+tools["rhysd/vim-grammarous"] = {opt = true, cmd = {"GrammarousCheck"}, ft = {"markdown", "txt"}, setup = conf.grammarous}
 
 tools["plasticboy/vim-markdown"] = {
   ft = "markdown",
   requires = {"godlygeek/tabular"},
   cmd = {"Toc"},
-  config = conf.markdown,
+  setup = conf.markdown,
   opt = true,
 }
 
 tools["iamcco/markdown-preview.nvim"] = {
   ft = {"markdown", 'pandoc.markdown', 'rmd'},
   cmd = {"MarkdownPreview"},
-  config = conf.mkdp,
+  setup = conf.mkdp,
   run = 'sh -c "cd app && yarn install"',
   opt = true,
 }
@@ -47,7 +47,7 @@ tools["iamcco/markdown-preview.nvim"] = {
 -- nvim-toggleterm.lua ?
 tools["voldikss/vim-floaterm"] = {
   cmd = {"FloatermNew", "FloatermToggle"},
-  config = conf.floaterm,
+  setup = conf.floaterm,
   opt = true
 }
 --
@@ -56,12 +56,12 @@ tools["liuchengxu/vim-clap"] = {
   run = function()
     vim.fn["clap#installer#download_binary"]()
   end,
-  config = conf.clap
+  setup = conf.clap
 }
 
 tools["rhysd/git-messenger.vim"] = {
   cmd = "GitMessenger",
-  config = function()
+  setup = function()
     vim.g.git_messenger_include_diff = "none"
     vim.g.git_messenger_always_into_popup = 1
   end,
@@ -75,7 +75,7 @@ tools["lewis6991/gitsigns.nvim"] = {
 }
 
 tools["f-person/git-blame.nvim"] = {
-  config = function ()
+  setup = function ()
     vim.g.gitblame_enabled = 0
   end,
   opt = true,
@@ -86,7 +86,7 @@ tools["tpope/vim-fugitive"] = {cmd = {"Gvsplit", "Git", "Gedit", "Gstatus", "Gdi
 
 tools["dhruvasagar/vim-prosession"] = {
   requires = {"tpope/vim-obsession"},
-  config = function()
+  setup = function()
     vim.g.prosession_on_startup = 1
     vim.g.prosession_dir = "~/.vim/session/"
   end
@@ -121,7 +121,7 @@ tools["prettier/vim-prettier"] = {
 --
 tools["brooth/far.vim"] = {cmd = {"Farr", "Farf"}, config = conf.far, opt = true} --brooth/far.vim
 -- tools["windwp/nvim-spectre"] = {opt = true, config=conf.spectre, keys = {'<Leader>S', '<Leader>s'},requires = {{'nvim-lua/plenary.nvim'} , {'nvim-lua/popup.nvim'}}}
-tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite", "Ultest", "UltestNearest", "UltestSummary", "UltestDebugNearest"}, config = conf.vim_test, opt = true}
+tools["vim-test/vim-test"] = {cmd = {"TestNearest", "TestFile", "TestSuite", "Ultest", "UltestNearest", "UltestSummary", "UltestDebugNearest"}, setup = conf.vim_test, opt = true}
 
 
 tools["rcarriga/vim-ultest"] ={
