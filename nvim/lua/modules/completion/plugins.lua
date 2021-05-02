@@ -20,7 +20,7 @@ completion['hrsh7th/nvim-compe'] = {
 completion['hrsh7th/vim-vsnip'] = {
   event = 'InsertCharPre',
   setup = conf.vim_vsnip,
-  --after = "hrsh7th/nvim-compe",
+  -- after = "hrsh7th/nvim-compe",
 }
 
 completion['nvim-telescope/telescope.nvim'] = {

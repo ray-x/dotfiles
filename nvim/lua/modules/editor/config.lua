@@ -203,7 +203,7 @@ function config.hlslens()
   vim.cmd([[nnoremap <silent> <leader>l :noh<CR>]])
   require('hlslens').setup({
     calm_down = true,
-    nearest_only = true,
+    -- nearest_only = true,
     nearest_float_when = 'always'
   })
   vim.cmd([[aug VMlens]])
@@ -216,9 +216,9 @@ end
 function config.vmulti()
   vim.g.VM_mouse_mappings = 1
   -- mission control takes <C-up/down> so remap <M-up/down> to <C-Up/Down>
-  vim.api.nvim_set_keymap("n", "<M-n>", "<C-n>",{silent =true})
+  vim.api.nvim_set_keymap("n", "<M-n>",    "<C-n>",   {silent =true})
   vim.api.nvim_set_keymap("n", "<M-Down>", "<C-Down>",{silent =true})
-  vim.api.nvim_set_keymap("n", "<M-Up>", "<C-Up>",{silent =true})
+  vim.api.nvim_set_keymap("n", "<M-Up>",   "<C-Up>",  {silent =true})
   -- for mac C-L/R was mapped to mission control
   -- print('vmulti')
   -- vim.g.VM_maps = {}

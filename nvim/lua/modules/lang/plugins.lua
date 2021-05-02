@@ -51,10 +51,10 @@ lang['/Users/ray.xu/github/go.nvim'] = {
   config = conf.go,
 }
 
--- lang['/Users/ray.xu/github/navigator.lua'] = {
---   requires = {'/Users/ray.xu/github/guihua.lua'},
---   config = conf.navigator
--- }
+lang['/Users/ray.xu/github/navigator.lua'] = {
+  requires = {'/Users/ray.xu/github/guihua.lua'},
+  config = conf.navigator
+}
 -- lang['ray-x/navigator.lua'] = {
 --   requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
 --   setup = conf.navigator
@@ -85,7 +85,7 @@ lang['jbyuki/one-small-step-for-vimkind'] = {
 
 lang['nvim-telescope/telescope-dap.nvim'] = {
   config = conf.dap,
-  cmd = "Telescope",
+  -- cmd = "Telescope",
   opt=true,
 }
 lang['mfussenegger/nvim-dap-python'] = {ft = {"python"}}
@@ -119,4 +119,11 @@ lang['p00f/nvim-ts-rainbow'] = { opt = true,
     require'nvim-treesitter.configs'.setup {rainbow = {enable = true, extended_mode = true}}
   end
 }
+lang['mhartington/formatter.nvim'] = {
+  opt = true,
+  event = {"BufWriteCmd", "FileWriteCmd"},
+  -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+  config = conf.formatter
+}
+
 return lang

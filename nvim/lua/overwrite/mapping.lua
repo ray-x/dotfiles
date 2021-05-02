@@ -67,12 +67,12 @@ local keys = {
 
 
   -- DAP
-  ["n|<leader>F5"] = map_cr('<cmd>lua require"osv".launch()'):with_noremap():with_silent(),
+  ["n|<leader><F5>"] = map_cr('<cmd>lua require"osv".launch()'):with_noremap():with_silent(),
   ["n|<leader>dc"] = map_cr('<cmd>lua require"dap".continue()'):with_noremap():with_silent(),
-  ["n|<leader>F10"] = map_cr('<cmd>lua require"dap".step_over()'):with_noremap():with_silent(), 
-  ["n|<leader>F11"] = map_cr('<cmd>lua require"dap".step_into()'):with_noremap():with_silent(), 
+  ["n|<leader><F10>"] = map_cr('<cmd>lua require"dap".step_over()'):with_noremap():with_silent(), 
+  ["n|<leader><F11>"] = map_cr('<cmd>lua require"dap".step_into()'):with_noremap():with_silent(), 
   ["n|<leader>dso"] = map_cr('<cmd>lua require"dap".step_out()'):with_noremap():with_silent(), 
-  ["n|<leader>F9"] = map_cr('<cmd>lua require"dap".toggle_breakpoint()'):with_noremap():with_silent(), 
+  ["n|<leader><F9>"] = map_cr('<cmd>lua require"dap".toggle_breakpoint()'):with_noremap():with_silent(), 
   ["n|<leader>dsbr"] = map_cr('<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))'):with_noremap():with_silent(), 
   ["n|<leader>dsbm"] = map_cr('<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))'):with_noremap():with_silent(), 
   ["n|<leader>dro"] = map_cr('<cmd>lua require"dap".repl.open()'):with_noremap():with_silent(),
@@ -91,13 +91,14 @@ local keys = {
   -- Plugin Vista
   ["n|<Leader>v"] = map_cu("Vista!!"):with_noremap():with_silent(),
   -- Plugin SplitJoin
-  ["n|<m-j>"] = map_cr("SplitjoinJoin"),
-  ["n|<m-s>"] = map_cr("SplitjoinSplit"),
+  ["n|sp"] = map_cr("SplitjoinSplit"),
+  ["n|jo"] = map_cr("SplitjoinJoin"),
   ["n|<F13>"] = map_cr("NvimTreeToggle"),
-  ["n|<Leader>w"] = map_cr("HopWord"),
-  ["n|<Leader>j"] = map_cr("HopLine"),
-  ["n|<Leader>F"] = map_cr("HopChar1"),
-  ["n|<Leader>S"] = map_cr("HopChar2"),
+  ["n|hw"] = map_cr("HopWord"),
+  ["n|hl"] = map_cr("HopLine"),
+  ["n|h1"] = map_cr("HopChar1"),
+  ["n|h2"] = map_cr("HopChar2"),
+  ["n|<Leader>F"] = map_cr("HopPattern"),
 
   -- ["n|;"] = map_cmd("<Plug>Sneak_;"):with_silent()
 }
@@ -111,15 +112,15 @@ vim.cmd([[nnoremap  <M-c>  "+yg_]])
 vim.cmd([[nunmap sa]])
 vim.cmd([[nunmap sd]])
 vim.cmd([[nunmap sr]])
-vim.cmd([[nunmap j]])
-vim.cmd([[nunmap k]])
+-- vim.cmd([[nunmap j]])
+-- vim.cmd([[nunmap k]])
 -- vim.cmd([[unmap <Leader>ss]])
 -- vim.cmd([[unmap <Leader>sl]])
 -- vim.cmd([[xunmap I]])
 -- vim.cmd([[xunmap gI]])
 -- vim.cmd([[xunmap A]])
 --
-vim.cmd([[nmap ; <Plug>Sneak_;]])
+-- vim.cmd([[nmap ; <Plug>Sneak_;]])
 --
 --
 bind.nvim_load_mapping(keys)

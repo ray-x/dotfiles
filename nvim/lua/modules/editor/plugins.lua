@@ -48,6 +48,12 @@ editor['rrethy/vim-hexokinase'] = {
   cmd = {'HexokinaseTurnOn', 'HexokinaseToggle'}
 }
 
+
+editor['matze/vim-move'] = {
+  opt = true,
+  event = 'InsertEnter',
+  -- fn = {'<Plug>MoveBlockDown', '<Plug>MoveBlockUp', '<Plug>MoveLineDown', '<Plug>MoveLineUp'}
+}
 -- editor['hrsh7th/vim-eft'] = {
 --   opt = true,
 --   config = function()
@@ -70,7 +76,7 @@ editor['kevinhwang91/nvim-hlslens'] = {
 }
 
 editor['mg979/vim-visual-multi']  = {
-  keys = {'<C-n>','<M-n>','<S-Down>','<S-Up>','<M-Left>','<M-Right>','<M-D>','<M-Down>', '<C-d>', '<C-Down>', '<S-Right>', '<C-LeftMouse>', '<M-C-RightMouse>','<Leader>'},
+  keys = {'<C-n>','<C-n>','<M-n>','<S-Down>','<S-Up>','<M-Left>','<M-Right>','<M-D>','<M-Down>', '<C-d>', '<C-Down>', '<S-Right>', '<C-LeftMouse>', '<M-C-RightMouse>','<Leader>'},
   opt = true,
   setup = conf.vmulti,
 }
@@ -88,11 +94,12 @@ editor['phaazon/hop.nvim']  = {
 }
 
 editor['preservim/nerdcommenter'] = {
-  cmd = {'NERDCommenterComment', 'NERDCommenterToggle', 'NERDCommenterNested', 'NERDCommenterInvert', 'NERDCommenterSexy'},
-  -- keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
+  --- cmd = {'NERDCommenterComment', 'NERDCommenterToggle', 'NERDCommenterNested', 'NERDCommenterInvert', 'NERDCommenterSexy'},
+  keys = {'<Leader>c<space>', '\\c ', '<C-<Space>>', '<Leader>cc', '//', '<M-/>'},
   -- keys = {'<Leader>c<space>', '\\c ', '<Leader>cc', '//', '<M-/>'},
   setup = conf.nerdcommenter,
-  opt = true,
+  fn = {'NERDComment'},
+  -- opt = true,
 }
 -- copy paste failed in block mode when clipboard = unnameplus"
 editor['bfredl/nvim-miniyank']  = {
@@ -117,12 +124,20 @@ end}
 -- end
 -- }
 editor['mbbill/undotree']  = {opt = true, cmd = {'UndotreeToggle'}}
-editor['AndrewRadev/splitjoin.vim']  = {opt = true, cmd={'SplitjoinJoin','SplitjoinSplit'}, keys = {'<space>S', '<space>J'}}
+editor['AndrewRadev/splitjoin.vim']  = {opt = true, 
+  cmd={'SplitjoinJoin','SplitjoinSplit'}, 
+  setup=function()
+    vim.g.splitjoin_split_mapping =""
+    vim.g.splitjoin_join_mapping = ""
+  end
+  -- keys = {'<space>S', '<space>J'}
+}
 -- editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
 editor['chaoren/vim-wordmotion'] = {
   opt = true, 
   fn = {'<Plug>WordMotion_w'}
   -- keys = {'w','W', 'gE', 'aW'}
 }
+
 -- chaoren/vim-wordmotion
 return editor

@@ -68,6 +68,11 @@ tools["rhysd/git-messenger.vim"] = {
   opt = true
 }
 
+tools["sindrets/diffview.nvim"] = {
+  cmd = "DiffviewOpen",
+  config = conf.diffview
+}
+
 tools["lewis6991/gitsigns.nvim"] = {
   config = conf.gitsigns,
   -- keys = {']c', '[c'},

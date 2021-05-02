@@ -7,71 +7,72 @@ Plug 'neovim/nvim-lspconfig'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-Plug 'ray-x/navigator.lua'
+" Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug '/Users/ray.xu/github/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug '/Users/ray.xu/github/navigator.lua'
 Plug 'ray-x/lsp_signature.nvim'
 
 call plug#end()
 
 lua <<EOF
 local nvim_lsp = require('lspconfig')
--- require('navigator').setup()
+require('navigator').setup()
 
-require'lspconfig'.pyright.setup {}
-require "lspconfig".efm.setup {
-    init_options = {documentFormatting = true},
-    settings = {
-        rootMarkers = {".git/"},
-        languages = {
-            lua = {
-                {formatCommand = "lua-format -i", formatStdin = true}
-            },
-            python = {
-                {formatCommand = "python-flake8 -i", formatStdin = true}
-            }
-        }
-    }
-}
-local sumneko_root_path = vim.fn.expand("$HOME")..'/github/sumneko/lua-language-server'
-local sumneko_binary = vim.fn.expand("$HOME")..'/github/sumneko/lua-language-server/bin/macOS/lua-language-server'
+-- require'lspconfig'.pyright.setup {}
+-- require "lspconfig".efm.setup {
+--     init_options = {documentFormatting = true},
+--     settings = {
+--         rootMarkers = {".git/"},
+--         languages = {
+--             lua = {
+--                 {formatCommand = "lua-format -i", formatStdin = -- true}
+--             },
+--             python = {
+--                 {formatCommand = "python-flake8 -i", formatStdin = -- true}
+--             }
+--         }
+--     }
+-- }
+-- local sumneko_root_path = vim.fn.expand("$HOME")..'/github/sumneko/-- lua-language-server'
+-- local sumneko_binary = vim.fn.expand("$HOME")..'/github/sumneko/-- lua-language-server/bin/macOS/lua-language-server'
 
 
-local lua_cfg = {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = vim.split(package.path, ";")
-      },
-      diagnostics = {
-        enable = true,
-        -- Get the language server to recognize the `vim` global
-        globals = {
-          "vim",
-          "describe",
-          "it",
-          "before_each",
-          "after_each",
-          "teardown",
-          "pending"
-        }
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-          -- [vim.fn.expand("~/repos/nvim/lua")] = true
-        }
-      }
-    }
-  }
-}
-require'lspconfig'.sumneko_lua.setup (lua_cfg)
+-- local lua_cfg = {
+--   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+--   settings = {
+--     Lua = {
+--       runtime = {
+--         -- Tell the language server which version of Lua you're -- using (most likely LuaJIT in the case of Neovim)
+--         version = "LuaJIT",
+--         -- Setup your lua path
+--         path = vim.split(package.path, ";")
+--       },
+--       diagnostics = {
+--         enable = true,
+--         -- Get the language server to recognize the `vim` global
+--         globals = {
+--           "vim",
+--           "describe",
+--           "it",
+--           "before_each",
+--           "after_each",
+--           "teardown",
+--           "pending"
+--         }
+--       },
+--       workspace = {
+--         -- Make the server aware of Neovim runtime files
+--         library = {
+--           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+--           [vim.fn.expand("$VIMRUNTIME/lua/vim")] = true,
+--           [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+--           -- [vim.fn.expand("~/repos/nvim/lua")] = true
+--         }
+--       }
+--     }
+--   }
+-- }
+-- require'lspconfig'.sumneko_lua.setup (lua_cfg)
 
 require"lsp_signature".on_attach()
 EOF

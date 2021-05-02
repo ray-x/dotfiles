@@ -5,7 +5,7 @@ local lsp = require("vim.lsp")
 -- local saga = require "lspsaga"
 -- saga.init_lsp_saga()
 
-vim.cmd [[packadd navigator.lua]]
+-- vim.cmd [[packadd navigator.lua]]
 local navigator = require "navigator"
 navigator.setup()
 M={}
@@ -74,6 +74,11 @@ local rustfmt = {
 --     codeAction = true,
 --     completion = false,
 --   },
+--   on_attach = function(client)
+--     client.resolved_capabilities.document_formatting = true
+--     client.resolved_capabilities.goto_definition = false
+--     -- set_lsp_config(client)
+--   end,
 --   filetypes = { "javascript", "javascriptreact", 'typescript', 'typescriptreact', 'lua', 'go' },
 --   settings = {
 --     rootMarkers = { '.git', 'package.json' },
@@ -89,6 +94,28 @@ local rustfmt = {
 --   },
 -- }
 
+-- require "lspconfig".efm.setup {
+--   cmd = { 'efm-langserver', '-loglevel', '10'},
+--   init_options = {documentFormatting = true},
+--   settings = {
+--     rootMarkers = {".git/", 'package.json', 'Makefile'},
+--     languages = {
+--       typescript = { stylelint , prettier },
+--       typescriptreact = { stylelint, prettier },
+--       javascript = {eslint_d},
+--       javascriptreact = {eslint_d},
+--       go = { {formatCommand = "golines --max-len=120  --base-formatter=gofumpt", formatStdin = true} },
+--       lua = {
+--         {formatCommand = "luafmt --indent-count 2 --stdin", formatStdin = true,
+--          lintCommand = "luacheck --formatter plain --codes --filename %s -", formatStdin = true,
+--          lintStdin = true,
+--          lintFormats = {"%f:%l:%c: %m"},
+--          lintIgnoreExitCode = true,
+--         }
+--       },
+--     }
+--   }
+-- }
 -- require'lspconfig'.stylelint_lsp.setup{stylelint
 --   settings = {
 --     stylelintplus = {
