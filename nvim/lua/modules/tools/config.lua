@@ -28,6 +28,7 @@ local function load_dbs()
 end
 
 function  config.diffview()
+  local cb = require'diffview.config'.diffview_callback
   require'diffview'.setup {
   diff_binaries = false,    -- Show diffs for binaries
   file_panel = {
@@ -72,24 +73,24 @@ function config.vim_dadbod_ui()
   vim.g.dbs = load_dbs()
 end
 
-function config.spectre()
-  -- lua require 'modules.tools.config'.spectre()
-  if not packer_plugins['spectre'] then
-    vim.cmd [[packadd plenary.nvim]]
-    vim.cmd [[packadd popup.nvim]]
-    vim.cmd [[packadd nvim-spectre]]
-  end
+-- function config.spectre()
+--   -- lua require 'modules.tools.config'.spectre()
+--   if not packer_plugins['spectre'] then
+--     vim.cmd [[packadd plenary.nvim]]
+--     vim.cmd [[packadd popup.nvim]]
+--     vim.cmd [[packadd nvim-spectre]]
+--   end
 
-  -- body
-  vim.cmd([[nnoremap <leader>S :lua require('spectre').open()<CR>]])
+--   -- body
+--   vim.cmd([[nnoremap <leader>S :lua require('spectre').open()<CR>]])
 
-  -- "search current word
-  vim.cmd([[nnoremap <leader>sw viw:lua require('spectre').open_visual()<CR>]])
-  vim.cmd([[vnoremap <leader>s :lua require('spectre').open_visual()<CR>]])
-   -- "  search in current file
-  vim.cmd([[nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>]])
-  require'spectre'.setup()
-end
+--   -- "search current word
+--   vim.cmd([[nnoremap <leader>sw viw:lua require('spectre').open_visual()<CR>]])
+--   vim.cmd([[vnoremap <leader>s :lua require('spectre').open_visual()<CR>]])
+--    -- "  search in current file
+--   vim.cmd([[nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>]])
+--   require'spectre'.setup()
+-- end
 
 function config.vim_vista()
   vim.g["vista#renderer#enable_icon"] = 1

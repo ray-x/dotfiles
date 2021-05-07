@@ -10,7 +10,8 @@ gui:
 git:
     paging:
         colorArg: always
-        pager: delta --dark --paging=never --24-bit-color=always
+        pager: diff-so-fancy
+        # pager: delta --dark --paging=never --24-bit-color=always
 customCommands:
   - key: "M"
     command: "git mergetool {{ .SelectedFile.Name }}"

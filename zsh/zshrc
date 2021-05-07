@@ -192,10 +192,10 @@ alias sk='sk --preview="bat {} --color=always"'
 alias seperator='viu `echo ~/photos/$(ls ~/photos |sort -R |tail -1)`'
 alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
 
-export JAR=$HOME/lsp-test/jdt-language-server-0.70.0-202103051608/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
+export JAR=$HOME/lsp_test/jdt-language-server-0.70.0-202103051608/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
 export GRADLE_HOME=$HOME/gradle
 export JAVA_HOME=/usr/local/Cellar/openjdk/15.0.2/
-export JDTLS_CONFIG=$HOME/lsp-test/jdt-language-server-0.70.0-202103051608/config_mac
+export JDTLS_CONFIG=$HOME/lsp_test/jdt-language-server-0.70.0-202103051608/config_mac
 export WORKSPACE=$HOME/workspace
 
 export PATH=$PATH:JAVA_HOME/bin

@@ -338,7 +338,8 @@ gls.mid[1] = {
       end
       return true
     end,
-    icon = ' LSP:',
+    icon = '🐆 ',
+    separator_highlight = {'NONE',colors.bg},
     highlight = {colors.yellow,colors.bg,'bold'}
   }
 }

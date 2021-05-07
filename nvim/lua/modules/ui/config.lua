@@ -138,10 +138,10 @@ function config.nvim_tree()
       symlink_open = "",
       },
     lsp = {
-      hint = "",
+      hint = "",
       info = "",
-      warning = "☣️",
-      error = "🈲",
+      warning = "", -- ☣️
+      error = "",  -- 🈲
     }
   }
   -- vim.cmd([[autocmd Filetype NvimTree set cursorline]])
@@ -169,6 +169,7 @@ function config.scrollbar()
   vimcmd("autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()")
   vimcmd("autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()")
   vimcmd("autocmd WinLeave,FocusLost,BufLeave    * silent! lua require('scrollbar').clear()")
+  vimcmd("autocmd WinLeave,BufLeave    * silent! DiffviewClose")
   vimcmd('augroup end')
   vimcmd('highlight link Scrollbar Comment')
   vim.g.sb_default_behavior="never"

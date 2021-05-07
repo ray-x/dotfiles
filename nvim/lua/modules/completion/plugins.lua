@@ -5,7 +5,7 @@ completion['neovim/nvim-lspconfig'] = {
   -- event = 'BufRead',
   ft = {'html','css', 'javascript', 'java', 'javascriptreact', 'vue','typescript', 'typescriptreact', 'go', 'lua', 'cpp', 'c',
   'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
-  setup = conf.nvim_lsp,
+  config = conf.nvim_lsp,
 }
 
 completion['glepnir/lspsaga.nvim'] = {

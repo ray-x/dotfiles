@@ -134,7 +134,7 @@ editor['AndrewRadev/splitjoin.vim']  = {opt = true,
 }
 -- editor['justinmk/vim-sneak']  = {opt = true, keys = {'s'}, config = function() vim.g['sneak#label']= 1 end}
 editor['chaoren/vim-wordmotion'] = {
-  opt = true, 
+  opt = true,
   fn = {'<Plug>WordMotion_w'}
   -- keys = {'w','W', 'gE', 'aW'}
 }

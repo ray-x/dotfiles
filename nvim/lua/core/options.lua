@@ -88,6 +88,7 @@ local function load_options()
     listchars      = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←";
     pumblend       = 10;
     winblend       = 10;
+    syntax         = "off";
   }
 
   local bw_local  = {
@@ -132,4 +133,6 @@ local function load_options()
   bind_option(bw_local)
 end
 
+vim.cmd([[syntax off]])
+vim.cmd([[filetype indent off]])
 load_options()

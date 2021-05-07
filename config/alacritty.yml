@@ -74,8 +74,8 @@ font:
   # The normal (roman) font face to use.
   # Style can be specified to pick a specific face.
   normal:
-    family: "Fira Code"
-    style: Retina
+    # family: "Fira Code"
+    # style: Retina
     # family: Victor Mono Italic
     # family: "Fira Code"
     # family: "Source Code Pro"
@@ -356,21 +356,21 @@ mouse:
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: true
 
-  url:
-    # URL launcher
-    #
-    # This program is executed when clicking on a text which is recognized as a URL.
-    # The URL is always added to the command as the last parameter.
-    #
-    # When set to `launcher: None`, URL launching will be disabled completely.
-    #
-    # Default:
-    #   - (macOS) open
-    #   - (Linux/BSD) xdg-open
-    #   - (Windows) explorer
-    launcher:
-     program: open
-     args: []
+#   url:
+#     # URL launcher
+#     #
+#     # This program is executed when clicking on a text which is recognized as a URL.
+#     # The URL is always added to the command as the last parameter.
+#     #
+#     # When set to `launcher: None`, URL launching will be disabled completely.
+#     #
+#     # Default:
+#     #   - (macOS) open
+#     #   - (Linux/BSD) xdg-open
+#     #   - (Windows) explorer
+#     launcher:
+#      program: open
+#      args: []
 
     # URL modifiers
     #
