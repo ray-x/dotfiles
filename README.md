@@ -1,5 +1,8 @@
 # vim as a programming IDE
 
+The init.lua is highly optimized for loading performance. Packer lazy loading + After rendering async plugin loading. Maybe the
+only one that can render multiple files with treesitter in less than 100ms with ~80 plugins installed
+
 ## Please check branches of this repo
 
 - plug branch (plug, coc)
@@ -12,6 +15,7 @@ not need to configure my setup everytime....... I am still using sublime edit(as
 
 vimr is one of the best nvim-gui. But it does not in active development(It is hard for a one developer
 project), some of the crash durning coding is annoying. I only use nvim(nightly) + kitty now.
+
 
 The `Plug` config is located in branch [Plug branch](https://github.com/ray-x/dotfiles/tree/zprezto-plug)
 

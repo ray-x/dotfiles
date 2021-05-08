@@ -56,7 +56,8 @@ tools["liuchengxu/vim-clap"] = {
   run = function()
     vim.fn["clap#installer#download_binary"]()
   end,
-  setup = conf.clap
+  setup = conf.clap,
+  config = conf.clap_after
 }
 
 tools["rhysd/git-messenger.vim"] = {
@@ -76,7 +77,7 @@ tools["sindrets/diffview.nvim"] = {
 tools["lewis6991/gitsigns.nvim"] = {
   config = conf.gitsigns,
   -- keys = {']c', '[c'},
-  -- opt = true,
+  opt = true,
 }
 
 tools["f-person/git-blame.nvim"] = {

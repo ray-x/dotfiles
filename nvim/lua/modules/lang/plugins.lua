@@ -2,7 +2,7 @@ local lang = {}
 local conf = require("modules.lang.config")
 
 lang["nvim-treesitter/nvim-treesitter"] = {
-    event = "BufEnter",
+    --event = "LoadLazyPlugin",
     opt = true,
 }
 
@@ -53,7 +53,8 @@ lang['/Users/ray.xu/github/go.nvim'] = {
 
 lang['/Users/ray.xu/github/navigator.lua'] = {
   requires = {'/Users/ray.xu/github/guihua.lua'},
-  config = conf.navigator
+  config = conf.navigator,
+  opt = true
 }
 -- lang['ray-x/navigator.lua'] = {
 --   requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},

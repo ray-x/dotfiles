@@ -78,8 +78,8 @@ local keys = {
   ["n|<leader>dro"] = map_cr('<cmd>lua require"dap".repl.open()'):with_noremap():with_silent(),
   ["n|<leader>drl"] = map_cr('<cmd>lua require"dap".repl.run_last()'):with_noremap():with_silent(),
 
-  ["n|[t"] = map_cr("lua require'nvim-treesitter-refactor.navigation'.goto_previous_usage(0)"):with_noremap():with_silent(),
-  ["n|]t"] = map_cr("lua require'nvim-treesitter-refactor.navigation'.goto_next_usage(0)"):with_noremap():with_silent(),  
+  --["n|[t"] = map_cr("lua require'nvim-treesitter-refactor.navigation'.goto_previous_usage(0)"):with_noremap():with_silent(),
+  --["n|]t"] = map_cr("lua require'nvim-treesitter-refactor.navigation'.goto_next_usage(0)"):with_noremap():with_silent(),  
   ['n|<leader>dcc'] = map_cr('<cmd>lua require"telescope".extensions.dap.commands{}'):with_noremap():with_silent(),
   ['n|<leader>dco'] = map_cr('<cmd>lua require"telescope".extensions.dap.configurations{}'):with_noremap():with_silent(),
   ['n|<leader>dlb'] = map_cr('<cmd>lua require"telescope".extensions.dap.list_breakpoints{}'):with_noremap():with_silent(),

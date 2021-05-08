@@ -63,7 +63,7 @@ local current_lsp_function = function()
 end
 
 local current_treesitter_function = function()
-  if not packer_plugins['nvim-treesitter'] or vim.fn['nvim_treesitter#statusline'] == nil then
+  if not packer_plugins['nvim-treesitter'] or packer_plugins['nvim-treesitter'].loaded == false or vim.fn['nvim_treesitter#statusline'] == nil then
     return ' '
   end
 
@@ -446,3 +446,4 @@ gls.short_line_right[1] = {
     highlight = {colors.fg,colors.bg}
   }
 }
+vim.cmd([[colorscheme aurora]])

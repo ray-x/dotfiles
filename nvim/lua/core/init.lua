@@ -51,6 +51,8 @@ end
 
 local load_core =function()
   local pack = require('core.pack')
+  -- print(vim.inspect(debug.traceback()))
+
   createdir()
   disable_distribution_plugins()
   leader_map()
@@ -61,6 +63,7 @@ local load_core =function()
   require('keymap')
   require('core.event')
   pack.load_compile()
+  require('core.lazy')
 end
 
 load_core()

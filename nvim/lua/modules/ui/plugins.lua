@@ -11,12 +11,17 @@ end
 
 ui['glepnir/galaxyline.nvim'] = {
   branch = 'main',
+  -- event = 'UIEnter',
+  after = {'aurora'},
   config = conf.galaxyline,
-  requires = {'kyazdani42/nvim-web-devicons'}
+  requires = {'kyazdani42/nvim-web-devicons'},
+  opt = true,
 }
 
 ui['Akin909/nvim-bufferline.lua'] = {
   config = conf.nvim_bufferline,
+  -- event = 'UIEnter',
+  after = {'aurora'},
   requires = {'kyazdani42/nvim-web-devicons'}
 }
 -- 'luaromgrk/barbar.nvim'
@@ -43,12 +48,12 @@ ui['kyazdani42/nvim-tree.lua'] = {
 }
 
 
-ui['lukas-reineke/indent-blankline.nvim'] = {setup=conf.blankline, after="nvim-treesitter", branch = 'lua', opt = true}
+ui['lukas-reineke/indent-blankline.nvim'] = {setup=conf.blankline, branch = 'lua', opt = true} --after="nvim-treesitter", 
 
 -- replaced by nl
 ui['ray-x/vim-interestingwords'] = { keys =  {'<Leader>u'}, config = conf.interestingwords, opt = true}
 
-ui['ray-x/aurora'] = {config = conf.theme}
+ui['ray-x/aurora'] = {event = 'VimEnter', config = conf.theme}
 
 ui['dstein64/nvim-scrollview'] = {config = conf.scrollview}
 return ui

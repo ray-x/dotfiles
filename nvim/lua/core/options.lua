@@ -134,5 +134,5 @@ local function load_options()
 end
 
 vim.cmd([[syntax off]])
-vim.cmd([[filetype indent off]])
+
 load_options()

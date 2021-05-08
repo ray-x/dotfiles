@@ -1,6 +1,10 @@
 local config = {}
 
 function config.galaxyline()
+  if not packer_plugins['nvim-web-devicons'].loaded then
+    packer_plugins['nvim-web-devicons'].loaded = true
+    vim.cmd([[packadd nvim-web-devicons]])
+  end
   require('modules.ui.eviline')
 end
 
@@ -43,6 +47,10 @@ end
 -- end
 
 function config.nvim_bufferline()
+  if not packer_plugins['nvim-web-devicons'].loaded then
+    packer_plugins['nvim-web-devicons'].loaded = true
+    vim.cmd([[packadd nvim-web-devicons]])
+  end
   require('bufferline').setup{
     options = {
       view = "multiwindow",

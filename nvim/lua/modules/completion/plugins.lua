@@ -3,9 +3,11 @@ local conf = require('modules.completion.config')
 
 completion['neovim/nvim-lspconfig'] = {
   -- event = 'BufRead',
-  ft = {'html','css', 'javascript', 'java', 'javascriptreact', 'vue','typescript', 'typescriptreact', 'go', 'lua', 'cpp', 'c',
-  'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
+  -- ft = {'html','css', 'javascript', 'java', 'javascriptreact', 'vue','typescript', 'typescriptreact', 'go', 'lua', 'cpp', 'c',
+  -- 'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
   config = conf.nvim_lsp,
+  event = 'CursorHold',
+  opt = true
 }
 
 completion['glepnir/lspsaga.nvim'] = {
@@ -33,16 +35,6 @@ completion['nvim-telescope/telescope.nvim'] = {
   },
   opt=true,
 }
-
--- completion['/Users/ray.xu/github/codeagent.lsp'] = {
---   rocks = {'fzy'}
--- }
---
--- completion['mattn/vim-sonictemplate'] = {
---   cmd = 'Template',
---   ft = {'go','typescript','lua','javascript','vim','rust','markdown'},
---   config = conf.vim_sonictemplate,
--- }
 
 completion['mattn/emmet-vim'] = {
   event = 'InsertEnter',

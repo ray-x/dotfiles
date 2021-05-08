@@ -26,7 +26,7 @@ function autocmd.load_autocmds()
       {"FileType", "markdown", "let b:prettier_exec_cmd = 'prettier' | let g:prettier#exec_cmd_path = '/usr/local/bin/prettier' | let g:spelunker_check_type = 1"};
       {"BufReadPre", "*", 'if getfsize(expand("%")) > 1000000 | syntax off | endif'};
       {"BufWritePost",  "plugins.lua", "PackerCompile"};
-      {"BufEnter",  "*", ":silent! :lua require('modules.lang.treesitter')"};
+      {"UIEnter",  "*", ":silent! :lua require('modules.lang.treesitter')"};
       {"BufWritePre",  "*.js,*.rs,*.lua", ":FormatWrite"};
       {"BufWritePre",  "*.go", ":silent! :lua require('go.format').gofmt()"};
       -- {"InsertEnter", "*", ":silent! :lua require('modules.editor.config').pears_setup()"}

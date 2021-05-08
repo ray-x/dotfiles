@@ -1,5 +1,11 @@
 local treesitter = function()
-  -- print("loading ts")
+  print("loading ts")
+  if not packer_plugins['nvim-treesitter-textobjects'].loaded then
+    vim.cmd([[packadd nvim-treesitter-textobjects]])
+    vim.cmd([[packadd nvim-treesitter-refactor]])
+    packer_plugins['nvim-treesitter-textobjects'].loaded = true
+    packer_plugins['nvim-treesitter-refactor'].loaded = true
+  end
   local enable = true
   if vim.fn.line('$') > 20000 then  -- skip for large file
     vim.cmd[[syntax on]]
@@ -36,11 +42,11 @@ local treesitter = function()
       smart_rename = {
         enable = enable,
         keymaps = {
-          smart_rename = "grr" -- mapping to rename reference under cursor
+          smart_rename = "<Leader>gr" -- mapping to rename reference under cursor
         }
       },
       navigation = {
-        enable = enable,
+        enable = true,
         keymaps = {
           goto_definition = "gnd", -- mapping to go to definition of symbol under cursor
           list_definitions = "gnD", -- mapping to list all definitions in current file
