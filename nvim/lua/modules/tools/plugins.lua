@@ -10,7 +10,7 @@ tools["kristijanhusak/vim-dadbod-ui"] = {
 
 tools["editorconfig/editorconfig-vim"] = {
   opt = true,
-  cmd = {"EditorConfigReload"}
+cmd = {"EditorConfigReload"}
   -- ft = { 'go','typescript','javascript','vim','rust','zig','c','cpp' }
 }
 

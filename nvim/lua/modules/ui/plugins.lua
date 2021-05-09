@@ -9,12 +9,13 @@ local winwidth = function ()
   return vim.api.nvim_call_function('winwidth', {0})
 end
 
+ui['kyazdani42/nvim-web-devicons'] = {}
 ui['glepnir/galaxyline.nvim'] = {
   branch = 'main',
   -- event = 'UIEnter',
   after = {'aurora'},
   config = conf.galaxyline,
-  requires = {'kyazdani42/nvim-web-devicons'},
+  -- requires = {'kyazdani42/nvim-web-devicons'},
   opt = true,
 }
 
@@ -22,7 +23,7 @@ ui['Akin909/nvim-bufferline.lua'] = {
   config = conf.nvim_bufferline,
   -- event = 'UIEnter',
   after = {'aurora'},
-  requires = {'kyazdani42/nvim-web-devicons'}
+  -- requires = {'kyazdani42/nvim-web-devicons'}
 }
 -- 'luaromgrk/barbar.nvim'
 -- ui['romgrk/barbar.nvim'] = {
@@ -43,7 +44,7 @@ ui['wfxr/minimap.vim'] = {
 
 ui['kyazdani42/nvim-tree.lua'] = {
   cmd = {'NvimTreeToggle','NvimTreeOpen'},
-  requires = {'kyazdani42/nvim-web-devicons'},
+  -- requires = {'kyazdani42/nvim-web-devicons'},
   setup = conf.nvim_tree,
 }
 

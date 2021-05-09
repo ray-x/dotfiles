@@ -6,7 +6,7 @@ completion['neovim/nvim-lspconfig'] = {
   -- ft = {'html','css', 'javascript', 'java', 'javascriptreact', 'vue','typescript', 'typescriptreact', 'go', 'lua', 'cpp', 'c',
   -- 'markdown', 'makefile','python','bash', 'sh', 'php', 'yaml', 'json', 'sql', 'vim', 'sh'},
   config = conf.nvim_lsp,
-  event = 'CursorHold',
+  -- event = 'CursorHold',
   opt = true
 }
 

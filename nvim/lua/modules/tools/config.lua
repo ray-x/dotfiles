@@ -63,7 +63,7 @@ end
 
 function config.vim_dadbod_ui()
   if packer_plugins["vim-dadbod"] and not packer_plugins["vim-dadbod"].loaded then
-    vim.cmd [[packadd vim-dadbod]]
+    require'packer'.loader("vim-dadbod")
   end
   vim.g.db_ui_show_help = 0
   vim.g.db_ui_win_position = "left"
@@ -134,14 +134,14 @@ end
 
 function config.clap_after()
   if not packer_plugins["nvim-compe"].loaded then
-    vim.cmd [[packadd nvim-compe]]
+    require'packer'.loader("nvim-compe")
   end
 end
 
 function config.gitsigns()
-  if not packer_plugins["plenary.nvim"].loaded then
-    vim.cmd [[packadd plenary.nvim]]
-  end
+  -- if not packer_plugins["plenary.nvim"].loaded then
+  --   require'packer'.loader("plenary.nvim")
+  -- end
   require("gitsigns").setup {
     signs = {
       add = {hl = "GitGutterAdd", text = "│", numhl = "GitSignsAddNr"},
@@ -233,7 +233,7 @@ end
 function config.spellcheck()
   if not packer_plugins["kamykn/spelunker.vim"] or not packer_plugins["kamykn/spelunker.vim"].loaded then
     config.spelunker()
-    vim.cmd [[packadd spelunker.vim]]
+    require'packer'.loader("spelunker.vim")
   end
   vim.fn["spelunker#check"]()
 end
@@ -252,7 +252,7 @@ end
 function config.grammcheck()
   -- body
   if not packer_plugins["rhysd/vim-grammarous"] or not packer_plugins["rhysd/vim-grammarous"].loaded then
-    vim.cmd [[packadd vim-grammarous]]
+    require'packer'.loader("vim-grammarous")
   end
   vim.cmd [[GrammarousCheck]]
 end

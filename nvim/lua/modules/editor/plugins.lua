@@ -12,24 +12,25 @@ local conf = require('modules.editor.config')
 
 editor['windwp/nvim-autopairs'] = {
   -- keys = {{'i', '('}},
-  -- keys = {{'i', '('}},
-  after = "nvim-treesitter",
+  -- keys = {{'i'}},
+  -- after = "nvim-treesitter",
+  -- event = 'InsertEnter',
   -- event = 'InsertEnter',  -- not working!
-  config = conf.autopairs,
-  --opt = true
+  -- config = conf.autopairs,
+  opt = true
 }
 
 editor['tpope/vim-surround'] ={
   opt=true,
-  event = 'InsertEnter',
+  --event = 'InsertEnter',
   --keys={'c', 'd'}
 }
 
 editor['steelsojka/pears.nvim'] = {
   -- keys = {{'(','[', '<', '{'}},
-  -- event = 'InsertEnter',
-  config =  conf.pears_setup(),
-  opt=true
+  event = 'InsertEnter',
+  --config =  conf.pears_setup(),
+  opt = true
 }
 
 -- editor['/Users/ray.xu/github/pears.nvim'] = {

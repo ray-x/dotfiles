@@ -3,7 +3,7 @@ local config = {}
 function config.galaxyline()
   if not packer_plugins['nvim-web-devicons'].loaded then
     packer_plugins['nvim-web-devicons'].loaded = true
-    vim.cmd([[packadd nvim-web-devicons]])
+    require'packer'.loader("nvim-web-devicons")
   end
   require('modules.ui.eviline')
 end

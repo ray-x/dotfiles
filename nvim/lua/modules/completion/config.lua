@@ -6,7 +6,7 @@ end
 
 function config.nvim_compe()
   vim.cmd('inoremap <silent><expr> <C-Space> compe#complete()')
-  -- vim.cmd("inoremap <silent><expr> <CR>      compe#confirm({ 'keys': '<Plug>delimitMateCR', 'mode': '' })")
+  --vim.cmd("inoremap <silent><expr> <CR>      compe#confirm({ 'keys': '<Plug>delimitMateCR', 'mode': '' })")
   vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
   vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
   vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
@@ -131,9 +131,10 @@ end
 
 function config.telescope()
   if not packer_plugins['plenary.nvim'].loaded then
-    vim.cmd [[packadd plenary.nvim]]
-    vim.cmd [[packadd popup.nvim]]
-    vim.cmd [[packadd telescope-fzy-native.nvim]]
+    require'packer'.loader("plenary.nvim popup.nvim telescope-fzy-native.nvim")
+    -- vim.cmd [[packadd plenary.nvim]]
+    -- vim.cmd [[packadd popup.nvim]]
+    -- vim.cmd [[packadd telescope-fzy-native.nvim]]
   end
   require('telescope').setup {
     defaults = {
