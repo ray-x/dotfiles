@@ -1,1 +1,0 @@
-vim.api.nvim_exec([[ source expand("$HOME")/.config/nvim/scripts/tools.vim], true)
