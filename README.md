@@ -82,6 +82,7 @@ I used following plugin a lots
 - Theme, look&feel:
 
   home cooked Aurora, galaxyline (lua), devicons(lua), blankline(indent),
+  Random load theme from aurora, tokyonight, moonlight, sonokai etc. I think aurora is great, but from time to time, I may get bored. 
 
 - Color:
 
