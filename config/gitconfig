@@ -31,10 +31,10 @@
 	trustExitCode = true
 
 [core]
-    pager = delta
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = diff-so-fancy --patch
 
 [delta]
     features = line-numbers decorations

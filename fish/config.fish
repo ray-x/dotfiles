@@ -1,5 +1,4 @@
 
-# starship init fish | source
 #  https://fishshell.com/docs/current/index.html
 
 set fish_greeting
@@ -15,9 +14,10 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx DOTFILES "$HOME/dotfiles"
-set -gx RIPGREP_CONFIG_PATH "$DOTFILES/ripgreprc"
+# set -gx RIPGREP_CONFIG_PATH "$DOTFILES/ripgreprc"
 # set -gx HOST_NAME (scutil --get HostName)
 set -gx HOST_NAME RayMac
+
 
 # FZF specific - https://github.com/junegunn/fzf#key-bindings-for-command-line
 set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --no-ignore-vcs'
@@ -75,7 +75,7 @@ alias sk='sk --preview "bat {} --color=always"'
 #alias seperator="viu `echo ~/photos/$(ls ~/photos |sort -R |tail -1)`'
 
 alias seperator='viu (echo $HOME"/photos/"(ls ~/photos |sort -R |tail -1))'
-alias rm='echo "\u001b[31m trash-put ! \u001b[0m"; trash-put'
+alias rm='trash-put'
 
 set -gx JAR $HOME/lsp_test/jdt-language-server-0.70.0-202103051608/plugins/# # eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
 set -gx GRADLE_HOME $HOME/gradle
@@ -101,6 +101,8 @@ if status is-interactive
 
   # https://github.com/starship/starship#fish
   starship init fish | source
+  # zoxide init fish | source
+  lua $HOME/bin/z --init fish | source
 
   # https://asdf-vm.com/#/core-manage-asdf-vm?id=add-to-your-shell
   # source ~/.asdf/asdf.fish
