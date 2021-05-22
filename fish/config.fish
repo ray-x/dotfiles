@@ -70,7 +70,8 @@ set -gx TERM_ITALICS true
 set -gx KITTY_LISTEN_ON "unix:/tmp/mykitty-$PPID"
 set -gx SKIM_DEFAULT_COMMAND "fd --type f || git ls-tree -r --name-only HEAD || rg --files || find ."
 
-alias fzf='fzf --preview "bat {} --color=always"'
+# alias fzf='fzf --preview "bat {} --color=always"'
+alias fzb='fzf --preview "bat {} --color=always"'
 alias sk='sk --preview "bat {} --color=always"'
 #alias seperator="viu `echo ~/photos/$(ls ~/photos |sort -R |tail -1)`'
 

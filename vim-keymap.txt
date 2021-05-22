@@ -154,6 +154,15 @@ nnoremap : q:i
 nnoremap / q/i
 nnoremap ? q?i
 
+words in visual mode
+v and select
+g <c-g>
+
+filter in find result
+
+:filter /niddle/ verbose nmap 
+:filter /lua/ verbose nmap
+
 Using "finish" stops Vim from reading the rest of the file, it's much quicker
 than using if-endif around the whole file.
 
@@ -543,3 +552,6 @@ Keybindings in `pager'
            i pager_close
         <f3> pager_close
            E edit_file
+
+
+
