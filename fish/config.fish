@@ -94,9 +94,10 @@ set -gx PATH $PATH JAVA_HOME/bin
 # 	fish_vi_key_bindings
 fish_default_key_bindings -M insert
 fish_vi_key_bindings --no-erase insert
-bind \ca beginning-of-line
-bind \ce end-of-line
-
+# bind \ca beginning-of-line
+# bind \ce end-of-line
+bind --mode insert \ce end-of-line
+bind --mode insert \ca beginning-of-line
 if status is-interactive
   # source $XDG_CONFIG_HOME/fish/abbreviations.fish
 

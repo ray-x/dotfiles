@@ -30,11 +30,14 @@
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
-[core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
 
 [interactive]
-	diffFilter = diff-so-fancy --patch
+    diffFilter = delta --color-only
 
 [delta]
     features = line-numbers decorations
