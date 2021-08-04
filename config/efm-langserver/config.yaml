@@ -1,5 +1,6 @@
 ---
 version: 2
+lint-debounce: 1000000000
 root-markers:
   - RCS/
   - SCCS/
@@ -447,7 +448,6 @@ languages:
 
   _:
     - <<: *excitetranslate-hover
-...
 
 
 ## vim-efm-langserver-settings/master/config/efm-langserver/config.yaml

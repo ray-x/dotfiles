@@ -24,9 +24,9 @@ set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --no-ignore-vcs'
 set -gx FZF_DEFAULT_OPTS '--height 50% --layout=reverse --border'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_ALT_C_COMMAND 'fd --type d . --color=never'
-# 
-# 
-# 
+#
+#
+#
 set -gx GOPATH "/Users/ray.xu/go"
 set -gx GOROOT "/usr/local/opt/go/libexec" # install with brew
 
@@ -39,10 +39,10 @@ set -gx PATH $GOROOT/bin $PATH
 # set -gx GOPRIVATE "bitbucket.org/appcurator,github.com/deltatre-vxp"
 set -gx GOPRIVATE "github.com/deltatre-vxp"
 
-set -gx GO2GO_DEST $GOPATH/src/github.com/go2
-set -gx PATH $GO2GO_DEST/bin $PATH
-set -gx GOROOT "$GO2GO_DEST"
-set -gx GO2PATH "$GO2GO_DEST/src/cmd/go2go/testdata/go2path"
+# set -gx GO2GO_DEST $GOPATH/src/github.com/go2
+# set -gx PATH $GO2GO_DEST/bin $PATH
+# set -gx GOROOT "$GO2GO_DEST"
+# set -gx GO2PATH "$GO2GO_DEST/src/cmd/go2go/testdata/go2path"
 
 
 set -gx PATH $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
@@ -61,12 +61,12 @@ alias icat "kitty +kitten icat"
 alias RM='/bin/rm'
 set -gx PATH /usr/local/opt/python@3.9/bin $PATH
 set -gx PATH /usr/local/opt/llvm/bin /Users/ray.xu/github/dotfiles/bin/ $PATH
-# 
+#
 # # Completion for kitty
 # kitty + complete setup fish | source. #fish earlier than 3.0.0,
 set -gx TERM_ITALICS true
-# 
-# 
+#
+#
 set -gx KITTY_LISTEN_ON "unix:/tmp/mykitty-$PPID"
 set -gx SKIM_DEFAULT_COMMAND "fd --type f || git ls-tree -r --name-only HEAD || rg --files || find ."
 
@@ -88,9 +88,9 @@ set -gx PATH $PATH JAVA_HOME/bin
 
 
 # # {eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_ed25519_github_deltatre}  2>/dev/null 1>/dev/null
-# 
-# 
-# 
+#
+#
+#
 # 	fish_vi_key_bindings
 fish_default_key_bindings -M insert
 fish_vi_key_bindings --no-erase insert
@@ -119,4 +119,5 @@ if status is-interactive
   source $XDG_CONFIG_HOME/fish/conf.d/fish_tokyonight_storm.fish
 
 end
-
+fish_add_path /usr/local/opt/ruby/bin
+fish_add_path /usr/local/lib/ruby/gems/3.0.0/bin

@@ -220,3 +220,6 @@ export PATH=$PATH:JAVA_HOME/bin
 eval "$(starship init zsh)"
 
 alias luamake=/Users/ray.xu/github/sumneko/lua-language-server/3rd/luamake/luamake
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/ray.xu/bin/terraform terraform
