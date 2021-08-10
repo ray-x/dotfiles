@@ -33,6 +33,7 @@ set -gx GOROOT "/usr/local/opt/go/libexec" # install with brew
 # set -gx GOROOT=/usr/local/go   # install with pkg download from golang.org
 set -gx GOBIN "$GOPATH/bin"
 set -gx GO111MODULE "on"
+
 set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $PATH
 set -gx PATH $GOPATH/bin $PATH
 set -gx PATH $GOROOT/bin $PATH
@@ -45,7 +46,7 @@ set -gx GOPRIVATE "github.com/deltatre-vxp"
 # set -gx GO2PATH "$GO2GO_DEST/src/cmd/go2go/testdata/go2path"
 
 
-set -gx PATH $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
+set -gx PATH $HOME/.deno/bin $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
 set -gx NVM_DIR "$HOME/.nvm"
 # # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -21,7 +21,7 @@
 	process = git-lfs filter-process
 	required = true
 [core]
-	excludesfile = /Users/ray.xu/.gitignore_global
+	excludesfile = $HOME/.gitignore_global
 	editor = nvim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
