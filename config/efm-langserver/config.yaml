@@ -1,6 +1,6 @@
 ---
 version: 2
-lint-debounce: 1000000000
+lint-debounce: 1s
 root-markers:
   - RCS/
   - SCCS/
@@ -12,68 +12,68 @@ root-markers:
   - _darcs/
   - .git
 # command define
-commands:
-  - title: Reload
-    command: :reload-config
+# commands:
+#   - title: Reload
+#     command: :reload-config
 
-  - title: Editor
-    os: windows
-    command: notepad
-    arguments:
-      - "${FILENAME}"
-  - title: Editor
-    os: linux
-    command: gedit
-    # Linux no method generic GUI editor open
-    arguments:
-      - ${FILENAME}
-  - title: Editor
-    os: darwin
-    command: open
-    arguments:
-      - '-e'
-      - ${FILENAME}
+#   - title: Editor
+#     os: windows
+#     command: notepad
+#     arguments:
+#       - "${FILENAME}"
+#   - title: Editor
+#     os: linux
+#     command: gedit
+#     # Linux no method generic GUI editor open
+#     arguments:
+#       - ${FILENAME}
+#   - title: Editor
+#     os: darwin
+#     command: open
+#     arguments:
+#       - '-e'
+#       - ${FILENAME}
 
-  - title: Filer
-    os: windows
-    command: cmd
-    arguments:
-      - '/c'
-      - 'explorer /select,${FILENAME}'
-  - title: Filer
-    os: darwin
-    # Linux   no method generic filer open
-    command: open
-    arguments:
-      - '-R'
-      - ${FILENAME}
+#   - title: Filer
+#     os: windows
+#     command: cmd
+#     arguments:
+#       - '/c'
+#       - 'explorer /select,${FILENAME}'
+#   - title: Filer
+#     os: darwin
+#     # Linux   no method generic filer open
+#     command: open
+#     arguments:
+#       - '-R'
+#       - ${FILENAME}
 
-  - title: Browser
-    os: darwin
-    # Windows no method generic browser open
-    # Linux   no method generic browser open
-    command: open
-    arguments:
-      - '-a'
-      - 'Safari'
-      - ${FILENAME}
+#   - title: Browser
+#     os: darwin
+#     # Windows no method generic browser open
+#     # Linux   no method generic browser open
+#     command: open
+#     arguments:
+#       - '-a'
+#       - 'Safari'
+#       - ${FILENAME}
 
-  - title: Open
-    os: windows
-    command: rundll32
-    arguments:
-      - "url.dll,FileProtocolHandler"
-      - "${FILENAME}"
-  - title: Open
-    os: linux
-    command: xdg-open
-    arguments:
-      - ${FILENAME}
-  - title: Open
-    os: darwin
-    command: open
-    arguments:
-      - ${FILENAME}
+#   - title: Open
+#     os: windows
+#     command: rundll32
+#     arguments:
+#       - "url.dll,FileProtocolHandler"
+#       - "${FILENAME}"
+#   - title: Open
+#     os: linux
+#     command: xdg-open
+#     arguments:
+#       - ${FILENAME}
+#   - title: Open
+#     os: darwin
+#     command: open
+#     arguments:
+#       - ${FILENAME}
 
 # linter,formatter setting
 tools:

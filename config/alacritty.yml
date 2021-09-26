@@ -80,28 +80,28 @@ font:
     # family: "Fira Code"
     # family: "Source Code Pro"
     # family: "Casadia Code PL"
-    family: "FiraCode Nerd Font"
-    # style: Regular
+    family: "VictorMono Nerd Font"
+    style: Medium
     # family: Consolas
     # style: Retina
 
   # The bold font face
   bold:
-    family: "JetBrains Mono"
+    family: "VictorMono Nerd Font"
     style: Bold
     # family: "Fira Code"
     # family: "Source Code Pro"
 
   # The italic font face
   italic:
-    family: "Victor Mono"
+    family: "VictorMono Nerd Font"
     style: Italic
     # family: "Fira Code"
     # family: "Source Code Pro"
     # style: "Medium Italic"
   bold_italic:
-    family: "JetBrains Mono"
-    style: ExtraBold Italic
+    family: "VictorMono Nerd Font"
+    style: Bold Italic
 
   # Point size of the font
   size: 16.0
@@ -637,7 +637,7 @@ debug:
   #   - Info
   #   - Debug
   #   - Trace
-  log_level: None
+  log_level: Error
 
   # Print all received window events.
   print_events: false
