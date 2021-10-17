@@ -1,6 +1,10 @@
-prompt = "echo $(STARSHIP_SHELL= starship prompt)"
-#prompt = "__zoxide_hook;__zoxide_prompt"
-startup = ["zoxide init nushell --hook prompt | save ~/.zoxide.nu", "source ~/.zoxide.nu"]
+startup = [
+ "zoxide init nushell --hook prompt | save ~/.zoxide.nu", "source ~/.zoxide.nu",
+ "mkdir ~/.cache/starship",
+ "starship init nu | save ~/.cache/starship/init.nu",
+ "source ~/.cache/starship/init.nu"
+]
+prompt = "starship_prompt"
 [env]
 ABBR_TIPS_PROMPT = "\\n💡 \\e[1m{{ .abbr }}\\e[0m => {{ .cmd }}"
 ABBR_TIPS_REGEXES = "(^(\\w+\\s+)+(-{1,2})\\w+)(\\s\\S+) (^(\\s?(\\w-?)+){3}).* (^(\\s?(\\w-?)+){2}).* (^(\\s?(\\w-?)+){1}).*"
@@ -43,7 +47,6 @@ SSH_AGENT_PID = "21812"
 SSH_AUTH_SOCK = "/var/folders/j_/q1hrp3lj619d06gp1_z7jcjr0000gp/T//ssh-13oIXPozFbCu/agent.21810"
 SSH_ENV = "/Users/ray.xu/.ssh/environment"
 STARSHIP_SESSION_KEY = "7759971416086371"
-STARSHIP_SHELL = "fish"
 TERM = "xterm-kitty"
 TERMINFO = "/Users/ray.xu/software/kitty/kitty.app/Contents/Resources/kitty/terminfo"
 TERM_ITALICS = "true"
