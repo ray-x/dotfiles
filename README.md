@@ -16,7 +16,6 @@ not need to configure my setup everytime....... I am still using sublime edit(as
 vimr is one of the best nvim-gui. But it does not in active development(It is hard for a one developer
 project), some of the crash durning coding is annoying. I only use nvim(nightly) + kitty now.
 
-
 The `Plug` config is located in branch [Plug branch](https://github.com/ray-x/dotfiles/tree/zprezto-plug)
 
 - nvim+kitty configured with pop menu:
@@ -47,7 +46,7 @@ I used following plugin a lots
   I followed Raphael(a.k.a glepnir) https://github.com/glepnir/nvim dotfiles. He provides a good wrapper for
   Packer. I have an `overwrite` folder which will override the settings. Also, lots of changes in modules/plugins.
   luarock setup
-  A.T.M. nvim-compe as a completion engine with LSP, LSP saga. vim-multi-cursor, clap/telescope. treesitter,
+  A.T.M. nvim-cmp as a completion engine with LSP, LSP saga. vim-multi-cursor, clap/telescope. treesitter,
   lazy load vim-go. So, other than module folder, I could copy/paste everything else from glepnir's configure file,
   which make my life easier.
 
@@ -82,7 +81,7 @@ I used following plugin a lots
 - Theme, look&feel:
 
   home cooked Aurora, galaxyline (lua), devicons(lua), blankline(indent),
-  Random load theme from aurora, tokyonight, moonlight, sonokai etc. I think aurora is great, but from time to time, I may get bored. 
+  Random load theme from aurora, tokyonight, moonlight, sonokai etc. I think aurora is great, but from time to time, I may get bored.
 
 - Color:
 

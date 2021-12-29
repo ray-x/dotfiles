@@ -27,19 +27,18 @@ set -gx FZF_ALT_C_COMMAND 'fd --type d . --color=never'
 #
 #
 #
-set -gx GOPATH "/Users/ray.xu/go"
+set -gx GOPATH $HOME/go $HOME/projects
 # set -gx GOROOT "/usr/local/opt/go/libexec" # install with brew
 
 set -gx GOROOT "/usr/local/go"   # install with pkg download from golang.org
 
-set -gx GOBIN "$GOPATH/bin"
+set -gx GOBIN $HOME/go/bin
 set -gx GO111MODULE "on"
 
 set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $PATH
 fish_add_path /usr/local/opt/curl/bin
 set -gx PATH $GOPATH/bin $PATH
 set -gx PATH $GOROOT/bin $PATH
-# set -gx GOPRIVATE "bitbucket.org/appcurator,github.com/deltatre-vxp"
 set -gx GOPRIVATE "github.com/deltatre-vxp"
 
 # set -gx GO2GO_DEST $GOPATH/src/github.com/go2
@@ -83,7 +82,7 @@ alias rm='trash-put'
 
 set -gx JAR $HOME/lsp_test/jdt-language-server-1.3.0-202108171748/plugins/# # eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
 set -gx GRADLE_HOME $HOME/gradle
-set -gx JAVA_HOME /usr/local/Cellar/openjdk/15.0.2/
+set -gx JAVA_HOME /usr/local/Cellar/openjdk/17.0.1/
 set -gx JDTLS_HOME $HOME/lsp_test/jdt-language-server-1.3.0-202108171748
 
 set -gx JDTLS_CONFIG $JDTLS_HOME/config_mac
@@ -92,7 +91,6 @@ set -gx WORKSPACE $HOME/workspace
 set -gx PATH $PATH JAVA_HOME/bin $HOME/software/kafka/kafka_2.11-2.3.0/bin
 
 
-# # {eval "$(ssh-agent -s)"; ssh-add -K ~/.ssh/id_ed25519_github_deltatre}  2>/dev/null 1>/dev/null
 #
 #
 #
