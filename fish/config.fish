@@ -24,6 +24,7 @@ set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --no-ignore-vcs'
 set -gx FZF_DEFAULT_OPTS '--height 50% --layout=reverse --border'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_ALT_C_COMMAND 'fd --type d . --color=never'
+set -gx FZF_PREVIEW_COLUMNS 120
 #
 #
 #
@@ -46,6 +47,13 @@ set -gx GOPRIVATE "github.com/deltatre-vxp"
 # set -gx GOROOT "$GO2GO_DEST"
 # set -gx GO2PATH "$GO2GO_DEST/src/cmd/go2go/testdata/go2path"
 
+set -gx PASSWORD_STORE_DIR $HOME/github/dotfiles/pass
+set -gx GNUPGHOME $HOME/github/dotfiles/gnupg
+
+set -gx GIT_AUTHOR_NAME  $(pass show del_ml|cut -d@ -f1)
+set -gx GIT_AUTHOR_EMAIL $(pass show del_ml)
+set -gx GIT_COMMITTER_NAME $(pass show del_ml|cut -d@ -f1)
+set -gx GIT_COMMITTER_EMAIL $(pass show del_ml)
 
 set -gx PATH $HOME/.deno/bin $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
 set -gx NVM_DIR "$HOME/.nvm"

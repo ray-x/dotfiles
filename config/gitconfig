@@ -1,17 +1,13 @@
 [merge]
-	tool = p4mergetool
-[mergetool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-	trustExitCode = false
+	conflictstyle = diff3
+	tool = diffmerge
 [mergetool]
 	keepBackup = false
 [diff]
-	tool = p4mergetool
+	tool = diffmerge
+	colorMoved = default
 [difftool "p4mergetool"]
 	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
-[user]
-	email = ray.xu@deltatre.com
-	name = Ray Xu
 
 [url "git@bitbucket.org:"]
  insteadOf = https://bitbucket.org/
@@ -31,7 +27,7 @@
 	trustExitCode = true
 
 [pager]
-    diff = delta
+
     log = delta
     reflog = delta
     show = delta
@@ -40,8 +36,9 @@
     diffFilter = delta --color-only
 
 [delta]
-    features = line-numbers decorations
+    features = line-numbers decorations collared-trogon
     whitespace-error-style = 22 reverse
+    side-by-side = true
 #    side-by-side = true
 
 [delta "decorations"]
@@ -83,3 +80,8 @@
 	patterns = key.*\\s*:\\s*.+
 	patterns = key.*\\s*=\\s*.+
 	patterns = key*\\s*=\\s*.+
+[mergetool "diffmerge"]
+	cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+	trustExitCode = true
+[difftool "diffmerge"]
+	cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
