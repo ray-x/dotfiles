@@ -2,3 +2,6 @@ fish/functions/
 ranger/plugins/
 fish/completions/
 *bak
+/.blackbox/pubring.gpg~
+/.blackbox/pubring.kbx~
+/.blackbox/secring.gpg
