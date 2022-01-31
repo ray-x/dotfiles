@@ -1,0 +1,30 @@
+#!/bin/sh
+PWD=`pwd`
+if [[ $PWD == *"frank"* ]] # 1)
+then
+  EMAIL=$(git config user.email)
+  if [[ $EMAIL == *"frank"* ]] # 2)
+  then
+    echo "";
+  else
+    echo "email not configured to ray-x";
+    echo "run:"
+    echo '   git config user.email "ray AT frank"'
+    echo ''
+    exit 1; # 3)
+  fi;
+fi;
+if [[ $PWD == *"github"* ]] # 1)
+then
+  EMAIL=$(git config user.email)
+  if [[ $EMAIL == *"gmail"* ]] # 2)
+  then
+    echo "";
+  else
+    echo "email not configured to ray-x";
+    echo "run:"
+    echo '   git config user.email "rayx AT gmail"'
+    echo ''
+    exit 1; # 3)
+  fi;
+fi;
