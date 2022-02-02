@@ -1,6 +1,62 @@
 # Inserts a blank line between shell prompts
 # add_newline = true
 
+
+format = """
+$username\
+$kubernetes\
+$directory\
+${custom.git_host}\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$red\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$custom\
+$cmd_duration\
+$lua\
+$memory_usage\
+$time\
+$line_break\
+$jobs\
+$character"""
+
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
 success_symbol = "[❯](bold red)[❯](bold yellow)[❯](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
@@ -11,11 +67,11 @@ error_symbol = "[💀](bold red) "
 disabled = true
 
 [aws]
-format = 'on [$symbol($profile )(\($region\) )]($style)'
+format = '☁️ [$symbol($profile )(\($region\) )]($style)'
 style = "bold blue"
 symbol = " "
 [aws.region_aliases]
-ap-southeast-2 = "au-aps2"
+ap-southeast-2 = "au-ap"
 us-east-1 = "va"
 
 [battery]
@@ -28,8 +84,49 @@ discharging_symbol = "💀"
 commit_hash_length = 4
 tag_symbol = "🔖 "
 
+[custom.git_host]
+command = """
+URL=$(command git ls-remote --get-url 2> /dev/null)
+if [[ "$URL" =~ "github" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "gitlab" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "bitbucket" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "kernel" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "archlinux" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "gnu" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "git" ]];then
+    ICON=" "
+else
+    ICON=" "
+    URL="localhost"
+fi
+
+printf "%s" "$ICON"
+"""
+
+# for PATTERN in "https" "http" "git" "://" "@"; do
+#     [[ "$URL" == "$PATTERN"* ]] && URL="${URL##$PATTERN}"
+# done
+# for PATTERN in "/" ".git"; do
+#     [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%$PATTERN}"
+# done
+
+directories = [".git"]
+when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
+shell = ["bash","--norc","--noprofile"]
+style = "bright-yellow bold"
+# format = " at [$output]($style)"
+format = "[$output]($style)"
+
+
 [git_branch]
-symbol = "[ ](bold green) "
+format = "[$symbol$branch]($style) "
+symbol = "(bold green) "
 truncation_length = 32
 truncation_symbol = ""
 
@@ -38,20 +135,43 @@ format = '[\($state( $progress_current of $progress_total)\)]($style) '
 cherry_pick = "[🍒 PICKING](bold red)"
 
 [git_status]
-conflicted = "🏳"
-ahead = "🏎💨"
-behind = "😰"
-diverged = "😵"
-untracked = "🤷‍"
+conflicted = "⚔️ "
+ahead = "🏎️ 💨 ×${count}"
+behind = "🐢 ×${count}"
+diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
+untracked = "🛤️  ×${count}"
 stashed = "📦"
-modified = "📝"
-staged = '[++\($count\)](green)'
-renamed = "👅"
-deleted = "🗑"
+modified = "📝 ×${count}"
+staged = '🗃️ [++\($count\)](green)'
+renamed = "👅 ×${count}"
+deleted = "🗑 ×${count}"
+format = "$all_status$ahead_behind"
+
+[memory_usage]
+format = "$symbol[${ram}( | ${swap})]($style) "
+threshold = 70
+style = "bold dimmed white"
+disabled = false
 
 
 [golang]
 format = "[ $version](bold cyan) "
 
 [helm]
-format = "via [⎈ $version](bold white) "
+format = " [⎈ $version](bold white) "
+
+[nodejs]
+format = " [🤖 $version](bold green) "
+
+[python]
+# Only use the `python3` binary to get the version.
+python_binary = "python3"
+
+[terraform]
+format = "[🏎💨 $version$workspace]($style) "
+
+[time]
+disabled = false
+format = '🕙[\[ $time \]]($style) '
+time_format = "%T"
+time_range = "10:00:00-14:00:00"

@@ -1,5 +1,4 @@
 jorgebucaran/fisher
-jethrokuan/fzf
 evanlucas/fish-kubectl-completions
 franciscolourenco/done
 joseluisq/gitnow@2.8.0
@@ -13,8 +12,12 @@ jorgebucaran/nvm.fish
 edouard-lopez/ayu-theme.fish
 rkbk60/onedark-fish
 jomik/fish-gruvbox
-gazorby/fish-abbreviation-tips
-wfxr/forgit
-gazorby/fish-exa
 jorgebucaran/fish-bax
+wfxr/forgit
+jethrokuan/z
+gazorby/fish-exa
+matchai/spacefish
+jethrokuan/fzf
+PatrickF1/fzf.fish
 danhper/fish-ssh-agent
+gazorby/fish-abbreviation-tips

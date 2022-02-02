@@ -24,15 +24,15 @@ set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --no-ignore-vcs'
 set -gx FZF_DEFAULT_OPTS '--height 50% --layout=reverse --border'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_ALT_C_COMMAND 'fd --type d . --color=never'
-set -gx FZF_PREVIEW_COLUMNS 120
+set -gx FZF_PREVIEW_COLUMNS (math ceil $COLUMNS \* 0.7)
 #
 #
 #
 set -gx GOPATH $HOME/go $HOME/projects
 # set -gx GOROOT "/usr/local/opt/go/libexec" # install with brew
 
-set -gx GOROOT "/usr/local/go"   # install with pkg download from golang.org
-
+# set -gx GOROOT "/usr/local/go"   # install with brew pkg download from golang.org
+set -gx GOROOT "/usr/lib/go"
 set -gx GOBIN $HOME/go/bin
 set -gx GO111MODULE "on"
 
@@ -40,7 +40,6 @@ set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $PATH
 fish_add_path /usr/local/opt/curl/bin
 set -gx PATH $GOPATH/bin $PATH
 set -gx PATH $GOROOT/bin $PATH
-set -gx GOPRIVATE "github.com/deltatre-vxp"
 
 # set -gx GO2GO_DEST $GOPATH/src/github.com/go2
 # set -gx PATH $GO2GO_DEST/bin $PATH
@@ -50,10 +49,10 @@ set -gx GOPRIVATE "github.com/deltatre-vxp"
 set -gx PASSWORD_STORE_DIR $HOME/github/dotfiles/pass
 set -gx GNUPGHOME $HOME/github/dotfiles/gnupg
 
-set -gx GIT_AUTHOR_NAME  $(pass show del_ml|cut -d@ -f1)
-set -gx GIT_AUTHOR_EMAIL $(pass show del_ml)
-set -gx GIT_COMMITTER_NAME $(pass show del_ml|cut -d@ -f1)
-set -gx GIT_COMMITTER_EMAIL $(pass show del_ml)
+# set -gx GIT_AUTHOR_NAME  (pass show del_ml|cut -d@ -f1)
+# set -gx GIT_AUTHOR_EMAIL (pass show del_ml)
+# set -gx GIT_COMMITTER_NAME (pass show del_ml|cut -d@ -f1)
+# set -gx GIT_COMMITTER_EMAIL (pass show del_ml)
 
 set -gx PATH $HOME/.deno/bin $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
 set -gx NVM_DIR "$HOME/.nvm"
@@ -65,7 +64,7 @@ alias nm='/usr/local/bin/nvim -u ~/github/dotfiles/init.min'
 alias vdiff='/usr/local/bin/nvim -d -u ~/github/dotfiles/init.min'
 alias gdv='git difftool --tool gvimdiff'
 alias nd='git difftool --tool nvimdiff'
-alias ls='ls -G'
+alias ls='ls --color'
 alias ll='ls -lG'
 alias icat "kitty +kitten icat"
 alias RM='/bin/rm'
