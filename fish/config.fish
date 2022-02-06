@@ -40,6 +40,7 @@ set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $PATH
 fish_add_path /usr/local/opt/curl/bin
 set -gx PATH $GOPATH/bin $PATH
 set -gx PATH $GOROOT/bin $PATH
+set -gx GOPRIVATE "bitbucket.org/*,frankieone.dev/*"
 
 # set -gx GO2GO_DEST $GOPATH/src/github.com/go2
 # set -gx PATH $GO2GO_DEST/bin $PATH

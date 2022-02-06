@@ -1,6 +1,6 @@
-ln -s ~/github/dotfiles/zsh/zimrc ~/.zimrc
-ln -s ~/github/dotfiles/zsh/zshrc ~/.zshrc
-ln -s ~/github/dotfiles/zsh/fzffun.zsh ~/.fzffun.zsh
+#ln -s ~/github/dotfiles/zsh/zimrc ~/.zimrc
+#ln -s ~/github/dotfiles/zsh/zshrc ~/.zshrc
+#ln -s ~/github/dotfiles/zsh/fzffun.zsh ~/.fzffun.zsh
 ## ln -s ~/.zim/modules/powerlevel10k/
 
 ln -s ~/github/dotfiles/config/gitconfig ~/.gitconfig

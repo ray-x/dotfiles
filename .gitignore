@@ -1,7 +1,8 @@
-fish/functions/
-ranger/plugins/
-fish/completions/
-*bak
-/.blackbox/pubring.gpg~
-/.blackbox/pubring.kbx~
-/.blackbox/secring.gpg
+.DS_Store
+# Node.
+node_modules
+npm-debug.log
+yarn.lock
+package-lock.json
+._.DS_Store
+estilos/._.DS_Store

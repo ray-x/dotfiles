@@ -1,0 +1,104 @@
+# ##############################################################################
+# #                                   KEYBINDS                                 #
+# ##############################################################################
+
+# NOTE: This is directly ported from my i3wim config.
+
+# Focus next/prev window
+super + {_,shift + }f
+    bspc node -f {next,prev}.local.!hidden.window
+
+# Fullscreen window with gaps
+alt + f
+    sh $HOME/.local/bin/tglbar
+
+# Move the focused window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Kill the focused window
+super + c
+    bspc node -c
+
+# Move to or send window to workspace #
+super + {_,shift + }{1-8}
+	bspc {desktop -f,node -d} '^{1-8}'
+
+# Resize window
+super + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Set window state
+super + {alt + t,shift + t,space,alt + f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# Set new window orientation
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# Cancel the new window orientation
+super + ctrl + space
+	bspc node -p cancel
+
+# Lock screen
+super + l
+    sh $HOME/.local/bin/lck
+
+# Start alacritty
+super + Return
+    kitty
+
+# Open browser
+super + b
+    google-chrome-stable
+
+# Open application menu
+super + a
+    sh $HOME/.local/bin/appmnu
+
+# Toggle eww dashboard
+super + d
+    sh $HOME/.local/bin/dshbrd
+
+# Toggle powermenu
+super + p
+    sh $HOME/.local/bin/powermenu
+
+# Toggle network menu
+super + n
+    sh $HOME/.local/bin/ntwkmgr
+
+# Screenshot
+# Save to local storage
+Print
+    DATE=$(date '+%b%d-%H-%M.png'); \
+    maim -us "$HOME/Pictures/Screenshots/$DATE"; \
+    sh ~/.local/bin/viewscr ~/Pictures/Screenshots/$DATE | xclip -selection clipboard -t image/png
+
+# Upload to CDN
+super + Print
+    DATE=$(date '+%b%d-%H-%M.png'); \
+    maim -us "$HOME/Pictures/Screenshots/$DATE"; \
+    sh ~/.local/bin/upldscr $HOME/Pictures/Screenshots/$DATE
+
+# Manage volume
+XF86Audio{Raise,Lower}Volume
+    amixer -q set Master 5%{+,-}
+
+XF86AudioMute
+    amixer set Master toggle
+
+# Manage brightness
+XF86MonBrightness{Up,Down}
+    brightnessctl set 5%{+,-} -n 2%
+
+# Restart sxhkd
+super + shift + r
+    pkill -USR1 -x sxhkd
+
+# Quit and restart bspwm
+super + alt + {q,shift + }r
+    bspc {quit,wm -r}

@@ -1,13 +1,19 @@
 [merge]
 	conflictstyle = diff3
-	tool = diffmerge
+	tool = p4mergetool
 [mergetool]
-	keepBackup = false
+	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
 [diff]
-	tool = diffmerge
+	tool = p4merge
 	colorMoved = default
-[difftool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+[difftool "p4merge"]
+    cmd = p4merge "$LOCAL" "$REMOTE"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
 
 [url "git@bitbucket.org:"]
  insteadOf = https://bitbucket.org/
@@ -19,15 +25,11 @@
 [core]
 	excludesfile = $HOME/.gitignore_global
 	editor = nvim
+	pager = delta -w $COLUMNS
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 
 [pager]
-
     log = delta
     reflog = delta
     show = delta
@@ -85,3 +87,8 @@
 	trustExitCode = true
 [difftool "diffmerge"]
 	cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
+[user]
+	name = ray
+	email = ray@frankieon.com
+[init]
+	templatedir = ~/.git-templates
