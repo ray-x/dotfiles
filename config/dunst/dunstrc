@@ -28,9 +28,9 @@
   max_icon_size = 64
   icon_folders = $HOME/.icons/
   sticky_history = yes
-  history_length = 20	
+  history_length = 20
   dmenu = /usr/bin/rofi -show drun
-  browser = $HOME/apps/firefox/firefox -new-tab
+  browser = google-chrome-stable -new-tab
   always_run_script = true
   title = Dunst
   class = Dunst

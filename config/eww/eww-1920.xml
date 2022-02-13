@@ -23,7 +23,7 @@
             </box>
         </def>
         <def name="layout-manager">
-            <box class="layouts" orientation="h"> 
+            <box class="layouts" orientation="h">
                 <box class="layout-btn" orientation="h" space-evenly="true">
                     <button onclick="bsp-layout once even"> </button>
                     <button onclick="bsp-layout once grid"> </button>
@@ -37,7 +37,7 @@
                 <box class="ram-bar" orientation="h">
                     <box class="label-ram-bar"> </box>
                     <scale min="0" max="101" active="false" value="{{used_ram}}"></scale>
-                </box> 
+                </box>
                 <box class="vol-bar" orientation="h">
                     <box class="label-vol-bar"> </box>
                     <scale min="0" max="101" active="false" value="{{volume}}"></scale>
@@ -49,9 +49,9 @@
                 <box class="powermenu" orientation="h">
                     <box class="powermenu-btn" halign="center" space-evenly="false">
                         <button class="lock-btn" onclick="betterlockscreen -l dimblur"></button>
-                        <button class="logout-btn" onclick="bspc quit"></button>
+                        <button class="logout-btn" onclick="kill -9 -1"></button>
                         <button class="reboot-btn" onclick="systemctl reboot"></button>
-                        <button class="shutdown-btn" onclick="systemctl poweroff"></button> 
+                        <button class="shutdown-btn" onclick="systemctl poweroff"></button>
                     </box>
                 </box>
             </box>

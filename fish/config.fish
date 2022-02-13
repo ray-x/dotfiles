@@ -47,8 +47,8 @@ set -gx GOPRIVATE "bitbucket.org/*,frankieone.dev/*"
 # set -gx GOROOT "$GO2GO_DEST"
 # set -gx GO2PATH "$GO2GO_DEST/src/cmd/go2go/testdata/go2path"
 
-set -gx PASSWORD_STORE_DIR $HOME/github/dotfiles/pass
-set -gx GNUPGHOME $HOME/github/dotfiles/gnupg
+# set -gx PASSWORD_STORE_DIR $HOME/github/dotfiles/pass
+# set -gx GNUPGHOME $HOME/github/dotfiles/gnupg
 
 # set -gx GIT_AUTHOR_NAME  (pass show del_ml|cut -d@ -f1)
 # set -gx GIT_AUTHOR_EMAIL (pass show del_ml)
@@ -133,3 +133,6 @@ if status is-interactive
 end
 fish_add_path /usr/local/opt/ruby/bin
 fish_add_path /usr/local/lib/ruby/gems/3.0.0/bin
+if status is-login
+  ssh-add
+end

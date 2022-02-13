@@ -1,13 +1,14 @@
 [merge]
 	conflictstyle = diff3
-	tool = p4mergetool
+	tool = meld
 [mergetool]
 	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
     keepTemporaries = false
     trustExitCode = false
     keepBackup = false
+	prompt = false
 [diff]
-	tool = p4merge
+	tool = meld
 	colorMoved = default
 [difftool "p4merge"]
     cmd = p4merge "$LOCAL" "$REMOTE"
@@ -92,3 +93,9 @@
 	email = ray@frankieon.com
 [init]
 	templatedir = ~/.git-templates
+[difftool "meld"]
+	path = /usr/bin/meld
+[difftool]
+	prompt = false
+[mergetool "meld"]
+	path = /usr/bin/meld

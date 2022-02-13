@@ -18,13 +18,27 @@ fi
 
 #boot picom if it exists
 if [ -x "$(command -v picom)" ]; then
-  picom -b &> /dev/null & 
+  picom --config $HOME/.config/picom/picom.conf -b &>/dev/null &
+  #picom -b &> /dev/null &
+fi
+
+
+if [ -x "$(command -v picom)" ]; then
+  picom --config $HOME/.config/picom/picom.conf -b &>/dev/null &
+  #picom -b &> /dev/null &
 fi
 
 #some startup app
-dunst &
+
+if [ -x "$(command -v picom)" ]; then
+  dunst --config $HOME/.config/dunst/dunstrc &
+fi
+
 nm-applet &
 
+gnome-keyring-daemon --start --components=pkcs11 &
+
+# xfce4-power-manager &
 #boot polybar based on the number of monitors found
 if [ -x "$(command -v polybar)" ]; then
   pkill polybar
@@ -39,3 +53,21 @@ if [ -x "$(command -v polybar)" ]; then
   done <<< "$monitors"
   exit 0
 fi
+
+# rm -f $HOME/.config/eww
+# ln -s $HOME/.config/left_eww $HOME/.config/eww
+
+# eww  -c "$HOME/.config/eww/bar" --restart  open bar &
+eww daemon &
+
+$HOME/.local/bin/eww -c $HOME/.config/eww/bar --restart open bar &
+$HOME/.local/bin/eww -c $HOME/.config/eww/bar --restart open bar &
+$HOME/.local/bin/eww -c $HOME/.config/eww/bar --restart open bar &
+$HOME/.local/bin/eww -c $HOME/.config/eww/bar --restart open bar &
+#index=0
+#sizes=( $(leftwm-state -q -n -t $SCRIPTPATH/sizes.liquid | sed -r '/^\s*$/d' ) )
+#for size in "${sizes[@]}"
+#do
+#  eww open bar$index
+#  let index=index+1
+#done
