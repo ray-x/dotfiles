@@ -52,8 +52,7 @@ local top_panel = function(s)
     layout = wibox.layout.align.horizontal,
     expand = "none",
     {
-      layout = wibox.layout.fixed.horizontal,
-      task_list(s),
+      layout = wibox.layout.fixed.horizontal, task_list(s),
       add_button,
     },
     clock,

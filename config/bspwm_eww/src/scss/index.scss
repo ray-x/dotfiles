@@ -1,0 +1,16 @@
+.outer-window {
+    background-color: $bg;
+    // border-right: $bgSecondaryAlt solid 3px;
+    // border-top: $bgSecondaryAlt solid 3px;
+    // border-radius: 10px;
+    // border-top-left-radius: 0px;
+}
+
+.line {
+    background-color: $bgSecondaryAlt;
+    border-radius: 50px;
+}
+
+.profile, .layout-manager, .system-manager, .music-player {
+    border-radius: 10px;
+}

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+workspaces(){
+  wm=$(wmctrl -m | grep Name | cut -d: -f2)
+  if [ "$wm" = "LeftWM" ]; then
+    echo "left"
+  else
+    echo "bsp"
+  fi
+}
+
+
+
+workspaces
+bspc subscribe desktop node_transfer | while read -r _ ; do
+workspaces
+done
