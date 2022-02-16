@@ -8,7 +8,7 @@ local clickable_container = require("widget.clickable-container")
 local task_list = require("widget.task-list")
 
 local top_panel = function(s)
-  local panel = wibox({
+  s.tpanel = wibox({
     ontop = true,
     screen = s,
     type = "dock",
@@ -21,14 +21,35 @@ local top_panel = function(s)
     fg = beautiful.fg_normal,
   })
 
-  panel:struts({
-    top = dpi(28),
-  })
+  -- s.tpanel:struts({
+  --   top = dpi(28),
+  -- })
 
-  panel:connect_signal("mouse::enter", function()
+  s.tpanel:connect_signal("mouse::enter", function()
     local w = mouse.current_wibox
     if w then
       w.cursor = "left_ptr"
+    end
+
+    local sc = awful.screen.focused()
+    sc.tpanel.height = dpi(28)
+  end)
+
+  s.tdocktimer = gears.timer({ timeout = 3 })
+  s.tdocktimer:connect_signal("timeout", function()
+    local sc = awful.screen.focused()
+    if sc.tpanel then
+      sc.tpanel.height = dpi(2)
+    end
+    if sc.tdocktimer.started then
+      sc.tdocktimer:stop()
+    end
+  end)
+
+  s.tpanel:connect_signal("mouse::leave", function()
+    local sc = awful.screen.focused()
+    if sc.tpanel then
+      sc.tpanel.height = dpi(2)
     end
   end)
 
@@ -41,6 +62,7 @@ local top_panel = function(s)
   s.cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
   -- s.tray = require("widget.tray-toggle")()
 
+  s.ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
   s.docker_widget = require("awesome-wm-widgets.docker-widget.docker")
 
   s.volume_widget = require("awesome-wm-widgets.volume-widget.volume")
@@ -48,11 +70,12 @@ local top_panel = function(s)
   s.end_session = require("widget.end-session")()
   s.global_search = require("widget.global-search")()
   s.tray = wibox.layout.margin(wibox.widget.systray(), dpi(5), dpi(5), dpi(5), dpi(5))
-  panel:setup({
+  s.tpanel:setup({
     layout = wibox.layout.align.horizontal,
     expand = "none",
     {
-      layout = wibox.layout.fixed.horizontal, task_list(s),
+      layout = wibox.layout.fixed.horizontal,
+      task_list(s),
       add_button,
     },
     clock,
@@ -64,6 +87,7 @@ local top_panel = function(s)
       s.screen_rec,
       s.global_search,
       s.cpu_widget,
+      s.ram_widget({ timeout = 15, color_used = "red" }),
       s.docker_widget,
       s.volume_widget,
       -- s.tray,
@@ -71,8 +95,7 @@ local top_panel = function(s)
       s.end_session,
     },
   })
-
-  return panel
+  return s.tpanel
 end
 
 return top_panel

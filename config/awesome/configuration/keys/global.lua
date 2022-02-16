@@ -90,12 +90,12 @@ local global_keys = awful.util.table.join(
     end
   end, { description = "restore minimized", group = "screen" }),
   awful.key({}, "XF86MonBrightnessUp", function()
-    awful.spawn("light -A 10", false)
+    awful.spawn("brightnessctl set 5%+ -n 2%", false)
     awesome.emit_signal("widget::brightness")
     awesome.emit_signal("module::brightness_osd:show", true)
   end, { description = "increase brightness by 10%", group = "hotkeys" }),
   awful.key({}, "XF86MonBrightnessDown", function()
-    awful.spawn("light -U 10", false)
+    awful.spawn("brightnessctl set 5%- -n 2%", false)
     awesome.emit_signal("widget::brightness")
     awesome.emit_signal("module::brightness_osd:show", true)
   end, { description = "decrease brightness by 10%", group = "hotkeys" }),
@@ -160,7 +160,7 @@ local global_keys = awful.util.table.join(
   awful.key({ modkey }, "[", function()
     awesome.emit_signal("widget::blur:decrease")
   end, { description = "decrease blur effect by 10%", group = "Utility" }),
-  awful.key({ modkey, "shift" }, "t", function()
+  awful.key({ modkey, "Shift" }, "t", function()
     awesome.emit_signal("widget::blue_light:toggle")
   end, { description = "toggle redshift filter", group = "Utility" }),
   awful.key({ "Control" }, "Escape", function()

@@ -7,7 +7,12 @@ local dpi = beautiful.xresources.apply_dpi
 local clickable_container = require("widget.clickable-container")
 
 local tag_list = require("widget.tag-list")
-
+function bars_toggle(hide)
+  for s in screen do
+    hide = hide or false
+    s.bottom_panel.visible = not hide
+  end
+end
 local build_widget = function(widget)
   return wibox.widget({
     {
@@ -25,16 +30,15 @@ local build_widget = function(widget)
 end
 
 local bottom_panel = function(s)
-  s.ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
   s.systray = wibox.widget({
     {
-      base_size = dpi(20),
+      base_size = dpi(30),
       horizontal = true,
       screen = "primary",
       widget = wibox.widget.systray,
     },
     visible = false,
-    top = dpi(14),
+    top = dpi(2),
     widget = wibox.container.margin,
   })
 
@@ -56,7 +60,7 @@ local bottom_panel = function(s)
   local bottom_panel_height = dpi(48)
   local bottom_panel_margins = dpi(5)
 
-  local panel = awful.popup({
+  s.panel = awful.popup({
     widget = {
       {
         layout = wibox.layout.fixed.horizontal,
@@ -66,12 +70,11 @@ local bottom_panel = function(s)
         require("widget.xdg-folders")(),
         {
           layout = wibox.layout.fixed.horizontal,
-          spacing = dpi(10),
+          spacing = dpi(3),
           s.systray,
           s.tray_toggler,
           s.network,
           s.bluetooth,
-          s.ram_widget,
           s.battery,
           layout_box,
           separator,
@@ -95,11 +98,48 @@ local bottom_panel = function(s)
     bg = beautiful.transparent,
   })
 
-  panel:struts({
-    bottom = bottom_panel_height,
-  })
+  -- This prevent other windows take up the places
+  -- s.panel:struts({
+  --   bottom = bottom_panel_height,
+  -- })
+  -- Add toggling functionalities
+  s.docktimer = gears.timer({ timeout = 3 })
+  s.docktimer:connect_signal("timeout", function()
+    local sc = awful.screen.focused()
 
-  return panel
+    if sc.panel then
+      sc.panel.maximum_height = dpi(4)
+    end
+
+    if sc.top_panel then
+      sc.top_panel.maximum_height = dpi(4)
+    end
+    if sc.docktimer.started then
+      sc.docktimer:stop()
+    end
+  end)
+  tag.connect_signal("property::selected", function(t)
+    local sc = t.screen or awful.screen.focused()
+    sc.panel.visible = true
+
+    sc.panel.maximum_height = dpi(bottom_panel_height)
+    if not sc.docktimer.started then
+      sc.docktimer:start()
+    end
+  end)
+
+  s.panel:connect_signal("mouse::leave", function()
+    local sc = awful.screen.focused()
+    if sc.panel then
+      sc.panel.maximum_height = dpi(4)
+    end
+  end)
+
+  s.panel:connect_signal("mouse::enter", function()
+    local sc = awful.screen.focused()
+    sc.panel.maximum_height = dpi(bottom_panel_height)
+  end)
+  return s.panel
 end
 
 return bottom_panel
