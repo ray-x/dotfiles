@@ -1,7 +1,6 @@
 jorgebucaran/fisher
 evanlucas/fish-kubectl-completions
 franciscolourenco/done
-joseluisq/gitnow@2.8.0
 shinriyo/breeze
 jorgebucaran/autopair.fish
 edc/bass
@@ -17,7 +16,9 @@ wfxr/forgit
 jethrokuan/z
 gazorby/fish-exa
 matchai/spacefish
-jethrokuan/fzf
-PatrickF1/fzf.fish
 danhper/fish-ssh-agent
 gazorby/fish-abbreviation-tips
+joseluisq/gitnow@2.10.0
+patrickf1/fzf.fish
+nickeb96/puffer-fish
+meaningful-ooo/sponge
