@@ -3,18 +3,18 @@
 	tool = meld
 [mergetool]
 	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-    keepTemporaries = false
-    trustExitCode = false
-    keepBackup = false
+  keepTemporaries = false
+  trustExitCode = false
+  keepBackup = false
 	prompt = false
 [diff]
 	tool = meld
 	colorMoved = default
 [difftool "p4merge"]
-    cmd = p4merge "$LOCAL" "$REMOTE"
-    keepTemporaries = false
-    trustExitCode = false
-    keepBackup = false
+  cmd = p4merge "$LOCAL" "$REMOTE"
+  keepTemporaries = false
+  trustExitCode = false
+  keepBackup = false
 
 [url "git@bitbucket.org:"]
  insteadOf = https://bitbucket.org/
@@ -26,39 +26,41 @@
 [core]
 	excludesfile = $HOME/.gitignore_global
 	editor = nvim
-	pager = delta -w $COLUMNS
+  pager = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+  ; pager = delta -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+	hooksPath = /home/ray/.git-templates/hooks
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 
 [pager]
-    log = delta
-    reflog = delta
-    show = delta
+  log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+  reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+  show = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+  ; diff = delta --side-by-side --width ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-    features = line-numbers decorations collared-trogon
-    whitespace-error-style = 22 reverse
-    side-by-side = true
-#    side-by-side = true
+  features = line-numbers decorations collared-trogon
+  whitespace-error-style = 22 reverse
+  side-by-side = true
 
 [delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
 
 
 [difftool "nvim-qt"]
-    cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
+  cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
 [difftool "vimdiff"]
-    cmd = "gvimdiff -d $LOCAL -c \"set noreadonly\" $REMOTE"
+  cmd = "gvimdiff -d $LOCAL -c \"set noreadonly\" $REMOTE"
 [difftool "nvimdiff"]
-    # cmd = "nvim -u ~/github/dotfiles/init.min -d \"$LOCAL\" \"$REMOTE\""
-    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+  # cmd = "nvim -u ~/github/dotfiles/init.min -d \"$LOCAL\" \"$REMOTE\""
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [mergetool "nvimdiff"]
-    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
@@ -99,3 +101,18 @@
 	prompt = false
 [mergetool "meld"]
 	path = /usr/bin/meld
+[url "ssh://git@bitbucket.org/"]
+	insteadOf = https://bitbucket.org/
+	insteadOf = https://frankieone.dev/
+[alias]
+	oldest-ancestor = !zsh -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
+  lgf = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  lgf2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lg = !"git lgf"
+  LG = !"git lgf2"
+[http]
+	sslVerify = false
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[push]
+	autoSetupRemote = true
