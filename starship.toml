@@ -57,6 +57,8 @@ $line_break\
 $jobs\
 $character"""
 
+# right_format="""$time"""
+
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
 success_symbol = "[❯](bold red)[❯](bold yellow)[❯](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
@@ -75,9 +77,10 @@ ap-southeast-2 = "au-ap"
 us-east-1 = "va"
 
 [battery]
+threshold = 30
 full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
 
 
 [git_commit]
@@ -170,8 +173,11 @@ python_binary = "python3"
 [terraform]
 format = "[🏎💨 $version$workspace]($style) "
 
+[cmd_duration]
+min_time = 3000
+
 [time]
-disabled = false
-format = '🕙[\[ $time \]]($style) '
 time_format = "%T"
-time_range = "10:00:00-14:00:00"
+format = "🕙 $time($style) "
+style = "white"
+disabled = false
