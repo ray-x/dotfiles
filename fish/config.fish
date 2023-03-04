@@ -86,6 +86,7 @@ alias RM='/bin/rm'
 alias gtest='richgo test ./... -count=1 -p=1'
 set -gx PATH /usr/local/opt/python@3.9/bin $PATH
 set -gx PATH /usr/local/opt/llvm/bin $HOME/github/dotfiles/bin/ $PATH
+set -gx PATH /home/ray/.local/share/gem/ruby/3.0.0/bin $PATH
 #
 # # Completion for kitty
 # kitty + complete setup fish | source. #fish earlier than 3.0.0,
@@ -169,8 +170,13 @@ set -gx PATH "$PNPM_HOME" $PATH
 #
 set -gx NPM_TOKEN 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
 set -x PATH "$HOME/github/dotfiles/fish/plugins/git-fuzzy/bin:$PATH"
-
+set sponge_purge_only_on_exit true
 
 function rgn -d "grep preview and edit with nvim"
-  rg -n $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | cut -d ':' -f1 | xargs -r nvim
+  # rg -n $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | cut -d ':' -f1 | xargs -r nvim
+  rg -n $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | awk -F ':' '{print "+" $2 " " $1}' | xargs nvim
+end
+
+function fdn -d "fd preview and edit with nvim"
+  fd --full-path $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | cut -d ':' -f1 | xargs -r nvim
 end

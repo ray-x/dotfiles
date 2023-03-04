@@ -13,9 +13,12 @@ web:*.{html,css,js}*
 
 # Exclude file types.
 --glob=!*.{lock}
-
+--glob=!dist/*
+--glob=!build*
+--glob=!.cache/*
 # Exclude files.
 --glob=!{package-lock.json}
+--glob=!log/*
 # # or
 # --glob
 # '!{**/node_modules/*,**/.git/*}'
