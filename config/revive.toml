@@ -1,8 +1,12 @@
-ignoreGeneratedHeader = false
-severity = "warning"
+ignoreGeneratedHeader = true
+severity = "info"
 confidence = 0.8
 errorCode = 0
 warningCode = 0
+exclude = [
+  "./vendor/...",
+  "schema.go"
+]
 
 [rule.blank-imports]
 [rule.context-as-argument]

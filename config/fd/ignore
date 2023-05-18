@@ -1,0 +1,17 @@
+.git/
+
+.cache/
+!.cache/yay/
+!.cache/paru/
+
+.local/share/cargo
+.local/share/go
+.local/share/yarn
+
+node_modules/
+site-packages/
+__pycache__/
+dist/
+out/
+.next/
+

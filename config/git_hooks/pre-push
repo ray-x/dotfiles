@@ -1,8 +1,0 @@
-#!/bin/bash
-# push hook to perform linting
-
-terraform fmt -recursive
-terraform-docs markdown --recursive --output-file README.md .
-
-[[ -z `git status 2>&1 | grep nothing` ]] && exit 1
-exit 0

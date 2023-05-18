@@ -1,31 +1,4 @@
 #!/bin/sh
-
-# File:         fonttest.textart
-# Description:  Fonts testing
-# Author:       NNB
-#               └─ https://github.com/NNBnh
-# URL:          https://github.com/NNBnh/nnbs-text-art/blob/main/other/fonttest.textart
-# License:      GPLv3
-
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-# Values
-TEXT="${1:-abcd efg hijk lmno pqrs tuv wxyz\nABCD EFG HIJK LMNO PQRS TUV WXYZ\n  1234567890       ,./\\;'[]-=\`\n  !@#\$%%^&*()      <>?|:\"\{\}_+~}"
-STYLES="${2:-normal bold italic}"
-
-# Start
 echo -e '\e[1mbold\e[22m'
 echo -e '\e[2mdim\e[22m'
 echo -e '\e[3mitalic\e[23m'
@@ -61,14 +34,3 @@ echo -e '\e[21m\e[58;5;42m256-color underline (new in 0.52)\e[59m\e[24m'
 echo -e '\e[4:3m\e[58:2::240:143:104mtruecolor underline (new in 0.52) (*)\e[59m\e[4:0m'
 echo -e '\e[4:3m\e[58:2:240:143:104mtruecolor underline (new in 0.52) (might be removed at some point) (*)\e[59m\e[4:0m'
 echo -e '\e[4:3m\e[58;2;240;143;104mtruecolor underline (new in 0.52) (*)\e[59m\e[4:0m'
-
-
-for style in $STYLES; do
-	case "$style" in
-		'normal') print="$print${print:+\n}\033[0m$TEXT\033[0m" ;;
-		'bold')   print="$print${print:+\n}\033[1m$TEXT\033[0m" ;;
-		'italic') print="$print${print:+\n}\033[3m$TEXT\033[0m" ;;
-	esac
-done
-echo -e "\n$print\n"
-exit 0

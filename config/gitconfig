@@ -1,42 +1,40 @@
 [merge]
-	conflictstyle = diff3
-	tool = meld
+  conflictstyle = diff3
+  tool = meld
 [mergetool]
-	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
   keepTemporaries = false
   trustExitCode = false
   keepBackup = false
-	prompt = false
+  prompt = false
 [diff]
-	tool = meld
-	colorMoved = default
+  tool = meld
+  colorMoved = default
 [difftool "p4merge"]
   cmd = p4merge "$LOCAL" "$REMOTE"
   keepTemporaries = false
   trustExitCode = false
   keepBackup = false
 
-[url "git@bitbucket.org:"]
- insteadOf = https://bitbucket.org/
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [core]
-	excludesfile = $HOME/.gitignore_global
-	editor = nvim
+  excludesfile = $HOME/.gitignore_global
+  editor = nvim
   pager = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   ; pager = delta -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-	hooksPath = /home/ray/.git-templates/hooks
+  hooksPath = /home/ray/.git-templates/hooks
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 
 [pager]
   log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   show = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-  ; diff = delta --side-by-side --width ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
+  diff = delta --side-by-side --width ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
 
 [interactive]
   diffFilter = delta --color-only
@@ -62,57 +60,61 @@
 [mergetool "nvimdiff"]
   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 
-[url "git@github.com:"]
-	insteadOf = https://github.com/
+; [url "git@github.com:"]
+;   insteadOf = https://github.com/
+[url "ssh://git@github.com/frankieone/"]
+  insteadOf = https://github.com/frankieone/
 [secrets]
-	patterns = [A-Z0-9]{20}
-	patterns = password\\s*=\\s*.+
-	patterns = password\\s*:\\s*.+
-	patterns = key\\s*:\\s*.+
-	patterns = secret\\s*:\\s*.+
-	patterns = secret\\s*=\\s*.+
-	patterns = key\\s*=\\s*.+
-	providers = git secrets --aws-provider
-	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
-	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
-	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
-	allowed = AKIAIOSFODNN7EXAMPLE
-	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-	patterns = token\\s*=\\s*.+
-	patterns = token\\s*L\\s*.+
-	patterns = token\\s*:\\s*.+
-	patterns = token.*\\s*:\\s*.+
-	patterns = key.*\\s*:\\s*.+
-	patterns = key.*\\s*=\\s*.+
-	patterns = key*\\s*=\\s*.+
+  patterns = [A-Z0-9]{20}
+  patterns = password\\s*=\\s*.+
+  patterns = password\\s*:\\s*.+
+  patterns = key\\s*:\\s*.+
+  patterns = secret\\s*:\\s*.+
+  patterns = secret\\s*=\\s*.+
+  patterns = key\\s*=\\s*.+
+  providers = git secrets --aws-provider
+  patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+  patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+  patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+  allowed = AKIAIOSFODNN7EXAMPLE
+  allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  patterns = token\\s*=\\s*.+
+  patterns = token\\s*L\\s*.+
+  patterns = token\\s*:\\s*.+
+  patterns = token.*\\s*:\\s*.+
+  patterns = key.*\\s*:\\s*.+
+  patterns = key.*\\s*=\\s*.+
+  patterns = key*\\s*=\\s*.+
 [mergetool "diffmerge"]
-	cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-	trustExitCode = true
+  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+  trustExitCode = true
 [difftool "diffmerge"]
-	cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
+  cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
 [user]
-	name = ray
-	email = ray@frankieon.com
+  name = ray-x
+  email = rayx.cn@gmail.com
 [init]
-	templatedir = ~/.git-templates
+  templatedir = ~/.git-templates
 [difftool "meld"]
-	path = /usr/bin/meld
+  path = /usr/bin/meld
 [difftool]
-	prompt = false
+  prompt = false
 [mergetool "meld"]
-	path = /usr/bin/meld
+  path = /usr/bin/meld
 [url "ssh://git@bitbucket.org/"]
-	insteadOf = https://bitbucket.org/
-	insteadOf = https://frankieone.dev/
+  insteadOf = https://bitbucket.org/
+  insteadOf = https://frankieone.dev/
 [alias]
-	oldest-ancestor = !zsh -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
+  oldest-ancestor = !zsh -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
   lgf = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  lgf2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lgf2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''      %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
   lg = !"git lgf"
   LG = !"git lgf2"
 [http]
-	sslVerify = false
+  sslVerify = false
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
+[url "ssh://git@github.com:"]
+  insteadOf = https://github.com/
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
