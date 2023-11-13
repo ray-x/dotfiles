@@ -189,7 +189,6 @@ if status is-interactive
 
   # set_onedark $onedark_options
   # theme_gruvbox dark
-  source $XDG_CONFIG_HOME/fish/conf.d/fish_tokyonight_storm.fish
 
 end
 fish_add_path /usr/local/opt/ruby/bin
