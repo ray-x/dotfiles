@@ -26,7 +26,9 @@ set -gx __NV_PRIME_RENDER_OFFLOAD "1"
 set -gx __GLX_VENDOR_LIBRARY_NAME "nvidia"
 set -gx RIPGREP_CONFIG_PATH "$DOTFILES/ripgreprc"
 # set -gx HOST_NAME (scutil --get HostName)
-
+set -gx HOMEBREW_PREFIX "/opt/homebrew";
+set -gx HOMEBREW_CELLAR "/opt/homebrew/Cellar";
+set -gx HOMEBREW_REPOSITORY "/opt/homebrew";
 
 # FZF specific - https://github.com/junegunn/fzf#key-bindings-for-command-line
 set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --no-ignore-vcs'
@@ -47,11 +49,18 @@ set -gx GOHOME $HOME/go
 set -gx GOBIN $HOME/go/bin
 set -gx GO111MODULE "on"
 
+<<<<<<< HEAD
 set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $HOME/.cargo/bin $PATH
+||||||| parent of 3bb01e7 (macos setup)
+set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $PATH
+=======
+set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin /opt/homebrew/bin  $PATH
+>>>>>>> 3bb01e7 (macos setup)
 fish_add_path /usr/local/opt/curl/bin
 set -gx PATH $GOPATH/bin $PATH
 set -gx PATH $GOROOT/bin $PATH
-set -gx GOPRIVATE "bitbucket.org/*,frankieone.dev/*,github.com/frankieone/*"
+# set -gx GOPRIVATE "bitbucket.org/*,frankieone.dev/*,github.com/frankieone/*"
+set -gx GOPRIVATE "github.com/StreamCo/*,github.com/streamco/*"
 
 # set -gx GO2GO_DEST $GOPATH/src/github.com/go2
 # set -gx PATH $GO2GO_DEST/bin $PATH
@@ -74,12 +83,25 @@ set -gx BAT_THEME "TwoDark"
 alias gvim='/usr/local/bin/mvim'
 alias gdv='git difftool --tool gvimdiff'
 alias nd='git difftool --tool nvimdiff'
+<<<<<<< HEAD
 
 
+||||||| parent of 3bb01e7 (macos setup)
+alias ls='exa'
+alias ll='exa -alh'
+alias rtl='exa -alh -s mod'
+alias tree='exa --tree'
+=======
+alias ls='eza'
+alias ll='eza -alh'
+alias rtl='eza -alh -s mod'
+alias tree='eza --tree'
+>>>>>>> 3bb01e7 (macos setup)
 alias icat "kitty +kitten icat"
 alias cat='bat -p'
 alias RM='/bin/rm'
 alias gtest='richgo test ./... -count=1 -p=1'
+<<<<<<< HEAD
 # set -gx PATH /usr/local/opt/python@3.9/bin $PATH
 set -gx PATH /usr/local/opt/llvm/bin $HOME/github/dotfiles/bin/ $PATH
 set -gx PATH $HOME/.local/share/gem/ruby/3.0.0/bin $PATH
@@ -130,6 +152,15 @@ end
 start_ssh_agent
 
 
+||||||| parent of 3bb01e7 (macos setup)
+set -gx PATH /usr/local/opt/python@3.9/bin $PATH
+set -gx PATH /usr/local/opt/llvm/bin $HOME/github/dotfiles/bin/ $PATH
+set -gx PATH /home/ray/.local/share/gem/ruby/3.0.0/bin $PATH
+=======
+# set -gx PATH /usr/local/opt/python@3.9/bin $PATH
+# set -gx PATH /usr/local/opt/llvm/bin $HOME/github/dotfiles/bin/ $PATH
+# set -gx PATH /home/ray/.local/share/gem/ruby/3.0.0/bin $PATH
+>>>>>>> 3bb01e7 (macos setup)
 #
 # # Completion for kitty
 # kitty + complete setup fish | source. #fish earlier than 3.0.0,
@@ -151,14 +182,30 @@ set -gx GRADLE_HOME $HOME/gradle
 
 if test $os = 'Linux'
   set -gx HOST_NAME RayLinux
-  set -gx JAVA_HOME /usr/lib/jvm/java-18-openjdk/
-  set -gx JDTLS_HOME $HOME/lsp_test/jdt-language-server-1.3.0-202108171748
-  set -gx JDTLS_CONFIG $JDTLS_HOME/config_mac
-else
+  # set -gx JAVA_HOME /usr/lib/jvm/java-18-openjdk/
+  # set -gx JDTLS_HOME $HOME/lsp_test/jdt-language-server-1.3.0-202108171748
+  # set -gx JDTLS_CONFIG $JDTLS_HOME/config_mac
+else if test $os = 'Darwin'
   set -gx HOST_NAME RayMac
+<<<<<<< HEAD
   set -gx JAVA_HOME /usr/local/Cellar/openjdk/17.0.1/
   # set -gx JDTLS_HOME $HOME/lsp_test/jdt-language-server-1.3.0-202108171748
   # set -gx JDTLS_CONFIG $JDTLS_HOME/config_mac
+||||||| parent of 3bb01e7 (macos setup)
+  set -gx JAVA_HOME /usr/local/Cellar/openjdk/17.0.1/
+  set -gx JDTLS_HOME $HOME/lsp_test/jdt-language-server-1.3.0-202108171748
+  set -gx JDTLS_CONFIG $JDTLS_HOME/config_mac
+=======
+  set -gx PATH $PATH "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+  set -gx GOROOT (brew --prefix golang)/libexec
+  set -gx PATH $PATH $GOROOT/bin
+
+else
+  set -gx HOST_NAME RayWin
+  # set -gx JAVA_HOME /usr/local/Cellar/openjdk/17.0.1/
+  # set -gx JDTLS_HOME $HOME/lsp_test/jdt-language-server-1.3.0-202108171748
+  # set -gx JDTLS_CONFIG $JDTLS_HOME/config_mac
+>>>>>>> 3bb01e7 (macos setup)
 end
 
 set -gx WORKSPACE $HOME/workspace
@@ -199,9 +246,16 @@ end
 fish_add_path /usr/local/opt/ruby/bin
 fish_add_path /usr/local/lib/ruby/gems/3.0.0/bin
 
+
 alias cmdhis "_fzf_search_history"
 # pnpm
+<<<<<<< HEAD
 set -gx PNPM_HOME $HOME/.local/share/pnpm
+||||||| parent of 3bb01e7 (macos setup)
+set -gx PNPM_HOME "/home/ray/.local/share/pnpm"
+=======
+# set -gx PNPM_HOME "/home/ray/.local/share/pnpm"
+>>>>>>> 3bb01e7 (macos setup)
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 #

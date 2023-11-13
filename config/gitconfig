@@ -1,6 +1,6 @@
 [merge]
   conflictstyle = diff3
-  tool = meld
+	tool = smerge
 [mergetool]
   cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
   keepTemporaries = false
@@ -60,10 +60,8 @@
 [mergetool "nvimdiff"]
   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 
-; [url "git@github.com:"]
-;   insteadOf = https://github.com/
-[url "ssh://git@github.com/frankieone/"]
-  insteadOf = https://github.com/frankieone/
+[url "git@github.com:"]
+  insteadOf = https://github.com/
 [secrets]
   patterns = [A-Z0-9]{20}
   patterns = password\\s*=\\s*.+
@@ -104,6 +102,10 @@
 [url "ssh://git@bitbucket.org/"]
   insteadOf = https://bitbucket.org/
   insteadOf = https://frankieone.dev/
+	path = /usr/bin/meld
+[url "ssh://git@bitbucket.org/"]
+	insteadOf = https://bitbucket.org/
+	path = /usr/bin/meld
 [alias]
   oldest-ancestor = !zsh -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
   lgf = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
@@ -116,5 +118,13 @@
   insteadOf = https://github.com/
 [url "ssh://git@github.com:"]
   insteadOf = https://github.com/
+	insteadOf = https://github.com/
+	insteadOf = https://github.com/
+[url "ssh://git@github.com:ray-x"]
+  sshCommand = ssh -i ~/.ssh/id_ed25519
+[url "ssh://git@stan.github.com/StreamCo/*"]
+  insteadOf = https://github.com/StreamCo/*
+[url "ssh://git@github.com:StreamCo"]
+  sshCommand = ssh -i ~/.ssh/id_ed25519_stan
 [push]
   autoSetupRemote = true
