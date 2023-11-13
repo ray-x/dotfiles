@@ -1,21 +1,3 @@
-[merge]
-  conflictstyle = diff3
-	tool = smerge
-[mergetool]
-  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-  keepTemporaries = false
-  trustExitCode = false
-  keepBackup = false
-  prompt = false
-[diff]
-  tool = meld
-  colorMoved = default
-[difftool "p4merge"]
-  cmd = p4merge "$LOCAL" "$REMOTE"
-  keepTemporaries = false
-  trustExitCode = false
-  keepBackup = false
-
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
@@ -26,10 +8,15 @@
   editor = nvim
   pager = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   ; pager = delta -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-  hooksPath = /home/ray/.git-templates/hooks
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-
+[merge]
+    tool = nvimdiff
+    conflictstyle = diff3
+[mergetool]
+    keepBackup = false
+    trustExitCode = false
+    prompt = true
 [pager]
   log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
@@ -93,19 +80,8 @@
   email = rayx.cn@gmail.com
 [init]
   templatedir = ~/.git-templates
-[difftool "meld"]
-  path = /usr/bin/meld
 [difftool]
   prompt = false
-[mergetool "meld"]
-  path = /usr/bin/meld
-[url "ssh://git@bitbucket.org/"]
-  insteadOf = https://bitbucket.org/
-  insteadOf = https://frankieone.dev/
-	path = /usr/bin/meld
-[url "ssh://git@bitbucket.org/"]
-	insteadOf = https://bitbucket.org/
-	path = /usr/bin/meld
 [alias]
   oldest-ancestor = !zsh -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
   lgf = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
@@ -118,12 +94,8 @@
   insteadOf = https://github.com/
 [url "ssh://git@github.com:"]
   insteadOf = https://github.com/
-	insteadOf = https://github.com/
-	insteadOf = https://github.com/
 [url "ssh://git@github.com:ray-x"]
   sshCommand = ssh -i ~/.ssh/id_ed25519
-[url "ssh://git@stan.github.com/StreamCo/*"]
-  insteadOf = https://github.com/StreamCo/*
 [url "ssh://git@github.com:StreamCo"]
   sshCommand = ssh -i ~/.ssh/id_ed25519_stan
 [push]
