@@ -41,10 +41,7 @@
 
 [difftool "nvim-qt"]
   cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
-[difftool "vimdiff"]
-  cmd = "gvimdiff -d $LOCAL -c \"set noreadonly\" $REMOTE"
 [difftool "nvimdiff"]
-  # cmd = "nvim -u ~/github/dotfiles/init.min -d \"$LOCAL\" \"$REMOTE\""
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [mergetool "nvimdiff"]
   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
@@ -77,9 +74,10 @@
   trustExitCode = true
 [difftool "diffmerge"]
   cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
-[user]
-  name = ray-x
-  email = rayx.cn@gmail.com
+[include]
+  path = ~/github/ray-x/dotfiles/config/gitconfig-work
+[includeIf "gitdir:~/github/ray-x/"]
+  path = ~/github/ray-x/dotfiles/config/gitconfig-rayx
 [init]
   templatedir = ~/.git-templates
 [difftool]
@@ -90,17 +88,11 @@
   lgf2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''      %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
   lg = !"git lgf"
   LG = !"git lgf2"
-[http]
-  sslVerify = false
 [url "git@github.com:"]
   insteadOf = https://github.com/
 [url "ssh://git@github.com:"]
   insteadOf = https://github.com/
 [url "ssh://git@github.com:ray-x"]
   sshCommand = ssh -i ~/.ssh/id_ed25519
-[url "ssh://git@github.com:StreamCo"]
-  sshCommand = ssh -i ~/.ssh/id_ed25519_stan
 [push]
   autoSetupRemote = true
-[url "git@github.com:streamco"]
-	insteadOf = https://github.com/streamco

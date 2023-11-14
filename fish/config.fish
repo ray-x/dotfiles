@@ -21,7 +21,7 @@ set -gx RUBY_CONFIGURE_OPTS '--with-opt-dir=/usr/local/opt/openssl:/usr/local/op
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
-set -gx DOTFILES "$HOME/github/dotfiles"
+set -gx DOTFILES "$HOME/github/ray-x/dotfiles"
 set -gx __NV_PRIME_RENDER_OFFLOAD "1"
 set -gx __GLX_VENDOR_LIBRARY_NAME "nvidia"
 set -gx RIPGREP_CONFIG_PATH "$DOTFILES/ripgreprc"
@@ -72,7 +72,7 @@ alias cat='bat -p'
 alias RM='/bin/rm'
 alias gtest='richgo test ./... -count=1 -p=1'
 # set -gx PATH /usr/local/opt/python@3.9/bin $PATH
-set -gx PATH /usr/local/opt/llvm/bin $HOME/github/dotfiles/bin/ $PATH
+set -gx PATH /usr/local/opt/llvm/bin $DOTFILES/bin/ $PATH
 set -gx PATH $HOME/.local/share/gem/ruby/3.0.0/bin $PATH
 
 if string match --quiet 'MSYS*' $os; or string match --quiet 'MINGW*' $os
@@ -105,7 +105,7 @@ else
   alias rm='trash-put'
   alias nv=$HOME'/bin/nvim'   # nightly version
   alias vi=$EDITOR
-  alias vdiff=$EDITOR ' -d -u ~/github/dotfiles/init.min'
+  alias vdiff=$EDITOR ' -d'
   if status is-login
     ssh-add
   end
