@@ -17,6 +17,8 @@
     keepBackup = false
     trustExitCode = false
     prompt = true
+[mergetool "nvimdiff"]
+    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 [pager]
   log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
@@ -100,3 +102,5 @@
   sshCommand = ssh -i ~/.ssh/id_ed25519_stan
 [push]
   autoSetupRemote = true
+[url "git@github.com:streamco"]
+	insteadOf = https://github.com/streamco

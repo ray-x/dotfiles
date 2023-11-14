@@ -64,8 +64,6 @@ set -gx NVM_DIR "$HOME/.nvm"
 set -gx BAT_THEME "TwoDark"
 # # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-alias gvim='/usr/local/bin/mvim'
-alias gdv='git difftool --tool gvimdiff'
 alias nd='git difftool --tool nvimdiff'
 
 
@@ -105,9 +103,9 @@ else
   alias rtl='eza -alh -s mod'
   alias tree='eza --tree'
   alias rm='trash-put'
-  alias nv='/usr/local/bin/nvim'
-  alias vi='/usr/local/bin/nvim'
-  alias vdiff='/usr/local/bin/nvim -d -u ~/github/dotfiles/init.min'
+  alias nv=$HOME'/bin/nvim'   # nightly version
+  alias vi=$EDITOR
+  alias vdiff=$EDITOR ' -d -u ~/github/dotfiles/init.min'
   if status is-login
     ssh-add
   end
