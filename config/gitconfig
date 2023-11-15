@@ -17,13 +17,11 @@
     keepBackup = false
     trustExitCode = false
     prompt = true
-[mergetool "nvimdiff"]
-    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 [pager]
   log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   show = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-  diff = delta --side-by-side --width ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
+  diff = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
 
 [interactive]
   diffFilter = delta --color-only
@@ -43,9 +41,16 @@
   cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
 [difftool "nvimdiff"]
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
-[mergetool "nvimdiff"]
-  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+[difftool "diffmerge"]
+	cmd = $HOME/bin/diffmerge.sh --nosplash \"$LOCAL\" \"$REMOTE\"
 
+[mergetool "nvimdiff"]
+    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+;[mergetool "nvimdiff"]
+;  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+[mergetool "diffmerge"]
+	cmd = $HOME/bin/diffmerge.sh --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+	trustExitCode = true
 [url "git@github.com:"]
   insteadOf = https://github.com/
 [secrets]
@@ -69,11 +74,6 @@
   patterns = key.*\\s*:\\s*.+
   patterns = key.*\\s*=\\s*.+
   patterns = key*\\s*=\\s*.+
-[mergetool "diffmerge"]
-  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-  trustExitCode = true
-[difftool "diffmerge"]
-  cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
 [include]
   path = ~/github/ray-x/dotfiles/config/gitconfig-work
 [includeIf "gitdir:~/github/ray-x/"]
