@@ -7,7 +7,6 @@ set os (uname)
 
 # never checkin this part
 #
-set -gx  LOCALSTACK_API_KEY	5idHUizXpE
 # never and ever
 set -U fish_user_paths /usr/bin $fish_user_paths
 
@@ -137,7 +136,7 @@ alias fzb='fzf --preview "bat {} --color=always"'
 
 alias seperator='viu (echo $HOME"/photos/"(ls ~/photos |sort -R |tail -1))'
 
-set -gx JAR $HOME/lsp_test/jdt-language-server-1.3.0-202108171748/plugins/# # eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
+# set -gx JAR $HOME/lsp_test/jdt-language-server-1.3.0-202108171748/plugins/# # eclipse.equinox.launcher_1.6.100.v20201223-0822.jar
 set -gx GRADLE_HOME $HOME/gradle
 
 if test $os = 'Linux'
@@ -201,15 +200,11 @@ set -gx PNPM_HOME $HOME/.local/share/pnpm
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 #
-set -gx NPM_TOKEN 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
 set -x PATH "$HOME/github/dotfiles/fish/plugins/git-fuzzy/bin:$PATH"
 set -x PATH "$PATH:/c/ProgramData/chocolatey/bin:$USERPROFILE/scoop/shims"
 set sponge_purge_only_on_exit true
 
 # load session manager
-set -gx AWS_SDK_LOAD_CONFIG 1
-set -gx OPENAI_API_KEY test
-
 if test -f private.fish
   source private.fish
 end

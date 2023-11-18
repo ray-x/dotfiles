@@ -135,7 +135,7 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/usr/bin\x1e/usr/local/opt/curl/bin\x1e/usr/local/lib/ruby/gems/3\x2e0\x2e0/bin\x1e/usr/local/opt/ruby/bin\x1e/Users/ray\x2exu/\x2ecache/dein/repos/github\x2ecom/junegunn/fzf/bin\x1e/Users/ray\x2exu/\x2efzf/bin
+SETUVAR fish_user_paths:/usr/bin\x1e/Users/rayxu/Library/Python/3\x2e11/bin\x1e/Users/rayxu/Library/Python/3\x2e9/bin\x1e/opt/homebrew/opt/postgresql\x4015/bin\x1e/usr/local/opt/curl/bin\x1e/usr/local/lib/ruby/gems/3\x2e0\x2e0/bin\x1e/usr/local/opt/ruby/bin\x1e/Users/ray\x2exu/\x2ecache/dein/repos/github\x2ecom/junegunn/fzf/bin\x1e/Users/ray\x2exu/\x2efzf/bin
 SETUVAR sponge_allow_previously_successful:true
 SETUVAR sponge_delay:2
 SETUVAR sponge_filters:sponge_filter_failed\x1esponge_filter_matched
