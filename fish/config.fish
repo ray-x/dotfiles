@@ -43,7 +43,7 @@ set -gx FORGIT_DIFF_FZF_OPTS "--exit-0 --preview-window='right:70%'"
 #
 #
 #
-set -gx GOPATH $HOME/go $HOME/projects
+# set -gx GOPATH $HOME/go $HOME/projects
 # set -gx GOROOT "/usr/local/opt/go/libexec" # install with brew
 
 # set -gx GOROOT "/usr/local/go"   # install with brew pkg download from golang.org
@@ -54,7 +54,7 @@ set -gx GO111MODULE "on"
 
 set -gx PATH ~/bin /usr/local/bin $HOME/.local/bin $HOME/.cargo/bin $PATH
 fish_add_path /usr/local/opt/curl/bin
-set -gx PATH $GOPATH/bin $PATH
+set -gx PATH $GOBIN $PATH
 set -gx PATH $GOROOT/bin $PATH
 set -gx GOPRIVATE "github.com/StreamCo/*,github.com/streamco/*"
 
@@ -148,9 +148,10 @@ if test $os = 'Linux'
 else if test $os = 'Darwin'
   set -gx HOST_NAME RayMac
   set -gx PATH $PATH "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+  fish_add_path $HOME/Library/Python/3.9/bin
+  fish_add_path $HOME/Library/Python/3.11/bin $HOME/Library/Python/3.12/bin
   set -gx GOROOT (brew --prefix golang)/libexec
   set -gx PATH $PATH $GOROOT/bin
-
 else
   set -gx HOST_NAME RayWin
 end
@@ -194,6 +195,7 @@ fish_add_path /usr/local/lib/ruby/gems/3.0.0/bin
 
 
 alias cmdhis "_fzf_search_history"
+alias nvn "nvim-nightly"
 # pnpm
 set -gx PNPM_HOME $HOME/.local/share/pnpm
 set -gx PATH "$PNPM_HOME" $PATH
@@ -203,6 +205,14 @@ set -gx NPM_TOKEN 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
 set -x PATH "$HOME/github/dotfiles/fish/plugins/git-fuzzy/bin:$PATH"
 set -x PATH "$PATH:/c/ProgramData/chocolatey/bin:$USERPROFILE/scoop/shims"
 set sponge_purge_only_on_exit true
+
+# load session manager
+set -gx AWS_SDK_LOAD_CONFIG 1
+set -gx OPENAI_API_KEY test
+
+if test -f private.fish
+  source private.fish
+end
 
 function rgn -d "grep preview and edit with nvim"
   # rg -n $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | cut -d ':' -f1 | xargs -r nvim
