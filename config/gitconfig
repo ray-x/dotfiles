@@ -8,6 +8,9 @@
   editor = nvim
   pager = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   ; pager = delta -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+  ;
+[diff]
+  tool = nvimdiff
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 [merge]
@@ -40,7 +43,8 @@
 [difftool "nvim-qt"]
   cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
 [difftool "nvimdiff"]
-  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+  ; cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -c \"DiffviewOpen\""
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 [difftool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --nosplash \"$LOCAL\" \"$REMOTE\"
 
@@ -78,8 +82,8 @@
   path = ~/github/ray-x/dotfiles/config/gitconfig-work
 [includeIf "gitdir:~/github/ray-x/"]
   path = ~/github/ray-x/dotfiles/config/gitconfig-rayx
-[init]
-  templatedir = ~/.git-templates
+; [init]
+;   templatedir = ~/.git-templates
 [difftool]
   prompt = false
 [alias]

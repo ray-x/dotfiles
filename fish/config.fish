@@ -149,10 +149,13 @@ else if test $os = 'Darwin'
   set -gx PATH $PATH "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
   fish_add_path $HOME/Library/Python/3.9/bin
   fish_add_path $HOME/Library/Python/3.11/bin $HOME/Library/Python/3.12/bin
+  fish_add_path $HOME/.local/share/nvim/lazy/nvim_rocks/bin
   set -gx GOROOT (brew --prefix golang)/libexec
   set -gx PATH $PATH $GOROOT/bin
+  set -gx DYLD_LIBRARY_PATH /opt/homebrew/Cellar/imagemagick/7.1.1-21/lib
 else
   set -gx HOST_NAME RayWin
+  set -x PATH "$PATH:/c/ProgramData/chocolatey/bin:$USERPROFILE/scoop/shims"
 end
 
 set -gx WORKSPACE $HOME/workspace
@@ -200,13 +203,12 @@ set -gx PNPM_HOME $HOME/.local/share/pnpm
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 #
-set -x PATH "$HOME/github/dotfiles/fish/plugins/git-fuzzy/bin:$PATH"
-set -x PATH "$PATH:/c/ProgramData/chocolatey/bin:$USERPROFILE/scoop/shims"
+set -x PATH "$HOME/github/ray-x/dotfiles/fish/plugins/git-fuzzy/bin:$PATH"
 set sponge_purge_only_on_exit true
 
 # load session manager
-if test -f private.fish
-  source private.fish
+if test -f $HOME/.config/fish/private.fish
+  source  $HOME/.config/fish/private.fish
 end
 
 function rgn -d "grep preview and edit with nvim"
@@ -218,6 +220,11 @@ function fdn -d "fd preview and edit with nvim"
   fd --full-path $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | cut -d ':' -f1 | xargs -r nvim
 end
 
+
+# lua rock
+export LUA_PATH='/Users/rayxu/.luarocks/share/lua/5.1/?.lua;/Users/rayxu/.luarocks/share/lua/5.1/?/init.lua;/Users/rayxu/.local/share/nvim/lazy/nvim_rocks/share/lua/5.1/?.lua;/Users/rayxu/.local/share/nvim/lazy/nvim_rocks/share/lua/5.1/?/init.lua;./?.lua'
+export LUA_CPATH='/Users/rayxu/.luarocks/lib/lua/5.1/?.so;/Users/rayxu/.local/share/nvim/lazy/nvim_rocks/lib/lua/5.1/?.so;./?.so;/Users/rayxu/.local/share/nvim/lazy/nvim_rocks/lib/lua/5.1/loadall.so'
+fish_add_path $HOME/.luarocks/bin
 
 #function fish_prompt
 #    # Set the colors for different prompt elements
