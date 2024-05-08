@@ -56,23 +56,28 @@ fish_add_path /usr/local/opt/curl/bin
 set -gx PATH $GOBIN $PATH
 set -gx PATH $GOROOT/bin $PATH
 set -gx GOPRIVATE "github.com/StreamCo/*,github.com/streamco/*"
+fish_add_path /opt/homebrew/opt/openjdk/bin
 
+set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk/include"
 
 set -gx PATH $HOME/.deno/bin $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
 set -gx NVM_DIR "$HOME/.nvm"
 set -gx BAT_THEME "TwoDark"
+set -gx PSQL_PAGER 'pspg -X -b'
+set -gx PSPG_CONF "~/.config/pspgrc"
+set -gx PSPG_HISTORY "~/.config/pspg_history"
 # # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias nd='git difftool --tool nvimdiff'
 
 
 alias icat "kitty +kitten icat"
-alias cat='bat -p'
+# alias cat='bat -p'
+alias cat='bat --paging=never'
 alias RM='/bin/rm'
 alias gtest='richgo test ./... -count=1 -p=1'
-# set -gx PATH /usr/local/opt/python@3.9/bin $PATH
 set -gx PATH /usr/local/opt/llvm/bin $DOTFILES/bin/ $PATH
-set -gx PATH $HOME/.local/share/gem/ruby/3.0.0/bin $PATH
+set -gx PATH $HOME/.local/share/gem/ruby/3.2.0/bin $PATH
 
 if string match --quiet 'MSYS*' $os; or string match --quiet 'MINGW*' $os
   # echo win
@@ -105,20 +110,11 @@ else
   alias nv=$HOME'/bin/nvim'   # nightly version
   alias vi=$EDITOR
   alias vdiff=$EDITOR ' -d'
+  alias pip=pip3
   if status is-login
     ssh-add
   end
 end
-
-function start_ssh_agent
-    if not set -q SSH_AGENT_PID
-        eval (ssh-agent -c > /dev/null)
-        ssh-add ~/.ssh/id_ed25519 > /dev/null 2>&1
-    end
-end
-
-start_ssh_agent
-
 
 #
 # # Completion for kitty
@@ -147,12 +143,15 @@ if test $os = 'Linux'
 else if test $os = 'Darwin'
   set -gx HOST_NAME RayMac
   set -gx PATH $PATH "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-  fish_add_path $HOME/Library/Python/3.9/bin
-  fish_add_path $HOME/Library/Python/3.11/bin $HOME/Library/Python/3.12/bin
   fish_add_path $HOME/.local/share/nvim/lazy/nvim_rocks/bin
+  fish_add_path /opt/homebrew/opt/ruby/bin
+  # fish_add_path /opt/homebrew/lib/ruby/gems/3.2.0/bin # gem environment gemdir
+  fish_add_path /opt/homebrew/opt/ruby/bin
   set -gx GOROOT (brew --prefix golang)/libexec
   set -gx PATH $PATH $GOROOT/bin
-  set -gx DYLD_LIBRARY_PATH /opt/homebrew/Cellar/imagemagick/7.1.1-21/lib
+  # set -gx DYLD_LIBRARY_PATH /opt/homebrew/Cellar/imagemagick/7.1.1-29_1/lib
+  # brew --prefix/lib
+  set -gx DYLD_LIBRARY_PATH /opt/homebrew/lib
 else
   set -gx HOST_NAME RayWin
   set -x PATH "$PATH:/c/ProgramData/chocolatey/bin:$USERPROFILE/scoop/shims"
@@ -173,6 +172,7 @@ fish_vi_key_bindings --no-erase insert
 # bind \ce end-of-line
 bind --mode insert \ce end-of-line
 bind --mode insert \ca beginning-of-line
+fzf --fish | source
 if status is-interactive
   # source $XDG_CONFIG_HOME/fish/abbreviations.fish
 
@@ -198,6 +198,7 @@ fish_add_path /usr/local/lib/ruby/gems/3.0.0/bin
 
 alias cmdhis "_fzf_search_history"
 alias nvn "nvim-nightly"
+alias ctags '/opt/homebrew/bin/ctags'
 # pnpm
 set -gx PNPM_HOME $HOME/.local/share/pnpm
 set -gx PATH "$PNPM_HOME" $PATH
@@ -234,3 +235,71 @@ fish_add_path $HOME/.luarocks/bin
 #    # Build the prompt string
 #    echo -n (prompt_pwd) '❯ '
 #end
+set -x PATH (pwd)"/git-fuzzy/bin:$PATH"
+
+function load_env
+    set -l env_file '.env'
+
+    # Check if the .env file exists
+    if test -f $env_file
+        # Read the file line by line
+        for line in (cat $env_file)
+            # Skip empty lines and lines starting with #
+            if test -z "$line"; or string match -qr "^#" -- $line
+                continue
+            end
+
+            # Split the line into name and value
+            set -l key_value (string split "=" -- $line)
+
+            # Set the environment variable
+            if count $key_value > 1
+                set -gx $key_value[1] $key_value[2]
+            end
+        end
+    else
+        echo "Error: .env file not found"
+    end
+end
+
+function decode_jwt
+  # Split the token into parts
+  set -l parts (string replace -r '-' '+' $argv[1] | string replace -r '_' '/' | string split '.')
+
+  # Extract parts from the token
+  set -l h (echo $parts[1])
+  set -l p (echo $parts[2])
+
+  # Function to pad base64URL encoded to base64
+  function paddit
+    set -l input $argv[1]
+    set -l l (echo -n $input | wc -c | tr -d ' ')
+
+    while [ (math "$l % 4") -ne 0 ]
+      set input "$input="
+      set l (echo -n $input | wc -c | tr -d ' ')
+    end
+    echo $input | base64 -d | jq .
+  end
+  paddit $h
+  paddit $p
+end
+
+# Setting PATH for Python 3.12
+# The original version is saved in /Users/rayxu/.config/fish/config.fish.pysave
+# set -x PATH "/Library/Frameworks/Python.framework/Versions/3.12/bin" "$PATH"
+set fish_command_timer_millis 1
+set fish_cursor_unknown block blink
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/homebrew/Caskroom/miniconda/base/bin/conda
+    eval /opt/homebrew/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/opt/homebrew/Caskroom/miniconda/base/etc/fish/conf.d/conda.fish"
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/opt/homebrew/Caskroom/miniconda/base/bin" $PATH
+    end
+end
+# <<< conda initialize <<<

@@ -1,0 +1,630 @@
+
+# 2024-04-26 13:20:49.569273
++SELECT distinct e.seriesId, e.programid, h.episodeId, h.position, h.updated, h.created, e.bundle
++FROM history_19 h JOIN episode e ON (h.episodeId=e.programid or h.episodeId=e.programid)
++WHERE h.profileid=289935971
++AND e.bundle = 'sport'
++ORDER BY h.updated DESC LIMIT 30 OFFSET 0;
+
+# 2024-04-26 13:20:56.463909
++quit
+
+# 2024-04-26 13:21:03.497951
++exit
+
+# 2024-04-26 13:21:13.641106
++?
+
+# 2024-04-26 13:21:16.165344
++\?
+
+# 2024-04-26 13:21:21.388100
++exit()
+
+# 2024-04-26 13:21:23.283782
++exit;
+
+# 2024-04-26 13:22:43.238236
++help;
+
+# 2024-04-26 13:28:08.187297
++SELECT distinct e.seriesId, e.programid, h.episodeId, h.position, h.updated, h.created, e.bundle
++FROM history_19 h JOIN episode e ON (h.episodeId=e.programid or h.episodeId=e.programid)
++WHERE h.profileid=289935971
++AND e.bundle = 'sport'
++ORDER BY h.updated DESC LIMIT 30 OFFSET 0;
++
+
+# 2024-04-26 13:28:39.942407
++select * from episode where seriesid=4926973;
+
+# 2024-04-26 13:29:40.927480
++SELECT distinct e.seriesId, e.programid, h.episodeId, h.position, h.updated, h.created, e.bundle
++FROM history_19 h JOIN episode e ON (h.episodeId=e.programid or h.episodeId=e.programid+1)
++WHERE h.profileid=289935971
++AND e.bundle = 'sport'
++ORDER BY h.updated DESC LIMIT 30 OFFSET 0;
+
+# 2024-04-26 13:29:59.410054
++select * from episode where seriesid=4926835;
+
+# 2024-04-26 13:30:11.551772
++select * from episode where programid=4926835;
+
+# 2024-04-26 13:30:16.233764
++select * from episode where programid=4926836;
+
+# 2024-04-26 13:30:26.748744
++select * from episode where seriesid=4926835;
+
+# 2024-04-26 13:32:03.391257
++\q
+
+# 2024-04-26 13:33:42.643057
++select * from program where series_id=4926835;
+
+# 2024-04-26 13:35:31.959325
++select p.type, p.series_id, p.id, p.title, p.expiry_date, p.available_offline from program p where series_id=4926835;
+
+# 2024-04-26 13:36:18.518318
++select p.type, p.series_id, p.id, p.title, p.expiry_date, p.available_offline, p.availability_windows from program p where series_id=4926835;
+
+# 2024-04-26 13:41:07.510640
++select p.type, p.series_id, p.id, p.title, p.expiry_date, p.available_offline, p.audio_commentary_ids from program p where series_id=4926835;
+
+# 2024-04-26 13:41:36.803931
++select * from episode where programid=4324562;
+
+# 2024-04-26 13:41:40.963682
++select * from episode where programid=4324561;
+
+# 2024-04-26 13:41:49.245482
++select * from episode where seriesid=4324561;
+
+# 2024-04-26 13:42:12.273603
++select * from episode where type='extra';
+
+# 2024-04-26 13:52:46.268475
++\q
+
+# 2024-04-26 13:52:55.636478
++select * from episode where type='extra';
+
+# 2024-04-26 13:53:12.988480
++select * from program where seriesid=4324561;
+
+# 2024-04-26 13:53:26.566737
++select * from program where type='extra' limit=10;
+
+# 2024-04-26 13:53:29.729535
++select * from program where type='extra' limit 10;
+
+# 2024-04-26 13:53:38.342521
++select * from program where type='extra' limit 30;
+
+# 2024-04-26 13:58:18.000385
++\d
+
+# 2024-04-26 13:58:33.212163
++\d program
+
+# 2024-04-26 14:51:02.205270
++\q
+
+# 2024-04-26 14:51:05.237488
++\d
+
+# 2024-04-26 14:51:06.717778
++\q
+
+# 2024-04-26 14:51:18.779581
++exit
+
+# 2024-04-26 14:51:23.072738
++exit();
+
+# 2024-04-26 14:56:38.474297
++select * from program p where p.id = 4926835; 
+
+# 2024-04-26 14:57:07.758847
++select p.id, p.type, p.title  from program p where p.id = 4926835; 
+
+# 2024-04-26 14:57:16.172327
++select p.id, p.type, p.title  from program p where p.series_id = 4926835; 
+
+# 2024-04-26 16:07:57.144195
++select * from run;
+
+# 2024-04-26 16:13:56.928017
++WITH stream_created as (SELECT program_id, MAX(created_nano) as created_nano FROM stream GROUP BY program_id)
++		SELECT
++			series_id,
++			MAX(updated_nano),
++			MAX(CASE WHEN start_date < $1 THEN start_date ELSE NULL END),
++			MAX(CASE WHEN expiry_date < $1 THEN expiry_date ELSE NULL END),
++			COALESCE(MAX(s.created_nano),0)
++		FROM program
++		LEFT JOIN stream_created s ON program.id = s.program_id
++		WHERE
++			type IN ('episode', 'series')
++			AND (
++				(updated_nano > $2 OR s.created_nano > $4)
++				OR (start_date > $2/1e9 AND start_date < $1)
++				OR (expiry_date > $2/1e9 AND expiry_date < $1)
++			)
++			AND (s.created_nano is NULL OR s.created_nano < $3)
++		GROUP BY series_id;
+
+# 2024-04-26 16:14:03.394931
++\q;
+
+# 2024-04-26 16:22:22.707416
++\q;
+
+# 2024-04-26 16:24:09.377731
++select p.id, p.type, p.title  from program p where p.series_id = 4926835; 
+
+# 2024-04-26 16:24:53.677191
++select p.series_id, p.id, p.type, p.title  from program p where p.series_id = 4926835; 
+
+# 2024-04-26 16:26:01.353821
++select p.series_id, p.id, p.type, p.title, p.create  from program p where p.series_id = 4926835; 
+
+# 2024-04-26 16:26:15.719719
++select p.series_id, p.id, p.type, p.title, p.created  from program p where p.series_id = 4926835; 
+
+# 2024-04-26 16:29:59.342869
++SELECT distinct e.seriesId, e.programid, h.episodeId, h.position, h.updated, h.created, e.bundle
++FROM history_19 h JOIN episode e ON (h.episodeId=e.programid or h.episodeId=e.programid+1)
++WHERE h.profileid=289935971
++AND e.bundle = 'sport'
++ORDER BY h.updated DESC LIMIT 30 OFFSET 0;
+
+# 2024-04-26 16:30:09.090933
++\q;
+
+# 2024-04-26 16:31:22.768736
++SELECT distinct e.seriesId, e.programid, h.episodeId, h.position, h.updated, h.created, e.bundle
++FROM history_19 h JOIN episode e ON (h.episodeId=e.programid or h.episodeId=e.programid+1)
++WHERE h.profileid=289935971
++AND e.bundle = 'sport'
++ORDER BY h.updated DESC LIMIT 30 OFFSET 0;
+
+# 2024-04-26 16:31:54.673727
++SELECT * FROM episode where seriesid=4324561;
+
+# 2024-04-26 16:32:59.498019
++\q;
+
+# 2024-04-26 16:33:07.937970
++select * from run;
+
+# 2024-04-26 17:23:06.529161
++exit();
+
+# 2024-04-26 17:23:11.134355
++quit();
+
+# 2024-04-26 17:23:36.139855
++exit();
+
+# 2024-04-26 17:26:10.784079
++\q
+
+# 2024-04-26 17:26:13.613709
++\q;
+
+# 2024-04-26 17:26:18.901197
++quit()
++;
+
+# 2024-04-26 17:26:21.093788
++help;
+
+# 2024-04-26 17:26:46.998456
++:execute "normal \<m-w>"
+
+# 2024-04-26 19:20:08.923771
++\q
+
+# 2024-05-02 13:22:31.794040
++select * from episode where type='extra';
+
+# 2024-05-02 13:23:23.396749
++select * from episode where programid=4962484;
+
+# 2024-05-02 13:23:30.774157
++select * from episode where programid=4962485;
+
+# 2024-05-02 13:32:52.808613
++select * from episode where programid=4962470;
+
+# 2024-05-02 13:32:57.535991
++select * from episode where programid=4962471;
+
+# 2024-05-02 13:33:01.065630
++select * from episode where programid=4962470;
+
+# 2024-05-02 13:33:04.924776
++select * from episode where programid=4962471;
+
+# 2024-05-02 13:34:11.182688
++\q
+
+# 2024-05-02 13:36:17.480220
++\qecho
+
+# 2024-05-02 13:37:26.789458
++select * from episode where programid=4962471;
+
+# 2024-05-02 16:02:38.934917
++\q
+
+# 2024-05-02 16:09:36.967755
++select * from episode where programid=4962471;
+
+# 2024-05-02 16:09:59.185568
++select * from episode limit 100;
+
+# 2024-05-02 16:10:08.147876
++\q
+
+# 2024-05-02 16:10:23.866336
++select * from episode limit 100;
+
+# 2024-05-02 16:11:08.574763
++\q
+
+# 2024-05-02 16:11:22.322860
++select * from episode limit 100;
+
+# 2024-05-02 16:11:27.507149
++\q
+
+# 2024-05-02 16:12:17.866962
++select * from episode limit 100;
+
+# 2024-05-02 16:12:42.205289
++\q
+
+# 2024-05-02 16:12:52.587747
++select * from episode limit 100;
+
+# 2024-05-02 16:12:59.217812
++\q
+
+# 2024-05-02 16:21:19.395852
++select * from episode limit 100;
+
+# 2024-05-02 16:21:56.694351
++\q
+
+# 2024-05-02 16:25:29.536875
++select * from episode limit 100;
+
+# 2024-05-02 16:25:53.860197
++select * from episode;
+
+# 2024-05-02 16:28:35.016592
++\q
+
+# 2024-05-02 16:36:09.261490
++select * from program p where p.id = 4926835; 
+
+# 2024-05-02 16:36:16.610693
++select * from program p; 
+
+# 2024-05-02 16:40:30.744935
++\q
+
+# 2024-05-02 16:40:47.994702
++select id, title from program p; 
+
+# 2024-05-02 16:41:12.179132
++\q
+
+# 2024-05-02 16:41:23.943097
++select id, title from program p; 
+
+# 2024-05-02 16:41:29.051712
++\q
+
+# 2024-05-02 16:41:48.881168
++select id, title from program p; 
+
+# 2024-05-02 16:43:03.878136
++\q
+
+# 2024-05-02 16:43:07.857015
++select id, title from program p; 
+
+# 2024-05-02 16:44:45.519776
++\q
+
+# 2024-05-02 16:44:50.159706
++select id, title from program p; 
+
+# 2024-05-02 16:48:23.708466
++\q
+
+# 2024-05-03 00:03:08.843594
++select id, title from program p; 
+
+# 2024-05-03 00:03:23.556210
++select * from program; 
+
+# 2024-05-03 00:07:51.304937
++\q
+
+# 2024-05-03 10:54:13.419021
++select * from program; 
+
+# 2024-05-03 10:54:24.667125
++\q
+
+# 2024-05-03 10:54:52.869971
++select * from program; 
+
+# 2024-05-03 10:55:00.425480
++\q
+
+# 2024-05-03 10:58:58.868446
++select * from program; 
+
+# 2024-05-03 10:59:06.827572
++\q
+
+# 2024-05-03 11:01:16.118040
++select * from program; 
+
+# 2024-05-03 11:01:40.271300
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:02:12.955453
++\q
+
+# 2024-05-03 11:03:30.245235
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:03:35.024459
++\q
+
+# 2024-05-03 11:03:47.150290
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:04:16.073944
++\q
+
+# 2024-05-03 11:04:36.086356
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:04:49.887193
++\q
+
+# 2024-05-03 11:06:23.366367
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:07:31.819159
++\q
+
+# 2024-05-03 11:07:36.462258
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:08:00.159847
++\q
+
+# 2024-05-03 11:08:09.568347
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:08:27.831141
++\q
+
+# 2024-05-03 11:08:34.238359
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:09:00.309007
++\q
+
+# 2024-05-03 11:09:06.535410
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:09:42.552069
++\q
+
+# 2024-05-03 11:10:39.583626
++select id, title, subtitles from program; 
+
+# 2024-05-03 11:10:53.372997
++\q
+
+# 2024-05-04 09:48:30.207932
++select id, title, subtitles from program; 
+
+# 2024-05-04 09:51:43.047841
++\q
+
+# 2024-05-04 09:51:46.597357
++select id, title, subtitles from program; 
+
+# 2024-05-04 09:58:02.395560
++\q
+
+# 2024-05-04 09:58:05.380206
++select id, title, subtitles from program; 
+
+# 2024-05-04 09:59:29.416601
++\q
+
+# 2024-05-04 10:01:00.904969
++select  from program; 
+
+# 2024-05-04 10:01:04.889808
++select * from program; 
+
+# 2024-05-04 10:01:25.583092
++\q
+
+# 2024-05-04 10:04:10.612021
++select * from program; 
+
+# 2024-05-04 10:04:22.416736
++\q
+
+# 2024-05-04 10:05:10.163132
++select * from program; 
+
+# 2024-05-04 10:05:14.961159
++\q
+
+# 2024-05-04 10:05:29.375421
++select * from program; 
+
+# 2024-05-04 10:05:49.021590
++\q
+
+# 2024-05-04 10:05:52.445791
++select * from program; 
+
+# 2024-05-04 10:06:00.825170
++\q
+
+# 2024-05-04 10:06:49.094367
++select * from program; 
+
+# 2024-05-04 10:07:10.424618
++\q
+
+# 2024-05-04 10:10:10.889398
++select * from program; 
+
+# 2024-05-04 10:10:16.276387
++\q
+
+# 2024-05-04 10:16:07.978154
++select * from program; 
+
+# 2024-05-04 10:16:23.492217
++\q
+
+# 2024-05-04 10:19:30.948899
++select * from program; 
+
+# 2024-05-04 10:19:34.645995
++\q
+
+# 2024-05-04 10:19:58.947431
++select * from program; 
+
+# 2024-05-04 10:20:26.198821
++\q
+
+# 2024-05-04 10:21:31.718241
++select * from program; 
+
+# 2024-05-04 10:22:48.077908
++q
+
+# 2024-05-04 10:22:50.454894
++\q
+
+# 2024-05-04 10:22:53.438006
++select * from program; 
+
+# 2024-05-04 10:22:58.219511
++\q
+
+# 2024-05-04 10:23:25.827324
++select * from program; 
+
+# 2024-05-04 10:23:42.509514
++\q
+
+# 2024-05-04 10:23:44.846358
++select * from program; 
+
+# 2024-05-04 10:24:08.468945
++\q
+
+# 2024-05-04 10:24:10.400683
++select * from program; 
+
+# 2024-05-04 10:24:43.272399
++\q
+
+# 2024-05-04 10:33:47.654875
++select * from program; 
+
+# 2024-05-04 10:36:16.882536
++\q
+
+# 2024-05-04 10:36:19.717220
++select * from program; 
+
+# 2024-05-04 10:36:50.828408
++\q
+
+# 2024-05-04 10:36:53.362915
++select * from program; 
+
+# 2024-05-04 10:37:00.934953
++\q
+
+# 2024-05-04 10:39:42.739387
++select * from program; 
+
+# 2024-05-04 10:39:47.519777
++\q
+
+# 2024-05-04 10:40:00.055611
++\q
+
+# 2024-05-04 10:40:41.202404
++select * from program; 
+
+# 2024-05-04 10:40:51.076251
++\q
+
+# 2024-05-04 11:28:49.485911
++select * from program; 
+
+# 2024-05-04 11:47:10.181945
++\q
+
+# 2024-05-05 20:14:12.046241
++select * from program; 
+
+# 2024-05-05 20:17:48.290638
++\q
+
+# 2024-05-07 01:16:46.644552
++select * from episode where seriesid=4927346;
+
+# 2024-05-07 01:16:55.008438
++\q
+
+# 2024-05-07 13:37:10.512504
++select * from run;
+
+# 2024-05-07 13:41:21.050639
++select * from run order by last_created desc;
+
+# 2024-05-07 13:49:39.707004
++select * from run;
+
+# 2024-05-07 13:53:00.408093
++select * from run order by last_created desc;
+
+# 2024-05-07 14:01:55.896605
++\q
+
+# 2024-05-08 10:44:32.204223
++select * from run order by last_created desc;
+
+# 2024-05-08 11:19:34.940240
++\q
+
+# 2024-05-08 11:19:48.963377
++exit();
+
+# 2024-05-08 11:22:01.114058
++\e

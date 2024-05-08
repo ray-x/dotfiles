@@ -6,9 +6,8 @@
 [core]
   excludesfile = $HOME/.gitignore_global
   editor = nvim
-  pager = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-  ; pager = delta -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-  ;
+  ; pager = delta  --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+
 [diff]
   tool = nvimdiff
 [difftool "sourcetree"]
@@ -24,7 +23,8 @@
   log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   show = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
-  diff = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
+  ; diff = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}   ;; this override core.pager
+  diff = delta
 
 [interactive]
   diffFilter = delta --color-only
@@ -32,29 +32,31 @@
 [delta]
   features = line-numbers decorations collared-trogon
   whitespace-error-style = 22 reverse
-  side-by-side = true
+  ; side-by-side = true
+  max-line-length = 90000
 
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
 
-
 [difftool "nvim-qt"]
   cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
 [difftool "nvimdiff"]
   ; cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -c \"DiffviewOpen\""
-  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"set wrap\"
 [difftool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --nosplash \"$LOCAL\" \"$REMOTE\"
 
+; [mergetool "nvimdiff"]
+;     cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 [mergetool "nvimdiff"]
-    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
-;[mergetool "nvimdiff"]
-;  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+ cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 [mergetool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	trustExitCode = true
+[difftool "difft"]
+  cmd = difft "$LOCAL" "$REMOTE"
 [url "git@github.com:"]
   insteadOf = https://github.com/
 [secrets]
@@ -100,3 +102,5 @@
   sshCommand = ssh -i ~/.ssh/id_ed25519
 [push]
   autoSetupRemote = true
+[url "git@github.com:streamco"]
+	insteadOf = https://github.com/streamco
