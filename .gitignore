@@ -7,3 +7,6 @@ package-lock.json
 ._.DS_Store
 estilos/._.DS_Store
 fish/private.fish
+config/gitconfig-*
+fish/completions/*
+fish/functions/*
