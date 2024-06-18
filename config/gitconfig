@@ -10,8 +10,6 @@
 
 [diff]
   tool = nvimdiff
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 [merge]
     tool = nvimdiff
     conflictstyle = diff3
@@ -40,18 +38,16 @@
   file-style = bold yellow ul
   file-decoration-style = none
 
-[difftool "nvim-qt"]
-  cmd = "nvim-qt -d \"$LOCAL\" -c \"set noreadonly\"  \"$REMOTE\""
 [difftool "nvimdiff"]
   ; cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -c \"DiffviewOpen\""
   cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"set wrap\"
 [difftool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --nosplash \"$LOCAL\" \"$REMOTE\"
 
-; [mergetool "nvimdiff"]
-;     cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 [mergetool "nvimdiff"]
- cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+; [mergetool "nvimdiff"]
+;  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 [mergetool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	trustExitCode = true

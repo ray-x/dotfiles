@@ -129,4 +129,14 @@ These tools are good, but due to confliction, less use, or, not suite to my work
 - rainbow
 - defx
 -
--
+
+## Brew bundles
+
+Brew is managed by
+
+```sh
+brew bundle dump
+brew bundle install
+```
+
+Check the bundle file `Brewfile`

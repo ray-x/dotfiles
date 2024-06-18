@@ -63,17 +63,13 @@ set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk/include"
 set -gx PATH $HOME/.deno/bin $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin $HOME/.cargo/bin $PATH
 set -gx NVM_DIR "$HOME/.nvm"
 set -gx BAT_THEME "TwoDark"
-set -gx PSQL_PAGER 'pspg -X -b'
-set -gx PSPG_CONF "~/.config/pspgrc"
-set -gx PSPG_HISTORY "~/.config/pspg_history"
 # # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias nd='git difftool --tool nvimdiff'
 
 
 alias icat "kitty +kitten icat"
-# alias cat='bat -p'
-alias cat='bat --paging=never'
+alias cat='bat -p'
 alias RM='/bin/rm'
 alias gtest='richgo test ./... -count=1 -p=1'
 set -gx PATH /usr/local/opt/llvm/bin $DOTFILES/bin/ $PATH
@@ -110,7 +106,6 @@ else
   alias nv=$HOME'/bin/nvim'   # nightly version
   alias vi=$EDITOR
   alias vdiff=$EDITOR ' -d'
-  alias pip=pip3
   if status is-login
     ssh-add
   end
@@ -145,13 +140,11 @@ else if test $os = 'Darwin'
   set -gx PATH $PATH "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
   fish_add_path $HOME/.local/share/nvim/lazy/nvim_rocks/bin
   fish_add_path /opt/homebrew/opt/ruby/bin
-  # fish_add_path /opt/homebrew/lib/ruby/gems/3.2.0/bin # gem environment gemdir
-  fish_add_path /opt/homebrew/opt/ruby/bin
+  fish_add_path /opt/homebrew/lib/ruby/gems/3.2.0/bin # gem environment gemdir
+
   set -gx GOROOT (brew --prefix golang)/libexec
   set -gx PATH $PATH $GOROOT/bin
-  # set -gx DYLD_LIBRARY_PATH /opt/homebrew/Cellar/imagemagick/7.1.1-29_1/lib
-  # brew --prefix/lib
-  set -gx DYLD_LIBRARY_PATH /opt/homebrew/lib
+  set -gx DYLD_LIBRARY_PATH /opt/homebrew/Cellar/imagemagick/7.1.1-21/lib
 else
   set -gx HOST_NAME RayWin
   set -x PATH "$PATH:/c/ProgramData/chocolatey/bin:$USERPROFILE/scoop/shims"
@@ -172,7 +165,6 @@ fish_vi_key_bindings --no-erase insert
 # bind \ce end-of-line
 bind --mode insert \ce end-of-line
 bind --mode insert \ca beginning-of-line
-fzf --fish | source
 if status is-interactive
   # source $XDG_CONFIG_HOME/fish/abbreviations.fish
 
@@ -198,7 +190,6 @@ fish_add_path /usr/local/lib/ruby/gems/3.0.0/bin
 
 alias cmdhis "_fzf_search_history"
 alias nvn "nvim-nightly"
-alias ctags '/opt/homebrew/bin/ctags'
 # pnpm
 set -gx PNPM_HOME $HOME/.local/share/pnpm
 set -gx PATH "$PNPM_HOME" $PATH
@@ -221,9 +212,6 @@ function fdn -d "fd preview and edit with nvim"
   fd --full-path $argv | fzf --delimiter=':' --preview 'bat --color=always {1} --line-range {2}:+20' | cut -d ':' -f1 | xargs -r nvim
 end
 
-function fzfepg -d "read from env and pipe to pgcli"
-  env | grep DATABASE | fzf | cut -d '=' -f 2- | xargs -I {} pgcli {}
-end
 
 # lua rock
 export LUA_PATH='/Users/rayxu/.luarocks/share/lua/5.1/?.lua;/Users/rayxu/.luarocks/share/lua/5.1/?/init.lua;/Users/rayxu/.local/share/nvim/lazy/nvim_rocks/share/lua/5.1/?.lua;/Users/rayxu/.local/share/nvim/lazy/nvim_rocks/share/lua/5.1/?/init.lua;./?.lua'
@@ -287,22 +275,3 @@ function decode_jwt
   paddit $h
   paddit $p
 end
-
-# Setting PATH for Python 3.12
-# The original version is saved in /Users/rayxu/.config/fish/config.fish.pysave
-# set -x PATH "/Library/Frameworks/Python.framework/Versions/3.12/bin" "$PATH"
-set fish_command_timer_millis 1
-set fish_cursor_unknown block blink
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /opt/homebrew/Caskroom/miniconda/base/bin/conda
-    eval /opt/homebrew/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
-else
-    if test -f "/opt/homebrew/Caskroom/miniconda/base/etc/fish/conf.d/conda.fish"
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/fish/conf.d/conda.fish"
-    else
-        set -x PATH "/opt/homebrew/Caskroom/miniconda/base/bin" $PATH
-    end
-end
-# <<< conda initialize <<<
