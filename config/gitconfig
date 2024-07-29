@@ -11,12 +11,12 @@
 [diff]
   tool = nvimdiff
 [merge]
-    tool = nvimdiff
-    conflictstyle = diff3
+  tool = diffview
+  conflictstyle = diff3
 [mergetool]
-    keepBackup = false
-    trustExitCode = false
-    prompt = true
+  keepBackup = false
+  trustExitCode = false
+  prompt = true
 [pager]
   log = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
   reflog = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
@@ -40,16 +40,21 @@
 
 [difftool "nvimdiff"]
   ; cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -c \"DiffviewOpen\""
-  cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"set wrap\"
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"windo set wrap\"
 [difftool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --nosplash \"$LOCAL\" \"$REMOTE\"
 
+[difftool "smerge"]
+	cmd = smerge \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+[mergetool "diffview"]
+  cmd = nvim -n -c "DiffviewOpen"
 [mergetool "nvimdiff"]
-    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
-; [mergetool "nvimdiff"]
-;  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 [mergetool "diffmerge"]
 	cmd = $HOME/bin/diffmerge.sh --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+	trustExitCode = true
+[mergetool "smerge"]
+	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
 	trustExitCode = true
 [difftool "difft"]
   cmd = difft "$LOCAL" "$REMOTE"
@@ -94,9 +99,5 @@
   insteadOf = https://github.com/
 [url "ssh://git@github.com:"]
   insteadOf = https://github.com/
-[url "ssh://git@github.com:ray-x"]
-  sshCommand = ssh -i ~/.ssh/id_ed25519
 [push]
   autoSetupRemote = true
-[url "git@github.com:streamco"]
-	insteadOf = https://github.com/streamco
